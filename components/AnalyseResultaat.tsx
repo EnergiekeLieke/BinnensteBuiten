@@ -28,8 +28,9 @@ function splitSectie(tekst: string): Sectie[] {
   return secties;
 }
 
-function sectionType(header: string): 'patronen' | 'groei' | 'afsluiting' | 'default' {
+function sectionType(header: string): 'samenvatting' | 'patronen' | 'groei' | 'afsluiting' | 'default' {
   const h = header.toLowerCase();
+  if (h.includes('samenvatting') || h.includes('overall') || h.includes('beeld')) return 'samenvatting';
   if (h.includes('patroon') || h.includes('opvallend')) return 'patronen';
   if (h.includes('groei') || h.includes('kans'))        return 'groei';
   if (h.includes('afsluiting') || h.includes('afsluit') || h.includes('conclusie')) return 'afsluiting';
@@ -176,12 +177,17 @@ export default function AnalyseResultaat({ tekst }: Props) {
       {secties.map((s, i) => {
         const type = sectionType(s.header);
 
+        if (type === 'samenvatting') {
+          return (
+            <p key={i} className="text-sm text-darkSlate leading-relaxed">
+              <RijkeTekst tekst={s.inhoud.trim()} />
+            </p>
+          );
+        }
+
         if (type === 'afsluiting') {
           return (
             <div key={i} className="bg-lightBg2 border border-lightBg rounded-2xl p-5">
-              <h3 className="font-salmon text-base text-orange uppercase tracking-wide mb-3 pb-2 border-b border-lightBg">
-                {s.header}
-              </h3>
               <p className="text-sm text-darkSlate leading-relaxed">
                 <RijkeTekst tekst={s.inhoud.trim()} />
               </p>
@@ -191,7 +197,7 @@ export default function AnalyseResultaat({ tekst }: Props) {
 
         return (
           <div key={i}>
-            <h3 className="font-salmon text-base text-darkSlate uppercase tracking-wide mb-3 pb-2 border-b-2 border-orange">
+            <h3 className="font-salmon text-sm font-bold text-darkSlate uppercase tracking-widest mb-3 pb-2 border-b-2 border-orange">
               {s.header}
             </h3>
             <SubKaarten inhoud={s.inhoud} type={type === 'patronen' || type === 'groei' ? type : 'default'} />
