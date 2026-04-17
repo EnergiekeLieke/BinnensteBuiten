@@ -120,24 +120,23 @@ ${regels}
 
 Schaal: 0 = gaat voor geen meter · 10 = gaat perfect en moeiteloos
 
-Schrijf een persoonlijke analyse in het Nederlands met:
+Schrijf een persoonlijke analyse in het Nederlands met exact deze opmaak:
+
 ## Samenvatting
-(3-4 zinnen overall beeld van het bedrijf)
+3-4 zinnen overall beeld als doorlopende tekst.
 
-## Sterktes
-(2-3 categorieën die goed gaan + inzicht per sterkte)
-
-## Aandachtsgebieden
-(categorieën met bewust_hoger / onbewust_hoger / laag_beiden — uitleg wat dat betekent + tip)
+## Opvallende patronen
+Gebruik voor elk aandachtsgebied een ### blok:
+### [Categorie] — [Bewust hoger / Onbewust hoger / Laag in beide]
+Uitleg wat dit patroon betekent + concrete tip. Gebruik **vetgedrukte woorden** voor kernbegrippen.
 
 ## Groeikansen
-(per kans: concrete tip + tip voor tijd, geld of energie)
-
-## Het ONE THING
-(het meest impactvolle gebied om NU op te focussen — motiveer waarom)
+Gebruik voor elke kans een ### blok:
+### [Categorie of thema]
+Concrete tip voor tijd, geld of energie in 2-3 zinnen.
 
 ## Afsluiting
-(warme, bemoedigende zin)`;
+Warme, bemoedigende afsluitende alinea.`;
 
       const tekst = await roepAnalyseAan(prompt, 3000);
       setAnalyse(tekst);

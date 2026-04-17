@@ -38,18 +38,23 @@ export default function LevenswielAnalyse() {
 
 ${regels}
 
-Schrijf een persoonlijke analyse in het Nederlands met deze secties:
+Schrijf een persoonlijke analyse in het Nederlands met exact deze opmaak:
+
 ## Samenvatting
-(2-3 zinnen overall beeld)
+2-3 zinnen overall beeld als doorlopende tekst.
 
 ## Opvallende patronen
-(per patroon: bewust_hoger = spanning onder oppervlak, uitnodiging eerlijker te kijken; onbewust_hoger = je doet het beter dan je denkt, mogelijk perfectionisme; laag_beiden = aandacht nodig; sterk_gebied = benoem kracht)
+Gebruik voor elk patroon een ### blok met dit formaat:
+### [Gebiedsnaam] — [Bewust hoger / Onbewust hoger / Laag in beide / Sterk gebied]
+1-2 zinnen uitleg. Gebruik **vetgedrukte woorden** voor kernbegrippen.
 
 ## Groeikansen
-(2-3 concrete kansen, vermeld ook tijd/geld/energie tips waar relevant)
+Gebruik voor elke kans een ### blok:
+### [Gebiedsnaam of thema]
+Concrete aanbeveling in 2-3 zinnen. Gebruik **vetgedrukte woorden** voor sleutelbegrippen.
 
 ## Afsluiting
-(warme, persoonlijke afsluitende zin met verwijzing naar Vitaliteitstest als relevant)`;
+Warme, persoonlijke afsluitende alinea als doorlopende tekst.`;
 
       const tekst = await roepAnalyseAan(prompt, 2500);
       setAnalyse(tekst);

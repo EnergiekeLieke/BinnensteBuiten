@@ -160,24 +160,23 @@ ${gekozenGeldOv.join('\n') || 'geen aangevinkt'}
 ## Existentiële kernovertuigingen (deel 4)
 ${gekozenKern.join('\n') || 'geen aangevinkt'}
 
-Schrijf een persoonlijke conclusie in het Nederlands met:
-## Kernboodschap
-(1-2 krachtige zinnen — het belangrijkste inzicht)
+Schrijf een persoonlijke conclusie in het Nederlands met exact deze opmaak:
 
 ## Samenvatting
-(wat je ziet in de energiescores, strategieën en overtuigingen)
+2-3 zinnen overall beeld als doorlopende tekst.
 
-## Bereidheid tot loslaten
-(inzicht gebaseerd op de loslaten-% scores)
+## Opvallende patronen
+Gebruik voor elk patroon een ### blok:
+### [Thema, bijv. "Geldenergie", "Overtuiging: [naam]"]
+2-3 zinnen inzicht. Gebruik **vetgedrukte woorden** voor kernbegrippen.
 
-## Eerste stap
-(één concrete, haalbare eerste stap)
+## Groeikansen
+Gebruik voor elke kans een ### blok:
+### [Thema of stap]
+Concrete aanbeveling in 2-3 zinnen.
 
-## Affirmaties
-(3 positieve affirmaties als al waar, begin elk met ✨)
-
-## Groeiaffirmaties
-(3 zachte groeiaffirmaties met "Ik sta open voor...", begin elk met 🌱)`;
+## Afsluiting
+Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
 
       const tekst = await roepAnalyseAan(prompt, 3000);
       setAnalyse(tekst);

@@ -130,22 +130,23 @@ ${regels}
 
 Bonus — Vertrouwen & overgave: bewust ${bonus.bewust}/10, onbewust ${bonus.onbewust}/10
 
-Schrijf een DIEPGAANDE persoonlijke analyse per categorie én subonderdeel. Gebruik:
-## Samenvatting overall
+Schrijf een DIEPGAANDE persoonlijke analyse in het Nederlands met exact deze opmaak:
 
-## Sterktes
-(per sterkte: categorie / subonderdeel / inzicht)
+## Samenvatting
+3-4 zinnen overall beeld als doorlopende tekst.
 
-## Aandachtsgebieden
-(per punt: categorie / subonderdeel / patroon + tip)
+## Opvallende patronen
+Gebruik voor elk aandachtsgebied een ### blok:
+### [Categorie › Subonderdeel] — [Bewust hoger / Onbewust hoger / Laag in beide]
+Uitleg van het patroon + concrete tip. Gebruik **vetgedrukte woorden** voor kernbegrippen.
 
-## Diepste groeikansen
-(per kans: categorie / subonderdeel / concrete actie + tijd of geld of energie tip)
+## Groeikansen
+Gebruik voor elke kans een ### blok:
+### [Categorie › Subonderdeel]
+Concrete actie + tip voor tijd, geld of energie in 2-3 zinnen.
 
-## Het ONE THING
-(meest impactvol subonderdeel nu — motiveer)
-
-## Afsluiting`;
+## Afsluiting
+Warme, bemoedigende afsluitende alinea.`;
 
       const tekst = await roepAnalyseAan(prompt, 4000);
       setAnalyse(tekst);

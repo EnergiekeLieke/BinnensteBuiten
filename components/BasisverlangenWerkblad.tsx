@@ -40,18 +40,23 @@ ${regels}
 Wat de klant zelf opvalt: ${opvallend || '(niet ingevuld)'}
 Wat de klant gaat doen: ${actie || '(niet ingevuld)'}
 
-Schrijf een persoonlijke analyse in het Nederlands met deze secties:
-## Patroon: jouw dominante verlangens
-(welke verlangens komen vaker voor, wat zegt dat over jou)
+Schrijf een persoonlijke analyse in het Nederlands met exact deze opmaak:
 
-## Tijd, geld en energie
-(per dominant verlangen: hoe investeer je daarin bewust of onbewust qua tijd/geld/energie)
+## Samenvatting
+2-3 zinnen overall beeld als doorlopende tekst.
 
-## Conflicterende verlangens
-(benoem spanningsvelden tussen verlangens in verschillende gebieden + concrete tips om hiermee om te gaan)
+## Opvallende patronen
+Gebruik voor elk dominant verlangen een ### blok:
+### [Verlangennaam]
+Wat dit verlangen zegt over jou in 2-3 zinnen. Gebruik **vetgedrukte woorden** voor kernbegrippen.
 
-## Jouw vervolgstap
-(warme, concrete aanzet gebaseerd op wat de klant zelf schreef)`;
+## Groeikansen
+Gebruik voor elke kans een ### blok:
+### [Verlangen of thema]
+Concrete tip voor tijd, geld of energie in 2-3 zinnen.
+
+## Afsluiting
+Warme afsluiting gebaseerd op wat de klant zelf schreef.`;
 
       const tekst = await roepAnalyseAan(prompt, 2500);
       setAnalyse(tekst);

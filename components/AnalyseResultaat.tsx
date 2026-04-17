@@ -30,10 +30,10 @@ function splitSectie(tekst: string): Sectie[] {
 
 function sectionType(header: string): 'samenvatting' | 'patronen' | 'groei' | 'afsluiting' | 'default' {
   const h = header.toLowerCase();
-  if (h.includes('samenvatting') || h.includes('overall') || h.includes('beeld')) return 'samenvatting';
-  if (h.includes('patroon') || h.includes('opvallend')) return 'patronen';
-  if (h.includes('groei') || h.includes('kans'))        return 'groei';
-  if (h.includes('afsluiting') || h.includes('afsluit') || h.includes('conclusie')) return 'afsluiting';
+  if (h.includes('samenvatting') || h.includes('overall') || h.includes('beeld') || h.includes('kernboodschap')) return 'samenvatting';
+  if (h.includes('patroon') || h.includes('opvallend') || h.includes('aandacht')) return 'patronen';
+  if (h.includes('groei') || h.includes('kans') || h.includes('sterkte') || h.includes('vervolgstap')) return 'groei';
+  if (h.includes('afsluiting') || h.includes('afsluit') || h.includes('conclusie') || h.includes('eerste stap') || h.includes('affirmati')) return 'afsluiting';
   return 'default';
 }
 
