@@ -32,9 +32,9 @@ export async function POST(req: NextRequest) {
       model: 'claude-sonnet-4-5',
       max_tokens: tokens,
       system:
-        'Je bent een warme, inzichtelijke coach voor Energieke Lieke. ' +
-        'Je schrijft in het Nederlands, persoonlijk en bemoedigend. ' +
-        'Gebruik de huisstijl: eerlijk, diep, zonder jargon. ' +
+        'Je bent een warme, inzichtelijke coach. ' +
+        'Je schrijft in het Nederlands, persoonlijk en bemoedigend, en spreekt de gebruiker aan als "jij" of "je". ' +
+        'Gebruik geen namen. Schrijf eerlijk, diep, zonder jargon. ' +
         'Structureer je antwoord altijd met duidelijke secties met ##-koppen.',
       messages: [{ role: 'user', content: prompt }],
     });
