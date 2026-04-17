@@ -47,7 +47,7 @@ export default function SpinnenWeb({
   const gridLevels = [2, 4, 6, 8, 10];
 
   return (
-    <svg width={size + 80} height={size + 80} viewBox={`-40 -40 ${size + 80} ${size + 80}`} className="mx-auto">
+    <svg width={size + 80} height={size + 110} viewBox={`-40 -40 ${size + 80} ${size + 110}`} className="mx-auto">
       {/* Grid rings */}
       {gridLevels.map((lvl) => (
         <polygon
@@ -126,10 +126,10 @@ export default function SpinnenWeb({
       })}
 
       {/* Legenda */}
-      <rect x={cx - 70} y={size - 10} width={12} height={12} fill={kleuren.darkRed} rx={2} />
-      <text x={cx - 54} y={size - 2} fontSize={9} fill={kleuren.darkSlate} fontFamily="sans-serif">Bewust</text>
-      <rect x={cx + 10} y={size - 10} width={12} height={12} fill={kleuren.darkGreen} rx={2} />
-      <text x={cx + 26} y={size - 2} fontSize={9} fill={kleuren.darkSlate} fontFamily="sans-serif">Onbewust</text>
+      <rect x={cx - 70} y={size + 22} width={12} height={12} fill={kleuren.darkRed} rx={2} />
+      <text x={cx - 54} y={size + 30} fontSize={9} fill={kleuren.darkSlate} fontFamily="sans-serif">Bewust</text>
+      <rect x={cx + 10} y={size + 22} width={12} height={12} fill={kleuren.darkGreen} rx={2} />
+      <text x={cx + 26} y={size + 30} fontSize={9} fill={kleuren.darkSlate} fontFamily="sans-serif">Onbewust</text>
     </svg>
   );
 }
