@@ -323,7 +323,7 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
       {/* DEEL 4 */}
       <section className="bg-lightBg2 rounded-2xl p-6 border border-orange/30">
         <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 4 — Existentiële kernovertuigingen</h2>
-        <p className="text-sm text-midGreen mb-4">AI genereert kernovertuigingen op basis van jouw aangevinkte overtuigingen</p>
+        <p className="text-sm text-midGreen mb-4">Genereer kernovertuigingen op basis van jouw aangevinkte overtuigingen</p>
         <button
           onClick={genereerKernOvertuigingen}
           disabled={kernLoading || aangevinktOv.every((x) => !x)}
