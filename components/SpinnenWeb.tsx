@@ -37,8 +37,12 @@ export default function SpinnenWeb({
 
   const labelPos = (i: number) => {
     const a = angle(i);
-    const d = r + 22;
-    return { x: cx + d * Math.cos(a), y: cy + d * Math.sin(a) };
+    const d = r + 20;
+    const x = cx + d * Math.cos(a);
+    const y = cy + d * Math.sin(a);
+    const cos = Math.cos(a);
+    const anchor = cos > 0.3 ? 'start' : cos < -0.3 ? 'end' : 'middle';
+    return { x, y, anchor };
   };
 
   const toPath = (scores: number[]) =>
@@ -109,18 +113,21 @@ export default function SpinnenWeb({
       {/* Labels */}
       {labels.map((lbl, i) => {
         const lp = labelPos(i);
+        const delen = lbl.includes(' & ') ? lbl.split(' & ') : lbl.includes(' ') && lbl.length > 10 ? [lbl.slice(0, lbl.lastIndexOf(' ', 11)), lbl.slice(lbl.lastIndexOf(' ', 11) + 1)] : [lbl];
         return (
           <text
             key={i}
             x={lp.x}
-            y={lp.y}
-            textAnchor="middle"
+            y={delen.length > 1 ? lp.y - 5 : lp.y}
+            textAnchor={lp.anchor}
             dominantBaseline="middle"
             fontSize={9}
             fill={kleuren.darkSlate}
             fontFamily="sans-serif"
           >
-            {lbl}
+            {delen.map((deel, j) => (
+              <tspan key={j} x={lp.x} dy={j === 0 ? 0 : 11}>{deel}</tspan>
+            ))}
           </text>
         );
       })}
