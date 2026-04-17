@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const message = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-5',
       max_tokens: tokens,
       system:
         'Je bent een warme, inzichtelijke coach voor Energieke Lieke. ' +
