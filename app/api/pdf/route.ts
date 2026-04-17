@@ -64,8 +64,8 @@ function buildPdfHtml(bodyHtml: string, toolName: string): string {
 <meta charset="UTF-8">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: Georgia, serif; color: #2a3a3c; background: #fdf6ee; font-size: 11pt; line-height: 1.6; }
-  .pdf-header { background: #2a3a3c; color: #fdf6ee; padding: 20px 24px; display: flex; justify-content: space-between; align-items: flex-end; }
+  body { font-family: Georgia, serif; color: #2a3a3c; background: #FCEBDC; font-size: 11pt; line-height: 1.6; }
+  .pdf-header { background: #2a3a3c; color: #FCEBDC; padding: 20px 24px; display: flex; justify-content: space-between; align-items: flex-end; }
   .pdf-header .brand { font-size: 22pt; color: #f4c293; }
   .pdf-header .tool  { font-size: 12pt; color: #758d69; }
   .pdf-header .date  { font-size: 9pt; color: #758d69; }
@@ -74,14 +74,14 @@ function buildPdfHtml(bodyHtml: string, toolName: string): string {
   h3 { font-size: 11pt; color: #9e3816; margin: 14px 0 6px; }
   p  { margin-bottom: 8px; }
   table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 10pt; }
-  th { background: #3b5633; color: #fdf6ee; padding: 6px 10px; text-align: left; }
+  th { background: #3b5633; color: #FCEBDC; padding: 6px 10px; text-align: left; }
   td { padding: 5px 10px; border-bottom: 1px solid #fde8d0; }
   tr:nth-child(even) td { background: #fde8d0; }
   .score-badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 9pt; font-weight: bold; }
   .bewust   { background: #9e3816; color: white; }
   .onbewust { background: #3b5633; color: white; }
   .analyse-block { background: #fde8d0; border-left: 4px solid #d56119; padding: 12px 16px; margin: 12px 0; border-radius: 4px; }
-  .affirmatie { background: #3b5633; color: #fdf6ee; padding: 8px 14px; border-radius: 6px; margin: 6px 0; }
+  .affirmatie { background: #3b5633; color: #FCEBDC; padding: 8px 14px; border-radius: 6px; margin: 6px 0; }
   .groei-affirmatie { background: #d56119; color: white; padding: 8px 14px; border-radius: 6px; margin: 6px 0; }
   .pdf-footer { margin-top: 32px; padding-top: 12px; border-top: 1px solid #f4c293; text-align: center; font-size: 9pt; color: #758d69; }
 </style>

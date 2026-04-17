@@ -4,7 +4,7 @@ export const kleuren = {
   midGreen:  '#758d69',
   lightBg:   '#f4c293',
   lightBg2:  '#fde8d0',
-  cream:     '#fdf6ee',
+  cream:     '#FCEBDC',
   darkSlate: '#2a3a3c',
   orange:    '#d56119',
 } as const;
