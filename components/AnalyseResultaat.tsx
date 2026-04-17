@@ -54,12 +54,24 @@ function parseBadge(titel: string): { naam: string; badge: string | null } {
 
 function badgeKleur(badge: string): string {
   const b = badge.toLowerCase();
-  if (b.includes('bewust') && b.includes('onbewust')) return 'bg-darkRed text-cream';
-  if (b.includes('bewust'))   return 'bg-darkRed text-cream';
-  if (b.includes('onbewust')) return 'bg-darkGreen text-cream';
-  if (b.includes('laag'))     return 'bg-darkSlate text-cream';
-  if (b.includes('sterk'))    return 'bg-midGreen text-cream';
+  const oi = b.indexOf('onbewust');
+  const bi = b.indexOf('bewust');
+  if (oi !== -1 && (bi === -1 || oi < bi)) return 'bg-darkGreen text-cream';
+  if (bi !== -1) return 'bg-darkRed text-cream';
+  if (b.includes('laag'))  return 'bg-darkSlate text-cream';
+  if (b.includes('sterk')) return 'bg-midGreen text-cream';
   return 'bg-orange text-white';
+}
+
+function borderKleur(badge: string | null): string {
+  if (!badge) return 'border-l-darkSlate';
+  const b = badge.toLowerCase();
+  const oi = b.indexOf('onbewust');
+  const bi = b.indexOf('bewust');
+  if (oi !== -1 && (bi === -1 || oi < bi)) return 'border-l-darkGreen';
+  if (bi !== -1) return 'border-l-darkRed';
+  if (b.includes('sterk')) return 'border-l-midGreen';
+  return 'border-l-darkSlate';
 }
 
 function RijkeTekst({ tekst }: { tekst: string }) {
@@ -106,7 +118,7 @@ function SubKaarten({ inhoud, type }: { inhoud: string; type: 'patronen' | 'groe
         const { naam, badge } = parseBadge(k.titel);
         if (type === 'patronen') {
           return (
-            <div key={i} className="bg-white rounded-xl border border-lightBg border-l-4 border-l-darkRed p-4 shadow-sm">
+            <div key={i} className={`bg-white rounded-xl border border-lightBg border-l-4 p-4 shadow-sm ${borderKleur(badge)}`}>
               <div className="flex items-center gap-2 mb-2 flex-wrap">
                 <span className="font-salmon text-base text-darkSlate">{naam}</span>
                 {badge && (
