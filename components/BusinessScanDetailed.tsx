@@ -145,8 +145,8 @@ Gebruik voor elke kans een ### blok:
 ### [Categorie › Subonderdeel]
 Concrete actie + tip voor tijd, geld of energie in 2-3 zinnen.
 
-## Afsluiting
-Warme, bemoedigende afsluitende alinea.`;
+## Het ONE THING
+Beschrijf in 2-3 alinea's het meest impactvolle subonderdeel om NU op te focussen. Leg uit waarom dit ene ding als een domino de andere knelpunten ontsluit. Sluit af met een warme, bemoedigende zin.`;
 
       const tekst = await roepAnalyseAan(prompt, 4000);
       setAnalyse(tekst);

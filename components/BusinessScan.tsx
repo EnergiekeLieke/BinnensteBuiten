@@ -135,8 +135,8 @@ Gebruik voor elke kans een ### blok:
 ### [Categorie of thema]
 Concrete tip voor tijd, geld of energie in 2-3 zinnen.
 
-## Afsluiting
-Warme, bemoedigende afsluitende alinea.`;
+## Het ONE THING
+Beschrijf in 2-3 alinea's het meest impactvolle gebied om NU op te focussen. Motiveer waarom dit ene ding de meeste andere knelpunten ontsluit. Sluit af met een warme, bemoedigende zin.`;
 
       const tekst = await roepAnalyseAan(prompt, 3000);
       setAnalyse(tekst);

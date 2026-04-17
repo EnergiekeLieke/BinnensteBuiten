@@ -28,8 +28,9 @@ function splitSectie(tekst: string): Sectie[] {
   return secties;
 }
 
-function sectionType(header: string): 'samenvatting' | 'patronen' | 'groei' | 'afsluiting' | 'default' {
+function sectionType(header: string): 'samenvatting' | 'patronen' | 'groei' | 'one_thing' | 'afsluiting' | 'default' {
   const h = header.toLowerCase();
+  if (h.includes('one thing') || h.includes('one_thing')) return 'one_thing';
   if (h.includes('samenvatting') || h.includes('overall') || h.includes('beeld') || h.includes('kernboodschap')) return 'samenvatting';
   if (h.includes('patroon') || h.includes('opvallend') || h.includes('aandacht')) return 'patronen';
   if (h.includes('groei') || h.includes('kans') || h.includes('sterkte') || h.includes('vervolgstap')) return 'groei';
@@ -182,6 +183,19 @@ export default function AnalyseResultaat({ tekst }: Props) {
             <p key={i} className="text-sm text-darkSlate leading-relaxed">
               <RijkeTekst tekst={s.inhoud.trim()} />
             </p>
+          );
+        }
+
+        if (type === 'one_thing') {
+          return (
+            <div key={i} className="bg-white border-2 border-orange rounded-2xl p-5">
+              <h3 className="font-salmon text-base text-orange uppercase tracking-widest mb-3 pb-2 border-b border-orange/30">
+                {s.header}
+              </h3>
+              <p className="text-sm text-darkSlate leading-relaxed">
+                <RijkeTekst tekst={s.inhoud.trim()} />
+              </p>
+            </div>
           );
         }
 
