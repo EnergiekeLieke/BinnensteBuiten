@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import AnalyseResultaat from './AnalyseResultaat';
-import { roepAnalyseAan, exporteerAlsPdf } from '@/lib/huisstijl';
+import { roepAnalyseAan } from '@/lib/huisstijl';
 
 const STELLINGEN = [
   'Ik voel me helemaal op mijn gemak bij het idee om veel geld te verdienen.',
@@ -92,9 +92,8 @@ export default function GeldGedoe() {
   const [kernLoading, setKernLoading]             = useState(false);
 
   const [analyse, setAnalyse]       = useState('');
-  const [loading, setLoading]       = useState(false);
-  const [pdfLoading, setPdfLoading] = useState(false);
-  const [fout, setFout]             = useState('');
+  const [loading, setLoading] = useState(false);
+  const [fout, setFout]       = useState('');
 
   const totaalBewust   = d1.reduce((s, x) => s + x.bewust, 0);
   const totaalOnbewust = d1.reduce((s, x) => s + x.onbewust, 0);
@@ -186,44 +185,6 @@ Schrijf een persoonlijke conclusie in het Nederlands met:
       setFout(e instanceof Error ? e.message : 'Er ging iets mis');
     } finally {
       setLoading(false);
-    }
-  };
-
-  const exportPdf = async () => {
-    setPdfLoading(true);
-    try {
-      const html = `
-        <h2>Deel 1 — Geldenergie scores</h2>
-        <table>
-          <tr><th>Stelling</th><th>Bewust</th><th>Onbewust</th></tr>
-          ${STELLINGEN.map((s, i) => `<tr><td>${s}</td><td><span class="score-badge bewust">${d1[i].bewust}</span></td><td><span class="score-badge onbewust">${d1[i].onbewust}</span></td></tr>`).join('')}
-          <tr><td><strong>Totaal</strong></td><td><span class="score-badge bewust">${totaalBewust}/150</span></td><td><span class="score-badge onbewust">${totaalOnbewust}/150</span></td></tr>
-        </table>
-        <p><em>Bewust: ${scoreband(totaalBewust)}</em></p>
-        <p><em>Onbewust: ${scoreband(totaalOnbewust)}</em></p>
-
-        <h2>Deel 2 — Top 3 strategieën</h2>
-        <p>${gekozenStrategieen.join(', ') || '—'}</p>
-
-        <h2>Deel 3 — Belemmerende overtuigingen</h2>
-        ${OVERTUIGINGEN.filter((_, i) => aangevinktOv[i]).map((ov, i) => {
-          const idx = OVERTUIGINGEN.indexOf(ov);
-          return `<p>${ov} — overtuigd: ${slidersOv[idx].overtuigd}%, loslaten: ${slidersOv[idx].loslaten}%</p>`;
-        }).join('') || '<p>—</p>'}
-
-        <h2>Deel 4 — Existentiële kernovertuigingen</h2>
-        ${kernOvertuigingen.filter((_, i) => aangevinktKern[i]).map((k) => {
-          const idx = kernOvertuigingen.indexOf(k);
-          return `<p>${k} — overtuigd: ${slidersKern[idx]?.overtuigd}%, loslaten: ${slidersKern[idx]?.loslaten}%</p>`;
-        }).join('') || '<p>—</p>'}
-
-        <h2>Conclusie</h2>
-        <div class="analyse-block">${analyse.replace(/\n/g, '<br>')}</div>`;
-      await exporteerAlsPdf(html, 'Flauwekul Filter Geld Gedoe');
-    } catch (e: unknown) {
-      setFout(e instanceof Error ? e.message : 'PDF export mislukt');
-    } finally {
-      setPdfLoading(false);
     }
   };
 
@@ -417,11 +378,7 @@ Schrijf een persoonlijke conclusie in het Nederlands met:
       </div>
 
       {analyse && (
-        <AnalyseResultaat
-          tekst={analyse}
-          onExportPdf={exportPdf}
-          exportLoading={pdfLoading}
-        />
+        <AnalyseResultaat tekst={analyse} />
       )}
     </div>
   );

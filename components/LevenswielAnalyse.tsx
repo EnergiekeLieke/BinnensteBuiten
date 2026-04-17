@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import SpinnenWeb from './SpinnenWeb';
 import AnalyseResultaat from './AnalyseResultaat';
-import { LEVENSGEBIEDEN, roepAnalyseAan, exporteerAlsPdf } from '@/lib/huisstijl';
+import { LEVENSGEBIEDEN, roepAnalyseAan } from '@/lib/huisstijl';
 
 type Scores = { bewust: number; onbewust: number };
 
@@ -13,8 +13,7 @@ export default function LevenswielAnalyse() {
   const [scores, setScores]         = useState<Scores[]>(initScores);
   const [analyse, setAnalyse]       = useState('');
   const [loading, setLoading]       = useState(false);
-  const [pdfLoading, setPdfLoading] = useState(false);
-  const [fout, setFout]             = useState('');
+  const [fout, setFout] = useState('');
 
   const updateScore = (i: number, soort: keyof Scores, waarde: number) =>
     setScores((prev) => prev.map((s, idx) => (idx === i ? { ...s, [soort]: waarde } : s)));
@@ -58,31 +57,6 @@ Schrijf een persoonlijke analyse in het Nederlands met deze secties:
       setFout(e instanceof Error ? e.message : 'Er ging iets mis');
     } finally {
       setLoading(false);
-    }
-  };
-
-  const exportPdf = async () => {
-    if (!analyse) return;
-    setPdfLoading(true);
-    try {
-      const scoresHtml = `
-        <h2>Ingevulde scores</h2>
-        <table>
-          <tr><th>Levensgebied</th><th>Bewust</th><th>Onbewust</th></tr>
-          ${LEVENSGEBIEDEN.map((g, i) => `
-            <tr>
-              <td>${g}</td>
-              <td><span class="score-badge bewust">${scores[i].bewust}/10</span></td>
-              <td><span class="score-badge onbewust">${scores[i].onbewust}/10</span></td>
-            </tr>`).join('')}
-        </table>
-        <h2>AI-Analyse</h2>
-        <div class="analyse-block">${analyse.replace(/\n/g, '<br>')}</div>`;
-      await exporteerAlsPdf(scoresHtml, 'Levenswiel Analyse');
-    } catch (e: unknown) {
-      setFout(e instanceof Error ? e.message : 'PDF export mislukt');
-    } finally {
-      setPdfLoading(false);
     }
   };
 
@@ -137,11 +111,7 @@ Schrijf een persoonlijke analyse in het Nederlands met deze secties:
       </div>
 
       {analyse && (
-        <AnalyseResultaat
-          tekst={analyse}
-          onExportPdf={exportPdf}
-          exportLoading={pdfLoading}
-        />
+        <AnalyseResultaat tekst={analyse} />
       )}
     </div>
   );

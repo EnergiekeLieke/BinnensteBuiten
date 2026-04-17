@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import SpinnenWeb from './SpinnenWeb';
 import AnalyseResultaat from './AnalyseResultaat';
-import { roepAnalyseAan, exporteerAlsPdf } from '@/lib/huisstijl';
+import { roepAnalyseAan } from '@/lib/huisstijl';
 
 const CATEGORIEEN_DETAIL = [
   {
@@ -91,9 +91,8 @@ export default function BusinessScanDetailed() {
   });
 
   const [analyse, setAnalyse]       = useState('');
-  const [loading, setLoading]       = useState(false);
-  const [pdfLoading, setPdfLoading] = useState(false);
-  const [fout, setFout]             = useState('');
+  const [loading, setLoading] = useState(false);
+  const [fout, setFout]       = useState('');
 
   const toggleCat = (i: number) =>
     setCats((p) => p.map((c, idx) => idx === i ? { ...c, open: !c.open } : c));
@@ -154,33 +153,6 @@ Schrijf een DIEPGAANDE persoonlijke analyse per categorie én subonderdeel. Gebr
       setFout(e instanceof Error ? e.message : 'Er ging iets mis');
     } finally {
       setLoading(false);
-    }
-  };
-
-  const exportPdf = async () => {
-    setPdfLoading(true);
-    try {
-      const html = `
-        <h2>Gedetailleerde Business Scan</h2>
-        ${CATEGORIEEN_DETAIL.map((c, i) => `
-          <h3>${c.naam} — gem. bewust: ${gem(cats[i].sub, 'bewust')}, gem. onbewust: ${gem(cats[i].sub, 'onbewust')}</h3>
-          <table>
-            <tr><th>Subonderdeel</th><th>Bewust</th><th>Onbewust</th><th>Focus</th></tr>
-            ${c.subonderdelen.map((s, si) => `
-              <tr>
-                <td>${s}</td>
-                <td><span class="score-badge bewust">${cats[i].sub[si].bewust}</span></td>
-                <td><span class="score-badge onbewust">${cats[i].sub[si].onbewust}</span></td>
-                <td>${cats[i].focuspunten[si] ? '✓' : ''}</td>
-              </tr>`).join('')}
-          </table>`).join('')}
-        <h2>AI-Analyse</h2>
-        <div class="analyse-block">${analyse.replace(/\n/g, '<br>')}</div>`;
-      await exporteerAlsPdf(html, 'Business Scan Gedetailleerd');
-    } catch (e: unknown) {
-      setFout(e instanceof Error ? e.message : 'PDF export mislukt');
-    } finally {
-      setPdfLoading(false);
     }
   };
 
@@ -335,7 +307,7 @@ Schrijf een DIEPGAANDE persoonlijke analyse per categorie én subonderdeel. Gebr
       </div>
 
       {analyse && (
-        <AnalyseResultaat tekst={analyse} onExportPdf={exportPdf} exportLoading={pdfLoading} />
+        <AnalyseResultaat tekst={analyse} />
       )}
     </div>
   );

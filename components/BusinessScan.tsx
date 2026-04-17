@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import SpinnenWeb from './SpinnenWeb';
 import AnalyseResultaat from './AnalyseResultaat';
-import { roepAnalyseAan, exporteerAlsPdf } from '@/lib/huisstijl';
+import { roepAnalyseAan } from '@/lib/huisstijl';
 
 const CATEGORIEEN = [
   {
@@ -84,9 +84,8 @@ export default function BusinessScan() {
   const [scores, setScores]         = useState<CatScore[]>(initCat);
   const [bonus, setBonus]           = useState<BonusScore>(initBonus);
   const [analyse, setAnalyse]       = useState('');
-  const [loading, setLoading]       = useState(false);
-  const [pdfLoading, setPdfLoading] = useState(false);
-  const [fout, setFout]             = useState('');
+  const [loading, setLoading] = useState(false);
+  const [fout, setFout]       = useState('');
 
   const updateScore = (i: number, soort: 'bewust' | 'onbewust', v: number) =>
     setScores((p) => p.map((x, idx) => idx === i ? { ...x, [soort]: v } : x));
@@ -146,29 +145,6 @@ Schrijf een persoonlijke analyse in het Nederlands met:
       setFout(e instanceof Error ? e.message : 'Er ging iets mis');
     } finally {
       setLoading(false);
-    }
-  };
-
-  const exportPdf = async () => {
-    setPdfLoading(true);
-    try {
-      const html = `
-        <h2>Business Scan scores</h2>
-        <table>
-          <tr><th>Categorie</th><th>Bewust</th><th>Onbewust</th><th>Focuspunten</th></tr>
-          ${CATEGORIEEN.map((c, i) => {
-            const fp = c.focuspunten.filter((_, fi) => scores[i].focuspunten[fi]).join(', ');
-            return `<tr><td>${c.naam}</td><td><span class="score-badge bewust">${scores[i].bewust}</span></td><td><span class="score-badge onbewust">${scores[i].onbewust}</span></td><td>${fp || '—'}</td></tr>`;
-          }).join('')}
-          <tr><td>Vertrouwen & overgave</td><td><span class="score-badge bewust">${bonus.bewust}</span></td><td><span class="score-badge onbewust">${bonus.onbewust}</span></td><td>${BONUS_ITEMS.filter((_, i) => bonus.focuspunten[i]).join(', ') || '—'}</td></tr>
-        </table>
-        <h2>AI-Analyse</h2>
-        <div class="analyse-block">${analyse.replace(/\n/g, '<br>')}</div>`;
-      await exporteerAlsPdf(html, 'Business Scan');
-    } catch (e: unknown) {
-      setFout(e instanceof Error ? e.message : 'PDF export mislukt');
-    } finally {
-      setPdfLoading(false);
     }
   };
 
@@ -307,7 +283,7 @@ Schrijf een persoonlijke analyse in het Nederlands met:
       </div>
 
       {analyse && (
-        <AnalyseResultaat tekst={analyse} onExportPdf={exportPdf} exportLoading={pdfLoading} />
+        <AnalyseResultaat tekst={analyse} />
       )}
     </div>
   );

@@ -4,8 +4,6 @@ import { useState } from 'react';
 
 interface Props {
   tekst: string;
-  onExportPdf?: () => void;
-  exportLoading?: boolean;
 }
 
 interface Sectie {
@@ -144,7 +142,7 @@ function SubKaarten({ inhoud, type }: { inhoud: string; type: 'patronen' | 'groe
   );
 }
 
-export default function AnalyseResultaat({ tekst, onExportPdf, exportLoading }: Props) {
+export default function AnalyseResultaat({ tekst }: Props) {
   const [gekopieerd, setGekopieerd] = useState(false);
 
   const kopieer = async () => {
@@ -156,25 +154,22 @@ export default function AnalyseResultaat({ tekst, onExportPdf, exportLoading }: 
   const secties = splitSectie(tekst);
 
   return (
-    <div className="mt-8 space-y-6">
+    <div id="print-area" className="mt-8 space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="font-salmon text-2xl text-darkGreen">Jouw analyse</h2>
-        <div className="flex gap-2">
+        <div className="flex gap-2 no-print">
           <button
             onClick={kopieer}
             className="text-sm px-3 py-1.5 rounded-lg border border-midGreen text-midGreen hover:bg-midGreen hover:text-white transition-colors"
           >
             {gekopieerd ? '✓ Gekopieerd' : 'Kopieer tekst'}
           </button>
-          {onExportPdf && (
-            <button
-              onClick={onExportPdf}
-              disabled={exportLoading}
-              className="text-sm px-3 py-1.5 rounded-lg bg-darkRed text-white hover:bg-darkRed/80 transition-colors disabled:opacity-50"
-            >
-              {exportLoading ? 'Bezig…' : 'Exporteer als PDF'}
-            </button>
-          )}
+          <button
+            onClick={() => window.print()}
+            className="text-sm px-3 py-1.5 rounded-lg bg-darkRed text-white hover:bg-darkRed/80 transition-colors"
+          >
+            Exporteer als PDF
+          </button>
         </div>
       </div>
 
@@ -204,7 +199,7 @@ export default function AnalyseResultaat({ tekst, onExportPdf, exportLoading }: 
         );
       })}
 
-      <details className="mt-2">
+      <details className="mt-2 no-print">
         <summary className="cursor-pointer text-xs text-midGreen hover:text-darkGreen select-none">
           Toon ruwe tekst
         </summary>

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import AnalyseResultaat from './AnalyseResultaat';
-import { LEVENSGEBIEDEN, roepAnalyseAan, exporteerAlsPdf } from '@/lib/huisstijl';
+import { LEVENSGEBIEDEN, roepAnalyseAan } from '@/lib/huisstijl';
 
 const VERLANGENS = [
   { id: 'certainty',    label: 'Zekerheid',   beschrijving: 'veiligheid, comfort, stabiliteit',            kleur: 'bg-darkSlate text-cream' },
@@ -20,9 +20,8 @@ export default function BasisverlangenWerkblad() {
   const [opvallend, setOpvallend]   = useState('');
   const [actie, setActie]           = useState('');
   const [analyse, setAnalyse]       = useState('');
-  const [loading, setLoading]       = useState(false);
-  const [pdfLoading, setPdfLoading] = useState(false);
-  const [fout, setFout]             = useState('');
+  const [loading, setLoading] = useState(false);
+  const [fout, setFout]       = useState('');
 
   const analyseer = async () => {
     setLoading(true);
@@ -60,30 +59,6 @@ Schrijf een persoonlijke analyse in het Nederlands met deze secties:
       setFout(e instanceof Error ? e.message : 'Er ging iets mis');
     } finally {
       setLoading(false);
-    }
-  };
-
-  const exportPdf = async () => {
-    setPdfLoading(true);
-    try {
-      const tabelHtml = `
-        <h2>Ingevulde keuzes</h2>
-        <table>
-          <tr><th>Levensgebied</th><th>Basisverlangen</th></tr>
-          ${LEVENSGEBIEDEN.map((g, i) => {
-            const v = VERLANGENS.find((x) => x.id === keuzes[i]);
-            return `<tr><td>${g}</td><td>${v ? `${v.label} — ${v.beschrijving}` : '—'}</td></tr>`;
-          }).join('')}
-        </table>
-        ${opvallend ? `<p><strong>Wat valt je op:</strong> ${opvallend}</p>` : ''}
-        ${actie ? `<p><strong>Wat ga je doen:</strong> ${actie}</p>` : ''}
-        <h2>AI-Analyse</h2>
-        <div class="analyse-block">${analyse.replace(/\n/g, '<br>')}</div>`;
-      await exporteerAlsPdf(tabelHtml, 'Basisverlangens Werkblad');
-    } catch (e: unknown) {
-      setFout(e instanceof Error ? e.message : 'PDF export mislukt');
-    } finally {
-      setPdfLoading(false);
     }
   };
 
@@ -160,11 +135,7 @@ Schrijf een persoonlijke analyse in het Nederlands met deze secties:
       </div>
 
       {analyse && (
-        <AnalyseResultaat
-          tekst={analyse}
-          onExportPdf={exportPdf}
-          exportLoading={pdfLoading}
-        />
+        <AnalyseResultaat tekst={analyse} />
       )}
     </div>
   );

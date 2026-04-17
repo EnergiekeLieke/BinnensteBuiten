@@ -82,5 +82,18 @@ input[type='range'].slider-onbewust::-webkit-slider-thumb {
 }
 
 @media print {
+  body * { visibility: hidden; }
+  #print-area, #print-area * { visibility: visible; }
+  #print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 20mm 15mm;
+    font-family: Georgia, serif;
+    color: #2a3a3c;
+  }
+  #print-area h2 { color: #3b5633; border-bottom: 1px solid #f4c293; padding-bottom: 4px; margin: 16px 0 8px; }
+  #print-area h3 { color: #9e3816; margin: 12px 0 4px; }
   .no-print { display: none !important; }
 }
