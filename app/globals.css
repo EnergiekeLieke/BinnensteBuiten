@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Salmon';
+  src: url('/fonts/Salmon.woff2') format('woff2'),
+       url('/fonts/Salmon.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Brogi';
+  src: url('/fonts/Brogi.woff2') format('woff2'),
+       url('/fonts/Brogi.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #fdf6ee;
+  color: #2a3a3c;
+  font-family: 'Brogi', Inter, sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Salmon', Georgia, serif;
+}
+
+/* Custom slider styling */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type='range'].slider-bewust {
+  background: linear-gradient(
+    to right,
+    #9e3816 0%,
+    #9e3816 var(--val, 0%),
+    #fde8d0 var(--val, 0%),
+    #fde8d0 100%
+  );
+}
+
+input[type='range'].slider-onbewust {
+  background: linear-gradient(
+    to right,
+    #3b5633 0%,
+    #3b5633 var(--val, 0%),
+    #fde8d0 var(--val, 0%),
+    #fde8d0 100%
+  );
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+
+input[type='range'].slider-bewust::-webkit-slider-thumb {
+  background: #9e3816;
+}
+
+input[type='range'].slider-onbewust::-webkit-slider-thumb {
+  background: #3b5633;
+}
+
+@media print {
+  .no-print { display: none !important; }
+}
