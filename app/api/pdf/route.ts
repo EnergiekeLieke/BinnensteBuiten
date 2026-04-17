@@ -16,21 +16,18 @@ export async function POST(req: NextRequest) {
   const fullHtml = buildPdfHtml(html, toolName);
 
   try {
-    let chromium: typeof import('@sparticuz/chromium').default | undefined;
-    let puppeteer: typeof import('puppeteer-core').default | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let chromium: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let puppeteer: any;
 
-    if (process.env.NODE_ENV === 'production') {
-      chromium = (await import('@sparticuz/chromium')).default;
-      puppeteer = (await import('puppeteer-core')).default;
-    } else {
-      puppeteer = (await import('puppeteer-core')).default;
-      chromium = (await import('@sparticuz/chromium')).default;
-    }
+    chromium  = await import('@sparticuz/chromium');
+    puppeteer = (await import('puppeteer-core')).default;
 
-    const browser = await puppeteer!.launch({
-      args: chromium!.args,
-      defaultViewport: chromium!.defaultViewport,
-      executablePath: await chromium!.executablePath(),
+    const browser = await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
       headless: true,
     });
 
