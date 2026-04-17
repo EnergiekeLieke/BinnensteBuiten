@@ -41,7 +41,7 @@ export default function SpinnenWeb({
     const x = cx + d * Math.cos(a);
     const y = cy + d * Math.sin(a);
     const cos = Math.cos(a);
-    const anchor = cos > 0.3 ? 'start' : cos < -0.3 ? 'end' : 'middle';
+    const anchor: 'start' | 'end' | 'middle' = cos > 0.3 ? 'start' : cos < -0.3 ? 'end' : 'middle';
     return { x, y, anchor };
   };
 
