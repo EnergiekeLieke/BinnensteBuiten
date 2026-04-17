@@ -371,7 +371,7 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
           disabled={loading}
           className="px-8 py-3 rounded-xl bg-darkGreen text-cream font-salmon text-lg hover:bg-darkGreen/90 transition-colors disabled:opacity-50"
         >
-          {loading ? 'Bezig…' : 'Sluit sessie af'}
+          {loading ? 'Bezig…' : 'Maak mijn analyse'}
         </button>
         {fout && <p className="text-darkRed text-sm">{fout}</p>}
       </div>
