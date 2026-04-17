@@ -35,7 +35,7 @@ export default function LevenswielAnalyse() {
             : ' [sterk_gebied]')
       ).join('\n');
 
-      const prompt = `Je bent een warme coach voor Energieke Lieke. Analyseer dit Levenswiel:
+      const prompt = `Analyseer dit Levenswiel:
 
 ${regels}
 

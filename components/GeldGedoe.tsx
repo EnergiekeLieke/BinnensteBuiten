@@ -146,7 +146,7 @@ Geef alleen de kernovertuigingen, één per regel, zonder nummering of extra uit
         return `"${ov}" — overtuigd: ${slidersOv[idx].overtuigd}%, loslaten: ${slidersOv[idx].loslaten}%`;
       });
 
-      const prompt = `Je bent een warme coach voor Energieke Lieke. Sluit deze Geld Gedoe sessie af.
+      const prompt = `Sluit deze Geld Gedoe sessie af.
 
 ## Geldenergie scores (deel 1)
 Bewust totaal: ${totaalBewust}/150 — ${scoreband(totaalBewust)}

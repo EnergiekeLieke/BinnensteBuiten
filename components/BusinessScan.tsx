@@ -114,7 +114,7 @@ export default function BusinessScan() {
 
       const bonusFp = BONUS_ITEMS.filter((_, i) => bonus.focuspunten[i]).join(', ');
 
-      const prompt = `Je bent een warme zakelijke coach voor Energieke Lieke. Analyseer deze Business Scan:
+      const prompt = `Analyseer deze Business Scan:
 
 ${regels}
 - Vertrouwen & overgave (bonus): bewust ${bonus.bewust}/10, onbewust ${bonus.onbewust}/10${bonusFp ? ` | focuspunten: ${bonusFp}` : ''}

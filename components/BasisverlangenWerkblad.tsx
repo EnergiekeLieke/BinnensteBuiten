@@ -33,7 +33,7 @@ export default function BasisverlangenWerkblad() {
         return `- ${g}: ${v ? `${v.label} (${v.beschrijving})` : 'niet ingevuld'}`;
       }).join('\n');
 
-      const prompt = `Je bent een warme coach voor Energieke Lieke. Analyseer dit Basisverlangens Werkblad:
+      const prompt = `Analyseer dit Basisverlangens Werkblad:
 
 Keuzes per levensgebied:
 ${regels}

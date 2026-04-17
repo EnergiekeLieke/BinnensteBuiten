@@ -125,7 +125,7 @@ export default function BusinessScanDetailed() {
         return `### ${c.naam} (gem. bewust: ${gB}, gem. onbewust: ${gO})\n${subs}`;
       }).join('\n\n');
 
-      const prompt = `Je bent een warme zakelijke coach voor Energieke Lieke. Analyseer deze gedetailleerde Business Scan:
+      const prompt = `Analyseer deze gedetailleerde Business Scan:
 
 ${regels}
 
