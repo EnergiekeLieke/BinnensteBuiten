@@ -323,7 +323,10 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
       {/* DEEL 4 */}
       <section className="bg-lightBg2 rounded-2xl p-6 border border-orange/30">
         <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 4 — Existentiële kernovertuigingen</h2>
-        <p className="text-sm text-midGreen mb-4">Genereer kernovertuigingen op basis van jouw aangevinkte overtuigingen</p>
+        <p className="text-sm text-midGreen mb-4">
+          <span className="font-semibold">Genereer existentiële kernovertuigingen op basis van jouw aangevinkte overtuigingen.</span>{' '}
+          <span className="italic">Existentiële kernovertuigingen zijn de diepste laag onder je gedrag — de stille stemmen over wie jij bent en wat jij verdient. Denk aan eigenwaarde, veiligheid en vertrouwen.</span>
+        </p>
         <button
           onClick={genereerKernOvertuigingen}
           disabled={kernLoading || aangevinktOv.every((x) => !x)}
