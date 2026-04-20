@@ -38,7 +38,7 @@ export default function PreviewPage() {
 
   return (
     <div>
-      <div className="text-center mb-12">
+      <div className="mb-12">
         <h1 className="font-salmon text-4xl text-darkSlate mb-3">BinnensteBuiten Spel</h1>
         <p className="text-midGreen text-sm">Kom los van die innerlijke stemmetjes die je laten geloven dat er geen ruimte is voor wat jou écht blij maakt.</p>
         <p className="text-midGreen text-sm">Met rake vragen, praktische tools en speelse experimenten breng je jezelf stap voor stap terug in contact met wat jij nodig hebt.</p>
