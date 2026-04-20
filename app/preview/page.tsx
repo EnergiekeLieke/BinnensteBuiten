@@ -104,8 +104,9 @@ export default function PreviewPage() {
                 href="https://energiekelieke.kennis.shop/watch/2946/39500"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block bg-white rounded-2xl border-l-4 border-darkRed p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
+                className="relative block bg-white rounded-2xl border-l-4 border-darkRed p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
               >
+                <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-darkRed text-white rounded px-2 py-0.5">Nieuw!</span>
                 <div className="text-4xl mb-3">💸</div>
                 <h2 className="font-salmon text-xl text-darkSlate mb-2">Geld Gedoe</h2>
                 <p className="text-sm text-darkSlate/70 leading-relaxed">Spoor je geldblokkades op en ontdek welk verhaal jij jezelf vertelt.</p>
@@ -114,7 +115,7 @@ export default function PreviewPage() {
               {[
                 { titel: 'Tijd Tekort', icon: '⏳', sub: 'Ontdek waarom je agenda voller voelt dan ie is.' },
                 { titel: 'Batterij Blokkade', icon: '🔋', sub: 'Spoor op waar jouw energie weglekt, en ontdek hoe je dat stopt.' },
-                { titel: 'Liefdes Lek', icon: '💔', sub: 'Herken de overtuigingen die jou van échte verbinding weerhouden.' },
+                { titel: 'Liefdes Lek', icon: '💔', sub: 'Herken de overtuigingen die jou van échte verbinding en zelfliefde weerhouden.' },
                 { titel: 'Geniet Gebrek', icon: '🎉', sub: 'Ontdek wat er nog in de weg staat tussen jou en écht genieten.' },
                 { titel: 'Masker Moe', icon: '🎭', sub: 'Zet je masker af en laat jezelf zien zoals je écht bent!' },
               ].map((f) => (
@@ -122,7 +123,7 @@ export default function PreviewPage() {
                   key={f.titel}
                   className="relative bg-[#e8e6e1] rounded-2xl border-l-4 border-[#ccc] p-6 opacity-65 cursor-not-allowed"
                 >
-                  <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-[#bbb] text-white rounded px-2 py-0.5">Binnenkort</span>
+                  <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-darkGreen text-white rounded px-2 py-0.5">Binnenkort</span>
                   <div className="text-4xl mb-3">{f.icon}</div>
                   <h2 className="font-salmon text-xl text-[#999] mb-2">{f.titel}</h2>
                   <p className="text-sm text-[#aaa]">{f.sub}</p>
