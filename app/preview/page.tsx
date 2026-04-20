@@ -26,8 +26,8 @@ const tools = [
   },
   {
     href: 'https://energiekelieke.kennis.shop/watch/2946/39498',
-    title: 'Business Scan Gedetailleerd',
-    desc: 'Diepgaande versie met scores per subonderdeel, uitklapbare categorieën en WHAT/WHY/HOW/WHEN oefening.',
+    title: 'Business Scan - uitgebreid',
+    desc: 'Diepgaande business scan met scores per subonderdeel en uitgebreide analyse en het ONE THING om op te focussen.',
     icon: '🔍',
     color: 'border-darkGreen',
   },
