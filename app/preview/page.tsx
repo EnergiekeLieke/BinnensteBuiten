@@ -51,8 +51,6 @@ export default function PreviewPage() {
           <a
             key={t.href}
             href={t.href}
-            target="_blank"
-            rel="noopener noreferrer"
             className={`block bg-white rounded-2xl border-l-4 ${t.color} p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform`}
           >
             <div className="text-4xl mb-3">{t.icon}</div>
