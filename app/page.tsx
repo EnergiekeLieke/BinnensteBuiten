@@ -43,7 +43,7 @@ export default function Home() {
     <div>
       <div className="text-center mb-12">
         <h1 className="font-salmon text-4xl text-darkSlate mb-3">BinnensteBuiten Spel</h1>
-        <p className="text-midGreen text-lg">Kies een tool en begin met inzicht krijgen</p>
+        <p className="text-midGreen text-lg">Kom los van die innerlijke stemmetjes die je laten geloven dat er geen ruimte is voor wat jou écht blij maakt. Met rake vragen, praktische tools en speelse experimenten breng je jezelf stap voor stap terug in contact met wat jij nodig hebt. Kies een tool en begin met inzicht krijgen</p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {tools.map((t) => (
