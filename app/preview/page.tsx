@@ -51,6 +51,7 @@ export default function PreviewPage() {
           <a
             key={t.href}
             href={t.href}
+            target="_top"
             className={`block bg-white rounded-2xl border-l-4 ${t.color} p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform`}
           >
             <div className="text-4xl mb-3">{t.icon}</div>
@@ -100,8 +101,7 @@ export default function PreviewPage() {
             <div className="flex flex-col gap-3">
               <a
                 href="https://energiekelieke.kennis.shop/watch/2946/39500"
-                target="_blank"
-                rel="noopener noreferrer"
+                target="_top"
                 className="relative block bg-white rounded-2xl border-l-4 border-darkRed p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
               >
                 <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-darkRed text-white rounded px-2 py-0.5">Nieuw!</span>
