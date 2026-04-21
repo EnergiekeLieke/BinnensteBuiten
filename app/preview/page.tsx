@@ -62,7 +62,7 @@ export default function PreviewPage() {
       </div>
 
       {/* Flauwekul Filter */}
-      <div className="rounded-2xl border-2 border-orange overflow-hidden">
+      <div className="rounded-2xl border-2 border-orange overflow-hidden mb-8">
         <button
           onClick={() => setFlauwOpen((s) => !s)}
           className="w-full bg-orange px-6 py-4 flex justify-between items-center text-left"
@@ -130,6 +130,20 @@ export default function PreviewPage() {
             </div>
           </div>
         )}
+      </div>
+      {/* Future Self werk */}
+      <h2 className="font-bold text-xs uppercase tracking-widest text-darkSlate mb-3">Future Self werk</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <a
+          href="https://energiekelieke.kennis.shop/watch/2946/39770"
+          target="_top"
+          className="relative block bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
+        >
+          <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-midGreen text-white rounded px-2 py-0.5">Nieuw!</span>
+          <div className="text-4xl mb-3">🌟</div>
+          <h2 className="font-salmon text-xl text-darkSlate mb-2">Future Self Visualisatie</h2>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Ontmoet wie jij al aan het worden bent. Stel je vragen in en genereer een persoonlijke geleide visualisatie.</p>
+        </a>
       </div>
     </div>
   );
