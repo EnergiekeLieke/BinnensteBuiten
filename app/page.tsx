@@ -128,6 +128,7 @@ export default function Home() {
           </div>
         )}
       </div>
+<<<<<<< HEAD
 
       {/* Future Self werk */}
       <h2 className="font-bold text-xs uppercase tracking-widest text-darkSlate mb-3">Future Self werk</h2>
@@ -142,6 +143,8 @@ export default function Home() {
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontmoet wie jij al aan het worden bent. Stel je vragen in en genereer een persoonlijke geleide visualisatie.</p>
         </Link>
       </div>
+=======
+>>>>>>> origin/main
     </div>
   );
 }
