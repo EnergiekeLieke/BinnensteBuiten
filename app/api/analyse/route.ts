@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  const tokens = Math.min(Math.max(Number(maxTokens) || 2000, 500), 4000);
+  const tokens = Math.min(Math.max(Number(maxTokens) || 2000, 500), 8000);
 
   const stream = client.messages.stream({
     model: 'claude-sonnet-4-5',

@@ -138,7 +138,7 @@ Concrete tip voor tijd, geld of energie in 2-3 zinnen.
 ## Het ONE THING
 Beschrijf in 2-3 alinea's het meest impactvolle gebied om NU op te focussen. Motiveer waarom dit ene ding de meeste andere knelpunten ontsluit. Sluit af met een warme, bemoedigende zin.`;
 
-      const tekst = await roepAnalyseAan(prompt, 3000);
+      const tekst = await roepAnalyseAan(prompt, 5000);
       setAnalyse(tekst);
     } catch (e: unknown) {
       setFout(e instanceof Error ? e.message : 'Er ging iets mis');
