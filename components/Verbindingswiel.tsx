@@ -61,12 +61,14 @@ function Spider({ scoresA, scoresB, fase }: { scoresA: Score[]; scoresB: Score[]
       {fase === 'analyse' && (
         <polygon points={avgPoly()} fill="rgba(213,97,25,0.15)" stroke={C.orange} strokeWidth="2" strokeDasharray="5,3" strokeLinejoin="round" />
       )}
-      <polygon points={poly(scoresA, 'vervullingOnbewust')} fill={C.darkRed} fillOpacity="0.1" stroke={C.darkRed} strokeWidth="1.5" strokeLinejoin="round" strokeDasharray="4,3" />
-      <polygon points={poly(scoresA, 'vervullingBewust')} fill={C.darkRed} fillOpacity="0.15" stroke={C.darkRed} strokeWidth="2.5" strokeLinejoin="round" />
+      {/* Partner A: doorgetrokken — rood=bewust, groen=onbewust */}
+      <polygon points={poly(scoresA, 'vervullingOnbewust')} fill={C.darkGreen} fillOpacity="0.08" stroke={C.darkGreen} strokeWidth="2" strokeLinejoin="round" />
+      <polygon points={poly(scoresA, 'vervullingBewust')} fill={C.darkRed} fillOpacity="0.1" stroke={C.darkRed} strokeWidth="2" strokeLinejoin="round" />
       {fase !== 'A' && (
         <>
-          <polygon points={poly(scoresB, 'vervullingOnbewust')} fill={C.darkGreen} fillOpacity="0.1" stroke={C.darkGreen} strokeWidth="1.5" strokeLinejoin="round" strokeDasharray="4,3" />
-          <polygon points={poly(scoresB, 'vervullingBewust')} fill={C.darkGreen} fillOpacity="0.15" stroke={C.darkGreen} strokeWidth="2.5" strokeLinejoin="round" />
+          {/* Partner B: gestippeld — rood=bewust, groen=onbewust */}
+          <polygon points={poly(scoresB, 'vervullingOnbewust')} fill="none" stroke={C.darkGreen} strokeWidth="2" strokeLinejoin="round" strokeDasharray="5,4" />
+          <polygon points={poly(scoresB, 'vervullingBewust')} fill="none" stroke={C.darkRed} strokeWidth="2" strokeLinejoin="round" strokeDasharray="5,4" />
         </>
       )}
       {angles.map((a, i) => {
