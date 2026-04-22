@@ -165,13 +165,13 @@ export default function FutureSelfVisualisatie() {
 
   return (
     <div style={{ background: C.cream, minHeight: "100vh" }}>
-      <div style={{ background: C.darkGreen, padding: "1.5rem 1.25rem 1.25rem" }}>
-        <p style={{ margin: 0, fontSize: 11, fontWeight: 600, letterSpacing: 1, color: C.lightBg, textTransform: "uppercase" }}>Energieke Lieke · Binnenstebuiten Spel</p>
-        <h2 style={{ fontSize: 22, fontWeight: 700, margin: "4px 0 4px", color: "#fff" }}>Future Self Visualisatie</h2>
-        <p style={{ fontSize: 13, color: C.lightBg2, margin: 0, fontStyle: "italic" }}>Ontmoet wie jij al aan het worden bent</p>
+      <div style={{ padding: "1.5rem 1.5rem 0.5rem", maxWidth: 860, margin: "0 auto" }}>
+        <p style={{ margin: 0, fontSize: 11, fontWeight: 600, letterSpacing: 1, color: C.midGreen, textTransform: "uppercase" }}>Energieke Lieke · BinnensteBuiten Spel</p>
+        <h2 style={{ fontSize: 26, fontWeight: 700, margin: "4px 0 4px", color: C.darkSlate }}>Future Self Visualisatie</h2>
+        <p style={{ fontSize: 14, color: C.darkGreen, margin: 0, fontStyle: "italic" }}>Ontmoet wie jij al aan het worden bent</p>
       </div>
 
-      <div style={{ padding: "1.25rem 1rem", maxWidth: 560, margin: "0 auto" }}>
+      <div style={{ padding: "1.25rem 1.5rem", maxWidth: 860, margin: "0 auto" }}>
 
         {/* Intro */}
         <div style={{ background: C.lightBg2, borderRadius: 12, padding: "14px 16px", marginBottom: "1.5rem", borderLeft: "4px solid " + C.orange }}>
