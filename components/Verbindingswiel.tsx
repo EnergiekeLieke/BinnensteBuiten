@@ -96,7 +96,8 @@ function ScoreBlok({ scores, onUpdate }: { scores: Score; onUpdate: (key: keyof 
           <span style={{ fontSize: 11, fontWeight: 600, color: kleur, width: 110, flexShrink: 0 }}>{label}</span>
           <input type="range" min="0" max="10" step="1" value={scores[key]}
             onChange={e => onUpdate(key, Number(e.target.value))}
-            style={{ flex: 1, accentColor: kleur }} />
+            className={sliderClass[key]}
+            style={{ flex: 1 }} />
           <span style={{ fontSize: 13, fontWeight: 700, minWidth: 20, color: kleur }}>{scores[key]}</span>
         </div>
       ))}
@@ -142,6 +143,26 @@ const typeKleur: Record<string, { bg: string; border: string; text: string; labe
   belangverschil: { bg: '#fef9e8', border: C.orange, text: '#7a3609', label: 'Verschil in belang' },
   onbewust_lager: { bg: '#edf4e9', border: C.darkGreen, text: '#2a3d22', label: 'Onbewust lager' },
   beiden_laag: { bg: '#f0eef8', border: '#7a5c99', text: '#4a2d6b', label: 'Beiden laag' },
+};
+
+const sliderStyles = `
+  input[type=range].slider-blauw { accent-color: #1a4a7a; }
+  input[type=range].slider-blauw::-webkit-slider-runnable-track { background: #b8cce0; height: 4px; border-radius: 2px; }
+  input[type=range].slider-blauw::-moz-range-track { background: #b8cce0; height: 4px; border-radius: 2px; }
+
+  input[type=range].slider-darkred { accent-color: #9e3816; }
+  input[type=range].slider-darkred::-webkit-slider-runnable-track { background: #e8b8a8; height: 4px; border-radius: 2px; }
+  input[type=range].slider-darkred::-moz-range-track { background: #e8b8a8; height: 4px; border-radius: 2px; }
+
+  input[type=range].slider-darkgreen { accent-color: #3b5633; }
+  input[type=range].slider-darkgreen::-webkit-slider-runnable-track { background: #a8bfa3; height: 4px; border-radius: 2px; }
+  input[type=range].slider-darkgreen::-moz-range-track { background: #a8bfa3; height: 4px; border-radius: 2px; }
+`;
+
+const sliderClass: Record<string, string> = {
+  belang: 'slider-blauw',
+  vervullingBewust: 'slider-darkred',
+  vervullingOnbewust: 'slider-darkgreen',
 };
 
 export default function Verbindingswiel() {
@@ -237,6 +258,7 @@ export default function Verbindingswiel() {
 
   return (
     <div style={{ background: C.cream, minHeight: '100vh' }}>
+      <style>{sliderStyles}</style>
       <div style={{ display: 'flex', gap: 0, marginBottom: '1.5rem', borderRadius: 10, overflow: 'hidden', border: '1px solid ' + C.lightBg }}>
         {(['A', 'B', 'analyse'] as const).map((f, i) => {
           const active = fase === f;
