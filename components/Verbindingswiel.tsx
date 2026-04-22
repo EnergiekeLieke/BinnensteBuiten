@@ -41,7 +41,7 @@ const initScores = (): Score[] => aspecten.map(() => ({ belang: 5, vervullingBew
 
 function Spider({ scoresA, scoresB, fase }: { scoresA: Score[]; scoresB: Score[]; fase: string }) {
   const n = aspecten.length;
-  const size = 340, cx = 170, cy = 170, r = 110;
+  const size = 420, cx = 210, cy = 210, r = 110;
   const angles = aspecten.map((_, i) => (2 * Math.PI * i) / n - Math.PI / 2);
   const pt = (val: number, i: number) => { const rr = (val / 10) * r; return [cx + rr * Math.cos(angles[i]), cy + rr * Math.sin(angles[i])]; };
   const poly = (scores: Score[], key: keyof Score) => scores.map((s, i) => pt(s[key], i).join(',')).join(' ');
@@ -51,7 +51,7 @@ function Spider({ scoresA, scoresB, fase }: { scoresA: Score[]; scoresB: Score[]
   }).join(' ');
 
   return (
-    <svg viewBox={`0 0 ${size} ${size}`} style={{ width: '100%', maxWidth: 360 }}>
+    <svg viewBox={`0 0 ${size} ${size}`} style={{ width: '100%', maxWidth: 420 }}>
       {[2, 4, 6, 8, 10].map(v => (
         <polygon key={v} points={aspecten.map((_, i) => pt(v, i).join(',')).join(' ')} fill="none" stroke="rgba(59,86,51,0.15)" strokeWidth="0.8" />
       ))}
@@ -72,13 +72,19 @@ function Spider({ scoresA, scoresB, fase }: { scoresA: Score[]; scoresB: Score[]
         </>
       )}
       {angles.map((a, i) => {
-        const lx = cx + (r + 28) * Math.cos(a);
-        const ly = cy + (r + 28) * Math.sin(a);
-        const woorden = aspecten[i].label.replace(' verbinding', '').split(' ');
+        const lx = cx + (r + 40) * Math.cos(a);
+        const ly = cy + (r + 40) * Math.sin(a);
+        const hoofdwoord = aspecten[i].label.replace(' verbinding', '');
         return (
           <g key={i}>
-            <text x={lx} y={ly} textAnchor="middle" dominantBaseline="middle" fontSize="9" fontWeight="700" fontFamily="sans-serif" fill="white" stroke="white" strokeWidth="3" strokeLinejoin="round" paintOrder="stroke">{woorden.join(' ')}</text>
-            <text x={lx} y={ly} textAnchor="middle" dominantBaseline="middle" fontSize="9" fontWeight="700" fontFamily="sans-serif" fill={C.darkSlate}>{woorden.join(' ')}</text>
+            <text x={lx} y={ly - 6} textAnchor="middle" fontSize="10" fontWeight="700" fontFamily="sans-serif" fill="white" stroke="white" strokeWidth="3" strokeLinejoin="round" paintOrder="stroke">
+              <tspan x={lx} dy="0">{hoofdwoord}</tspan>
+              <tspan x={lx} dy="13">verbinding</tspan>
+            </text>
+            <text x={lx} y={ly - 6} textAnchor="middle" fontSize="10" fontWeight="700" fontFamily="sans-serif" fill={C.darkSlate}>
+              <tspan x={lx} dy="0">{hoofdwoord}</tspan>
+              <tspan x={lx} dy="13">verbinding</tspan>
+            </text>
           </g>
         );
       })}
