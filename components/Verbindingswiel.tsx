@@ -116,10 +116,15 @@ function ScoreBlok({ scores, onUpdate, showGap }: { scores: Score; onUpdate: (ke
 
         const icon = (gap: number) => gap >= 4 ? '⚠' : gap >= 2 ? '○' : gap <= -2 ? '✓' : null;
         const kleur = (gap: number) => gap >= 4 ? C.darkRed : gap >= 2 ? C.orange : C.darkGreen;
-        const label = (gap: number, type: 'bewust' | 'onbewust') =>
-          gap <= -2 ? `✓ ${type === 'bewust' ? 'Bewust' : 'Onbewust'} meer dan vervuld — hier zit ruimte en overvloed` :
-          gap >= 4 ? `⚠ ${type === 'bewust' ? 'Bewust' : 'Onbewust'} gat: ${gap}` :
-          `○ ${type === 'bewust' ? 'Bewust' : 'Onbewust'} gat: ${gap}`;
+        const label = (gap: number, type: 'bewust' | 'onbewust') => {
+          const prefix = type === 'bewust' ? 'Bewust' : 'Onbewust';
+          if (gap <= -2) {
+            if (type === 'bewust' && gapO > -2) return `✓ ${prefix} meer dan vervuld — het hoofd zegt 'prima', kijk ook wat de biotensor zegt`;
+            return `✓ ${prefix} meer dan vervuld — hier zit ruimte en overvloed`;
+          }
+          if (gap >= 4) return `⚠ ${prefix} gat: ${gap}`;
+          return `○ ${prefix} gat: ${gap}`;
+        };
 
         const iB = icon(gapB), iO = icon(gapO);
         if (!iB && !iO) return null;
