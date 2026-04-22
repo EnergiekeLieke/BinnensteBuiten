@@ -129,10 +129,17 @@ function ScoreBlok({ scores, onUpdate, showGap }: { scores: Score; onUpdate: (ke
         const iB = icon(gapB), iO = icon(gapO);
         if (!iB && !iO) return null;
 
+        const beidenOvervuld = gapB <= -2 && gapO <= -2;
+
         return (
           <div style={{ marginTop: 4, display: 'flex', flexWrap: 'wrap', gap: '6px 14px', alignItems: 'center' }}>
-            {iB && <span style={{ fontSize: 11, fontWeight: 600, color: kleur(gapB) }}>{label(gapB, 'bewust')}</span>}
-            {iO && <span style={{ fontSize: 11, fontWeight: 600, color: kleur(gapO) }}>{label(gapO, 'onbewust')}</span>}
+            {beidenOvervuld
+              ? <span style={{ fontSize: 11, fontWeight: 600, color: C.darkGreen }}>✓ Meer dan vervuld — hier zit ruimte en overvloed</span>
+              : <>
+                  {iB && <span style={{ fontSize: 11, fontWeight: 600, color: kleur(gapB) }}>{label(gapB, 'bewust')}</span>}
+                  {iO && <span style={{ fontSize: 11, fontWeight: 600, color: kleur(gapO) }}>{label(gapO, 'onbewust')}</span>}
+                </>
+            }
             {dieper && <span style={{ fontSize: 11, color: C.darkSlate, fontStyle: 'italic', opacity: 0.75 }}>speelt dieper dan je denkt</span>}
           </div>
         );
