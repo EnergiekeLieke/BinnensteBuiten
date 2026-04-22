@@ -109,18 +109,25 @@ function ScoreBlok({ scores, onUpdate, showGap }: { scores: Score; onUpdate: (ke
           <span style={{ fontSize: 13, fontWeight: 700, minWidth: 20, color: kleur }}>{scores[key]}</span>
         </div>
       ))}
-      {showGap && (
-        <div style={{ marginTop: 2 }}>
-          {(() => {
-            const gap = scores.belang - scores.vervullingBewust;
-            if (scores.belang < 4) return null;
-            if (gap >= 4) return <p style={{ margin: 0, fontSize: 11, color: C.darkRed, fontWeight: 600 }}>⚠ Groot verlangengat ({gap} punten)</p>;
-            if (gap >= 2) return <p style={{ margin: 0, fontSize: 11, color: C.orange, fontWeight: 600 }}>○ Enig verlangengat ({gap} punten)</p>;
-            if (gap <= -2) return <p style={{ margin: 0, fontSize: 11, color: C.darkGreen, fontWeight: 600 }}>✓ Meer dan vervuld</p>;
-            return null;
-          })()}
-        </div>
-      )}
+      {showGap && scores.belang >= 4 && (() => {
+        const gapB = scores.belang - scores.vervullingBewust;
+        const gapO = scores.belang - scores.vervullingOnbewust;
+        const dieper = gapO - gapB >= 3;
+
+        const icon = (gap: number) => gap >= 4 ? '⚠' : gap >= 2 ? '○' : gap <= -2 ? '✓' : null;
+        const kleur = (gap: number) => gap >= 4 ? C.darkRed : gap >= 2 ? C.orange : C.darkGreen;
+
+        const iB = icon(gapB), iO = icon(gapO);
+        if (!iB && !iO) return null;
+
+        return (
+          <div style={{ marginTop: 4, display: 'flex', flexWrap: 'wrap', gap: '6px 14px', alignItems: 'center' }}>
+            {iB && <span style={{ fontSize: 11, fontWeight: 600, color: kleur(gapB) }}>{iB} Bewust gat: {gapB}</span>}
+            {iO && <span style={{ fontSize: 11, fontWeight: 600, color: kleur(gapO) }}>{iO} Onbewust gat: {gapO}</span>}
+            {dieper && <span style={{ fontSize: 11, color: C.darkSlate, fontStyle: 'italic', opacity: 0.75 }}>speelt dieper dan je denkt</span>}
+          </div>
+        );
+      })()}
     </div>
   );
 }
