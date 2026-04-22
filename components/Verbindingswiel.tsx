@@ -130,11 +130,17 @@ function ScoreBlok({ scores, onUpdate, showGap }: { scores: Score; onUpdate: (ke
         if (!iB && !iO) return null;
 
         const beidenOvervuld = gapB <= -2 && gapO <= -2;
+        const onbewustBeter = gapO <= -2 && gapB > -2;
 
         return (
           <div style={{ marginTop: 4, display: 'flex', flexWrap: 'wrap', gap: '6px 14px', alignItems: 'center' }}>
             {beidenOvervuld
               ? <span style={{ fontSize: 11, fontWeight: 600, color: C.darkGreen }}>✓ Meer dan vervuld — hier zit ruimte en overvloed</span>
+              : onbewustBeter
+              ? <>
+                  {iB && <span style={{ fontSize: 11, fontWeight: 600, color: kleur(gapB) }}>{label(gapB, 'bewust')}</span>}
+                  <span style={{ fontSize: 11, fontWeight: 600, color: C.darkGreen }}>✓ Onbewust meer dan vervuld — het gaat beter dan je denkt, focus je aandacht eens bewust op wat er al wél is!</span>
+                </>
               : <>
                   {iB && <span style={{ fontSize: 11, fontWeight: 600, color: kleur(gapB) }}>{label(gapB, 'bewust')}</span>}
                   {iO && <span style={{ fontSize: 11, fontWeight: 600, color: kleur(gapO) }}>{label(gapO, 'onbewust')}</span>}
