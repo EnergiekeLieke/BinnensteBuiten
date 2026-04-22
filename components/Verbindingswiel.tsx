@@ -96,8 +96,8 @@ function ScoreBlok({ scores, onUpdate }: { scores: Score; onUpdate: (key: keyof 
           <span style={{ fontSize: 11, fontWeight: 600, color: kleur, width: 110, flexShrink: 0 }}>{label}</span>
           <input type="range" min="0" max="10" step="1" value={scores[key]}
             onChange={e => onUpdate(key, Number(e.target.value))}
-            className={sliderClass[key]}
-            style={{ flex: 1 }} />
+            className="vw-slider"
+            style={{ flex: 1, '--slider-color': sliderColors[key], '--slider-pct': `${scores[key] * 10}%` } as React.CSSProperties} />
           <span style={{ fontSize: 13, fontWeight: 700, minWidth: 20, color: kleur }}>{scores[key]}</span>
         </div>
       ))}
@@ -145,25 +145,47 @@ const typeKleur: Record<string, { bg: string; border: string; text: string; labe
   beiden_laag: { bg: '#f0eef8', border: '#7a5c99', text: '#4a2d6b', label: 'Beiden laag' },
 };
 
-const sliderStyles = `
-  input[type=range].slider-blauw { accent-color: #1a4a7a; }
-  input[type=range].slider-blauw::-webkit-slider-runnable-track { background: #b8cce0; height: 4px; border-radius: 2px; }
-  input[type=range].slider-blauw::-moz-range-track { background: #b8cce0; height: 4px; border-radius: 2px; }
-
-  input[type=range].slider-darkred { accent-color: #9e3816; }
-  input[type=range].slider-darkred::-webkit-slider-runnable-track { background: #e8b8a8; height: 4px; border-radius: 2px; }
-  input[type=range].slider-darkred::-moz-range-track { background: #e8b8a8; height: 4px; border-radius: 2px; }
-
-  input[type=range].slider-darkgreen { accent-color: #3b5633; }
-  input[type=range].slider-darkgreen::-webkit-slider-runnable-track { background: #a8bfa3; height: 4px; border-radius: 2px; }
-  input[type=range].slider-darkgreen::-moz-range-track { background: #a8bfa3; height: 4px; border-radius: 2px; }
-`;
-
-const sliderClass: Record<string, string> = {
-  belang: 'slider-blauw',
-  vervullingBewust: 'slider-darkred',
-  vervullingOnbewust: 'slider-darkgreen',
+const sliderColors: Record<string, string> = {
+  belang: '#1a4a7a',
+  vervullingBewust: '#9e3816',
+  vervullingOnbewust: '#3b5633',
 };
+
+const sliderStyles = `
+  input[type=range].vw-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    background: linear-gradient(to right, var(--slider-color) var(--slider-pct), #d8d0c8 var(--slider-pct));
+  }
+  input[type=range].vw-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--slider-color);
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+  input[type=range].vw-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--slider-color);
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+  input[type=range].vw-slider::-moz-range-track {
+    height: 6px;
+    border-radius: 3px;
+    background: transparent;
+  }
+`;
 
 export default function Verbindingswiel() {
   const [fase, setFase] = useState<'A' | 'B' | 'analyse'>('A');
