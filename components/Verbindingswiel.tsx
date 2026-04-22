@@ -92,7 +92,7 @@ function Spider({ scoresA, scoresB, fase }: { scoresA: Score[]; scoresB: Score[]
   );
 }
 
-function ScoreBlok({ scores, onUpdate }: { scores: Score; onUpdate: (key: keyof Score, val: number) => void }) {
+function ScoreBlok({ scores, onUpdate, showGap }: { scores: Score; onUpdate: (key: keyof Score, val: number) => void; showGap: boolean }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
       {([
@@ -109,16 +109,18 @@ function ScoreBlok({ scores, onUpdate }: { scores: Score; onUpdate: (key: keyof 
           <span style={{ fontSize: 13, fontWeight: 700, minWidth: 20, color: kleur }}>{scores[key]}</span>
         </div>
       ))}
-      <div style={{ marginTop: 2 }}>
-        {(() => {
-          const gap = scores.belang - scores.vervullingBewust;
-          if (scores.belang < 4) return null;
-          if (gap >= 4) return <p style={{ margin: 0, fontSize: 11, color: C.darkRed, fontWeight: 600 }}>⚠ Groot verlangengat ({gap} punten)</p>;
-          if (gap >= 2) return <p style={{ margin: 0, fontSize: 11, color: C.orange, fontWeight: 600 }}>○ Enig verlangengat ({gap} punten)</p>;
-          if (gap <= -2) return <p style={{ margin: 0, fontSize: 11, color: C.darkGreen, fontWeight: 600 }}>✓ Meer dan vervuld</p>;
-          return null;
-        })()}
-      </div>
+      {showGap && (
+        <div style={{ marginTop: 2 }}>
+          {(() => {
+            const gap = scores.belang - scores.vervullingBewust;
+            if (scores.belang < 4) return null;
+            if (gap >= 4) return <p style={{ margin: 0, fontSize: 11, color: C.darkRed, fontWeight: 600 }}>⚠ Groot verlangengat ({gap} punten)</p>;
+            if (gap >= 2) return <p style={{ margin: 0, fontSize: 11, color: C.orange, fontWeight: 600 }}>○ Enig verlangengat ({gap} punten)</p>;
+            if (gap <= -2) return <p style={{ margin: 0, fontSize: 11, color: C.darkGreen, fontWeight: 600 }}>✓ Meer dan vervuld</p>;
+            return null;
+          })()}
+        </div>
+      )}
     </div>
   );
 }
@@ -323,7 +325,7 @@ export default function Verbindingswiel() {
               <div key={a.id} style={{ background: i % 2 === 0 ? '#fff' : C.cream, padding: '14px 16px', borderBottom: i < aspecten.length - 1 ? '1px solid ' + C.lightBg : 'none' }}>
                 <p style={{ margin: '0 0 2px', fontWeight: 700, fontSize: 14, color: C.darkSlate }}>{a.label}</p>
                 <p style={{ margin: '0 0 10px', fontSize: 11, color: C.darkSlate, opacity: 0.6 }}>{a.omschr}</p>
-                <ScoreBlok scores={scores[i]} onUpdate={(key, val) => updateScore(setter, i, key, val)} />
+                <ScoreBlok scores={scores[i]} onUpdate={(key, val) => updateScore(setter, i, key, val)} showGap={fase === 'B'} />
               </div>
             ))}
           </div>
