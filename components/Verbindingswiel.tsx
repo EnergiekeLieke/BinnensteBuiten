@@ -116,14 +116,18 @@ function ScoreBlok({ scores, onUpdate, showGap }: { scores: Score; onUpdate: (ke
 
         const icon = (gap: number) => gap >= 4 ? '⚠' : gap >= 2 ? '○' : gap <= -2 ? '✓' : null;
         const kleur = (gap: number) => gap >= 4 ? C.darkRed : gap >= 2 ? C.orange : C.darkGreen;
+        const label = (gap: number, type: 'bewust' | 'onbewust') =>
+          gap <= -2 ? `✓ ${type === 'bewust' ? 'Bewust' : 'Onbewust'} meer dan vervuld — hier zit ruimte en overvloed` :
+          gap >= 4 ? `⚠ ${type === 'bewust' ? 'Bewust' : 'Onbewust'} gat: ${gap}` :
+          `○ ${type === 'bewust' ? 'Bewust' : 'Onbewust'} gat: ${gap}`;
 
         const iB = icon(gapB), iO = icon(gapO);
         if (!iB && !iO) return null;
 
         return (
           <div style={{ marginTop: 4, display: 'flex', flexWrap: 'wrap', gap: '6px 14px', alignItems: 'center' }}>
-            {iB && <span style={{ fontSize: 11, fontWeight: 600, color: kleur(gapB) }}>{iB} Bewust gat: {gapB}</span>}
-            {iO && <span style={{ fontSize: 11, fontWeight: 600, color: kleur(gapO) }}>{iO} Onbewust gat: {gapO}</span>}
+            {iB && <span style={{ fontSize: 11, fontWeight: 600, color: kleur(gapB) }}>{label(gapB, 'bewust')}</span>}
+            {iO && <span style={{ fontSize: 11, fontWeight: 600, color: kleur(gapO) }}>{label(gapO, 'onbewust')}</span>}
             {dieper && <span style={{ fontSize: 11, color: C.darkSlate, fontStyle: 'italic', opacity: 0.75 }}>speelt dieper dan je denkt</span>}
           </div>
         );
