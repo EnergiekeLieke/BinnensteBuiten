@@ -325,7 +325,7 @@ export default function Verbindingswiel() {
               <div key={a.id} style={{ background: i % 2 === 0 ? '#fff' : C.cream, padding: '14px 16px', borderBottom: i < aspecten.length - 1 ? '1px solid ' + C.lightBg : 'none' }}>
                 <p style={{ margin: '0 0 2px', fontWeight: 700, fontSize: 14, color: C.darkSlate }}>{a.label}</p>
                 <p style={{ margin: '0 0 10px', fontSize: 11, color: C.darkSlate, opacity: 0.6 }}>{a.omschr}</p>
-                <ScoreBlok scores={scores[i]} onUpdate={(key, val) => updateScore(setter, i, key, val)} showGap={fase === 'B'} />
+                <ScoreBlok scores={scores[i]} onUpdate={(key, val) => updateScore(setter, i, key, val)} showGap={true} />
               </div>
             ))}
           </div>
