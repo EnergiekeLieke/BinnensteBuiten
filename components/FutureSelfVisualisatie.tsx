@@ -108,7 +108,7 @@ const init = {
 function bouwPrompt(form: typeof init): string {
   const lengteTekst: Record<string, string> = {
     kort: "ongeveer 5 minuten (kort)",
-    medium: "ongeveer 10 minuten (medium)",
+    medium: "ongeveer 10 minuten (medium) — schrijf minimaal 1000 woorden en eindig altijd met een volledige afronding",
     uitgebreid: "15 tot 20 minuten (uitgebreid) — schrijf minimaal 2000 woorden en eindig altijd met een volledige afronding",
   };
   const gebruikTekst = form.gebruik === "inspreken"
@@ -166,7 +166,7 @@ export default function FutureSelfVisualisatie() {
     setLoading(true);
     setFout("");
     setResultaat("");
-    const maxTokens = form.lengte === "uitgebreid" ? 6000 : form.lengte === "medium" ? 2000 : 1200;
+    const maxTokens = form.lengte === "uitgebreid" ? 6000 : form.lengte === "medium" ? 3500 : 1200;
     try {
       await streamAnalyse(bouwPrompt(form), maxTokens, chunk => {
         setResultaat(prev => prev + chunk);
