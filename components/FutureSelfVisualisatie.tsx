@@ -166,7 +166,7 @@ export default function FutureSelfVisualisatie() {
     setLoading(true);
     setFout("");
     setResultaat("");
-    const maxTokens = form.lengte === "uitgebreid" ? 6000 : form.lengte === "medium" ? 3500 : 1200;
+    const maxTokens = form.lengte === "uitgebreid" ? 6000 : form.lengte === "medium" ? 4500 : 1800;
     try {
       await streamAnalyse(bouwPrompt(form), maxTokens, chunk => {
         setResultaat(prev => prev + chunk);
