@@ -163,6 +163,20 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Human Design */}
+      <h2 className="font-bold text-xs uppercase tracking-widest text-darkSlate mb-3">Human Design</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <Link
+          href="/human-design-affirmaties"
+          className="block h-full bg-white rounded-2xl border-l-4 border-blauw p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
+        >
+          <div className="text-4xl mb-3">🧬</div>
+          <h2 className="font-salmon text-xl text-darkSlate mb-1">Human Design Affirmaties</h2>
+          <p className="text-xs text-blauw font-semibold mb-2">Laat los wat niet van jou is</p>
+          <p className="text-sm text-darkSlate/70 leading-relaxed"></p>
+        </Link>
+      </div>
+
     </div>
   );
 }
