@@ -169,10 +169,15 @@ export default function PreviewPage() {
       <h2 className="font-bold text-xs uppercase tracking-widest text-darkSlate mb-3">Human Design</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div className="block h-full bg-white rounded-2xl border-l-4 border-blauw p-6 shadow">
-          <div className="text-4xl mb-3">🧬</div>
-          <h2 className="font-salmon text-xl text-darkSlate mb-1">Human Design Affirmaties</h2>
-          <p className="text-xs text-blauw font-semibold mb-2">Laat los wat niet van jou is</p>
-          <p className="text-sm text-darkSlate/70 leading-relaxed"></p>
+          <svg viewBox="0 0 40 50" className="w-10 h-10 mb-3" fill="none" stroke="#1a4a7a" strokeWidth="1.5" strokeLinejoin="round">
+            <polygon points="20,1 13,11 27,11" />
+            <polygon points="20,12 13,22 27,22" />
+            <rect x="14" y="23" width="12" height="6" />
+            <polygon points="20,30 13,37 20,44 27,37" />
+            <rect x="12" y="45" width="16" height="5" />
+          </svg>
+          <h2 className="font-salmon text-xl text-darkSlate mb-2">Human Design Affirmaties</h2>
+          <p className="text-sm text-darkSlate/70 leading-relaxed italic">Laat los wat niet van jou is</p>
         </div>
       </div>
 
