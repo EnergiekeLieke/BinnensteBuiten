@@ -23,7 +23,7 @@ export default function PreviewPage() {
         <a href="https://energiekelieke.kennis.shop/watch/2946/39496" target="_top" className="block bg-white rounded-2xl border-l-4 border-darkRed h-full p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">🌐</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-2">Levenswiel Analyse</h2>
-          <p className="text-sm text-darkSlate/70 leading-relaxed">Het spinnenweb maakt zichtbaar hoe tevreden jij bewust en onbewust bent over 8 levensgebieden. De analyse toont welke patronen je te doorbreken hebt én geeft je concrete tips over wat je nu kunt doen.</p>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Het spinnenweb maakt zichtbaar hoe tevreden jij bewust en onbewust bent over 8 levensgebieden. De analyse toont welke patronen je te doorbreken hebt én geeft je concrete tips.</p>
         </a>
         <a href="https://energiekelieke.kennis.shop/watch/2946/40079" target="_top" className="block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">💞</div>

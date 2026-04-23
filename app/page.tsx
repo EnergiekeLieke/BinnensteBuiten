@@ -24,7 +24,7 @@ export default function Home() {
         <Link href="/levenswiel" className="block h-full bg-white rounded-2xl border-l-4 border-darkRed p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">🌐</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-2">Levenswiel Analyse</h2>
-          <p className="text-sm text-darkSlate/70 leading-relaxed">Het spinnenweb maakt zichtbaar hoe tevreden jij bewust en onbewust bent over 8 levensgebieden. De analyse toont welke patronen je te doorbreken hebt én geeft je concrete tips over wat je nu kunt doen.</p>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Het spinnenweb maakt zichtbaar hoe tevreden jij bewust en onbewust bent over 8 levensgebieden. De analyse toont welke patronen je te doorbreken hebt én geeft je concrete tips.</p>
         </Link>
         <Link href="/verbindingswiel" className="block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">💞</div>
