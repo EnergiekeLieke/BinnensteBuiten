@@ -80,8 +80,8 @@ export default function Home() {
           <span className={`text-white text-base opacity-80 transition-transform duration-200 ${flauwOpen ? 'rotate-180' : ''}`}>▼</span>
         </button>
 
-        {flauwOpen && (
-          <div className="bg-cream px-4 sm:px-6 py-5">
+        <div className="bg-cream relative">
+          <div className={`px-4 sm:px-6 py-5 overflow-hidden transition-all duration-300 ${flauwOpen ? 'max-h-[2000px]' : 'max-h-[210px]'}`}>
             <p className="text-sm text-darkSlate leading-relaxed mb-3">
               Je hoofd is soms een drukke markt vol overtuigingen die al járen hetzelfde kraampje runnen:
             </p>
@@ -134,7 +134,10 @@ export default function Home() {
               ))}
             </div>
           </div>
-        )}
+          {!flauwOpen && (
+            <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-cream to-transparent pointer-events-none" />
+          )}
+        </div>
       </div>
 
       {/* Future Self werk */}
