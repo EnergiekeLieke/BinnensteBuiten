@@ -181,7 +181,7 @@ export default function FutureSelfVisualisatie() {
   const alleFilled = form.tijdlijn && form.thema && form.gevoel && form.lengte;
 
   return (
-    <div className="bg-cream min-h-screen">
+    <div className="bg-cream">
       <div className="px-4 sm:px-6 pt-6 pb-2 max-w-[860px] mx-auto">
         <p className="m-0 text-xs font-semibold tracking-widest text-midGreen uppercase">Energieke Lieke · BinnensteBuiten Spel</p>
         <h2 className="text-2xl font-bold mt-1 mb-1 text-darkSlate">Future Self Visualisatie</h2>
