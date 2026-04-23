@@ -4,10 +4,16 @@ export const kleuren = {
   midGreen:  '#758d69',
   lightBg:   '#f4c293',
   lightBg2:  '#fde8d0',
-  cream:     '#FCEBDC',
+  cream:     '#fcebdc',
   darkSlate: '#2a3a3c',
   orange:    '#d56119',
+  blauw:     '#1a4a7a',
 } as const;
+
+export function sliderBackground(value: number, max: number, color: string, bg: string = kleuren.lightBg2): string {
+  const pct = `${(value / max) * 100}%`;
+  return `linear-gradient(to right, ${color} 0%, ${color} ${pct}, ${bg} ${pct}, ${bg} 100%)`;
+}
 
 export const LEVENSGEBIEDEN = [
   'Huis',
@@ -22,15 +28,66 @@ export const LEVENSGEBIEDEN = [
 
 export type Levensgebied = (typeof LEVENSGEBIEDEN)[number];
 
+async function leesStream(res: Response): Promise<string> {
+  if (!res.ok || !res.body) {
+    const tekst = await res.text();
+    let errMsg = `Analyse mislukt (${res.status})`;
+    try { errMsg = JSON.parse(tekst).error || errMsg; } catch { errMsg = tekst.slice(0, 150) || errMsg; }
+    throw new Error(errMsg);
+  }
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let result = '';
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      result += decoder.decode(value, { stream: true });
+    }
+  } catch (err) {
+    reader.cancel();
+    throw err;
+  }
+  return result;
+}
+
 export async function roepAnalyseAan(prompt: string, maxTokens = 2000): Promise<string> {
   const res = await fetch('/api/analyse', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ prompt, maxTokens }),
   });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || 'Analyse mislukt');
-  return data.result as string;
+  return leesStream(res);
+}
+
+export async function streamAnalyse(
+  prompt: string,
+  maxTokens = 2000,
+  onChunk: (chunk: string) => void,
+): Promise<void> {
+  const res = await fetch('/api/analyse', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt, maxTokens }),
+  });
+  if (!res.ok || !res.body) {
+    const tekst = await res.text();
+    let errMsg = `Analyse mislukt (${res.status})`;
+    try { errMsg = JSON.parse(tekst).error || errMsg; } catch { errMsg = tekst.slice(0, 150) || errMsg; }
+    throw new Error(errMsg);
+  }
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      onChunk(decoder.decode(value, { stream: true }));
+    }
+  } catch (err) {
+    reader.cancel();
+    throw err;
+  }
 }
 
 export async function exporteerAlsPdf(html: string, toolName: string): Promise<void> {

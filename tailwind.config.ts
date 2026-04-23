@@ -14,9 +14,13 @@ const config: Config = {
         midGreen:  '#758d69',
         lightBg:   '#f4c293',
         lightBg2:  '#fde8d0',
-        cream:     '#FCEBDC',
+        cream:     '#fcebdc',
         darkSlate: '#2a3a3c',
         orange:    '#d56119',
+        blauw:     '#1a4a7a',
+      },
+      screens: {
+        xs: '360px',
       },
       fontFamily: {
         salmon: ['Salmon', 'Georgia', 'serif'],

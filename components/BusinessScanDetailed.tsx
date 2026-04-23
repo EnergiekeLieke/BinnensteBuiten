@@ -148,7 +148,7 @@ Concrete actie + tip voor tijd, geld of energie in 2-3 zinnen.
 ## Het ONE THING
 Beschrijf in 2-3 alinea's het meest impactvolle subonderdeel om NU op te focussen. Leg uit waarom dit ene ding als een domino de andere knelpunten ontsluit. Sluit af met een warme, bemoedigende zin.`;
 
-      const tekst = await roepAnalyseAan(prompt, 4000);
+      const tekst = await roepAnalyseAan(prompt, 6000);
       setAnalyse(tekst);
     } catch (e: unknown) {
       setFout(e instanceof Error ? e.message : 'Er ging iets mis');

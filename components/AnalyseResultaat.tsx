@@ -75,7 +75,7 @@ function borderKleur(badge: string | null): string {
 }
 
 function RijkeTekst({ tekst }: { tekst: string }) {
-  const delen = tekst.split(/(\*\*[^*]+\*\*)/g);
+  const delen = tekst.split(/(\*\*[^\n]+?\*\*)/g);
   return (
     <>
       {delen.map((deel, i) =>
@@ -174,13 +174,13 @@ export default function AnalyseResultaat({ tekst }: Props) {
         <div className="flex gap-2 no-print">
           <button
             onClick={kopieer}
-            className="text-sm px-3 py-1.5 rounded-lg border border-midGreen text-midGreen hover:bg-midGreen hover:text-white transition-colors"
+            className={`text-sm px-3 py-1.5 rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-darkGreen focus:ring-offset-2 ${gekopieerd ? 'bg-darkGreen border-darkGreen text-white' : 'border-darkGreen text-darkGreen hover:bg-darkGreen hover:text-white'}`}
           >
             {gekopieerd ? '✓ Gekopieerd' : 'Kopieer tekst'}
           </button>
           <button
             onClick={() => window.print()}
-            className="text-sm px-3 py-1.5 rounded-lg bg-darkRed text-white hover:bg-darkRed/80 transition-colors"
+            className="text-sm px-3 py-1.5 rounded-lg bg-darkRed text-white hover:bg-darkRed/80 transition-colors focus:outline-none focus:ring-2 focus:ring-darkRed focus:ring-offset-2"
           >
             Exporteer als PDF
           </button>

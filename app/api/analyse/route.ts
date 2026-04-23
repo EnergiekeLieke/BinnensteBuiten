@@ -1,34 +1,56 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
+
+export const maxDuration = 120;
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 export async function POST(req: NextRequest) {
   if (!process.env.ANTHROPIC_API_KEY) {
-    return NextResponse.json({ error: 'API key niet geconfigureerd' }, { status: 500 });
+    return new Response(JSON.stringify({ error: 'API key niet geconfigureerd' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   let body: { prompt?: string; maxTokens?: number };
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json({ error: 'Ongeldig verzoek' }, { status: 400 });
+    return new Response(JSON.stringify({ error: 'Ongeldig verzoek' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   const { prompt, maxTokens = 2000 } = body;
 
   if (!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) {
-    return NextResponse.json({ error: 'Prompt is verplicht' }, { status: 400 });
+    return new Response(JSON.stringify({ error: 'Prompt is verplicht' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  if (prompt.trim().length < 10) {
+    return new Response(JSON.stringify({ error: 'Prompt is te kort (minimaal 10 tekens)' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   if (prompt.length > 20000) {
-    return NextResponse.json({ error: 'Prompt te lang' }, { status: 400 });
+    return new Response(JSON.stringify({ error: 'Prompt is te lang (maximaal 20.000 tekens)' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
-  const tokens = Math.min(Math.max(Number(maxTokens) || 2000, 500), 4000);
+  const tokens = Math.min(Math.max(Number(maxTokens) || 2000, 500), 8000);
 
+  let stream: ReturnType<typeof client.messages.stream>;
   try {
-    const message = await client.messages.create({
+    stream = client.messages.stream({
       model: 'claude-sonnet-4-5',
       max_tokens: tokens,
       system:
@@ -38,13 +60,31 @@ export async function POST(req: NextRequest) {
         'Structureer je antwoord altijd met duidelijke secties met ##-koppen.',
       messages: [{ role: 'user', content: prompt }],
     });
-
-    const text =
-      message.content[0].type === 'text' ? message.content[0].text : '';
-
-    return NextResponse.json({ result: text });
-  } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : 'Onbekende fout';
-    return NextResponse.json({ error: `Anthropic fout: ${msg}` }, { status: 502 });
+  } catch {
+    return new Response(JSON.stringify({ error: 'Kon verbinding met AI niet starten' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
+
+  const encoder = new TextEncoder();
+  const readable = new ReadableStream({
+    async start(controller) {
+      try {
+        for await (const chunk of stream) {
+          if (chunk.type === 'content_block_delta' && chunk.delta.type === 'text_delta') {
+            controller.enqueue(encoder.encode(chunk.delta.text));
+          }
+        }
+      } catch (err) {
+        controller.error(err);
+      } finally {
+        controller.close();
+      }
+    },
+  });
+
+  return new Response(readable, {
+    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+  });
 }

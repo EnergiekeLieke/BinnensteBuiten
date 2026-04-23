@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import SpinnenWeb from './SpinnenWeb';
 import AnalyseResultaat from './AnalyseResultaat';
-import { LEVENSGEBIEDEN, roepAnalyseAan } from '@/lib/huisstijl';
+import { LEVENSGEBIEDEN, roepAnalyseAan, sliderBackground, kleuren as C } from '@/lib/huisstijl';
 
 type Scores = { bewust: number; onbewust: number };
 
@@ -93,7 +93,7 @@ Warme, persoonlijke afsluitende alinea als doorlopende tekst.`;
         </div>
 
         {/* Spinnenweb + actieknop */}
-        <div className="flex flex-col items-center gap-6 sticky top-8 self-start">
+        <div className="flex flex-col items-center gap-6 lg:sticky lg:top-8 lg:self-start">
           <div className="bg-white rounded-2xl p-4 shadow-sm border border-lightBg w-full flex justify-center">
             <SpinnenWeb
               labels={[...LEVENSGEBIEDEN]}
@@ -125,15 +125,16 @@ Warme, persoonlijke afsluitende alinea als doorlopende tekst.`;
 function SliderRij({ label, waarde, soort, kleur, onChange }: {
   label: string; waarde: number; soort: string; kleur: string; onChange: (v: number) => void;
 }) {
-  const trackColor = soort === 'slider-onbewust' ? '#3b5633' : '#9e3816';
-  const pct = `${waarde * 10}%`;
+  const trackColor = soort === 'slider-onbewust' ? C.darkGreen : C.darkRed;
   return (
     <div className="flex items-center gap-3">
       <span className={`text-xs font-medium w-16 ${kleur}`}>{label}</span>
       <input
         type="range" min={0} max={10} step={1} value={waarde}
+        aria-label={label}
+        aria-valuemin={0} aria-valuemax={10} aria-valuenow={waarde}
         className={`flex-1 ${soort}`}
-        style={{ background: `linear-gradient(to right, ${trackColor} 0%, ${trackColor} ${pct}, #fde8d0 ${pct}, #fde8d0 100%)` }}
+        style={{ background: sliderBackground(waarde, 10, trackColor) }}
         onChange={(e) => onChange(Number(e.target.value))}
       />
       <span className={`text-sm font-bold w-6 text-right ${kleur}`}>{waarde}</span>

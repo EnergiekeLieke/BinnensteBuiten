@@ -2,39 +2,10 @@
 
 import { useState } from 'react';
 
-const tools = [
-  {
-    href: 'https://energiekelieke.kennis.shop/watch/2946/39496',
-    title: 'Levenswiel Analyse',
-    desc: 'Het spinnenweb maakt zichtbaar hoe tevreden jij bewust en onbewust bent over 8 levensgebieden. De analyse toont welke patronen je te doorbreken hebt én geeft je concrete tips over wat je nu kunt doen.',
-    icon: '🌐',
-    color: 'border-darkRed',
-  },
-  {
-    href: 'https://energiekelieke.kennis.shop/watch/2946/39501',
-    title: 'Basisverlangens Werkblad',
-    desc: 'Ontdek welke basisverlangens jou drijven per levensgebied en wat dat onthult over jouw patronen.',
-    icon: '💡',
-    color: 'border-orange',
-  },
-  {
-    href: 'https://energiekelieke.kennis.shop/watch/2946/39497',
-    title: 'Business Scan',
-    desc: 'Snel overzicht van 12 bedrijfscategorieën met bewust/onbewust scores en het ONE THING om nu op te focussen.',
-    icon: '📊',
-    color: 'border-darkGreen',
-  },
-  {
-    href: 'https://energiekelieke.kennis.shop/watch/2946/39498',
-    title: 'Business Scan - uitgebreid',
-    desc: 'Diepgaande business scan met scores per subonderdeel en uitgebreide analyse en het ONE THING om op te focussen.',
-    icon: '🔍',
-    color: 'border-darkGreen',
-  },
-];
 
 export default function PreviewPage() {
   const [flauwOpen, setFlauwOpen] = useState(false);
+  const [ondernOpen, setOndernOpen] = useState(false);
 
   return (
     <div>
@@ -46,35 +17,95 @@ export default function PreviewPage() {
       </div>
 
       <h2 className="font-bold text-xs uppercase tracking-widest text-darkSlate mb-3">Tools</h2>
+
+      <p className="text-sm font-bold text-darkSlate mb-3">Hoe sta je ervoor?</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+        <a href="https://energiekelieke.kennis.shop/watch/2946/39496" target="_top" className="block bg-white rounded-2xl border-l-4 border-darkRed h-full p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+          <div className="text-4xl mb-3">🌐</div>
+          <h2 className="font-salmon text-xl text-darkSlate mb-2">Levenswiel Analyse</h2>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Het spinnenweb maakt zichtbaar hoe tevreden jij bewust en onbewust bent over 8 levensgebieden. De analyse toont welke patronen je te doorbreken hebt én geeft je concrete tips.</p>
+        </a>
+        <a href="https://energiekelieke.kennis.shop/watch/2946/40079" target="_top" className="block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+          <div className="text-4xl mb-3">💞</div>
+          <h2 className="font-salmon text-xl text-darkSlate mb-2">Verbindingswiel</h2>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek hoe verbonden jullie écht zijn op 10 dimensies. Inclusief biotensor-scores, reflectievragen en concrete tips in een warm rapport voor koppels.</p>
+        </a>
+      </div>
+
+      <p className="text-sm font-bold text-darkSlate mb-3">Wat wil je écht?</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-        {tools.map((t) => (
-          <a
-            key={t.href}
-            href={t.href}
-            target="_top"
-            className={`block bg-white rounded-2xl border-l-4 ${t.color} p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform`}
-          >
-            <div className="text-4xl mb-3">{t.icon}</div>
-            <h2 className="font-salmon text-xl text-darkSlate mb-2">{t.title}</h2>
-            <p className="text-sm text-darkSlate/70 leading-relaxed">{t.desc}</p>
-          </a>
-        ))}
+        <a href="https://energiekelieke.kennis.shop/watch/2946/39501" target="_top" className="block h-full bg-white rounded-2xl border-l-4 border-orange p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+          <div className="text-4xl mb-3">💡</div>
+          <h2 className="font-salmon text-xl text-darkSlate mb-2">Basisverlangens Werkblad</h2>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek welke basisverlangens jou drijven per levensgebied en wat dat onthult over jouw patronen. Een krachtig inzicht in wat jou écht beweegt en waarom je doet wat je doet.</p>
+        </a>
+        <a href="https://energiekelieke.kennis.shop/watch/2946/39770" target="_top" className="relative block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+          <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-midGreen text-white rounded px-2 py-0.5">Nieuw!</span>
+          <div className="text-4xl mb-3">🌟</div>
+          <h2 className="font-salmon text-xl text-darkSlate mb-2">Future Self Visualisatie</h2>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Ontmoet wie jij al aan het worden bent. Kies je tijdlijn, thema en sfeer, en ontvang een persoonlijke geleide visualisatie om te lezen of in te spreken.</p>
+        </a>
+      </div>
+
+      {/* Voor ondernemers */}
+      <div className="rounded-2xl border-2 border-darkGreen overflow-hidden mb-8">
+        <button
+          onClick={() => setOndernOpen((s) => !s)}
+          className="w-full bg-darkGreen px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center text-left"
+        >
+          <p className="text-lg font-bold text-white mt-0.5">Voor ondernemers</p>
+          <span className={`text-white text-base opacity-80 transition-transform duration-200 ${ondernOpen ? 'rotate-180' : ''}`}>▼</span>
+        </button>
+
+        <div className="bg-cream relative">
+          <div className={`px-4 sm:px-6 py-5 overflow-hidden transition-all duration-300 ${ondernOpen ? 'max-h-[2000px]' : 'max-h-[210px]'}`}>
+            <p className="text-sm text-darkSlate leading-relaxed mb-3">
+              Naast persoonlijke groei bevat het BinnensteBuiten Spel™ ook tools speciaal voor ondernemers. Zodat je niet alleen bewust wordt van wat er in jouw leven speelt, maar ook in jouw bedrijf.
+            </p>
+            <p className="text-sm text-darkSlate leading-relaxed mb-5">
+              <strong>Werk jij met ondernemers?</strong> Dan kun je deze tools ook inzetten in jouw coachings/NEI-sessies!
+            </p>
+            <div className="flex flex-col gap-3">
+              <a
+                href="https://energiekelieke.kennis.shop/watch/2946/39497"
+                target="_top"
+                className="block bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
+              >
+                <div className="text-4xl mb-3">📊</div>
+                <h2 className="font-salmon text-xl text-darkSlate mb-2">Business Scan</h2>
+                <p className="text-sm text-darkSlate/70 leading-relaxed">Snel overzicht van 12 bedrijfscategorieën met bewust/onbewust scores en het ONE THING om nu op te focussen.</p>
+              </a>
+              <a
+                href="https://energiekelieke.kennis.shop/watch/2946/39498"
+                target="_top"
+                className="block bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
+              >
+                <div className="text-4xl mb-3">🔍</div>
+                <h2 className="font-salmon text-xl text-darkSlate mb-2">Business Scan · uitgebreid</h2>
+                <p className="text-sm text-darkSlate/70 leading-relaxed">Diepgaande business scan met scores per subonderdeel, uitgebreide analyse en het ONE THING om op te focussen.</p>
+              </a>
+            </div>
+          </div>
+          {!ondernOpen && (
+            <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-cream to-transparent pointer-events-none" />
+          )}
+        </div>
       </div>
 
       {/* Flauwekul Filter */}
       <div className="rounded-2xl border-2 border-orange overflow-hidden mb-8">
         <button
           onClick={() => setFlauwOpen((s) => !s)}
-          className="w-full bg-orange px-6 py-4 flex justify-between items-center text-left"
+          className="w-full bg-orange px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center text-left"
         >
           <div>
-<p className="text-lg font-bold text-white mt-0.5">Flauwekul Filter</p>
+            <p className="text-lg font-bold text-white mt-0.5">Flauwekul Filter</p>
           </div>
-          <span className="text-white text-xl opacity-80">{flauwOpen ? '▲' : '▼'}</span>
+          <span className={`text-white text-base opacity-80 transition-transform duration-200 ${flauwOpen ? 'rotate-180' : ''}`}>▼</span>
         </button>
 
-        {flauwOpen && (
-          <div className="bg-cream px-6 py-5">
+        <div className="bg-cream relative">
+          <div className={`px-4 sm:px-6 py-5 overflow-hidden transition-all duration-300 ${flauwOpen ? 'max-h-[2000px]' : 'max-h-[210px]'}`}>
             <p className="text-sm text-darkSlate leading-relaxed mb-3">
               Je hoofd is soms een drukke markt vol overtuigingen die al járen hetzelfde kraampje runnen:
             </p>
@@ -83,8 +114,6 @@ export default function PreviewPage() {
               <li><em>"Te laat."</em></li>
               <li><em>"Dat bestaat niet voor mij."</em></li>
             </ul>
-            <p className="text-sm text-darkSlate leading-relaxed mb-3 hidden">
-            </p>
             <p className="text-sm text-darkSlate leading-relaxed mb-3">
               Schaarstedenken verstopt zich overal! In hoe je werkt, hoe je ontspant, hoe je naar je bankrekening kijkt, en zelfs in hoe je 's ochtends wakker wordt.
             </p>
@@ -102,7 +131,7 @@ export default function PreviewPage() {
               <a
                 href="https://energiekelieke.kennis.shop/watch/2946/39500"
                 target="_top"
-                className="relative block bg-white rounded-2xl border-l-4 border-darkRed p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
+                className="relative block bg-white rounded-2xl border-l-4 border-darkRed h-full p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
               >
                 <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-darkRed text-white rounded px-2 py-0.5">Nieuw!</span>
                 <div className="text-4xl mb-3">💸</div>
@@ -120,8 +149,9 @@ export default function PreviewPage() {
                 <div
                   key={f.titel}
                   className="relative bg-[#e8e6e1] rounded-2xl border-l-4 border-[#ccc] p-6 opacity-65 cursor-not-allowed"
+                  aria-hidden="true"
                 >
-                  <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-darkGreen text-white rounded px-2 py-0.5">Binnenkort</span>
+                  <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-darkGreen text-white rounded px-2 py-0.5">Binnenkort beschikbaar</span>
                   <div className="text-4xl mb-3">{f.icon}</div>
                   <h2 className="font-salmon text-xl text-[#999] mb-2">{f.titel}</h2>
                   <p className="text-sm text-[#aaa]">{f.sub}</p>
@@ -129,22 +159,12 @@ export default function PreviewPage() {
               ))}
             </div>
           </div>
-        )}
+          {!flauwOpen && (
+            <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-cream to-transparent pointer-events-none" />
+          )}
+        </div>
       </div>
-      {/* Future Self werk */}
-      <h2 className="font-bold text-xs uppercase tracking-widest text-darkSlate mb-3">Future Self werk</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <a
-          href="https://energiekelieke.kennis.shop/watch/2946/39770"
-          target="_top"
-          className="relative block bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
-        >
-          <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-midGreen text-white rounded px-2 py-0.5">Nieuw!</span>
-          <div className="text-4xl mb-3">🌟</div>
-          <h2 className="font-salmon text-xl text-darkSlate mb-2">Future Self Visualisatie</h2>
-          <p className="text-sm text-darkSlate/70 leading-relaxed">Ontmoet wie jij al aan het worden bent. Stel je vragen in en genereer een persoonlijke geleide visualisatie.</p>
-        </a>
-      </div>
+
     </div>
   );
 }
