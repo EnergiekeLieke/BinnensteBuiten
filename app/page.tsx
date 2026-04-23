@@ -19,20 +19,6 @@ const tools = [
     color: 'border-orange',
   },
   {
-    href: '/business-scan',
-    title: 'Business Scan',
-    desc: 'Snel overzicht van 12 bedrijfscategorieën met bewust/onbewust scores en het ONE THING om nu op te focussen.',
-    icon: '📊',
-    color: 'border-darkGreen',
-  },
-  {
-    href: '/business-scan-gedetailleerd',
-    title: 'Business Scan - uitgebreid',
-    desc: 'Diepgaande business scan met scores per subonderdeel en uitgebreide analyse en het ONE THING om op te focussen.',
-    icon: '🔍',
-    color: 'border-darkGreen',
-  },
-  {
     href: '/verbindingswiel',
     title: 'Verbindingswiel',
     desc: 'Ontdek hoe verbonden jullie écht zijn op 10 dimensies. Inclusief biotensor-scores, reflectievragen en concrete tips in een warm rapport voor koppels.',
@@ -43,6 +29,7 @@ const tools = [
 
 export default function Home() {
   const [flauwOpen, setFlauwOpen] = useState(false);
+  const [ondernOpen, setOndernOpen] = useState(false);
 
   return (
     <div>
@@ -66,6 +53,49 @@ export default function Home() {
             <p className="text-sm text-darkSlate/70 leading-relaxed">{t.desc}</p>
           </Link>
         ))}
+      </div>
+
+      {/* Voor ondernemers */}
+      <div className="rounded-2xl border-2 border-darkGreen overflow-hidden mb-8">
+        <button
+          onClick={() => setOndernOpen((s) => !s)}
+          className="w-full bg-darkGreen px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center text-left"
+        >
+          <p className="text-lg font-bold text-white mt-0.5">Voor ondernemers</p>
+          <span className={`text-white text-base opacity-80 transition-transform duration-200 ${ondernOpen ? 'rotate-180' : ''}`}>▼</span>
+        </button>
+
+        <div className="bg-cream relative">
+          <div className={`px-4 sm:px-6 py-5 overflow-hidden transition-all duration-300 ${ondernOpen ? 'max-h-[2000px]' : 'max-h-[210px]'}`}>
+            <p className="text-sm text-darkSlate leading-relaxed mb-3">
+              Naast persoonlijke groei bevat het BinnensteBuiten Spel™ ook tools speciaal voor ondernemers. Zodat je niet alleen bewust wordt van wat er in jouw leven speelt, maar ook in jouw bedrijf.
+            </p>
+            <p className="text-sm text-darkSlate leading-relaxed mb-5">
+              Werk jij met ondernemers? Dan kun je deze tools ook inzetten in jouw coachings/NEI-sessies!
+            </p>
+            <div className="flex flex-col gap-3">
+              <Link
+                href="/business-scan"
+                className="block bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
+              >
+                <div className="text-4xl mb-3">📊</div>
+                <h2 className="font-salmon text-xl text-darkSlate mb-2">Business Scan</h2>
+                <p className="text-sm text-darkSlate/70 leading-relaxed">Snel overzicht van 12 bedrijfscategorieën met bewust/onbewust scores en het ONE THING om nu op te focussen.</p>
+              </Link>
+              <Link
+                href="/business-scan-gedetailleerd"
+                className="block bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
+              >
+                <div className="text-4xl mb-3">🔍</div>
+                <h2 className="font-salmon text-xl text-darkSlate mb-2">Business Scan — uitgebreid</h2>
+                <p className="text-sm text-darkSlate/70 leading-relaxed">Diepgaande business scan met scores per subonderdeel en uitgebreide analyse en het ONE THING om op te focussen.</p>
+              </Link>
+            </div>
+          </div>
+          {!ondernOpen && (
+            <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-cream to-transparent pointer-events-none" />
+          )}
+        </div>
       </div>
 
       {/* Flauwekul Filter */}
