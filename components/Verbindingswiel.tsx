@@ -155,20 +155,21 @@ function Legenda() {
       <p style={{ margin: '0 0 8px', fontWeight: 700, color: C.darkGreen, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.5 }}>Hoe werken de sliders?</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {([
-          [C.blauw, 'Belang', 'Hoe belangrijk is dit aspect voor jou in een relatie?', '0 = helemaal niet belangrijk · 10 = essentieel voor mij'],
-          [C.darkRed, 'Vervulling bewust', 'In hoeverre voel je je op dit moment op dit gebied verbonden?', '0 = helemaal niet aanwezig · 10 = volledig vervuld'],
-          [C.darkGreen, 'Vervulling onbewust', 'Meet met de biotensor: wat zegt je onderbewustzijn over hoe vervuld dit aspect werkelijk is?', '0 = helemaal niet aanwezig · 10 = volledig vervuld'],
-        ] as [string, string, string, string][]).map(([kleur, titel, omschr, sub]) => (
+          [C.blauw, 'Belang', 'Hoe belangrijk is dit aspect voor jou in een relatie?', '0 = helemaal niet belangrijk · 10 = essentieel voor mij', null],
+          [C.darkRed, 'Vervulling bewust', 'In hoeverre voel je je op dit moment op dit gebied verbonden?', '0 = helemaal niet aanwezig · 10 = volledig vervuld', null],
+          [C.darkGreen, 'Vervulling onbewust', 'Meet met de biotensor: wat zegt je onderbewustzijn over hoe vervuld dit aspect werkelijk is?', '0 = helemaal niet aanwezig · 10 = volledig vervuld', 'De biotensor is een energetisch meetinstrument dat reageert op signalen van je onderbewustzijn. Het antwoord komt dus niet uit je hoofd, maar uit je lichaam.'],
+        ] as [string, string, string, string, string | null][]).map(([kleur, titel, omschr, sub, extra]) => (
           <div key={titel} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
             <span style={{ width: 10, height: 10, borderRadius: '50%', background: kleur, flexShrink: 0, marginTop: 2 }}></span>
-            <span style={{ color: C.darkSlate }}><strong style={{ color: kleur }}>{titel}</strong> — {omschr}<br /><span style={{ opacity: 0.75 }}>{sub}</span></span>
+            <span style={{ color: C.darkSlate }}>
+              <strong style={{ color: kleur }}>{titel}</strong> — {omschr}<br />
+              <span style={{ opacity: 0.75 }}>{sub}</span>
+              {extra && <><br /><span style={{ opacity: 0.65, fontStyle: 'italic', fontSize: 11 }}>{extra}</span></>}
+            </span>
           </div>
         ))}
         <div style={{ borderTop: '1px solid ' + C.lightBg, paddingTop: 8, marginTop: 2, color: C.darkSlate, opacity: 0.8 }}>
           Het verschil tussen <strong>belang</strong> en <strong>vervulling</strong> is het <em>verlangengat</em> — hoe groter het gat, hoe meer dit aspect aandacht vraagt.
-        </div>
-        <div style={{ borderTop: '1px solid ' + C.lightBg, paddingTop: 8, marginTop: 6, color: C.darkSlate, fontSize: 11, fontStyle: 'italic', opacity: 0.7 }}>
-          De biotensor is een instrument dat reageert op signalen van je onderbewustzijn. Je houdt hem vast en stelt een vraag — het antwoord komt niet uit je hoofd, maar uit je lichaam.
         </div>
       </div>
     </div>
