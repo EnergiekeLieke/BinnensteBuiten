@@ -71,7 +71,7 @@ export default function Home() {
               Naast persoonlijke groei bevat het BinnensteBuiten Spel™ ook tools speciaal voor ondernemers. Zodat je niet alleen bewust wordt van wat er in jouw leven speelt, maar ook in jouw bedrijf.
             </p>
             <p className="text-sm text-darkSlate leading-relaxed mb-5">
-              Werk jij met ondernemers? Dan kun je deze tools ook inzetten in jouw coachings/NEI-sessies!
+              <strong>Werk jij met ondernemers?</strong> Dan kun je deze tools ook inzetten in jouw coachings/NEI-sessies!
             </p>
             <div className="flex flex-col gap-3">
               <Link
