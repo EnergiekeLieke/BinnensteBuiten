@@ -45,16 +45,10 @@ export async function POST(req: NextRequest) {
 
   const raw = message.content.map((b) => ('text' in b ? b.text : '')).join('').replace(/```json|```/g, '').trim();
 
-  if (!raw.startsWith('{')) {
-    return new Response(JSON.stringify({ error: 'Onverwacht antwoord van AI' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-
+  let result: Record<string, unknown>;
   try {
-    const result = JSON.parse(raw);
-    if (!result.samenvatting || !result.sterktes || !result.aandacht) {
+    result = JSON.parse(raw);
+    if (!result.samenvatting || !result.sterktes || !result.aandacht || !result.groei || !result.reflectie || !result.afsluiting) {
       console.error('Onvolledig analyserapport:', JSON.stringify(result).slice(0, 300));
       return new Response(JSON.stringify({ error: 'Onvolledig rapport ontvangen — probeer opnieuw' }), {
         status: 500,

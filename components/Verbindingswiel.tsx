@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { kleuren as C } from '@/lib/huisstijl';
+import { kleuren as C, sliderBackground } from '@/lib/huisstijl';
 
 const aspecten = [
   { id: 'emotioneel', label: 'Emotionele verbinding', omschr: 'Veiligheid, openheid, gezien worden' },
@@ -100,7 +100,7 @@ function ScoreBlok({ scores, onUpdate, showGap }: { scores: Score; onUpdate: (ke
             onChange={e => onUpdate(key, Number(e.target.value))}
             aria-label={label}
             className="vw-slider"
-            style={{ flex: 1, '--slider-color': sliderColors[key], '--slider-pct': `${scores[key] * 10}%` } as React.CSSProperties} />
+            style={{ flex: 1, '--slider-color': sliderColors[key], background: sliderBackground(scores[key], 10, sliderColors[key], '#d8d0c8') } as React.CSSProperties} />
           <span style={{ fontSize: 13, fontWeight: 700, minWidth: 20, color: kleur }}>{scores[key]}</span>
         </div>
       ))}
@@ -196,7 +196,6 @@ const sliderStyles = `
     border-radius: 3px;
     outline: none;
     cursor: pointer;
-    background: linear-gradient(to right, var(--slider-color) var(--slider-pct), #d8d0c8 var(--slider-pct));
   }
   input[type=range].vw-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -322,17 +321,29 @@ export default function Verbindingswiel() {
         {(['A', 'B', 'analyse'] as const).map((f, i) => {
           const active = fase === f;
           const done = (f === 'A' && (fase === 'B' || fase === 'analyse')) || (f === 'B' && fase === 'analyse');
+          const clickable = f !== fase && (f !== 'analyse' || analyse !== null);
           const tabLabel = f === 'A' ? labelA : f === 'B' ? labelB : 'Analyse';
           return (
-            <div key={f} style={{ flex: 1, padding: '10px 8px', textAlign: 'center', background: active ? C.darkGreen : done ? C.lightBg2 : '#fff', borderRight: i < 2 ? '1px solid ' + C.lightBg : 'none' }}>
+            <button
+              key={f}
+              onClick={() => clickable && setFase(f)}
+              disabled={!clickable}
+              className="focus:outline-none focus:ring-2 focus:ring-inset focus:ring-darkGreen"
+              style={{
+                flex: 1, padding: '10px 8px', textAlign: 'center',
+                background: active ? C.darkGreen : done ? C.lightBg2 : '#fff',
+                borderRight: i < 2 ? '1px solid ' + C.lightBg : 'none',
+                border: 'none', cursor: clickable ? 'pointer' : 'default',
+              }}
+            >
               <p style={{ margin: 0, fontSize: 11, fontWeight: 700, color: active ? '#fff' : done ? C.darkGreen : C.darkSlate, opacity: active ? 1 : done ? 1 : 0.5, textTransform: 'uppercase', letterSpacing: 0.5 }}>{tabLabel}</p>
-            </div>
+            </button>
           );
         })}
       </div>
 
       {fase === 'A' && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: '1.25rem' }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
           {([['naamA', 'Naam partner A', setNaamA, naamA], ['naamB', 'Naam partner B', setNaamB, naamB]] as [string, string, React.Dispatch<React.SetStateAction<string>>, string][]).map(item => (
             <div key={item[0]}>
               <label style={{ fontSize: 12, fontWeight: 700, color: C.darkSlate, display: 'block', marginBottom: 4 }}>{item[1]}</label>
@@ -349,7 +360,7 @@ export default function Verbindingswiel() {
 
           <div style={{ borderRadius: 12, overflow: 'hidden', border: '1px solid ' + C.lightBg, marginBottom: '1.25rem' }}>
             {aspecten.map((a, i) => (
-              <div key={a.id} style={{ background: i % 2 === 0 ? '#fff' : C.cream, padding: '14px 16px', borderBottom: i < aspecten.length - 1 ? '1px solid ' + C.lightBg : 'none' }}>
+              <div key={a.id} className="px-3 py-3 sm:px-4 sm:py-3.5" style={{ background: i % 2 === 0 ? '#fff' : C.cream, borderBottom: i < aspecten.length - 1 ? '1px solid ' + C.lightBg : 'none' }}>
                 <p style={{ margin: '0 0 2px', fontWeight: 700, fontSize: 14, color: C.darkSlate }}>{a.label}</p>
                 <p style={{ margin: '0 0 10px', fontSize: 11, color: C.darkSlate, opacity: 0.6 }}>{a.omschr}</p>
                 <ScoreBlok scores={scores[i]} onUpdate={(key, val) => updateScore(setter, i, key, val)} showGap={true} />

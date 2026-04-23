@@ -10,6 +10,11 @@ export const kleuren = {
   blauw:     '#1a4a7a',
 } as const;
 
+export function sliderBackground(value: number, max: number, color: string, bg = kleuren.lightBg2): string {
+  const pct = `${(value / max) * 100}%`;
+  return `linear-gradient(to right, ${color} 0%, ${color} ${pct}, ${bg} ${pct}, ${bg} 100%)`;
+}
+
 export const LEVENSGEBIEDEN = [
   'Huis',
   'Werk',

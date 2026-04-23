@@ -72,16 +72,16 @@ export default function Home() {
       <div className="rounded-2xl border-2 border-orange overflow-hidden mb-8">
         <button
           onClick={() => setFlauwOpen((s) => !s)}
-          className="w-full bg-orange px-6 py-4 flex justify-between items-center text-left"
+          className="w-full bg-orange px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center text-left"
         >
           <div>
             <p className="text-lg font-bold text-white mt-0.5">Flauwekul Filter</p>
           </div>
-          <span className="text-white text-xl opacity-80">{flauwOpen ? '▲' : '▼'}</span>
+          <span className={`text-white text-base opacity-80 transition-transform duration-200 ${flauwOpen ? 'rotate-180' : ''}`}>▼</span>
         </button>
 
         {flauwOpen && (
-          <div className="bg-cream px-6 py-5">
+          <div className="bg-cream px-4 sm:px-6 py-5">
             <p className="text-sm text-darkSlate leading-relaxed mb-3">
               Je hoofd is soms een drukke markt vol overtuigingen die al járen hetzelfde kraampje runnen:
             </p>
@@ -124,8 +124,7 @@ export default function Home() {
                 <div
                   key={f.titel}
                   className="relative bg-[#e8e6e1] rounded-2xl border-l-4 border-[#ccc] p-6 opacity-65 cursor-not-allowed"
-                  title="Deze tool is nog niet beschikbaar"
-                  aria-disabled="true"
+                  aria-hidden="true"
                 >
                   <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-darkGreen text-white rounded px-2 py-0.5">Binnenkort beschikbaar</span>
                   <div className="text-4xl mb-3">{f.icon}</div>

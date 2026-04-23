@@ -181,13 +181,13 @@ export default function FutureSelfVisualisatie() {
 
   return (
     <div className="bg-cream min-h-screen">
-      <div className="px-6 pt-6 pb-2 max-w-[860px] mx-auto">
+      <div className="px-4 sm:px-6 pt-6 pb-2 max-w-[860px] mx-auto">
         <p className="m-0 text-xs font-semibold tracking-widest text-midGreen uppercase">Energieke Lieke · BinnensteBuiten Spel</p>
         <h2 className="text-2xl font-bold mt-1 mb-1 text-darkSlate">Future Self Visualisatie</h2>
         <p className="text-sm text-darkGreen m-0 italic">Ontmoet wie jij al aan het worden bent</p>
       </div>
 
-      <div className="px-6 py-5 max-w-[860px] mx-auto">
+      <div className="px-4 sm:px-6 py-5 max-w-[860px] mx-auto">
 
         {/* Intro / gronden */}
         <div className="bg-lightBg2 rounded-xl p-4 mb-6 border-l-4 border-orange">
@@ -304,7 +304,11 @@ export default function FutureSelfVisualisatie() {
 
         {!alleFilled && !loading && (
           <p className="text-xs text-darkSlate/60 text-center mt-2">
-            Vul minimaal tijdlijn, thema, gevoel en lengte in om te beginnen.
+            Nog in te vullen:
+            {!form.tijdlijn && ' tijdlijn'}
+            {!form.thema && ' · thema'}
+            {!form.gevoel && ' · hoe je je wilt voelen'}
+            {!form.lengte && ' · lengte'}
           </p>
         )}
 

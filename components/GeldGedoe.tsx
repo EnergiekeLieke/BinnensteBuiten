@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import AnalyseResultaat from './AnalyseResultaat';
-import { roepAnalyseAan } from '@/lib/huisstijl';
+import { roepAnalyseAan, sliderBackground, kleuren as C } from '@/lib/huisstijl';
 
 const STELLINGEN = [
   'Ik voel me helemaal op mijn gemak bij het idee om veel geld te verdienen.',
@@ -137,7 +137,8 @@ Geef alleen de kernovertuigingen, één per regel, zonder nummering of extra uit
         .filter((_, i) => aangevinktKern[i])
         .map((k) => {
           const idx = kernOvertuigingen.indexOf(k);
-          return `"${k}" — overtuigd: ${slidersKern[idx]?.overtuigd ?? 50}%, loslaten: ${slidersKern[idx]?.loslaten ?? 50}%`;
+          const slider = slidersKern[idx] ?? { overtuigd: 50, loslaten: 50 };
+          return `"${k}" — overtuigd: ${slider.overtuigd}%, loslaten: ${slider.loslaten}%`;
         });
 
       const gekozenGeldOv = OVERTUIGINGEN.filter((_, i) => aangevinktOv[i]).map((ov) => {
@@ -197,7 +198,7 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
       {/* DEEL 1 */}
       <section className="bg-white rounded-2xl p-6 shadow-sm border border-lightBg">
         <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 1 — Energiemeting stellingen</h2>
-        <p className="text-sm text-midGreen mb-5">Scoor elke stelling: rood = bewust, groen = onbewust (0–10)</p>
+        <p className="text-sm text-midGreen mb-5">Scoor elke stelling met de biotensor: rood = bewust, groen = onbewust. <span className="text-darkSlate/70">0 = helemaal niet van toepassing · 10 = volledig van toepassing</span></p>
         <div className="space-y-5">
           {STELLINGEN.map((stelling, i) => (
             <div key={i} className="border-b border-lightBg pb-4 last:border-0 last:pb-0">
@@ -215,7 +216,7 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
             </div>
           ))}
         </div>
-        <div className="mt-6 grid grid-cols-2 gap-4">
+        <div className="mt-6 grid grid-cols-1 xs:grid-cols-2 gap-4">
           {(['Bewust', 'Onbewust'] as const).map((soort) => {
             const totaal = soort === 'Bewust' ? totaalBewust : totaalOnbewust;
             return (
@@ -274,9 +275,9 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
           <summary className="cursor-pointer text-sm text-midGreen hover:text-darkGreen select-none">
             Toon toelichting per strategie
           </summary>
-          <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5">
+          <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
             {STRATEGIEEN.map((s) => (
-              <div key={s.label} className="grid grid-cols-[160px_1fr] gap-x-2 text-xs leading-snug">
+              <div key={s.label} className="flex flex-col gap-0.5 text-xs leading-snug sm:grid sm:grid-cols-[140px_1fr] sm:gap-x-2">
                 <span className="font-medium text-darkGreen">{s.label}</span>
                 <span className="text-darkSlate/70">{s.toelichting}</span>
               </div>
@@ -292,8 +293,9 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
         <div className="space-y-3">
           {OVERTUIGINGEN.map((ov, i) => (
             <div key={i} className={`rounded-xl p-3 border transition-colors ${aangevinktOv[i] ? 'border-orange bg-lightBg2' : 'border-lightBg'}`}>
-              <label className="flex items-start gap-3 cursor-pointer">
+              <label htmlFor={`ov-${i}`} className="flex items-start gap-3 cursor-pointer">
                 <input
+                  id={`ov-${i}`}
                   type="checkbox"
                   checked={aangevinktOv[i]}
                   onChange={(e) => setAangevinktOv((p) => p.map((x, idx) => idx === i ? e.target.checked : x))}
@@ -330,17 +332,21 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
         <button
           onClick={genereerKernOvertuigingen}
           disabled={kernLoading || aangevinktOv.every((x) => !x)}
-          className="px-6 py-2 rounded-xl bg-orange text-white font-salmon hover:bg-orange/80 transition-colors disabled:opacity-50"
+          className="px-6 py-2 rounded-xl bg-orange text-white font-salmon hover:bg-orange/80 transition-colors disabled:bg-darkSlate/30 disabled:text-darkSlate/50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-orange focus:ring-offset-2"
         >
           {kernLoading ? 'Genereren…' : 'Genereer kernovertuigingen'}
         </button>
+        {!kernLoading && aangevinktOv.every((x) => !x) && (
+          <p className="text-xs text-darkSlate/60 mt-2">Vink eerst overtuigingen aan in deel 3.</p>
+        )}
 
         {kernOvertuigingen.length > 0 && (
           <div className="mt-5 space-y-3">
             {kernOvertuigingen.map((k, i) => (
               <div key={i} className={`rounded-xl p-3 border transition-colors ${aangevinktKern[i] ? 'border-orange bg-white' : 'border-lightBg bg-white'}`}>
-                <label className="flex items-start gap-3 cursor-pointer">
+                <label htmlFor={`kern-${i}`} className="flex items-start gap-3 cursor-pointer">
                   <input
+                    id={`kern-${i}`}
                     type="checkbox"
                     checked={aangevinktKern[i]}
                     onChange={(e) => setAangevinktKern((p) => p.map((x, idx) => idx === i ? e.target.checked : x))}
@@ -389,8 +395,7 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
 function SliderRijGeld({ label, waarde, soort, kleur, onChange }: {
   label: string; waarde: number; soort: string; kleur: string; onChange: (v: number) => void;
 }) {
-  const trackColor = soort === 'slider-onbewust' ? '#3b5633' : '#9e3816';
-  const pct = `${waarde * 10}%`;
+  const trackColor = soort === 'slider-onbewust' ? C.darkGreen : C.darkRed;
   return (
     <div className="flex items-center gap-3">
       <span className={`text-xs w-16 ${kleur}`}>{label}</span>
@@ -398,7 +403,7 @@ function SliderRijGeld({ label, waarde, soort, kleur, onChange }: {
         type="range" min={0} max={10} step={1} value={waarde}
         aria-label={label}
         className={`flex-1 ${soort}`}
-        style={{ background: `linear-gradient(to right, ${trackColor} 0%, ${trackColor} ${pct}, #fde8d0 ${pct}, #fde8d0 100%)` }}
+        style={{ background: sliderBackground(waarde, 10, trackColor) }}
         onChange={(e) => onChange(Number(e.target.value))}
       />
       <span className={`text-xs font-bold w-4 text-right ${kleur}`}>{waarde}</span>
@@ -409,8 +414,10 @@ function SliderRijGeld({ label, waarde, soort, kleur, onChange }: {
 function SliderPercentage({ label, waarde, kleur, onChange }: {
   label: string; waarde: number; kleur: string; onChange: (v: number) => void;
 }) {
-  const trackColor = kleur.includes('Green') ? '#3b5633' : '#9e3816';
-  const pct = `${waarde}%`;
+  const isLoslaten = kleur.includes('Green');
+  const trackColor = isLoslaten ? C.darkGreen : C.darkRed;
+  const ankerLinks  = isLoslaten ? 'ik houd mezelf nog tegen' : 'helemaal niet';
+  const ankerRechts = isLoslaten ? 'ik ben er klaar voor'     : 'zit diep verankerd';
   return (
     <div className="space-y-1">
       <div className="flex justify-between text-xs text-midGreen">
@@ -420,13 +427,13 @@ function SliderPercentage({ label, waarde, kleur, onChange }: {
       <input
         type="range" min={0} max={100} step={5} value={waarde}
         aria-label={label}
-        className={`w-full ${kleur.includes('Green') ? 'slider-onbewust' : 'slider-bewust'}`}
-        style={{ background: `linear-gradient(to right, ${trackColor} 0%, ${trackColor} ${pct}, #fde8d0 ${pct}, #fde8d0 100%)` }}
+        className={`w-full ${isLoslaten ? 'slider-onbewust' : 'slider-bewust'}`}
+        style={{ background: sliderBackground(waarde, 100, trackColor) }}
         onChange={(e) => onChange(Number(e.target.value))}
       />
       <div className="flex justify-between text-[10px] text-darkSlate/50 mt-0.5">
-        <span>ik houd mezelf hierin nog tegen</span>
-        <span>ik ben er klaar voor</span>
+        <span>{ankerLinks}</span>
+        <span>{ankerRechts}</span>
       </div>
     </div>
   );

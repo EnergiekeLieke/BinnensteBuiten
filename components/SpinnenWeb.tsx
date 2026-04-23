@@ -51,7 +51,7 @@ export default function SpinnenWeb({
   const gridLevels = [2, 4, 6, 8, 10];
 
   return (
-    <svg width={size + 80} height={size + 110} viewBox={`-40 -40 ${size + 80} ${size + 110}`} className="mx-auto">
+    <svg width={size + 80} height={size + 110} viewBox={`-40 -40 ${size + 80} ${size + 110}`} className="mx-auto max-w-full h-auto">
       {/* Grid rings */}
       {gridLevels.map((lvl) => (
         <polygon

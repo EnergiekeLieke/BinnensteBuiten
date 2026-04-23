@@ -46,16 +46,24 @@ export async function POST(req: NextRequest) {
 
   const tokens = Math.min(Math.max(Number(maxTokens) || 2000, 500), 8000);
 
-  const stream = client.messages.stream({
-    model: 'claude-sonnet-4-5',
-    max_tokens: tokens,
-    system:
-      'Je bent een warme, inzichtelijke coach. ' +
-      'Je schrijft in het Nederlands, persoonlijk en bemoedigend, en spreekt de gebruiker aan als "jij" of "je". ' +
-      'Gebruik geen namen. Schrijf eerlijk, diep, zonder jargon. ' +
-      'Structureer je antwoord altijd met duidelijke secties met ##-koppen.',
-    messages: [{ role: 'user', content: prompt }],
-  });
+  let stream: ReturnType<typeof client.messages.stream>;
+  try {
+    stream = client.messages.stream({
+      model: 'claude-sonnet-4-5',
+      max_tokens: tokens,
+      system:
+        'Je bent een warme, inzichtelijke coach. ' +
+        'Je schrijft in het Nederlands, persoonlijk en bemoedigend, en spreekt de gebruiker aan als "jij" of "je". ' +
+        'Gebruik geen namen. Schrijf eerlijk, diep, zonder jargon. ' +
+        'Structureer je antwoord altijd met duidelijke secties met ##-koppen.',
+      messages: [{ role: 'user', content: prompt }],
+    });
+  } catch {
+    return new Response(JSON.stringify({ error: 'Kon verbinding met AI niet starten' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 
   const encoder = new TextEncoder();
   const readable = new ReadableStream({

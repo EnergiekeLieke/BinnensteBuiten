@@ -17,6 +17,10 @@ const config: Config = {
         cream:     '#FCEBDC',
         darkSlate: '#2a3a3c',
         orange:    '#d56119',
+        blauw:     '#1a4a7a',
+      },
+      screens: {
+        xs: '360px',
       },
       fontFamily: {
         salmon: ['Salmon', 'Georgia', 'serif'],
