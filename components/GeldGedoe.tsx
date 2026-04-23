@@ -425,7 +425,7 @@ function SliderPercentage({ label, waarde, kleur, onChange }: {
         onChange={(e) => onChange(Number(e.target.value))}
       />
       <div className="flex justify-between text-[10px] text-darkSlate/50 mt-0.5">
-        <span>ik hou eraan vast</span>
+        <span>ik houd mezelf hierin nog tegen</span>
         <span>ik ben er klaar voor</span>
       </div>
     </div>
