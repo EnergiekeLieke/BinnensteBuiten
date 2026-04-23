@@ -88,7 +88,7 @@ export default function Home() {
               >
                 <div className="text-4xl mb-3">🔍</div>
                 <h2 className="font-salmon text-xl text-darkSlate mb-2">Business Scan — uitgebreid</h2>
-                <p className="text-sm text-darkSlate/70 leading-relaxed">Diepgaande business scan met scores per subonderdeel en uitgebreide analyse en het ONE THING om op te focussen.</p>
+                <p className="text-sm text-darkSlate/70 leading-relaxed">Diepgaande business scan met scores per subonderdeel, uitgebreide analyse en het ONE THING om op te focussen.</p>
               </Link>
             </div>
           </div>
