@@ -424,6 +424,10 @@ function SliderPercentage({ label, waarde, kleur, onChange }: {
         style={{ background: `linear-gradient(to right, ${trackColor} 0%, ${trackColor} ${pct}, #fde8d0 ${pct}, #fde8d0 100%)` }}
         onChange={(e) => onChange(Number(e.target.value))}
       />
+      <div className="flex justify-between text-[10px] text-darkSlate/50 mt-0.5">
+        <span>ik hou eraan vast</span>
+        <span>ik ben er klaar voor</span>
+      </div>
     </div>
   );
 }
