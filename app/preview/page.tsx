@@ -17,6 +17,13 @@ const tools = [
     icon: '💡',
     color: 'border-orange',
   },
+  {
+    href: 'https://energiekelieke.kennis.shop/watch/2946/40079',
+    title: 'Verbindingswiel',
+    desc: 'Ontdek hoe verbonden jullie écht zijn op 10 dimensies. Inclusief biotensor-scores, reflectievragen en concrete tips in een warm rapport voor koppels.',
+    icon: '💞',
+    color: 'border-midGreen',
+  },
 ];
 
 export default function PreviewPage() {
