@@ -232,7 +232,7 @@ export default function FutureSelfVisualisatie() {
         </Block>
 
         <Block>
-          <SectionHeader nr="3" title="Hoe wil je je voelen?" sub="Hoe zie jij je future self voor je? Gebruik hier de woorden en/of metafoor van richting NOORD van je Keuze Kompas uit Spelen met Richting." />
+          <SectionHeader nr="3" title="Hoe wil je je voelen?" sub="Hoe zie jij je future self voor je? Gebruik hier de woorden en/of metafoor van richting NOORD van je Keuze Kompas (Spelen met Richting). Noord staat voor je Future Self: waar wil je naartoe, wat is je grootste verlangen, wat klopt nu echt voor jou? Heb je het Keuze Kompas niet bij de hand? Beschrijf dan vrij hoe jouw toekomstige zelf eruitziet en aanvoelt." />
           <StyledTextArea value={form.gevoel} onChange={v => set("gevoel", v)} placeholder="Bijv: ze straalt rust uit, heeft een open blik... of: sprankelend en energiek, vrij, ontspannen, succesvol, liefdevol..." />
         </Block>
 
