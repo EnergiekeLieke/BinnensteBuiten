@@ -37,11 +37,19 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  const message = await client.messages.create({
-    model: 'claude-sonnet-4-5',
-    max_tokens: 3000,
-    messages: [{ role: 'user', content: prompt }],
-  });
+  let message: Awaited<ReturnType<typeof client.messages.create>>;
+  try {
+    message = await client.messages.create({
+      model: 'claude-sonnet-4-5',
+      max_tokens: 3000,
+      messages: [{ role: 'user', content: prompt }],
+    });
+  } catch {
+    return new Response(JSON.stringify({ error: 'Kon verbinding met AI niet starten' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 
   const raw = message.content.map((b) => ('text' in b ? b.text : '')).join('').replace(/```json|```/g, '').trim();
 
