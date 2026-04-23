@@ -21,12 +21,12 @@ export default function Home() {
 
       <p className="text-sm font-bold text-darkSlate mb-3">Hoe sta je ervoor?</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-        <Link href="/levenswiel" className="block bg-white rounded-2xl border-l-4 border-darkRed p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+        <Link href="/levenswiel" className="block h-full bg-white rounded-2xl border-l-4 border-darkRed p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">🌐</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-2">Levenswiel Analyse</h2>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Het spinnenweb maakt zichtbaar hoe tevreden jij bewust en onbewust bent over 8 levensgebieden. De analyse toont welke patronen je te doorbreken hebt én geeft je concrete tips over wat je nu kunt doen.</p>
         </Link>
-        <Link href="/verbindingswiel" className="block bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+        <Link href="/verbindingswiel" className="block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">💞</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-2">Verbindingswiel</h2>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek hoe verbonden jullie écht zijn op 10 dimensies. Inclusief biotensor-scores, reflectievragen en concrete tips in een warm rapport voor koppels.</p>
@@ -35,12 +35,12 @@ export default function Home() {
 
       <p className="text-sm font-bold text-darkSlate mb-3">Wat wil je écht?</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-        <Link href="/basisverlangens" className="block bg-white rounded-2xl border-l-4 border-orange p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+        <Link href="/basisverlangens" className="block h-full bg-white rounded-2xl border-l-4 border-orange p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">💡</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-2">Basisverlangens Werkblad</h2>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek welke basisverlangens jou drijven per levensgebied en wat dat onthult over jouw patronen.</p>
         </Link>
-        <Link href="/future-self" className="relative block bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+        <Link href="/future-self" className="relative block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-midGreen text-white rounded px-2 py-0.5">Nieuw!</span>
           <div className="text-4xl mb-3">🌟</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-2">Future Self Visualisatie</h2>
