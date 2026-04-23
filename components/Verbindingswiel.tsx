@@ -98,6 +98,7 @@ function ScoreBlok({ scores, onUpdate, showGap }: { scores: Score; onUpdate: (ke
           <span style={{ fontSize: 11, fontWeight: 600, color: kleur, width: 110, flexShrink: 0 }}>{label}</span>
           <input type="range" min="0" max="10" step="1" value={scores[key]}
             onChange={e => onUpdate(key, Number(e.target.value))}
+            aria-label={label}
             className="vw-slider"
             style={{ flex: 1, '--slider-color': sliderColors[key], '--slider-pct': `${scores[key] * 10}%` } as React.CSSProperties} />
           <span style={{ fontSize: 13, fontWeight: 700, minWidth: 20, color: kleur }}>{scores[key]}</span>
@@ -382,7 +383,7 @@ export default function Verbindingswiel() {
                 <Spider scoresA={scoresA} scoresB={scoresB} fase="analyse" />
               </div>
 
-              <p style={{ fontSize: 15, lineHeight: 1.75, margin: '0 0 1.5rem', color: C.darkSlate }}>{analyse.samenvatting}</p>
+              {analyse.samenvatting && <p style={{ fontSize: 15, lineHeight: 1.75, margin: '0 0 1.5rem', color: C.darkSlate }}>{analyse.samenvatting}</p>}
 
               {(analyse.sterktes?.length ?? 0) > 0 && (
                 <div style={{ marginBottom: '1.5rem' }}>

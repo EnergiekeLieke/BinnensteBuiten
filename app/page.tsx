@@ -124,8 +124,10 @@ export default function Home() {
                 <div
                   key={f.titel}
                   className="relative bg-[#e8e6e1] rounded-2xl border-l-4 border-[#ccc] p-6 opacity-65 cursor-not-allowed"
+                  title="Deze tool is nog niet beschikbaar"
+                  aria-disabled="true"
                 >
-                  <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-darkGreen text-white rounded px-2 py-0.5">Binnenkort</span>
+                  <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-darkGreen text-white rounded px-2 py-0.5">Binnenkort beschikbaar</span>
                   <div className="text-4xl mb-3">{f.icon}</div>
                   <h2 className="font-salmon text-xl text-[#999] mb-2">{f.titel}</h2>
                   <p className="text-sm text-[#aaa]">{f.sub}</p>

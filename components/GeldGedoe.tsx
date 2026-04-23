@@ -396,6 +396,7 @@ function SliderRijGeld({ label, waarde, soort, kleur, onChange }: {
       <span className={`text-xs w-16 ${kleur}`}>{label}</span>
       <input
         type="range" min={0} max={10} step={1} value={waarde}
+        aria-label={label}
         className={`flex-1 ${soort}`}
         style={{ background: `linear-gradient(to right, ${trackColor} 0%, ${trackColor} ${pct}, #fde8d0 ${pct}, #fde8d0 100%)` }}
         onChange={(e) => onChange(Number(e.target.value))}
@@ -418,6 +419,7 @@ function SliderPercentage({ label, waarde, kleur, onChange }: {
       </div>
       <input
         type="range" min={0} max={100} step={5} value={waarde}
+        aria-label={label}
         className={`w-full ${kleur.includes('Green') ? 'slider-onbewust' : 'slider-bewust'}`}
         style={{ background: `linear-gradient(to right, ${trackColor} 0%, ${trackColor} ${pct}, #fde8d0 ${pct}, #fde8d0 100%)` }}
         onChange={(e) => onChange(Number(e.target.value))}

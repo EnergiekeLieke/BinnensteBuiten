@@ -132,6 +132,7 @@ function SliderRij({ label, waarde, soort, kleur, onChange }: {
       <span className={`text-xs font-medium w-16 ${kleur}`}>{label}</span>
       <input
         type="range" min={0} max={10} step={1} value={waarde}
+        aria-label={label}
         className={`flex-1 ${soort}`}
         style={{ background: `linear-gradient(to right, ${trackColor} 0%, ${trackColor} ${pct}, #fde8d0 ${pct}, #fde8d0 100%)` }}
         onChange={(e) => onChange(Number(e.target.value))}
