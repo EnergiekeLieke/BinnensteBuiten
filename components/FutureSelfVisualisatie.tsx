@@ -139,6 +139,7 @@ function bouwPrompt(form: typeof init): string {
     `Schrijf de volledige visualisatietekst als doorlopende proza, klaar om voor te lezen of in te spreken.`,
     `Begin direct met de visualisatie zelf — geen uitleg of inleiding ervoor.`,
     `Spreek de luisteraar aan als "je" of "jij".`,
+    `Vermijd zinnen die beginnen met "En" — laat dit woord weg als het geen toegevoegde waarde heeft.`,
   ].filter(Boolean);
 
   return regels.join("\n");
