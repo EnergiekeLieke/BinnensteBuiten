@@ -30,6 +30,13 @@ export async function POST(req: NextRequest) {
     });
   }
 
+  if (prompt.length > 30000) {
+    return new Response(JSON.stringify({ error: 'Prompt is te lang (maximaal 30.000 tekens)' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   const message = await client.messages.create({
     model: 'claude-sonnet-4-5',
     max_tokens: 3000,
@@ -47,11 +54,19 @@ export async function POST(req: NextRequest) {
 
   try {
     const result = JSON.parse(raw);
+    if (!result.samenvatting || !result.sterktes || !result.aandacht) {
+      console.error('Onvolledig analyserapport:', JSON.stringify(result).slice(0, 300));
+      return new Response(JSON.stringify({ error: 'Onvolledig rapport ontvangen — probeer opnieuw' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
     return new Response(JSON.stringify(result), {
       headers: { 'Content-Type': 'application/json' },
     });
-  } catch {
-    return new Response(JSON.stringify({ error: 'Kon analyse niet verwerken' }), {
+  } catch (err) {
+    console.error('JSON parse error:', err, 'Raw:', raw.slice(0, 300));
+    return new Response(JSON.stringify({ error: 'Analyse kon niet worden verwerkt — probeer opnieuw' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });

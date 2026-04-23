@@ -30,8 +30,15 @@ export async function POST(req: NextRequest) {
     });
   }
 
+  if (prompt.trim().length < 10) {
+    return new Response(JSON.stringify({ error: 'Prompt is te kort (minimaal 10 tekens)' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   if (prompt.length > 20000) {
-    return new Response(JSON.stringify({ error: 'Prompt te lang' }), {
+    return new Response(JSON.stringify({ error: 'Prompt is te lang (maximaal 20.000 tekens)' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' },
     });

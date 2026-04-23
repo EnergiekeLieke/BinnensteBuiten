@@ -1,13 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-
-const C = {
-  darkRed: '#9e3816', darkGreen: '#3b5633', midGreen: '#758d69',
-  lightBg: '#f4c293', lightBg2: '#fde8d0', cream: '#fcebdc',
-  darkSlate: '#2a3a3c', orange: '#d56119',
-  blauw: '#1a4a7a',
-};
+import { kleuren as C } from '@/lib/huisstijl';
 
 const aspecten = [
   { id: 'emotioneel', label: 'Emotionele verbinding', omschr: 'Veiligheid, openheid, gezien worden' },
