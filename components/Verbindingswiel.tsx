@@ -167,6 +167,9 @@ function Legenda() {
         <div style={{ borderTop: '1px solid ' + C.lightBg, paddingTop: 8, marginTop: 2, color: C.darkSlate, opacity: 0.8 }}>
           Het verschil tussen <strong>belang</strong> en <strong>vervulling</strong> is het <em>verlangengat</em> — hoe groter het gat, hoe meer dit aspect aandacht vraagt.
         </div>
+        <div style={{ borderTop: '1px solid ' + C.lightBg, paddingTop: 8, marginTop: 6, color: C.darkSlate, fontSize: 11, fontStyle: 'italic', opacity: 0.7 }}>
+          De biotensor is een instrument dat reageert op signalen van je onderbewustzijn. Je houdt hem vast en stelt een vraag — het antwoord komt niet uit je hoofd, maar uit je lichaam.
+        </div>
       </div>
     </div>
   );
