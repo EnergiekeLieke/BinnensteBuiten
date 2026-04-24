@@ -173,6 +173,14 @@ export default function HDAffirmatiesOverzicht() {
               titel: 'Gedefinieerd Hoofd + Open/Ongedefinieerd Ajna',
               tekst: 'Non-stop inspiratie en vragen, daar zit geen stop-knop op. Maar een vast perspectief of conclusie? Dat is minder vanzelfsprekend. Je genereert ideeën sneller dan je ze kunt vasthouden. Rijkdom én onrust tegelijk.',
             },
+            {
+              titel: 'Alle motorcentra gedefinieerd (Sacraal + Hart + Emotie + Wortel)',
+              tekst: 'Je hebt alle vier de motoren aan boord. Dat is heel wat brandstof. De uitdaging is niet energie vinden, maar weten waar je het op zet. Het is handig te weten dat niet iedereen zo\'n brandstoftank heeft als jij. Anderen kunnen je tempo als overweldigend ervaren, zonder dat je dat zo bedoelt.',
+            },
+            {
+              titel: 'Geen enkel motorcentrum gedefinieerd',
+              tekst: 'Geen van de vier motorcentra is gedefinieerd. Dat betekent dat je geen constante eigen energiebron hebt, maar de energie van je omgeving oppikt en vergroot. In goed gezelschap voel je je energiek. In zware omgevingen loop je leeg. Jouw grootste les: rust is geen luxe maar een serieuze vereiste.',
+            },
           ].map(({ titel, tekst }) => (
             <div key={titel} className="bg-white border border-lightBg rounded-2xl p-5">
               <p className="text-sm font-bold text-darkGreen mb-1">{titel}</p>
