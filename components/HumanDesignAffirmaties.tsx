@@ -168,15 +168,17 @@ RAPPORT IN DEZE VOLGORDE:
 
 2. PROFIEL ${profiel} (2-3 zinnen): Inzicht in de levensstrategie en het levensthema van dit profiel.
 
-3. AFFIRMATIES PER CENTRUM — gebruik uitsluitend de onderstaande affirmaties. Neem ze letterlijk over; voeg per centrum alleen een korte inleidende zin toe.
+3. AFFIRMATIES PER CENTRUM — gebruik uitsluitend de onderstaande affirmaties. Neem ze letterlijk over als lijst. Geen uitleg per centrum, geen toelichting over wat het centrum betekent — alleen de naam van het centrum als kopje en daarna de affirmaties als losse regels.
 ${openBlok}${coBlok}${defBlok}
 
 SCHRIJFINSTRUCTIES:
 - Nederlands, spreek de lezer aan als "jij" of "je"
 - Warm, direct en krachtig maar zacht
-- Geen koppen, ##-markeringen of asterisken — doorlopende alinea's per centrum
+- De introductie en het profielstuk zijn doorlopende tekst (2-3 zinnen elk)
+- De affirmaties per centrum zijn een eenvoudige lijst: centrumnaam op een regel, daarna elke affirmatie op een nieuwe regel beginnend met "- "
+- Geen uitleg, geen ##-markeringen of asterisken
 - Geen zinnen beginnen met "En"
-- Geen streepjes tenzij onvermijdelijk`;
+- Geen streepjes in lopende tekst`;
 }
 
 // ── Hoofdcomponent ────────────────────────────────────────────────────────────
@@ -386,9 +388,28 @@ export default function HumanDesignAffirmaties() {
             </button>
           </div>
           <div ref={resultRef}>
-            {resultaat.split('\n\n').filter(Boolean).map((alinea, i) => (
-              <p key={i} className="text-sm text-darkSlate leading-[1.85] mb-4 last:mb-0">{alinea}</p>
-            ))}
+            {resultaat.split('\n\n').filter(Boolean).map((blok, i) => {
+              const regels = blok.split('\n').filter(Boolean);
+              const isLijst = regels.some(r => r.startsWith('- '));
+              if (isLijst) {
+                const kopje = regels.find(r => !r.startsWith('- '));
+                const items = regels.filter(r => r.startsWith('- '));
+                return (
+                  <div key={i} className="mb-5 last:mb-0">
+                    {kopje && <p className="text-xs font-bold uppercase tracking-widest text-darkGreen mb-2">{kopje}</p>}
+                    <ul className="flex flex-col gap-1.5 pl-0 list-none m-0">
+                      {items.map((item, j) => (
+                        <li key={j} className="flex gap-2 text-sm text-darkSlate leading-relaxed">
+                          <span className="text-darkGreen shrink-0 mt-0.5">·</span>
+                          <span>{item.replace(/^- /, '')}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              }
+              return <p key={i} className="text-sm text-darkSlate leading-[1.85] mb-4 last:mb-0">{blok}</p>;
+            })}
           </div>
           <button onClick={() => setResultaat('')}
             className="mt-4 px-4 py-2 rounded-full border border-lightBg bg-white text-darkSlate text-xs cursor-pointer hover:border-darkSlate/40 transition-colors">
