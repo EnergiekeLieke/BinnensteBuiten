@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { streamAnalyse, exporteerAlsPdf } from '@/lib/huisstijl';
+import { HD_AFFIRMATIES } from '@/lib/hdAffirmatiesData';
 
 const TYPES: { naam: string; toelichting: string }[] = [
   { naam: 'Generator',            toelichting: 'Bron van creatiekracht en levensenergie. Jouw energie is er om te reageren op je omgeving. Volg wat jou plezier/enthousiasme brengt.' },
@@ -116,18 +117,6 @@ function BodygraphSVG({ centra, onKlik }: { centra: CentraState; onKlik: (key: s
   );
 }
 
-// Vaste affirmaties per ongedefinieerd centrum (uit boek)
-const AFFIRMATIES_ONGEDEFINIEERD: Partial<Record<string, string[]>> = {
-  hoofd:      ['Ik laat alle vragen los die voor anderen bedoeld zijn.'],
-  ajna:       ['Ik mag twijfelen en van gedachten veranderen. Ieder heeft zijn eigen overtuiging.', 'Ik hoef niets zeker te weten. Ik hoef niemand te overtuigen.'],
-  keel:       ['Op het juiste moment weet ik altijd wat ik moet zeggen. Ik voel me op mijn gemak met stilte.'],
-  identiteit: ['Ik hoef nooit op zoek naar wie ik ben, of welke richting ik op ga. Ik ben wie ik ben. Mijn richting ontvouwt zich vanzelf.'],
-  hart:       ['Ik hoef nooit te bewijzen dat ik waardevol ben. Dat ben ik al.'],
-  sacraal:    ['Alle druk van de wereld om hard te werken, laat ik los. Ik laat me leiden door mijn eigen energie. Genoeg is genoeg.'],
-  emotie:     ['Ik durf conflicten en emotionele gesprekken aan te gaan. Ik praat op een kalme manier over (mijn) emoties.'],
-  milt:       ['Ik kies mensen en omgevingen die gezond voor mij zijn. Ik laat hierin los wat mij niet langer dient.'],
-  wortel:     ['Ik heb altijd alle tijd. Haast en stress van de ander laat ik bij hen.'],
-};
 
 // ── Prompt ────────────────────────────────────────────────────────────────────
 
@@ -138,35 +127,34 @@ function bouwPrompt(form: {
   const open         = CENTRA.filter(c => form.centra[c.key] === 'ongedefinieerd');
   const compleetOpen = CENTRA.filter(c => form.centra[c.key] === 'compleet_open');
   const gedefinieerd = CENTRA.filter(c => form.centra[c.key] === 'gedefinieerd');
-  const fmt = (c: typeof CENTRA[number]) => `  ${c.label} (${c.thema})`;
 
-  const emotieOpen = ['ongedefinieerd', 'compleet_open'].includes(form.centra['emotie'] ?? '');
+  const emotieOpen  = ['ongedefinieerd', 'compleet_open'].includes(form.centra['emotie']  ?? '');
   const sacraалOpen = ['ongedefinieerd', 'compleet_open'].includes(form.centra['sacraal'] ?? '');
   const sacraalAutoriteit = emotieOpen && form.centra['sacraal'] === 'gedefinieerd';
   const miltAutoriteit    = emotieOpen && sacraалOpen && form.centra['milt'] === 'gedefinieerd';
 
-  const blokken = [
-    open.length         && `ONGEDEFINIEERDE CENTRA:\n${open.map(fmt).join('\n')}`,
-    compleetOpen.length && `COMPLEET OPEN CENTRA:\n${compleetOpen.map(fmt).join('\n')}`,
-    gedefinieerd.length && `GEDEFINIEERDE CENTRA:\n${gedefinieerd.map(fmt).join('\n')}`,
-  ].filter(Boolean).join('\n\n');
+  function affirmaties(key: string, staat: 'ongedefinieerd' | 'compleetOpen' | 'gedefinieerd') {
+    const data = HD_AFFIRMATIES.find(c => c.key === key);
+    if (!staat || !data) return '';
+    const lijst = data[staat];
+    return lijst.map(a => `     - "${a}"`).join('\n');
+  }
 
-  const openInstr = open.length ? `
-3. ONGEDEFINIEERDE CENTRA — schrijf per centrum 3 tot 5 affirmaties die helpen loslaten wat niet van jou is. Kernboodschap: je hoeft dit thema niet constant te leveren voor anderen. Je bent niet dit centrum.
-   Voor sommige centra zijn onderstaande affirmaties VERPLICHT op te nemen (letterlijk, als eerste affirmatie van dat centrum):
-${open.filter(c => AFFIRMATIES_ONGEDEFINIEERD[c.key]).map(c => `   - ${c.label}: "${AFFIRMATIES_ONGEDEFINIEERD[c.key]![0]}"`).join('\n')}
-   Vul daarna aan met 2-4 aanvullende affirmaties in dezelfde toon.` : '';
+  const openBlok = open.length ? `
+ONGEDEFINIEERDE CENTRA — neem onderstaande affirmaties letterlijk over in het rapport. Voeg per centrum een korte inleidende zin toe in dezelfde warme toon, maar verander de affirmaties zelf niet.
+${open.map(c => `  ${c.label}:\n${affirmaties(c.key, 'ongedefinieerd')}`).join('\n\n')}` : '';
 
-  const coInstr = compleetOpen.length ? `
-4. COMPLEET OPEN CENTRA — schrijf per centrum 4 tot 6 extra krachtige affirmaties. Dit is de diepste conditionering én het grootste potentieel voor wijsheid. Kernboodschap: je weerspiegelt dit thema van anderen, maar het definieert jou niet. Adresseer alle drie lagen: (a) loslaten wat niet van jou is, (b) herkennen wanneer je je identificeert met de not-self ("ik ben nou eenmaal iemand die..."), (c) herkennen wanneer je dit projecteert op anderen ("anderen doen X niet genoeg...").
-${compleetOpen.filter(c => AFFIRMATIES_ONGEDEFINIEERD[c.key]).map(c => `   - ${c.label}: neem ook op: "${AFFIRMATIES_ONGEDEFINIEERD[c.key]![0]}"`).join('\n')}` : '';
+  const coBlok = compleetOpen.length ? `
+COMPLEET OPEN CENTRA — neem onderstaande affirmaties letterlijk over in het rapport. Voeg per centrum een korte inleidende zin toe. Adresseer alle drie conditioneringslagen (loslaten, identificatie herkennen, projectie herkennen).
+${compleetOpen.map(c => `  ${c.label}:\n${affirmaties(c.key, 'compleetOpen')}`).join('\n\n')}` : '';
 
   const autoriteitInstr = sacraalAutoriteit ? `
-   SACRAALAUTORITEIT: Het emotiecentrum is open/ongedefinieerd en het sacraal is gedefinieerd. Dit is de innerlijke autoriteit. Voeg bij het Sacraal-centrum toe: deze persoon weet het in het moment, direct en lichamelijk. Gesloten vragen (ja/nee) helpen daarbij. Affirmaties: "Mijn lichaam weet het meteen. Ik vertrouw die eerste reactie.", "Mijn sacraal antwoordt direct als ik opties krijg voorgelegd."` : miltAutoriteit ? `
-   MILTAUTORITEIT: Het emotiecentrum en sacraal zijn open/ongedefinieerd, de Milt is gedefinieerd. Dit is de innerlijke autoriteit. Voeg bij het Milt-centrum toe: deze persoon weet het in het moment via intuïtie, zacht en eenmalig. Affirmaties: "In het moment weet ik het al. Ik hoef er niet over na te denken.", "Mijn intuïtie spreekt zacht en eenmalig. Ik leer haar stem te herkennen en te vertrouwen.", "Mijn lichaam weet de weg. Ik volg mijn intuïtie, ook als mijn hoofd twijfelt."` : '';
+  Let op: sacraalautoriteit. Het emotiecentrum is open/ongedefinieerd en het sacraal is gedefinieerd. Benoem bij het Sacraalcentrum dat deze persoon direct en lichamelijk weet — in het moment, via gesloten vragen (ja/nee).` : miltAutoriteit ? `
+  Let op: miltautoriteit. Het emotiecentrum en sacraal zijn open/ongedefinieerd, de Milt is gedefinieerd. Benoem bij het Miltcentrum dat deze persoon het weet via intuïtie, zacht en eenmalig — in het moment.` : '';
 
-  const defInstr = gedefinieerd.length ? `
-5. GEDEFINIEERDE CENTRA — schrijf per centrum 3 tot 4 affirmaties om volledig te omarmen wat wél van jou is. Kernboodschap: dit is jouw consistente energie — je hoeft het niet te bewijzen of te rechtvaardigen.${autoriteitInstr}` : '';
+  const defBlok = gedefinieerd.length ? `
+GEDEFINIEERDE CENTRA — neem onderstaande affirmaties letterlijk over in het rapport. Voeg per centrum een korte inleidende zin toe. Kernboodschap: dit is jouw consistente energie — omarm het.${autoriteitInstr}
+${gedefinieerd.map(c => `  ${c.label}:\n${affirmaties(c.key, 'gedefinieerd')}`).join('\n\n')}` : '';
 
   return `Je bent een expert in Human Design en het schrijven van krachtige, persoonlijke affirmaties.
 Schrijf een gepersonaliseerd affirmatierapport in het Nederlands.
@@ -174,20 +162,19 @@ Schrijf een gepersonaliseerd affirmatierapport in het Nederlands.
 TYPE: ${form.type}
 PROFIEL: ${profiel}
 
-${blokken}
-
 RAPPORT IN DEZE VOLGORDE:
 
 1. INTRODUCTIE (2-3 zinnen): Warm en herkenbaar voor dit Type. Hoe ervaart dit Type de wereld en wat is hun kracht?
 
 2. PROFIEL ${profiel} (2-3 zinnen): Inzicht in de levensstrategie en het levensthema van dit profiel.
-${openInstr}${coInstr}${defInstr}
+
+3. AFFIRMATIES PER CENTRUM — gebruik uitsluitend de onderstaande affirmaties. Neem ze letterlijk over; voeg per centrum alleen een korte inleidende zin toe.
+${openBlok}${coBlok}${defBlok}
 
 SCHRIJFINSTRUCTIES:
 - Nederlands, spreek de lezer aan als "jij" of "je"
-- Affirmaties in de tegenwoordige tijd: "Ik ben...", "Ik mag...", "Ik vertrouw...", "Het is veilig om..."
 - Warm, direct en krachtig maar zacht
-- Geen koppen, ##-markeringen of asterisken — doorlopende alinea's per sectie
+- Geen koppen, ##-markeringen of asterisken — doorlopende alinea's per centrum
 - Geen zinnen beginnen met "En"
 - Geen streepjes tenzij onvermijdelijk`;
 }
