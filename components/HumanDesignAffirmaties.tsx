@@ -164,7 +164,7 @@ PROFIEL: ${profiel}
 
 RAPPORT IN DEZE VOLGORDE:
 
-1. INTRODUCTIE (2-3 zinnen): Warm en herkenbaar voor dit Type. Hoe ervaart dit Type de wereld en wat is hun kracht?
+1. INTRODUCTIE (2-3 zinnen): Warm en herkenbaar voor dit Type. Hoe ervaart dit Type de wereld en wat is hun kracht? Schrijf niet "jij bent een Generator" maar "jij hebt het type Generator" — het is een gebruiksaanwijzing, geen identiteit.
 
 2. PROFIEL ${profiel} (2-3 zinnen): Inzicht in de levensstrategie en het levensthema van dit profiel.
 
