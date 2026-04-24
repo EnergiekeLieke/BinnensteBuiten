@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { streamAnalyse, exporteerAlsPdf } from '@/lib/huisstijl';
-import { HD_AFFIRMATIES } from '@/lib/hdAffirmatiesData';
+import { HD_AFFIRMATIES, HD_PATRONEN } from '@/lib/hdAffirmatiesData';
 
 const TYPES: { naam: string; toelichting: string }[] = [
   { naam: 'Generator',            toelichting: 'Bron van creatiekracht en levensenergie. Jouw energie is er om te reageren op je omgeving. Volg wat jou plezier/enthousiasme brengt.' },
@@ -437,6 +437,37 @@ export default function HumanDesignAffirmaties() {
                 </div>
               );
             })}
+
+            {/* Tegenstellingen & spanningsvelden */}
+            {generatedForm && (() => {
+              const patronen = HD_PATRONEN.filter(p => p.match(generatedForm.centra));
+              if (!patronen.length) return null;
+              const isOpen = !gesloten.has('__patronen__');
+              return (
+                <div className="border border-lightBg rounded-2xl overflow-hidden">
+                  <button
+                    onClick={() => toggleAccordion('__patronen__')}
+                    className="w-full bg-orange px-4 py-3 flex justify-between items-start text-left cursor-pointer"
+                  >
+                    <div>
+                      <p className="font-salmon text-base text-white m-0">Tegenstellingen & spanningsvelden</p>
+                      <p className="text-white/70 text-xs mt-0.5 m-0">Patronen die opvallen, centra die tegenstellingen vormen in jouw energie</p>
+                    </div>
+                    <span className={`text-white/70 text-sm mt-1 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>▼</span>
+                  </button>
+                  <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[3000px]' : 'max-h-0'}`}>
+                    <div className="p-4 flex flex-col gap-3">
+                      {patronen.map(({ titel, tekst }) => (
+                        <div key={titel} className="bg-cream border border-lightBg rounded-2xl p-4">
+                          <p className="text-sm font-bold text-darkGreen mb-1">{titel}</p>
+                          <p className="text-sm text-darkSlate leading-relaxed m-0">{tekst}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
           </div>
 
           <button onClick={() => { setIntroTekst(''); setGeneratedForm(null); }}
