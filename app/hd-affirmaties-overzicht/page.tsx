@@ -171,7 +171,7 @@ export default function HDAffirmatiesOverzicht() {
             },
             {
               titel: 'Gedefinieerd Hoofd + Open/Ongedefinieerd Ajna',
-              tekst: 'Non-stop inspiratie en vragen, daar zit geen knop op. Maar een vast perspectief of conclusie? Dat is minder vanzelfsprekend. Je genereert ideeën sneller dan je ze kunt vasthouden. Rijkdom én onrust tegelijk.',
+              tekst: 'Non-stop inspiratie en vragen, daar zit geen stop-knop op. Maar een vast perspectief of conclusie? Dat is minder vanzelfsprekend. Je genereert ideeën sneller dan je ze kunt vasthouden. Rijkdom én onrust tegelijk.',
             },
           ].map(({ titel, tekst }) => (
             <div key={titel} className="bg-white border border-lightBg rounded-2xl p-5">
