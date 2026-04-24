@@ -143,7 +143,7 @@ export default function HDAffirmatiesOverzicht() {
             },
             {
               titel: 'Open/Ongedefinieerd Wortel + Open/Ongedefinieerd Hoofd',
-              tekst: 'Doe-druk én denk-druk tegelijk. Allebei willen ze ergens naartoe, het liefst richting de Keel, om eruit te komen als woorden of actie.',
+              tekst: 'De \'snelkookpan\': Jij voelt van buitenaf doe-druk én denk-druk tegelijk. Allebei willen ze ergens naartoe, het liefst richting de Keel, om eruit te komen als woorden of actie.',
             },
             {
               titel: 'Gedefinieerd Hart + Open/Ongedefinieerd Sacraal',
