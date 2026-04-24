@@ -1,5 +1,7 @@
+export type CentrumKey = 'hoofd' | 'ajna' | 'keel' | 'identiteit' | 'hart' | 'sacraal' | 'milt' | 'emotie' | 'wortel';
+
 export type CentrumAffirmaties = {
-  key: string;
+  key: CentrumKey;
   label: string;
   gedefinieerd:         string[];
   gedefinieerd_groei:   string[];

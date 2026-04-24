@@ -1,8 +1,10 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { streamAnalyse, exporteerAlsPdf } from '@/lib/huisstijl';
 import { HD_AFFIRMATIES, HD_PATRONEN } from '@/lib/hdAffirmatiesData';
+
+const HD_AFFIRMATIES_MAP = new Map(HD_AFFIRMATIES.map(c => [c.key, c]));
 
 const TYPES: { naam: string; toelichting: string }[] = [
   { naam: 'Generator',            toelichting: 'Bron van creatiekracht en levensenergie. Jouw energie is er om te reageren op je omgeving. Volg wat jou plezier/enthousiasme brengt.' },
@@ -190,21 +192,19 @@ export default function HumanDesignAffirmaties() {
     });
   }
 
-  function resultaatKeys(): string[] {
+  const resultaatKeys = useMemo((): string[] => {
     if (!generatedForm) return [];
     const keys: string[] = CENTRA.filter(c => generatedForm.centra[c.key]).map(c => c.key);
-    const heeftPatronen = HD_PATRONEN.some(p => p.match(generatedForm.centra));
-    if (heeftPatronen) keys.push('__patronen__');
+    if (HD_PATRONEN.some(p => p.match(generatedForm.centra))) keys.push('__patronen__');
     return keys;
-  }
+  }, [generatedForm]);
 
   function toggleAllesResultaat() {
-    const keys = resultaatKeys();
-    const alleGesloten = keys.every(k => gesloten.has(k));
+    const alleGesloten = resultaatKeys.every(k => gesloten.has(k));
     if (alleGesloten) {
       setGesloten(new Set());
     } else {
-      setGesloten(new Set(keys));
+      setGesloten(new Set(resultaatKeys));
     }
   }
 
@@ -403,7 +403,7 @@ export default function HumanDesignAffirmaties() {
           <div className="flex justify-end mb-4">
             <button onClick={toggleAllesResultaat}
               className="text-xs font-bold uppercase tracking-widest text-darkGreen border border-darkGreen rounded-lg px-3 py-1.5 bg-white hover:bg-darkGreen hover:text-white transition-colors">
-              {resultaatKeys().every(k => gesloten.has(k)) ? 'Alles uitklappen' : 'Alles inklappen'}
+              {resultaatKeys.every(k => gesloten.has(k)) ? 'Alles uitklappen' : 'Alles inklappen'}
             </button>
           </div>
 
@@ -423,7 +423,7 @@ export default function HumanDesignAffirmaties() {
               if (!staat) return null;
               const secties = SECTIES_PER_STAAT[staat];
               if (!secties) return null;
-              const data = HD_AFFIRMATIES.find(d => d.key === c.key);
+              const data = HD_AFFIRMATIES_MAP.get(c.key);
               if (!data) return null;
               const isOpen = !gesloten.has(c.key);
 
