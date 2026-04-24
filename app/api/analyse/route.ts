@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  let body: { prompt?: string; maxTokens?: number };
+  let body: { prompt?: string; maxTokens?: number; system?: string };
   try {
     body = await req.json();
   } catch {
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  const { prompt, maxTokens = 2000 } = body;
+  const { prompt, maxTokens = 2000, system } = body;
 
   if (!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) {
     return new Response(JSON.stringify({ error: 'Prompt is verplicht' }), {
@@ -51,9 +51,9 @@ export async function POST(req: NextRequest) {
   let stream: ReturnType<typeof client.messages.stream>;
   try {
     stream = client.messages.stream({
-      model: 'claude-sonnet-4-5',
+      model: 'claude-sonnet-4-6',
       max_tokens: tokens,
-      system:
+      system: system ??
         'Je bent een warme, inzichtelijke coach. ' +
         'Je schrijft in het Nederlands, persoonlijk en bemoedigend, en spreekt de gebruiker aan als "jij" of "je". ' +
         'Gebruik geen namen. Schrijf eerlijk, diep, zonder jargon. ' +

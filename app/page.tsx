@@ -168,9 +168,9 @@ export default function Home() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <Link
           href="/human-design-affirmaties"
-          className="block h-full bg-white rounded-2xl border-l-4 border-blauw p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
+          className="block h-full bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
         >
-          <svg viewBox="0 0 40 50" className="w-10 h-10 mb-3" fill="none" stroke="#1a4a7a" strokeWidth="1.5" strokeLinejoin="round">
+          <svg viewBox="0 0 40 50" className="w-10 h-10 mb-3" fill="none" stroke="#3b5633" strokeWidth="1.5" strokeLinejoin="round">
             <polygon points="20,1 13,11 27,11" />
             <polygon points="20,12 13,22 27,22" />
             <rect x="14" y="23" width="12" height="6" />

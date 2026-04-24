@@ -64,11 +64,12 @@ export async function streamAnalyse(
   prompt: string,
   maxTokens = 2000,
   onChunk: (chunk: string) => void,
+  system?: string,
 ): Promise<void> {
   const res = await fetch('/api/analyse', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ prompt, maxTokens }),
+    body: JSON.stringify({ prompt, maxTokens, ...(system ? { system } : {}) }),
   });
   if (!res.ok || !res.body) {
     const tekst = await res.text();
