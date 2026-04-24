@@ -586,6 +586,59 @@ export const HD_PATRONEN: Patroon[] = [
   },
 ];
 
+export type ProfielTekst = { profiel: string; tekst: string };
+
+export const HD_PROFIEL_TEKSTEN: ProfielTekst[] = [
+  {
+    profiel: '1/3',
+    tekst: 'Met een 1/3 profiel ben jij iemand die de wereld leert kennen door te onderzoeken en door te ervaren wat wel en niet werkt. Lijn 1 in jouw profiel vraagt om een stevige basis van kennis en begrip, terwijl lijn 3 jou uitnodigt om het leven hands-on te ontdekken, inclusief alle omwegen en momenten die niet gaan zoals gepland. Jij hebt een leerstijl van vallen en opstaan. Die combinatie maakt jou wijs op een manier die alleen door echte levenservaring ontstaat.',
+  },
+  {
+    profiel: '1/4',
+    tekst: 'Met een 1/4 profiel bouw jij jouw leven op twee pijlers: een stevige basis van kennis, en de mensen die je vertrouwt. Lijn 1 geeft jou de behoefte om grondig te begrijpen voordat je handelt. Lijn 4 verbindt jou met de wereld via jouw persoonlijke netwerk. Jij verspreidt jouw invloed via mensen die je kent en die jou kennen. Hoe meer fundament jij legt, hoe zekerder jij je voelt in de verbindingen die je aangaat.',
+  },
+  {
+    profiel: '2/4',
+    tekst: 'Met een 2/4 profiel heb jij een aangeboren talent dat anderen in jou zien, vaak eerder dan jijzelf. Lijn 2 heeft tijd en ruimte voor zichzelf nodig om te kunnen opladen en tot bloei te komen. Lijn 4 bloeit op in persoonlijke verbindingen: jij vindt jouw weg via mensen die je kent en vertrouwt. De balans tussen terugkeren naar jezelf en aanwezig zijn voor anderen is jouw voortdurende, waardevolle oefening.',
+  },
+  {
+    profiel: '2/5',
+    tekst: 'Met een 2/5 profiel heb jij een natuurlijk talent dat anderen in jou herkennen, nog voor jij het zelf volledig ziet. Lijn 2 vraagt om tijd alleen: jij laadt op in stilte en hebt ruimte nodig om bij jezelf te zijn. Lijn 5 straalt naar buiten een beeld uit van iemand die praktische oplossingen biedt. Anderen zullen je zien als degene met het antwoord. Soms klopt dat, soms niet. Jij mag zelf bepalen wanneer je die verwachting wil dragen.',
+  },
+  {
+    profiel: '3/5',
+    tekst: 'Jouw profiel 3/5 geeft je een leerstijl van vallen en opstaan. Eerlijke ervaringen vormen jou tot iemand met echte, geleefde wijsheid. De lijn 3 in jou leert door te ontdekken wat niet werkt. Dat is geen mislukking, maar juist de bron van jouw diepste inzichten. Zo vind je uiteindelijk ook wat wél werkt. Lijn 5 straalt naar buiten een kalmte en autoriteit uit die anderen aantrekt, mensen zien in jou een probleemoplosser en een gids, ook als jij jezelf dat nog niet altijd gelooft. Voel zelf of jij ze kunt/wilt helpen met jouw praktische oplossingen, of niet.',
+  },
+  {
+    profiel: '3/6',
+    tekst: 'Met een 3/6 profiel leer jij in de eerste fase van jouw leven volop door te doen, te proberen en te ontdekken wat niet werkt. Lijn 3 is jouw leerschool van geleefde ervaring. Lijn 6 voegt daar een langere boog aan toe: na een fase van trial & error volgt een periode van meer afstand en observatie, en uiteindelijk groei je uit tot een rolmodel. Jouw fouten zijn geen vergissingen: ze zijn de bouwstenen van de diepte en geloofwaardigheid die anderen in jou zullen herkennen.',
+  },
+  {
+    profiel: '4/6',
+    tekst: 'Met een 4/6 profiel combineer jij de kracht van persoonlijke verbinding met de groei naar rolmodel. Lijn 4 geeft jou invloed via jouw netwerk: jij opent deuren via vertrouwen en mensen die je kent. Lijn 6 voegt daar een levenslange ontwikkeling aan toe, van ervaring via observatie naar de rust en autoriteit van het rolmodel. Hoe verder je leeft, hoe meer mensen naar jou opkijken, niet vanwege wat je zegt, maar vanwege wie je bent geworden.',
+  },
+  {
+    profiel: '4/1',
+    tekst: 'Met een 4/1 profiel combineer jij een stevige behoefte aan kennis met een sterk netwerk. Lijn 4 brengt jou bij de mensen via wie jij jouw invloed verspreidt. Lijn 1 zorgt ervoor dat jij goed onderbouwde kennis meebrengt naar die verbindingen. Jij voelt je het meest zeker als je goed voorbereid bent én omringd bent door mensen die je vertrouwt. Jouw kennis is niet voor de massa, maar voor de kring om je heen.',
+  },
+  {
+    profiel: '5/1',
+    tekst: 'Met een 5/1 profiel straalt lijn 5 naar buiten praktische autoriteit uit: anderen zien in jou de probleemoplosser, de gids, de persoon met het antwoord. Lijn 1 zorgt ervoor dat jij die verwachting onderbouwt met grondig onderzoek en een stevige basis van kennis. Jij hebt dat fundament nodig om je zeker te voelen in de rol die anderen jou toedichten. Wees je bewust van de projecties die op jou landen: niet elke verwachting hoef je waar te maken.',
+  },
+  {
+    profiel: '5/2',
+    tekst: 'Met een 5/2 profiel projecteren anderen op jou een beeld van iemand die praktische oplossingen heeft en het overzicht bewaart. Lijn 2 vraagt tegelijk om innerlijke stilte en tijd alleen. Die combinatie kan voelen als een spanning: de wereld trekt aan jou, terwijl jij ook ruimte nodig hebt om te herstellen en bij jezelf te zijn. Jij werkt het beste als je bewust wisselt tussen verbinden en terugtrekken, op jouw eigen voorwaarden.',
+  },
+  {
+    profiel: '6/2',
+    tekst: 'Met een 6/2 profiel groei jij in de loop van jouw leven naar het rolmodel. In de eerste levensfase leer je door ervaring, vergelijkbaar met lijn 3. Daarna volgt een fase van observatie en afstand nemen. Uiteindelijk draag jij een rustige wijsheid uit die anderen inspireert zonder dat jij daarvoor hoeft te presteren. Lijn 2 geeft jou de behoefte aan ruimte voor jezelf: jij laadt op in stilte. Jouw rolmodel-zijn vraagt niet om constante aanwezigheid, maar om authenticiteit.',
+  },
+  {
+    profiel: '6/3',
+    tekst: 'Met een 6/3 profiel leer jij in de eerste levensfase volop door vallen en opstaan, net als lijn 3. Die ervaringen zijn de bouwstenen van jouw wijsheid. Lijn 6 voegt daar een langere boog aan toe: naarmate je ouder wordt, groei je via observatie en reflectie naar de fase van het rolmodel. Jouw geleefde fouten zijn geen schaamte, ze zijn jouw geloofwaardigheid. De combinatie van echte ervaring en groeiend overzicht maakt jou uniek wijs.',
+  },
+];
+
 export type TypeTekst = { type: string; tekst: string };
 
 export const HD_TYPE_TEKSTEN: TypeTekst[] = [
