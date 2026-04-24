@@ -599,4 +599,12 @@ export const HD_TYPE_TEKSTEN: TypeTekst[] = [
     type: 'Projector',
     tekst: 'Jij hebt het type Projector. Dat betekent gemaakt bent om anderen te gidsen, te begeleiden en je wijsheid te delen. Niet door hard te werken of jezelf op de voorgrond te dringen, maar door te wachten op de uitnodiging die jouw gave erkent. Jouw kracht zit in je vermogen om het grotere plaatje te overzien waar anderen verstrikt raken in de details.',
   },
+  {
+    type: 'Manifestor',
+    tekst: 'Jij hebt het type Manifestor. Je bent hier om te initiëren. Jij bent een van de weinigen die zonder te wachten in beweging kan komen en ideeën direct omzet in actie. Jouw aura is gesloten en onafhankelijk, wat anderen soms het gevoel geeft dat je moeilijk te peilen bent. Dat is gewoon jouw energie die zijn ding doet. Informeer de mensen om je heen voordat je iets in gang zet: dat neemt de weerstand weg en geeft anderen de ruimte om aan te haken. Voel je boosheid? Dan voel je je waarschijnlijk beperkt of gecontroleerd. Dat is het teken dat het tijd is om je eigen weg te gaan.',
+  },
+  {
+    type: 'Reflector',
+    tekst: 'Jij hebt het type Reflector. Je bent de spiegel van je omgeving, de thermometer van de groep. Met geen enkel gedefinieerd centrum ben je het meest open en gevoelig van alle typen. Je ontvangt en weerspiegelt de energie van alles en iedereen om je heen. Jouw wijsheid ligt in het waarnemen. Grote beslissingen verdienen een volledige maancyclus van 28 dagen: laat de tijd zijn werk doen. Voel je teleurstelling? Dan klopt de omgeving niet. Wees je bewust van je omgeving: check of die bij je past, want die bepaalt (meer dan bij wie dan ook) hoe jij je voelt.',
+  },
 ];
