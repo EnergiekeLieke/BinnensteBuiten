@@ -595,7 +595,7 @@ export const HD_TYPE_TEKSTEN: TypeTekst[] = [
   },
   {
     type: 'Manifesting Generator',
-    tekst: 'Jij hebt het type Manifesting Generator. Multi-gepassioneerd, snel, jouw energie is breed en beweeglijk: je kunt meerdere dingen tegelijk oppakken, van richting wisselen, en toch diep gaan waar het jou raakt. Volg je onderbuik in wat jou aanspreekt, ook als dat betekent dat je stappen overslaat of van koers wijzigt. Voel je frustratie of boosheid? Stuur dan bij. Geef de mensen om je heen een seintje als je van richting verandert, zodat ze kunnen meebewegen.',
+    tekst: 'Jij hebt het type Manifesting Generator. Dat betekent dat je een van de meest dynamische en veelzijdige energieën in Human Design in je draagt. Multi-gepassioneerd, snel, jouw energie is breed en beweeglijk: je kunt meerdere dingen tegelijk oppakken, van richting wisselen, en toch diep gaan waar het jou raakt. Volg je onderbuik in wat jou aanspreekt, ook als dat betekent dat je stappen overslaat of van koers wijzigt. Voel je frustratie of boosheid? Stuur dan bij. Geef de mensen om je heen een seintje als je van richting verandert, zodat ze kunnen meebewegen.',
   },
   {
     type: 'Projector',
