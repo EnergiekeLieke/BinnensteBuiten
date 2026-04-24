@@ -519,3 +519,67 @@ export const HD_AFFIRMATIES: CentrumAffirmaties[] = [
     ],
   },
 ];
+
+type CentraInput = Partial<Record<string, string>>;
+const open = (c: CentraInput, k: string) => ['ongedefinieerd', 'compleet_open'].includes(c[k] ?? '');
+const gedef = (c: CentraInput, k: string) => c[k] === 'gedefinieerd';
+
+export type Patroon = { titel: string; tekst: string; match: (c: CentraInput) => boolean };
+
+export const HD_PATRONEN: Patroon[] = [
+  {
+    titel: 'Gedefinieerde Milt + Open/Ongedefinieerd Ajna',
+    tekst: 'Je lijf weet het al, meteen, zeker, geen twijfel. Maar je hoofd wil het kunnen uitleggen, beredeneren, de ander overtuigen. Interessant: de zekerheid zit in je lichaam, en de onzekerheid zit in je denken. Twee heel verschillende signalen.',
+    match: c => gedef(c, 'milt') && open(c, 'ajna'),
+  },
+  {
+    titel: 'Open/Ongedefinieerd Wortel + Open/Ongedefinieerd Hoofd',
+    tekst: 'De \'snelkookpan\': Jij voelt van buitenaf doe-druk én denk-druk tegelijk. Allebei willen ze ergens naartoe, het liefst richting de Keel, om eruit te komen als woorden of actie.',
+    match: c => open(c, 'wortel') && open(c, 'hoofd'),
+  },
+  {
+    titel: 'Gedefinieerd Hart + Open/Ongedefinieerd Sacraal',
+    tekst: 'Je maakt toezeggingen vanuit wilskracht en meent het ook echt. Maar de consistente energie om het vol te houden, die heb je niet altijd. Je wil is groter dan je brandstoftank. Het hartcentrum werkt als een pulserende motor, start-stop energie.',
+    match: c => gedef(c, 'hart') && open(c, 'sacraal'),
+  },
+  {
+    titel: 'Open/Ongedefinieerd Hart + Gedefinieerd Sacraal',
+    tekst: 'Alle energie om te doen wat je blij maakt, maar soms voelt het stiekem alsof die energie iets moet bewijzen. Let eens op wanneer je hard werkt om jouw eigenwaarde te verdienen, in plaats van werken vanuit plezier en lichtheid.',
+    match: c => open(c, 'hart') && gedef(c, 'sacraal'),
+  },
+  {
+    titel: 'Gedefinieerd Emotiecentrum + Open/Ongedefinieerd Sacraal of Wortel',
+    tekst: 'Jouw golf zegt: neem de tijd, laat het zakken. Maar een open Sacraal of Wortel pikt de doe-druk van buitenaf op. De druk om te beginnen voelt heel reëel, ook al is die niet van jou. Een beetje een innerlijk touwtrekken tussen geduld en actie.',
+    match: c => gedef(c, 'emotie') && (open(c, 'sacraal') || open(c, 'wortel')),
+  },
+  {
+    titel: 'Gedefinieerde Keel + Open/Ongedefinieerd Identiteit (G)',
+    tekst: 'Je hebt een stem die gehoord wil worden, consistent en aanwezig. Maar de richting erachter is vloeiend. Soms weet je pas wie je bent ná wat je zegt. Dat is niet fout, wel interessant om te weten.',
+    match: c => gedef(c, 'keel') && open(c, 'identiteit'),
+  },
+  {
+    titel: 'Open/Ongedefinieerd Milt + Gedefinieerd Emotiecentrum',
+    tekst: 'Je emotionele golf is van jou. De angst en onrust die je daarin voelt, is dat niet altijd. Juist in de laagte van de wave pik je andermans onveiligheid op, wat de laagte zwaarder maakt dan ie hoeft te zijn.',
+    match: c => open(c, 'milt') && gedef(c, 'emotie'),
+  },
+  {
+    titel: 'Open/Ongedefinieerd G + Open/Ongedefinieerd Emotiecentrum',
+    tekst: 'Geen vaste identiteit én geen vaste emoties. Je bent heel gevoelig voor wat er om je heen speelt. Mensen en omgevingen kleuren alles. Dat maakt omgevingskeuze voor jou geen luxe maar noodzaak.',
+    match: c => open(c, 'identiteit') && open(c, 'emotie'),
+  },
+  {
+    titel: 'Gedefinieerd Hoofd + Open/Ongedefinieerd Ajna',
+    tekst: 'Non-stop inspiratie en vragen, daar zit geen stop-knop op. Maar een vast perspectief of conclusie? Dat is minder vanzelfsprekend. Je genereert ideeën sneller dan je ze kunt vasthouden. Rijkdom én onrust tegelijk.',
+    match: c => gedef(c, 'hoofd') && open(c, 'ajna'),
+  },
+  {
+    titel: 'Alle motorcentra gedefinieerd (Sacraal + Hart + Emotie + Wortel)',
+    tekst: 'Je hebt alle vier de motoren aan boord. Dat is heel wat brandstof. De uitdaging is niet energie vinden, maar weten waar je het op zet. Het is handig te weten dat niet iedereen zo\'n brandstoftank heeft als jij. Anderen kunnen je tempo als overweldigend ervaren, zonder dat je dat zo bedoelt.',
+    match: c => gedef(c, 'sacraal') && gedef(c, 'hart') && gedef(c, 'emotie') && gedef(c, 'wortel'),
+  },
+  {
+    titel: 'Geen enkel motorcentrum gedefinieerd',
+    tekst: 'Geen van de vier motorcentra is gedefinieerd. Dat betekent dat je geen constante eigen energiebron hebt, maar de energie van je omgeving oppikt en vergroot. In goed gezelschap voel je je energiek. In zware omgevingen loop je leeg. Jouw grootste les: rust is geen luxe maar een serieuze vereiste.',
+    match: c => open(c, 'sacraal') && open(c, 'hart') && open(c, 'emotie') && open(c, 'wortel'),
+  },
+];
