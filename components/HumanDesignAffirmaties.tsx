@@ -192,7 +192,7 @@ export default function HumanDesignAffirmaties() {
 
   function resultaatKeys(): string[] {
     if (!generatedForm) return [];
-    const keys = CENTRA.filter(c => generatedForm.centra[c.key]).map(c => c.key);
+    const keys: string[] = CENTRA.filter(c => generatedForm.centra[c.key]).map(c => c.key);
     const heeftPatronen = HD_PATRONEN.some(p => p.match(generatedForm.centra));
     if (heeftPatronen) keys.push('__patronen__');
     return keys;
