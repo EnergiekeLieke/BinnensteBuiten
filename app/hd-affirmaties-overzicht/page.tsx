@@ -151,7 +151,7 @@ export default function HDAffirmatiesOverzicht() {
             },
             {
               titel: 'Open/Ongedefinieerd Hart + Gedefinieerd Sacraal',
-              tekst: 'Alle energie om te doen wat je blij maakt, maar het voelt stiekem alsof die energie iets moet bewijzen. Werken als eigenwaarde verdienen, in plaats van werken als plezier. Subtiel verschil, groot effect.',
+              tekst: 'Alle energie om te doen wat je blij maakt, maar soms voelt het stiekem alsof die energie iets moet bewijzen. Let eens op wanneer je hard werkt om jouw eigenwaarde te verdienen, in plaats van werken vanuit plezier en lichtheid.',
             },
             {
               titel: 'Gedefinieerd Emotiecentrum + Open/Ongedefinieerd Sacraal of Wortel',
