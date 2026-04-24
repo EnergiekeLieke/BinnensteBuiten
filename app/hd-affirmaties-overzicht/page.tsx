@@ -17,6 +17,8 @@ const SECTIES: { key: SectieKey; label: string; kleur: string }[] = [
   { key: 'compleetOpen_gave',    label: 'Compleet open · gave',                           kleur: 'bg-midGreen text-white' },
 ];
 
+const ALLE_KEYS = [...HD_AFFIRMATIES.map(c => c.key), '__combinaties__', '__types__'];
+
 export default function HDAffirmatiesOverzicht() {
   const [toelichtingOpen, setToelichtingOpen] = useState(false);
   const [gesloten, setGesloten] = useState<Set<string>>(new Set());
@@ -29,8 +31,28 @@ export default function HDAffirmatiesOverzicht() {
     });
   }
 
+  const allesGesloten = ALLE_KEYS.every(k => gesloten.has(k));
+
+  function toggleAlles() {
+    if (allesGesloten) {
+      setGesloten(new Set());
+    } else {
+      setToelichtingOpen(false);
+      setGesloten(new Set(ALLE_KEYS));
+    }
+  }
+
   return (
     <div className="max-w-2xl mx-auto">
+      <div className="sticky top-0 z-10 bg-cream/90 backdrop-blur-sm py-2 -mx-4 px-4 mb-4 flex justify-end">
+        <button
+          onClick={toggleAlles}
+          className="text-xs font-bold uppercase tracking-widest text-darkGreen border border-darkGreen rounded-lg px-3 py-1.5 bg-white hover:bg-darkGreen hover:text-white transition-colors"
+        >
+          {allesGesloten ? 'Alles uitklappen' : 'Alles inklappen'}
+        </button>
+      </div>
+
       <div className="mb-8">
         <p className="text-xs font-semibold tracking-widest text-darkGreen uppercase mb-1">Human Design · Intern overzicht</p>
         <h1 className="font-salmon text-3xl text-darkSlate mb-1">Affirmaties overzicht</h1>
@@ -95,15 +117,27 @@ export default function HDAffirmatiesOverzicht() {
 
       {/* Type teksten */}
       <div className="mb-8">
-        <p className="text-xs font-semibold tracking-widest text-darkGreen uppercase mb-1">HD Types</p>
-        <h2 className="font-salmon text-2xl text-darkSlate mb-4">Vaste teksten per type</h2>
-        <div className="flex flex-col gap-3">
-          {HD_TYPE_TEKSTEN.map(({ type, tekst }) => (
-            <div key={type} className="bg-white border border-lightBg rounded-2xl p-5">
-              <p className="text-xs font-bold uppercase tracking-widest text-darkGreen mb-2">{type}</p>
-              <p className="text-sm text-darkSlate leading-relaxed m-0">{tekst}</p>
+        <div className="bg-white border border-lightBg rounded-2xl overflow-hidden">
+          <button
+            onClick={() => toggleCentrum('__types__')}
+            className="w-full bg-darkSlate px-5 py-3 flex justify-between items-center text-left cursor-pointer"
+          >
+            <div>
+              <p className="font-salmon text-xl text-white m-0">Vaste teksten per type</p>
+              <p className="text-white/70 text-xs mt-0.5 m-0">Introductietekst per HD type voor in het rapport</p>
             </div>
-          ))}
+            <span className={`text-white/70 text-sm mt-1 shrink-0 transition-transform duration-200 ${gesloten.has('__types__') ? '' : 'rotate-180'}`}>▼</span>
+          </button>
+          <div className={`overflow-hidden transition-all duration-300 ${gesloten.has('__types__') ? 'max-h-0' : 'max-h-[5000px]'}`}>
+            <div className="p-5 flex flex-col gap-3">
+              {HD_TYPE_TEKSTEN.map(({ type, tekst }) => (
+                <div key={type} className="bg-cream border border-lightBg rounded-2xl p-4">
+                  <p className="text-xs font-bold uppercase tracking-widest text-darkGreen mb-2">{type}</p>
+                  <p className="text-sm text-darkSlate leading-relaxed m-0">{tekst}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
