@@ -3,7 +3,13 @@
 import { useState, useRef } from 'react';
 import { streamAnalyse, exporteerAlsPdf } from '@/lib/huisstijl';
 
-const TYPES = ['Generator', 'Manifesting Generator', 'Manifestor', 'Projector', 'Reflector'];
+const TYPES: { naam: string; toelichting: string }[] = [
+  { naam: 'Generator',            toelichting: 'Bron van creatiekracht en levensenergie. Jouw energie is er om te reageren op je omgeving. Volg wat jou plezier/enthousiasme brengt.' },
+  { naam: 'Manifesting Generator', toelichting: 'Multi-gepassioneerd en snel. Combineer levensenergie met initiatief en volg wat jouw onderbuik je vertelt.' },
+  { naam: 'Manifestor',           toelichting: 'Jij bent hier om te initiëren. Informeer anderen zodat ze ruimte maken voor jouw beweging.' },
+  { naam: 'Projector',            toelichting: 'Geboren om te gidsen. Jouw gave is mensen en systemen doorgronden. Wacht bij het delen van jouw wijsheid op de uitnodiging/erkenning.' },
+  { naam: 'Reflector',            toelichting: 'Jij bent een spiegel van de omgeving, de thermometer van de groep. Jouw wijsheid ontvouwt zich in de loop van een maancyclus.' },
+];
 
 const PROFIEL_ONBEWUST: Record<string, string[]> = {
   '1': ['3', '4'],
@@ -15,15 +21,15 @@ const PROFIEL_ONBEWUST: Record<string, string[]> = {
 };
 
 const CENTRA = [
-  { key: 'hoofd',      label: 'Hoofd',           thema: 'mentale inspiratie en druk' },
-  { key: 'ajna',       label: 'Ajna',             thema: 'mentale zekerheid en concepten' },
-  { key: 'keel',       label: 'Keel',             thema: 'manifestatie en communicatie' },
-  { key: 'identiteit', label: 'Identiteit (G)',   thema: 'richting, liefde en identiteit' },
-  { key: 'hart',       label: 'Hart / Ego',       thema: 'wilskracht en eigenwaarde' },
-  { key: 'sacraal',    label: 'Sacraal',          thema: 'levensenergie en daadkracht' },
-  { key: 'milt',       label: 'Milt',             thema: 'intuïtie en veiligheid' },
-  { key: 'emotie',     label: 'Emotiecentrum',    thema: 'emoties en gevoelens' },
-  { key: 'wortel',     label: 'Wortel',           thema: 'adrenaline en stressdruk' },
+  { key: 'hoofd',      label: 'Hoofd',          toelichting: 'Mentale inspiratie en druk. De vragen die om antwoorden vragen.',                              thema: 'mentale inspiratie en druk' },
+  { key: 'ajna',       label: 'Ajna',            toelichting: 'Het analytische denkcentrum. Verwerkt informatie, vormt concepten en perspectief.', thema: 'mentale zekerheid en concepten' },
+  { key: 'keel',       label: 'Keel',            toelichting: 'Expressie en manifestatie. Zet energie om in woorden en actie.',                                thema: 'manifestatie en communicatie' },
+  { key: 'identiteit', label: 'Identiteit (G)',  toelichting: 'Het centrum van richting en (zelf)liefde. Verbonden met jouw kern en levenspad / richting.',                     thema: 'richting, liefde en identiteit' },
+  { key: 'hart',       label: 'Hart / Ego',      toelichting: 'Wilskracht en eigenwaarde. Beheert toezeggingen en wat jij bereid bent te geven.',              thema: 'wilskracht en eigenwaarde' },
+  { key: 'sacraal',    label: 'Sacraal',         toelichting: 'Krachtige motor. Bron van levenskracht, seksualiteit en plezier.',                               thema: 'levensenergie en daadkracht' },
+  { key: 'milt',       label: 'Milt',            toelichting: 'Intuïtie en veiligheid. Reageert in het moment op wat goed (veilig) voelt voor jou.',          thema: 'intuïtie en veiligheid' },
+  { key: 'emotie',     label: 'Emotiecentrum',   toelichting: 'Emoties en gevoel. Beïnvloedt beslissingen via een emotionele golf die eb en vloed kent.',     thema: 'emoties en gevoelens' },
+  { key: 'wortel',     label: 'Wortel',          toelichting: 'Adrenaline en doe-druk. Beheert de drang om te handelen, in actie te komen en stress te verwerken.', thema: 'adrenaline en stressdruk' },
 ] as const;
 
 // Compleet open eerst
@@ -42,9 +48,10 @@ function volgende(huidig: Staat | undefined): Staat | undefined {
   return CYCLE[(CYCLE.indexOf(huidig) + 1) % CYCLE.length];
 }
 
+// darkGreen = #3b5633
 function centrumKleur(staat: Staat | undefined) {
-  if (staat === 'gedefinieerd')   return { fill: '#1a4a7a', stroke: '#1a4a7a', text: '#ffffff', dash: '' };
-  if (staat === 'ongedefinieerd') return { fill: '#ffffff', stroke: '#1a4a7a', text: '#1a4a7a', dash: '' };
+  if (staat === 'gedefinieerd')   return { fill: '#3b5633', stroke: '#3b5633', text: '#ffffff', dash: '' };
+  if (staat === 'ongedefinieerd') return { fill: '#ffffff', stroke: '#3b5633', text: '#3b5633', dash: '' };
   if (staat === 'compleet_open')  return { fill: '#ffffff', stroke: '#9ca3af', text: '#6b7280', dash: '4 2' };
   return                                 { fill: '#f0ede8', stroke: '#c5bfb5', text: '#a0998f', dash: '' };
 }
@@ -109,6 +116,19 @@ function BodygraphSVG({ centra, onKlik }: { centra: CentraState; onKlik: (key: s
   );
 }
 
+// Vaste affirmaties per ongedefinieerd centrum (uit boek)
+const AFFIRMATIES_ONGEDEFINIEERD: Partial<Record<string, string[]>> = {
+  hoofd:      ['Ik laat alle vragen los die voor anderen bedoeld zijn.'],
+  ajna:       ['Ik mag twijfelen en van gedachten veranderen. Ieder heeft zijn eigen overtuiging.', 'Ik hoef niets zeker te weten. Ik hoef niemand te overtuigen.'],
+  keel:       ['Op het juiste moment weet ik altijd wat ik moet zeggen. Ik voel me op mijn gemak met stilte.'],
+  identiteit: ['Ik hoef nooit op zoek naar wie ik ben, of welke richting ik op ga. Ik ben wie ik ben. Mijn richting ontvouwt zich vanzelf.'],
+  hart:       ['Ik hoef nooit te bewijzen dat ik waardevol ben. Dat ben ik al.'],
+  sacraal:    ['Alle druk van de wereld om hard te werken, laat ik los. Ik laat me leiden door mijn eigen energie. Genoeg is genoeg.'],
+  emotie:     ['Ik durf conflicten en emotionele gesprekken aan te gaan. Ik praat op een kalme manier over (mijn) emoties.'],
+  milt:       ['Ik kies mensen en omgevingen die gezond voor mij zijn. Ik laat hierin los wat mij niet langer dient.'],
+  wortel:     ['Ik heb altijd alle tijd. Haast en stress van de ander laat ik bij hen.'],
+};
+
 // ── Prompt ────────────────────────────────────────────────────────────────────
 
 function bouwPrompt(form: {
@@ -120,6 +140,11 @@ function bouwPrompt(form: {
   const gedefinieerd = CENTRA.filter(c => form.centra[c.key] === 'gedefinieerd');
   const fmt = (c: typeof CENTRA[number]) => `  ${c.label} (${c.thema})`;
 
+  const emotieOpen = ['ongedefinieerd', 'compleet_open'].includes(form.centra['emotie'] ?? '');
+  const sacraалOpen = ['ongedefinieerd', 'compleet_open'].includes(form.centra['sacraal'] ?? '');
+  const sacraalAutoriteit = emotieOpen && form.centra['sacraal'] === 'gedefinieerd';
+  const miltAutoriteit    = emotieOpen && sacraалOpen && form.centra['milt'] === 'gedefinieerd';
+
   const blokken = [
     open.length         && `ONGEDEFINIEERDE CENTRA:\n${open.map(fmt).join('\n')}`,
     compleetOpen.length && `COMPLEET OPEN CENTRA:\n${compleetOpen.map(fmt).join('\n')}`,
@@ -127,13 +152,21 @@ function bouwPrompt(form: {
   ].filter(Boolean).join('\n\n');
 
   const openInstr = open.length ? `
-3. ONGEDEFINIEERDE CENTRA — schrijf per centrum 3 tot 5 affirmaties die helpen loslaten wat niet van jou is. Kernboodschap: je hoeft dit thema niet constant te leveren voor anderen. Je bent niet dit centrum.` : '';
+3. ONGEDEFINIEERDE CENTRA — schrijf per centrum 3 tot 5 affirmaties die helpen loslaten wat niet van jou is. Kernboodschap: je hoeft dit thema niet constant te leveren voor anderen. Je bent niet dit centrum.
+   Voor sommige centra zijn onderstaande affirmaties VERPLICHT op te nemen (letterlijk, als eerste affirmatie van dat centrum):
+${open.filter(c => AFFIRMATIES_ONGEDEFINIEERD[c.key]).map(c => `   - ${c.label}: "${AFFIRMATIES_ONGEDEFINIEERD[c.key]![0]}"`).join('\n')}
+   Vul daarna aan met 2-4 aanvullende affirmaties in dezelfde toon.` : '';
 
   const coInstr = compleetOpen.length ? `
-4. COMPLEET OPEN CENTRA — schrijf per centrum 4 tot 6 extra krachtige affirmaties. Dit is de diepste conditionering én het grootste potentieel voor wijsheid. Kernboodschap: je weerspiegelt dit thema van anderen, maar het definieert jou niet.` : '';
+4. COMPLEET OPEN CENTRA — schrijf per centrum 4 tot 6 extra krachtige affirmaties. Dit is de diepste conditionering én het grootste potentieel voor wijsheid. Kernboodschap: je weerspiegelt dit thema van anderen, maar het definieert jou niet. Adresseer alle drie lagen: (a) loslaten wat niet van jou is, (b) herkennen wanneer je je identificeert met de not-self ("ik ben nou eenmaal iemand die..."), (c) herkennen wanneer je dit projecteert op anderen ("anderen doen X niet genoeg...").
+${compleetOpen.filter(c => AFFIRMATIES_ONGEDEFINIEERD[c.key]).map(c => `   - ${c.label}: neem ook op: "${AFFIRMATIES_ONGEDEFINIEERD[c.key]![0]}"`).join('\n')}` : '';
+
+  const autoriteitInstr = sacraalAutoriteit ? `
+   SACRAALAUTORITEIT: Het emotiecentrum is open/ongedefinieerd en het sacraal is gedefinieerd. Dit is de innerlijke autoriteit. Voeg bij het Sacraal-centrum toe: deze persoon weet het in het moment, direct en lichamelijk. Gesloten vragen (ja/nee) helpen daarbij. Affirmaties: "Mijn lichaam weet het meteen. Ik vertrouw die eerste reactie.", "Mijn sacraal antwoordt direct als ik opties krijg voorgelegd."` : miltAutoriteit ? `
+   MILTAUTORITEIT: Het emotiecentrum en sacraal zijn open/ongedefinieerd, de Milt is gedefinieerd. Dit is de innerlijke autoriteit. Voeg bij het Milt-centrum toe: deze persoon weet het in het moment via intuïtie, zacht en eenmalig. Affirmaties: "In het moment weet ik het al. Ik hoef er niet over na te denken.", "Mijn intuïtie spreekt zacht en eenmalig. Ik leer haar stem te herkennen en te vertrouwen.", "Mijn lichaam weet de weg. Ik volg mijn intuïtie, ook als mijn hoofd twijfelt."` : '';
 
   const defInstr = gedefinieerd.length ? `
-5. GEDEFINIEERDE CENTRA — schrijf per centrum 3 tot 4 affirmaties om volledig te omarmen wat wél van jou is. Kernboodschap: dit is jouw consistente energie — je hoeft het niet te bewijzen of te rechtvaardigen.` : '';
+5. GEDEFINIEERDE CENTRA — schrijf per centrum 3 tot 4 affirmaties om volledig te omarmen wat wél van jou is. Kernboodschap: dit is jouw consistente energie — je hoeft het niet te bewijzen of te rechtvaardigen.${autoriteitInstr}` : '';
 
   return `Je bent een expert in Human Design en het schrijven van krachtige, persoonlijke affirmaties.
 Schrijf een gepersonaliseerd affirmatierapport in het Nederlands.
@@ -192,10 +225,20 @@ export default function HumanDesignAffirmaties() {
   const alleCentraIngevuld = CENTRA.every(c => form.centra[c.key]);
   const alleFilled = !!(form.type && form.profielBewust && form.profielOnbewust && alleCentraIngevuld);
 
+  const geselecteerdType = TYPES.find(t => t.naam === form.type);
+
   async function genereer() {
     setLoading(true); setFout(''); setResultaat('');
     try {
-      await streamAnalyse(bouwPrompt(form), 4000, chunk => setResultaat(prev => prev + chunk));
+      await streamAnalyse(
+        bouwPrompt(form),
+        4000,
+        chunk => setResultaat(prev => prev + chunk),
+        'Je bent een expert in Human Design en het schrijven van krachtige, persoonlijke affirmaties. ' +
+        'Je schrijft in het Nederlands, persoonlijk en bemoedigend, en spreekt de gebruiker aan als "jij" of "je". ' +
+        'Gebruik geen namen. Schrijf warm, direct en krachtig maar zacht. ' +
+        'Gebruik geen ##-koppen, geen asterisken en geen markdown-opmaak. Schrijf doorlopende alinea\'s.',
+      );
     } catch (e: unknown) {
       setFout(e instanceof Error ? e.message : 'Er ging iets mis. Probeer het opnieuw.');
     } finally {
@@ -214,36 +257,41 @@ export default function HumanDesignAffirmaties() {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="mb-8">
-        <p className="m-0 text-xs font-semibold tracking-widest text-blauw uppercase">Human Design · BinnensteBuiten Spel</p>
+        <p className="m-0 text-xs font-semibold tracking-widest text-darkGreen uppercase">Human Design · BinnensteBuiten Spel</p>
         <h1 className="font-salmon text-3xl text-darkSlate mt-1 mb-1">Human Design Affirmaties</h1>
         <p className="text-sm text-midGreen italic m-0">Laat los wat niet van jou is</p>
       </div>
 
       {/* Type */}
       <div className="bg-white border border-lightBg rounded-xl p-4 mb-4">
-        <p className="text-xs font-bold text-blauw uppercase tracking-widest mb-3">Jouw Type</p>
+        <p className="text-xs font-bold text-darkGreen uppercase tracking-widest mb-3">Jouw Type</p>
         <div className="flex flex-wrap gap-2">
           {TYPES.map(t => (
-            <button key={t} onClick={() => setForm(f => ({ ...f, type: t }))}
+            <button key={t.naam} onClick={() => setForm(f => ({ ...f, type: t.naam }))}
               className={`px-4 py-2 rounded-full text-sm border transition-colors cursor-pointer ${
-                form.type === t ? 'bg-blauw border-blauw text-white font-bold' : 'bg-white border-lightBg text-darkSlate hover:border-blauw/40'
+                form.type === t.naam
+                  ? 'bg-darkGreen border-darkGreen text-white font-bold'
+                  : 'bg-white border-lightBg text-darkSlate hover:border-darkGreen/40'
               }`}>
-              {t}
+              {t.naam}
             </button>
           ))}
         </div>
+        {geselecteerdType && (
+          <p className="mt-3 text-xs text-darkSlate/70 leading-relaxed">{geselecteerdType.toelichting}</p>
+        )}
       </div>
 
       {/* Profiel — twee dropdowns */}
       <div className="bg-cream border border-lightBg rounded-xl p-4 mb-4">
-        <p className="text-xs font-bold text-blauw uppercase tracking-widest mb-3">Profiel</p>
+        <p className="text-xs font-bold text-darkGreen uppercase tracking-widest mb-3">Profiel</p>
         <div className="flex items-center gap-3">
           <div className="flex-1">
             <p className="text-xs text-darkSlate/60 mb-1">Bewust</p>
             <select value={form.profielBewust} onChange={e => setBewust(e.target.value)}
-              className="w-full px-3 py-2.5 text-sm rounded-xl border border-lightBg bg-white text-darkSlate focus:outline-none focus:border-blauw">
+              className="w-full px-3 py-2.5 text-sm rounded-xl border border-lightBg bg-white text-darkSlate focus:outline-none focus:border-darkGreen">
               <option value="">—</option>
-              {['1','2','3','4','5','6'].map(l => <option key={l} value={l}>{l}</option>)}
+              {(['1 – Onderzoeker','2 – Kluizenaar','3 – Experimenteerder','4 – Netwerker','5 – Probleemoplosser','6 – Rolmodel'] as const).map((l, i) => <option key={l} value={String(i + 1)}>{l}</option>)}
             </select>
           </div>
           <span className="text-xl font-bold text-darkSlate/40 mt-5">/</span>
@@ -252,9 +300,12 @@ export default function HumanDesignAffirmaties() {
             <select value={form.profielOnbewust}
               onChange={e => setForm(f => ({ ...f, profielOnbewust: e.target.value }))}
               disabled={!form.profielBewust}
-              className="w-full px-3 py-2.5 text-sm rounded-xl border border-lightBg bg-white text-darkSlate focus:outline-none focus:border-blauw disabled:opacity-40 disabled:cursor-not-allowed">
+              className="w-full px-3 py-2.5 text-sm rounded-xl border border-lightBg bg-white text-darkSlate focus:outline-none focus:border-darkGreen disabled:opacity-40 disabled:cursor-not-allowed">
               <option value="">—</option>
-              {onbewustOpties.map(l => <option key={l} value={l}>{l}</option>)}
+              {onbewustOpties.map(l => {
+                const namen: Record<string, string> = { '1': 'Onderzoeker', '2': 'Kluizenaar', '3': 'Experimenteerder', '4': 'Netwerker', '5': 'Probleemoplosser', '6': 'Rolmodel' };
+                return <option key={l} value={l}>{l} – {namen[l]}</option>;
+              })}
             </select>
           </div>
         </div>
@@ -262,7 +313,7 @@ export default function HumanDesignAffirmaties() {
 
       {/* Energiecentra */}
       <div className="bg-white border border-lightBg rounded-xl p-4 mb-6">
-        <p className="text-xs font-bold text-blauw uppercase tracking-widest mb-3">Energiecentra</p>
+        <p className="text-xs font-bold text-darkGreen uppercase tracking-widest mb-3">Energiecentra</p>
 
         {/* Legenda */}
         <div className="bg-cream rounded-lg p-3 mb-5 flex flex-col gap-1.5 text-xs text-darkSlate/70">
@@ -271,11 +322,11 @@ export default function HumanDesignAffirmaties() {
             <span><strong className="text-darkSlate">Compleet open</strong> — wit, geen enkele poort is geactiveerd</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="inline-block w-3 h-3 rounded-sm border-2 border-blauw bg-white shrink-0" />
+            <span className="inline-block w-3 h-3 rounded-sm border-2 border-darkGreen bg-white shrink-0" />
             <span><strong className="text-darkSlate">Ongedefinieerd</strong> — wit, maar met actieve (gekleurde) poorten</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="inline-block w-3 h-3 rounded-sm bg-blauw shrink-0" />
+            <span className="inline-block w-3 h-3 rounded-sm bg-darkGreen shrink-0" />
             <span><strong className="text-darkSlate">Gedefinieerd</strong> — ingekleurd via een kanaal van/naar dit centrum</span>
           </div>
         </div>
@@ -290,14 +341,17 @@ export default function HumanDesignAffirmaties() {
         <div className="flex flex-col gap-4">
           {CENTRA.map(c => (
             <div key={c.key}>
-              <p className="text-sm font-semibold text-darkSlate mb-1.5">{c.label}</p>
+              <p className="text-sm font-semibold text-darkSlate mb-0.5">{c.label}</p>
+              <p className="text-xs text-darkSlate/55 mb-2">{c.toelichting}</p>
               <div className="flex flex-wrap gap-2">
                 {STAAT_OPTIES.map(opt => {
                   const sel = form.centra[c.key] === opt.id;
                   return (
                     <button key={opt.id} onClick={() => setCentrum(c.key, opt.id)}
                       className={`px-3 py-1.5 rounded-full text-xs border transition-colors cursor-pointer ${
-                        sel ? 'bg-blauw border-blauw text-white font-bold' : 'bg-white border-lightBg text-darkSlate hover:border-blauw/40'
+                        sel
+                          ? 'bg-darkGreen border-darkGreen text-white font-bold'
+                          : 'bg-white border-lightBg text-darkSlate hover:border-darkGreen/40'
                       }`}>
                       {opt.label}
                     </button>
@@ -311,7 +365,7 @@ export default function HumanDesignAffirmaties() {
 
       <button disabled={!alleFilled || loading} onClick={genereer}
         className={`w-full py-3.5 text-sm font-bold rounded-xl border-none text-white tracking-wide transition-colors ${
-          alleFilled && !loading ? 'bg-blauw cursor-pointer hover:bg-blauw/90' : 'bg-[#ccc] cursor-not-allowed'
+          alleFilled && !loading ? 'bg-darkGreen cursor-pointer hover:bg-darkGreen/90' : 'bg-[#ccc] cursor-not-allowed'
         }`}>
         {loading ? 'Affirmaties worden gegenereerd...' : 'Genereer mijn affirmatierapport'}
       </button>
@@ -332,15 +386,15 @@ export default function HumanDesignAffirmaties() {
         <div className="mt-8 bg-white border border-lightBg rounded-2xl p-6">
           <div className="flex items-center justify-between gap-2 mb-5 pb-4 border-b border-lightBg">
             <div className="flex items-center gap-2">
-              <svg viewBox="0 0 40 50" className="w-6 h-6 shrink-0 text-blauw" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round">
+              <svg viewBox="0 0 40 50" className="w-6 h-6 shrink-0 text-darkGreen" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round">
                 <polygon points="20,1 13,11 27,11" /><polygon points="20,12 13,22 27,22" />
                 <rect x="14" y="23" width="12" height="6" /><polygon points="20,30 13,37 20,44 27,37" />
                 <rect x="12" y="45" width="16" height="5" />
               </svg>
-              <h3 className="m-0 text-base font-bold text-blauw">Jouw Human Design Affirmaties</h3>
+              <h3 className="m-0 text-base font-bold text-darkGreen">Jouw Human Design Affirmaties</h3>
             </div>
             <button onClick={downloadPdf} disabled={pdfLoading || loading}
-              className="shrink-0 px-3 py-1.5 rounded-full border border-blauw text-blauw text-xs cursor-pointer hover:bg-blauw hover:text-white transition-colors disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-blauw focus:ring-offset-2">
+              className="shrink-0 px-3 py-1.5 rounded-full border border-darkGreen text-darkGreen text-xs cursor-pointer hover:bg-darkGreen hover:text-white transition-colors disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-darkGreen focus:ring-offset-2">
               {pdfLoading ? 'Bezig...' : 'Download PDF'}
             </button>
           </div>
