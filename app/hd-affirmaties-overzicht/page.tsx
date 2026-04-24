@@ -131,11 +131,23 @@ export default function HDAffirmatiesOverzicht() {
 
       {/* Interessante combinaties */}
       <div className="mt-10">
-        <p className="text-xs font-semibold tracking-widest text-darkGreen uppercase mb-1">Interessante combinaties</p>
-        <h2 className="font-salmon text-2xl text-darkSlate mb-1">Tegenstellingen & spanningsvelden</h2>
-        <p className="text-sm text-midGreen italic mb-6">Mogelijke patronen die opvallen als centra elkaars tegengestelde lijken te spreken</p>
-
-        <div className="flex flex-col gap-4">
+        <div className="bg-white border border-lightBg rounded-2xl overflow-hidden">
+          <button
+            onClick={() => setGesloten(prev => {
+              const next = new Set(prev);
+              if (next.has('__combinaties__')) next.delete('__combinaties__'); else next.add('__combinaties__');
+              return next;
+            })}
+            className="w-full bg-darkGreen px-5 py-3 flex justify-between items-start text-left cursor-pointer"
+          >
+            <div>
+              <p className="font-salmon text-xl text-white m-0">Tegenstellingen & spanningsvelden</p>
+              <p className="text-white/70 text-xs mt-0.5 m-0">Mogelijke patronen die opvallen als centra elkaars tegengestelde lijken te spreken</p>
+            </div>
+            <span className={`text-white/70 text-sm mt-1 shrink-0 transition-transform duration-200 ${gesloten.has('__combinaties__') ? '' : 'rotate-180'}`}>▼</span>
+          </button>
+          <div className={`overflow-hidden transition-all duration-300 ${gesloten.has('__combinaties__') ? 'max-h-0' : 'max-h-[5000px]'}`}>
+          <div className="p-5 flex flex-col gap-4">
           {[
             {
               titel: 'Gedefinieerde Milt + Open/Ongedefinieerd Ajna',
@@ -182,11 +194,13 @@ export default function HDAffirmatiesOverzicht() {
               tekst: 'Geen van de vier motorcentra is gedefinieerd. Dat betekent dat je geen constante eigen energiebron hebt, maar de energie van je omgeving oppikt en vergroot. In goed gezelschap voel je je energiek. In zware omgevingen loop je leeg. Jouw grootste les: rust is geen luxe maar een serieuze vereiste.',
             },
           ].map(({ titel, tekst }) => (
-            <div key={titel} className="bg-white border border-lightBg rounded-2xl p-5">
+            <div key={titel} className="bg-cream border border-lightBg rounded-2xl p-4">
               <p className="text-sm font-bold text-darkGreen mb-1">{titel}</p>
               <p className="text-sm text-darkSlate leading-relaxed m-0">{tekst}</p>
             </div>
           ))}
+          </div>
+          </div>
         </div>
       </div>
     </div>
