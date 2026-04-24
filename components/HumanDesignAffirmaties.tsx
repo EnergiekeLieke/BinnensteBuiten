@@ -98,21 +98,21 @@ function BodygraphSVG({ centra, onKlik }: { centra: CentraState; onKlik: (key: s
       <line x1="100" y1="29" x2="100" y2="35" stroke="#d1cec9" strokeWidth="1.2" />
       <line x1="100" y1="65" x2="100" y2="71" stroke="#d1cec9" strokeWidth="1.2" />
       <line x1="100" y1="93" x2="100" y2="99" stroke="#d1cec9" strokeWidth="1.2" />
-      <line x1="82"  y1="117" x2="78" y2="117" stroke="#d1cec9" strokeWidth="1.2" />
-      <line x1="118" y1="117" x2="122" y2="117" stroke="#d1cec9" strokeWidth="1.2" />
+      <line x1="118" y1="117" x2="125" y2="113" stroke="#d1cec9" strokeWidth="1.2" />
       <line x1="100" y1="135" x2="100" y2="139" stroke="#d1cec9" strokeWidth="1.2" />
+      <line x1="82"  y1="150" x2="74"  y2="150" stroke="#d1cec9" strokeWidth="1.2" />
+      <line x1="118" y1="150" x2="126" y2="150" stroke="#d1cec9" strokeWidth="1.2" />
       <line x1="100" y1="161" x2="100" y2="165" stroke="#d1cec9" strokeWidth="1.2" />
-      <line x1="120" y1="117" x2="124" y2="125" stroke="#d1cec9" strokeWidth="1.2" />
 
-      <Rect  cKey="hoofd"      x={82}  y={5}   w={36} h={24} lx={100} ly={21}  label="Hoofd" />
-      <Poly  cKey="ajna"       points="82,35 118,35 100,65"    lx={100} ly={55}  label="Ajna" />
-      <Rect  cKey="keel"       x={82}  y={71}  w={36} h={22}  lx={100} ly={86}  label="Keel" />
+      <Poly  cKey="hoofd"      points="100,5 82,29 118,29"       lx={100} ly={22}  label="Hoofd" />
+      <Poly  cKey="ajna"       points="82,35 118,35 100,65"      lx={100} ly={55}  label="Ajna" />
+      <Rect  cKey="keel"       x={82}  y={71}  w={36} h={22}    lx={100} ly={86}  label="Keel" />
       <Poly  cKey="identiteit" points="100,99 80,117 100,135 120,117" lx={100} ly={121} label="G" />
-      <Poly  cKey="hart"       points="122,99 148,117 122,135" lx={136} ly={122} label="Hart" fontSize={6} />
-      <Poly  cKey="milt"       points="78,99 52,117 78,135"    lx={64}  ly={122} label="Milt" fontSize={6} />
-      <Poly  cKey="emotie"     points="122,122 150,144 122,166" lx={137} ly={149} label="Emotie" fontSize={5.5} />
-      <Rect  cKey="sacraal"    x={82}  y={139} w={36} h={22}  lx={100} ly={154} label="Sacraal" />
-      <Rect  cKey="wortel"     x={82}  y={165} w={36} h={22}  lx={100} ly={180} label="Wortel" />
+      <Poly  cKey="hart"       points="126,103 141,113 122,127"  lx={132} ly={116} label="Hart" fontSize={6} />
+      <Poly  cKey="milt"       points="52,141 74,151 52,161"     lx={61}  ly={153} label="Milt" fontSize={6} />
+      <Poly  cKey="emotie"     points="148,141 126,151 148,161"  lx={140} ly={153} label="Emotie" fontSize={5.5} />
+      <Rect  cKey="sacraal"    x={82}  y={139} w={36} h={22}    lx={100} ly={154} label="Sacraal" />
+      <Rect  cKey="wortel"     x={82}  y={165} w={36} h={22}    lx={100} ly={180} label="Wortel" />
     </svg>
   );
 }
