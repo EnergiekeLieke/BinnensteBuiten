@@ -19,6 +19,15 @@ const SECTIES: { key: SectieKey; label: string; kleur: string }[] = [
 
 export default function HDAffirmatiesOverzicht() {
   const [toelichtingOpen, setToelichtingOpen] = useState(false);
+  const [gesloten, setGesloten] = useState<Set<string>>(new Set());
+
+  function toggleCentrum(key: string) {
+    setGesloten(prev => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key); else next.add(key);
+      return next;
+    });
+  }
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -83,31 +92,40 @@ export default function HDAffirmatiesOverzicht() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-8">
-        {HD_AFFIRMATIES.map(c => (
-          <div key={c.key} className="bg-white border border-lightBg rounded-2xl overflow-hidden">
-            <div className="bg-darkGreen px-5 py-3">
-              <h2 className="font-salmon text-xl text-white m-0">{c.label}</h2>
-            </div>
-            <div className="p-5 flex flex-col gap-5">
-              {SECTIES.map(({ key, label, kleur }) => (
-                <div key={key}>
-                  <span className={`inline-block text-[10px] font-bold uppercase tracking-wide rounded px-2 py-0.5 mb-2 ${kleur}`}>
-                    {label}
-                  </span>
-                  <ul className="flex flex-col gap-1 m-0 pl-0 list-none">
-                    {c[key].map((a, i) => (
-                      <li key={i} className="text-sm text-darkSlate leading-relaxed flex gap-2">
-                        <span className="text-darkGreen shrink-0 mt-0.5">·</span>
-                        <span>{a}</span>
-                      </li>
-                    ))}
-                  </ul>
+      <div className="flex flex-col gap-4">
+        {HD_AFFIRMATIES.map(c => {
+          const isOpen = !gesloten.has(c.key);
+          return (
+            <div key={c.key} className="bg-white border border-lightBg rounded-2xl overflow-hidden">
+              <button
+                onClick={() => toggleCentrum(c.key)}
+                className="w-full bg-darkGreen px-5 py-3 flex justify-between items-center text-left cursor-pointer"
+              >
+                <h2 className="font-salmon text-xl text-white m-0">{c.label}</h2>
+                <span className={`text-white/70 text-sm shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>▼</span>
+              </button>
+              <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[3000px]' : 'max-h-0'}`}>
+                <div className="p-5 flex flex-col gap-5">
+                  {SECTIES.map(({ key, label, kleur }) => (
+                    <div key={key}>
+                      <span className={`inline-block text-[10px] font-bold uppercase tracking-wide rounded px-2 py-0.5 mb-2 ${kleur}`}>
+                        {label}
+                      </span>
+                      <ul className="flex flex-col gap-1 m-0 pl-0 list-none">
+                        {c[key].map((a, i) => (
+                          <li key={i} className="text-sm text-darkSlate leading-relaxed flex gap-2">
+                            <span className="text-darkGreen shrink-0 mt-0.5">·</span>
+                            <span>{a}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
