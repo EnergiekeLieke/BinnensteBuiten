@@ -395,9 +395,13 @@ export default function HumanDesignAffirmaties() {
                 const kopje = regels.find(r => !r.startsWith('- '));
                 const items = regels.filter(r => r.startsWith('- '));
                 return (
-                  <div key={i} className="mb-5 last:mb-0">
-                    {kopje && <p className="text-xs font-bold uppercase tracking-widest text-darkGreen mb-2">{kopje}</p>}
-                    <ul className="flex flex-col gap-1.5 pl-0 list-none m-0">
+                  <div key={i} className="border border-lightBg rounded-2xl overflow-hidden mb-4 last:mb-0">
+                    {kopje && (
+                      <div className="bg-darkGreen px-4 py-2.5">
+                        <p className="font-salmon text-base text-white m-0">{kopje}</p>
+                      </div>
+                    )}
+                    <ul className="flex flex-col gap-1.5 pl-0 list-none m-0 p-4">
                       {items.map((item, j) => (
                         <li key={j} className="flex gap-2 text-sm text-darkSlate leading-relaxed">
                           <span className="text-darkGreen shrink-0 mt-0.5">·</span>
