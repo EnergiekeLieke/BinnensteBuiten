@@ -141,7 +141,8 @@ export default function HDAffirmatiesOverzicht() {
             className="w-full bg-orange px-5 py-3 flex justify-between items-start text-left cursor-pointer"
           >
             <div>
-              <p className="font-salmon text-xl text-white m-0">Patronen die opvallen, centra die tegenstellingen vormen in jouw energie</p>
+              <p className="font-salmon text-xl text-white m-0">Tegenstellingen & spanningsvelden</p>
+              <p className="text-white/70 text-xs mt-0.5 m-0">Patronen die opvallen, centra die tegenstellingen vormen in jouw energie</p>
             </div>
             <span className={`text-white/70 text-sm mt-1 shrink-0 transition-transform duration-200 ${gesloten.has('__combinaties__') ? '' : 'rotate-180'}`}>▼</span>
           </button>
