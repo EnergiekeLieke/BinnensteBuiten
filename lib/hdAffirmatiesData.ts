@@ -588,6 +588,10 @@ export type TypeTekst = { type: string; tekst: string };
 
 export const HD_TYPE_TEKSTEN: TypeTekst[] = [
   {
+    type: 'Generator',
+    tekst: 'Jij hebt het type Generator: Je bent een bron van creatiekracht en levensenergie. Jouw energie is er om te reageren op je omgeving. Volg je onderbuik in wat jou plezier, enthousiasme en voldoening brengt. Voel je frustratie? Stuur dan bij!',
+  },
+  {
     type: 'Projector',
     tekst: 'Jij hebt het type Projector. Dat betekent gemaakt bent om anderen te gidsen, te begeleiden en je wijsheid te delen. Niet door hard te werken of jezelf op de voorgrond te dringen, maar door te wachten op de uitnodiging die jouw gave erkent. Jouw kracht zit in je vermogen om het grotere plaatje te overzien waar anderen verstrikt raken in de details.',
   },
