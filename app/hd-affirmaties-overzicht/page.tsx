@@ -62,8 +62,9 @@ export default function HDAffirmatiesOverzicht() {
 
             <div>
               <span className="inline-block bg-white border border-darkGreen text-darkGreen text-[10px] font-bold uppercase tracking-wide rounded px-2 py-0.5 mb-2">Ongedefinieerd</span>
-              <p className="m-0 mb-2">Een ongedefinieerd centrum is open en gevoelig voor energie van buitenaf. Jij bent de <strong>ontvanger en versterker</strong>: je absorbeert en vergroot wat anderen op dit thema meebrengen.</p>
-              <p className="m-0">De valkuil is dat je geraakt en geconditioneerd raakt door die omgevingsenergie en hard je best gaat doen om dit thema te leveren. "Ik ben anders niet goed genoeg." De affirmaties helpen je loslaten wat niet van jou is.</p>
+              <p className="m-0 mb-2">Een ongedefinieerd centrum betekent dat je de energie van dat centrum variabel en inconsistent ervaart. Je bent <strong>ontvanger</strong> van energie: je absorbeert en vergroot wat anderen op dit thema meebrengen, maar hebt er zelf geen consistente toegang toe.</p>
+              <p className="m-0 mb-2">Dit is de energie waar je uitdagingen en valkuilen liggen, voornamelijk in je "uit je kracht" thema. Én het is waar je grootste potentiële wijsheid ligt: door te ervaren wat echt van jou is en wat niet.</p>
+              <p className="m-0">De valkuil is dat je door die omgevingsenergie geconditioneerd raakt en hard je best gaat doen om dit thema te leveren. "Ik ben anders niet goed genoeg." De affirmaties helpen je loslaten wat niet van jou is. Dit geldt ook voor compleet open centra, want compleet open is een subgroep van ongedefinieerd.</p>
             </div>
 
             <div>
@@ -126,6 +127,59 @@ export default function HDAffirmatiesOverzicht() {
             </div>
           );
         })}
+      </div>
+
+      {/* Interessante combinaties */}
+      <div className="mt-10">
+        <p className="text-xs font-semibold tracking-widest text-darkGreen uppercase mb-1">Interessante combinaties</p>
+        <h2 className="font-salmon text-2xl text-darkSlate mb-1">Tegenstellingen & spanningsvelden</h2>
+        <p className="text-sm text-midGreen italic mb-6">Mogelijke patronen die opvallen als centra elkaars tegengestelde lijken te spreken</p>
+
+        <div className="flex flex-col gap-4">
+          {[
+            {
+              titel: 'Gedefinieerde Milt + Open/Ongedefinieerd Ajna',
+              tekst: 'Je lijf weet het al, meteen, zeker, geen twijfel. Maar je hoofd wil het kunnen uitleggen, beredeneren, de ander overtuigen. Interessant: de zekerheid zit in je lichaam, en de onzekerheid zit in je denken. Twee heel verschillende signalen.',
+            },
+            {
+              titel: 'Open/Ongedefinieerd Wortel + Open/Ongedefinieerd Hoofd',
+              tekst: 'Doe-druk én denk-druk tegelijk. Allebei willen ze ergens naartoe, het liefst richting de Keel, om eruit te komen als woorden of actie.',
+            },
+            {
+              titel: 'Gedefinieerd Hart + Open/Ongedefinieerd Sacraal',
+              tekst: 'Je maakt toezeggingen vanuit wilskracht en meent het ook echt. Maar de consistente energie om het vol te houden, die heb je niet altijd. Je wil is groter dan je brandstoftank. Lief en ook best lastig.',
+            },
+            {
+              titel: 'Open/Ongedefinieerd Hart + Gedefinieerd Sacraal',
+              tekst: 'Alle energie om te doen wat je blij maakt, maar het voelt stiekem alsof die energie iets moet bewijzen. Werken als eigenwaarde verdienen, in plaats van werken als plezier. Subtiel verschil, groot effect.',
+            },
+            {
+              titel: 'Gedefinieerd Emotiecentrum + Open/Ongedefinieerd Sacraal of Wortel',
+              tekst: 'Jouw golf zegt: neem de tijd, laat het zakken. Maar een open Sacraal of Wortel pikt de doe-druk van buitenaf op. De druk om te beginnen voelt heel reëel, ook al is die niet van jou. Een beetje een innerlijk touwtrekken tussen geduld en actie.',
+            },
+            {
+              titel: 'Gedefinieerde Keel + Open/Ongedefinieerd Identiteit (G)',
+              tekst: 'Je hebt een stem die gehoord wil worden, consistent en aanwezig. Maar de richting erachter is vloeiend. Soms weet je pas wie je bent ná wat je zegt. Dat is niet fout, wel interessant om te weten.',
+            },
+            {
+              titel: 'Open/Ongedefinieerd Milt + Gedefinieerd Emotiecentrum',
+              tekst: 'Je emotionele golf is van jou. De angst en onrust die je daarin voelt, is dat niet altijd. Juist in de laagte van de wave pik je andermans onveiligheid op, wat de laagte zwaarder maakt dan ie hoeft te zijn.',
+            },
+            {
+              titel: 'Open/Ongedefinieerd G + Open/Ongedefinieerd Emotiecentrum',
+              tekst: 'Geen vaste identiteit én geen vaste emoties. Je bent heel gevoelig voor wat er om je heen speelt. Mensen en omgevingen kleuren alles. Dat maakt omgevingskeuze voor jou geen luxe maar noodzaak.',
+            },
+            {
+              titel: 'Gedefinieerd Hoofd + Open/Ongedefinieerd Ajna',
+              tekst: 'Non-stop inspiratie en vragen, daar zit geen knop op. Maar een vast perspectief of conclusie? Dat is minder vanzelfsprekend. Je genereert ideeën sneller dan je ze kunt vasthouden. Rijkdom én onrust tegelijk.',
+            },
+          ].map(({ titel, tekst }) => (
+            <div key={titel} className="bg-white border border-lightBg rounded-2xl p-5">
+              <p className="text-sm font-bold text-darkGreen mb-1">{titel}</p>
+              <p className="text-sm text-darkSlate leading-relaxed m-0">{tekst}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
