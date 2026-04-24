@@ -129,69 +129,66 @@ function bouwPrompt(form: {
   const gedefinieerd = CENTRA.filter(c => form.centra[c.key] === 'gedefinieerd');
 
   const emotieOpen  = ['ongedefinieerd', 'compleet_open'].includes(form.centra['emotie']  ?? '');
-  const sacraалOpen = ['ongedefinieerd', 'compleet_open'].includes(form.centra['sacraal'] ?? '');
-  const sacraalAutoriteit = emotieOpen && form.centra['sacraal'] === 'gedefinieerd';
-  const miltAutoriteit    = emotieOpen && sacraалOpen && form.centra['milt'] === 'gedefinieerd';
-
-  function affirmaties(key: string, staat: 'ongedefinieerd' | 'compleetOpen' | 'gedefinieerd') {
-    const data = HD_AFFIRMATIES.find(c => c.key === key);
-    if (!staat || !data) return '';
-    const lijst = data[staat];
-    return lijst.map(a => `     - "${a}"`).join('\n');
-  }
-
-  const openBlok = open.length ? `
-ONGEDEFINIEERDE CENTRA — neem onderstaande affirmaties letterlijk over in het rapport. Voeg per centrum een korte inleidende zin toe in dezelfde warme toon, maar verander de affirmaties zelf niet.
-${open.map(c => `  ${c.label}:\n${affirmaties(c.key, 'ongedefinieerd')}`).join('\n\n')}` : '';
-
-  const coBlok = compleetOpen.length ? `
-COMPLEET OPEN CENTRA — neem onderstaande affirmaties letterlijk over in het rapport. Voeg per centrum een korte inleidende zin toe. Adresseer alle drie conditioneringslagen (loslaten, identificatie herkennen, projectie herkennen).
-${compleetOpen.map(c => `  ${c.label}:\n${affirmaties(c.key, 'compleetOpen')}`).join('\n\n')}` : '';
-
-  const autoriteitInstr = sacraalAutoriteit ? `
-  Let op: sacraalautoriteit. Het emotiecentrum is open/ongedefinieerd en het sacraal is gedefinieerd. Benoem bij het Sacraalcentrum dat deze persoon direct en lichamelijk weet — in het moment, via gesloten vragen (ja/nee).` : miltAutoriteit ? `
-  Let op: miltautoriteit. Het emotiecentrum en sacraal zijn open/ongedefinieerd, de Milt is gedefinieerd. Benoem bij het Miltcentrum dat deze persoon het weet via intuïtie, zacht en eenmalig — in het moment.` : '';
-
-  const defBlok = gedefinieerd.length ? `
-GEDEFINIEERDE CENTRA — neem onderstaande affirmaties letterlijk over in het rapport. Voeg per centrum een korte inleidende zin toe. Kernboodschap: dit is jouw consistente energie — omarm het.${autoriteitInstr}
-${gedefinieerd.map(c => `  ${c.label}:\n${affirmaties(c.key, 'gedefinieerd')}`).join('\n\n')}` : '';
-
   return `Je bent een expert in Human Design en het schrijven van krachtige, persoonlijke affirmaties.
-Schrijf een gepersonaliseerd affirmatierapport in het Nederlands.
+Schrijf alleen de introtekst voor een Human Design affirmatierapport in het Nederlands.
 
 TYPE: ${form.type}
 PROFIEL: ${profiel}
 
-RAPPORT IN DEZE VOLGORDE:
-
+SCHRIJF UITSLUITEND:
 1. INTRODUCTIE (2-3 zinnen): Warm en herkenbaar voor dit Type. Hoe ervaart dit Type de wereld en wat is hun kracht? Schrijf niet "jij bent een Generator" maar "jij hebt het type Generator" — het is een gebruiksaanwijzing, geen identiteit.
 
 2. PROFIEL ${profiel} (2-3 zinnen): Inzicht in de levensstrategie en het levensthema van dit profiel.
 
-3. AFFIRMATIES PER CENTRUM — gebruik uitsluitend de onderstaande affirmaties. Neem ze letterlijk over als lijst. Geen uitleg per centrum, geen toelichting over wat het centrum betekent — alleen de naam van het centrum als kopje en daarna de affirmaties als losse regels.
-${openBlok}${coBlok}${defBlok}
-
 SCHRIJFINSTRUCTIES:
 - Nederlands, spreek de lezer aan als "jij" of "je"
 - Warm, direct en krachtig maar zacht
-- De introductie en het profielstuk zijn doorlopende tekst (2-3 zinnen elk)
-- De affirmaties per centrum zijn een eenvoudige lijst: centrumnaam op een regel, daarna elke affirmatie op een nieuwe regel beginnend met "- "
-- Geen uitleg, geen ##-markeringen of asterisken
+- Doorlopende alinea's, geen koppen of markdown
 - Geen zinnen beginnen met "En"
 - Geen streepjes in lopende tekst`;
 }
+
+type SectieConfig = { key: keyof import('@/lib/hdAffirmatiesData').CentrumAffirmaties; label: string; kleur: string };
+
+const SECTIES_PER_STAAT: Record<string, SectieConfig[]> = {
+  gedefinieerd: [
+    { key: 'gedefinieerd',       label: 'Gedefinieerd · omarmen wat van jou is',        kleur: 'bg-darkGreen text-white' },
+    { key: 'gedefinieerd_groei', label: 'Gedefinieerd · groei',                          kleur: 'bg-orange text-white' },
+    { key: 'gedefinieerd_gave',  label: 'Gedefinieerd · gave',                           kleur: 'bg-midGreen text-white' },
+  ],
+  ongedefinieerd: [
+    { key: 'ongedefinieerd',       label: 'Ongedefinieerd · loslaten wat niet van jou is', kleur: 'bg-white border border-darkGreen text-darkGreen' },
+    { key: 'ongedefinieerd_groei', label: 'Ongedefinieerd · groei',                        kleur: 'bg-orange text-white' },
+    { key: 'ongedefinieerd_gave',  label: 'Ongedefinieerd · gave',                         kleur: 'bg-midGreen text-white' },
+  ],
+  compleet_open: [
+    { key: 'compleetOpen',       label: 'Compleet open · diepste loslaten (drie lagen)',  kleur: 'bg-cream border border-dashed border-gray-400 text-darkSlate' },
+    { key: 'compleetOpen_groei', label: 'Compleet open · groei',                          kleur: 'bg-orange text-white' },
+    { key: 'compleetOpen_gave',  label: 'Compleet open · gave',                           kleur: 'bg-midGreen text-white' },
+  ],
+};
 
 // ── Hoofdcomponent ────────────────────────────────────────────────────────────
 
 const initForm = { type: '', profielBewust: '', profielOnbewust: '', centra: {} as CentraState };
 
 export default function HumanDesignAffirmaties() {
-  const [form, setForm]             = useState(initForm);
-  const [resultaat, setResultaat]   = useState('');
-  const [loading, setLoading]       = useState(false);
-  const [fout, setFout]             = useState('');
-  const [pdfLoading, setPdfLoading] = useState(false);
+  const [form, setForm]                   = useState(initForm);
+  const [introTekst, setIntroTekst]       = useState('');
+  const [generatedForm, setGeneratedForm] = useState<typeof initForm | null>(null);
+  const [gesloten, setGesloten]           = useState<Set<string>>(new Set());
+  const [loading, setLoading]             = useState(false);
+  const [fout, setFout]                   = useState('');
+  const [pdfLoading, setPdfLoading]       = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
+
+  function toggleAccordion(key: string) {
+    setGesloten(prev => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key); else next.add(key);
+      return next;
+    });
+  }
 
   function setCentrum(key: string, staat: Staat) {
     setForm(f => ({ ...f, centra: { ...f.centra, [key]: staat } }));
@@ -217,16 +214,14 @@ export default function HumanDesignAffirmaties() {
   const geselecteerdType = TYPES.find(t => t.naam === form.type);
 
   async function genereer() {
-    setLoading(true); setFout(''); setResultaat('');
+    setLoading(true); setFout(''); setIntroTekst(''); setGeneratedForm(form); setGesloten(new Set());
     try {
       await streamAnalyse(
         bouwPrompt(form),
-        4000,
-        chunk => setResultaat(prev => prev + chunk),
-        'Je bent een expert in Human Design en het schrijven van krachtige, persoonlijke affirmaties. ' +
-        'Je schrijft in het Nederlands, persoonlijk en bemoedigend, en spreekt de gebruiker aan als "jij" of "je". ' +
-        'Gebruik geen namen. Schrijf warm, direct en krachtig maar zacht. ' +
-        'Gebruik geen ##-koppen, geen asterisken en geen markdown-opmaak. Schrijf doorlopende alinea\'s.',
+        800,
+        chunk => setIntroTekst(prev => prev + chunk),
+        'Je bent een expert in Human Design. Je schrijft in het Nederlands, warm en bemoedigend, ' +
+        'en spreekt de gebruiker aan als "jij" of "je". Geen namen. Geen markdown, geen koppen, geen streepjes.',
       );
     } catch (e: unknown) {
       setFout(e instanceof Error ? e.message : 'Er ging iets mis. Probeer het opnieuw.');
@@ -371,9 +366,9 @@ export default function HumanDesignAffirmaties() {
         </div>
       )}
 
-      {resultaat && (
-        <div className="mt-8 bg-white border border-lightBg rounded-2xl p-6">
-          <div className="flex items-center justify-between gap-2 mb-5 pb-4 border-b border-lightBg">
+      {(introTekst || generatedForm) && (
+        <div className="mt-8">
+          <div className="flex items-center justify-between gap-2 mb-5">
             <div className="flex items-center gap-2">
               <svg viewBox="0 0 40 50" className="w-6 h-6 shrink-0 text-darkGreen" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round">
                 <polygon points="20,1 13,11 27,11" /><polygon points="20,12 13,22 27,22" />
@@ -387,35 +382,64 @@ export default function HumanDesignAffirmaties() {
               {pdfLoading ? 'Bezig...' : 'Download PDF'}
             </button>
           </div>
-          <div ref={resultRef}>
-            {resultaat.split('\n\n').filter(Boolean).map((blok, i) => {
-              const regels = blok.split('\n').filter(Boolean);
-              const isLijst = regels.some(r => r.startsWith('- '));
-              if (isLijst) {
-                const kopje = regels.find(r => !r.startsWith('- '));
-                const items = regels.filter(r => r.startsWith('- '));
-                return (
-                  <div key={i} className="border border-lightBg rounded-2xl overflow-hidden mb-4 last:mb-0">
-                    {kopje && (
-                      <div className="bg-darkGreen px-4 py-2.5">
-                        <p className="font-salmon text-base text-white m-0">{kopje}</p>
-                      </div>
-                    )}
-                    <ul className="flex flex-col gap-1.5 pl-0 list-none m-0 p-4">
-                      {items.map((item, j) => (
-                        <li key={j} className="flex gap-2 text-sm text-darkSlate leading-relaxed">
-                          <span className="text-darkGreen shrink-0 mt-0.5">·</span>
-                          <span>{item.replace(/^- /, '')}</span>
-                        </li>
+
+          <div ref={resultRef} className="flex flex-col gap-4">
+            {/* Introtekst */}
+            {introTekst && (
+              <div className="bg-white border border-lightBg rounded-2xl p-5">
+                {introTekst.split('\n\n').filter(Boolean).map((alinea, i) => (
+                  <p key={i} className="text-sm text-darkSlate leading-[1.85] mb-3 last:mb-0">{alinea}</p>
+                ))}
+              </div>
+            )}
+
+            {/* Accordeon per centrum */}
+            {generatedForm && CENTRA.map(c => {
+              const staat = generatedForm.centra[c.key];
+              if (!staat) return null;
+              const secties = SECTIES_PER_STAAT[staat];
+              if (!secties) return null;
+              const data = HD_AFFIRMATIES.find(d => d.key === c.key);
+              if (!data) return null;
+              const isOpen = !gesloten.has(c.key);
+
+              return (
+                <div key={c.key} className="border border-lightBg rounded-2xl overflow-hidden">
+                  <button
+                    onClick={() => toggleAccordion(c.key)}
+                    className="w-full bg-darkGreen px-4 py-3 flex justify-between items-start text-left cursor-pointer"
+                  >
+                    <div>
+                      <p className="font-salmon text-base text-white m-0">{c.label}</p>
+                      <p className="text-white/70 text-xs mt-0.5 m-0">{c.toelichting}</p>
+                    </div>
+                    <span className={`text-white/70 text-sm mt-1 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>▼</span>
+                  </button>
+                  <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[2000px]' : 'max-h-0'}`}>
+                    <div className="p-4 flex flex-col gap-4">
+                      {secties.map(({ key, label, kleur }) => (
+                        <div key={key}>
+                          <span className={`inline-block text-[10px] font-bold uppercase tracking-wide rounded px-2 py-0.5 mb-2 ${kleur}`}>
+                            {label}
+                          </span>
+                          <ul className="flex flex-col gap-1.5 pl-0 list-none m-0">
+                            {(data[key] as string[]).map((a, i) => (
+                              <li key={i} className="flex gap-2 text-sm text-darkSlate leading-relaxed">
+                                <span className="text-darkGreen shrink-0 mt-0.5">·</span>
+                                <span>{a}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </div>
-                );
-              }
-              return <p key={i} className="text-sm text-darkSlate leading-[1.85] mb-4 last:mb-0">{blok}</p>;
+                </div>
+              );
             })}
           </div>
-          <button onClick={() => setResultaat('')}
+
+          <button onClick={() => { setIntroTekst(''); setGeneratedForm(null); }}
             className="mt-4 px-4 py-2 rounded-full border border-lightBg bg-white text-darkSlate text-xs cursor-pointer hover:border-darkSlate/40 transition-colors">
             Opnieuw genereren
           </button>
