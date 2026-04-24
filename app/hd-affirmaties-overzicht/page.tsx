@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { HD_AFFIRMATIES, HD_PATRONEN, type CentrumAffirmaties } from '@/lib/hdAffirmatiesData';
+import { HD_AFFIRMATIES, HD_PATRONEN, HD_TYPE_TEKSTEN, type CentrumAffirmaties } from '@/lib/hdAffirmatiesData';
 
 type SectieKey = keyof Omit<CentrumAffirmaties, 'key' | 'label'>;
 
@@ -90,6 +90,20 @@ export default function HDAffirmatiesOverzicht() {
 
           </div>
           </div>
+        </div>
+      </div>
+
+      {/* Type teksten */}
+      <div className="mb-8">
+        <p className="text-xs font-semibold tracking-widest text-darkGreen uppercase mb-1">HD Types</p>
+        <h2 className="font-salmon text-2xl text-darkSlate mb-4">Vaste teksten per type</h2>
+        <div className="flex flex-col gap-3">
+          {HD_TYPE_TEKSTEN.map(({ type, tekst }) => (
+            <div key={type} className="bg-white border border-lightBg rounded-2xl p-5">
+              <p className="text-xs font-bold uppercase tracking-widest text-darkGreen mb-2">{type}</p>
+              <p className="text-sm text-darkSlate leading-relaxed m-0">{tekst}</p>
+            </div>
+          ))}
         </div>
       </div>
 

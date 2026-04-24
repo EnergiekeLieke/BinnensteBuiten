@@ -583,3 +583,12 @@ export const HD_PATRONEN: Patroon[] = [
     match: c => open(c, 'sacraal') && open(c, 'hart') && open(c, 'emotie') && open(c, 'wortel'),
   },
 ];
+
+export type TypeTekst = { type: string; tekst: string };
+
+export const HD_TYPE_TEKSTEN: TypeTekst[] = [
+  {
+    type: 'Projector',
+    tekst: 'Jij hebt het type Projector. Dat betekent gemaakt bent om anderen te gidsen, te begeleiden en je wijsheid te delen. Niet door hard te werken of jezelf op de voorgrond te dringen, maar door te wachten op de uitnodiging die jouw gave erkent. Jouw kracht zit in je vermogen om het grotere plaatje te overzien waar anderen verstrikt raken in de details.',
+  },
+];
