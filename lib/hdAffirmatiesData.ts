@@ -592,6 +592,10 @@ export const HD_TYPE_TEKSTEN: TypeTekst[] = [
     tekst: 'Jij hebt het type Generator: Je bent een bron van creatiekracht en levensenergie. Jouw energie is er om te reageren op je omgeving. Die enorme levenskracht die jij in je draagt is letterlijk voelbaar voor mensen om je heen. Jouw energie is als een motor die, zodra die aangewakkerd wordt door wat jou echt raakt, bijna onuitputtelijk is. Volg je onderbuik in wat jou plezier, enthousiasme en voldoening brengt. Voel je frustratie? Stuur dan bij!',
   },
   {
+    type: 'Manifesting Generator',
+    tekst: 'Jij hebt het type Manifesting Generator. Multi-gepassioneerd, snel, jouw energie is breed en beweeglijk: je kunt meerdere dingen tegelijk oppakken, van richting wisselen, en toch diep gaan waar het jou raakt. Volg je onderbuik in wat jou aanspreekt, ook als dat betekent dat je stappen overslaat of van koers wijzigt. Voel je frustratie of boosheid? Stuur dan bij. Geef de mensen om je heen een seintje als je van richting verandert, zodat ze kunnen meebewegen.',
+  },
+  {
     type: 'Projector',
     tekst: 'Jij hebt het type Projector. Dat betekent gemaakt bent om anderen te gidsen, te begeleiden en je wijsheid te delen. Niet door hard te werken of jezelf op de voorgrond te dringen, maar door te wachten op de uitnodiging die jouw gave erkent. Jouw kracht zit in je vermogen om het grotere plaatje te overzien waar anderen verstrikt raken in de details.',
   },
