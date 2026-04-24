@@ -589,7 +589,7 @@ export type TypeTekst = { type: string; tekst: string };
 export const HD_TYPE_TEKSTEN: TypeTekst[] = [
   {
     type: 'Generator',
-    tekst: 'Jij hebt het type Generator: Je bent een bron van creatiekracht en levensenergie. Jouw energie is er om te reageren op je omgeving. Volg je onderbuik in wat jou plezier, enthousiasme en voldoening brengt. Voel je frustratie? Stuur dan bij!',
+    tekst: 'Jij hebt het type Generator: Je bent een bron van creatiekracht en levensenergie. Jouw energie is er om te reageren op je omgeving. Die enorme levenskracht die jij in je draagt is letterlijk voelbaar voor mensen om je heen. Jouw energie is als een motor die, zodra die aangewakkerd wordt door wat jou echt raakt, bijna onuitputtelijk is. Volg je onderbuik in wat jou plezier, enthousiasme en voldoening brengt. Voel je frustratie? Stuur dan bij!',
   },
   {
     type: 'Projector',
