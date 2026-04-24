@@ -190,6 +190,24 @@ export default function HumanDesignAffirmaties() {
     });
   }
 
+  function resultaatKeys(): string[] {
+    if (!generatedForm) return [];
+    const keys = CENTRA.filter(c => generatedForm.centra[c.key]).map(c => c.key);
+    const heeftPatronen = HD_PATRONEN.some(p => p.match(generatedForm.centra));
+    if (heeftPatronen) keys.push('__patronen__');
+    return keys;
+  }
+
+  function toggleAllesResultaat() {
+    const keys = resultaatKeys();
+    const alleGesloten = keys.every(k => gesloten.has(k));
+    if (alleGesloten) {
+      setGesloten(new Set());
+    } else {
+      setGesloten(new Set(keys));
+    }
+  }
+
   function setCentrum(key: string, staat: Staat) {
     setForm(f => ({ ...f, centra: { ...f.centra, [key]: staat } }));
   }
@@ -368,7 +386,7 @@ export default function HumanDesignAffirmaties() {
 
       {(introTekst || generatedForm) && (
         <div className="mt-8">
-          <div className="flex items-center justify-between gap-2 mb-5">
+          <div className="flex items-center justify-between gap-2 mb-3">
             <div className="flex items-center gap-2">
               <svg viewBox="0 0 40 50" className="w-6 h-6 shrink-0 text-darkGreen" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round">
                 <polygon points="20,1 13,11 27,11" /><polygon points="20,12 13,22 27,22" />
@@ -380,6 +398,12 @@ export default function HumanDesignAffirmaties() {
             <button onClick={downloadPdf} disabled={pdfLoading || loading}
               className="shrink-0 px-3 py-1.5 rounded-full border border-darkGreen text-darkGreen text-xs cursor-pointer hover:bg-darkGreen hover:text-white transition-colors disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-darkGreen focus:ring-offset-2">
               {pdfLoading ? 'Bezig...' : 'Download PDF'}
+            </button>
+          </div>
+          <div className="flex justify-end mb-4">
+            <button onClick={toggleAllesResultaat}
+              className="text-xs font-bold uppercase tracking-widest text-darkGreen border border-darkGreen rounded-lg px-3 py-1.5 bg-white hover:bg-darkGreen hover:text-white transition-colors">
+              {resultaatKeys().every(k => gesloten.has(k)) ? 'Alles uitklappen' : 'Alles inklappen'}
             </button>
           </div>
 
