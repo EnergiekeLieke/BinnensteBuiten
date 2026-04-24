@@ -147,7 +147,7 @@ export default function HDAffirmatiesOverzicht() {
             },
             {
               titel: 'Gedefinieerd Hart + Open/Ongedefinieerd Sacraal',
-              tekst: 'Je maakt toezeggingen vanuit wilskracht en meent het ook echt. Maar de consistente energie om het vol te houden, die heb je niet altijd. Je wil is groter dan je brandstoftank. Lief en ook best lastig.',
+              tekst: 'Je maakt toezeggingen vanuit wilskracht en meent het ook echt. Maar de consistente energie om het vol te houden, die heb je niet altijd. Je wil is groter dan je brandstoftank. Het hartcentrum werkt als een pulserende motor, start-stop energie.',
             },
             {
               titel: 'Open/Ongedefinieerd Hart + Gedefinieerd Sacraal',
