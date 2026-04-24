@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useRef, useMemo } from 'react';
-import { streamAnalyse, exporteerAlsPdf } from '@/lib/huisstijl';
-import { HD_AFFIRMATIES, HD_PATRONEN } from '@/lib/hdAffirmatiesData';
+import { exporteerAlsPdf } from '@/lib/huisstijl';
+import { HD_AFFIRMATIES, HD_PATRONEN, HD_TYPE_TEKSTEN } from '@/lib/hdAffirmatiesData';
 
 const HD_AFFIRMATIES_MAP = new Map(HD_AFFIRMATIES.map(c => [c.key, c]));
 
@@ -120,35 +120,6 @@ function BodygraphSVG({ centra, onKlik }: { centra: CentraState; onKlik: (key: s
 }
 
 
-// ── Prompt ────────────────────────────────────────────────────────────────────
-
-function bouwPrompt(form: {
-  type: string; profielBewust: string; profielOnbewust: string; centra: CentraState;
-}): string {
-  const profiel = `${form.profielBewust}/${form.profielOnbewust}`;
-  const open         = CENTRA.filter(c => form.centra[c.key] === 'ongedefinieerd');
-  const compleetOpen = CENTRA.filter(c => form.centra[c.key] === 'compleet_open');
-  const gedefinieerd = CENTRA.filter(c => form.centra[c.key] === 'gedefinieerd');
-
-  const emotieOpen  = ['ongedefinieerd', 'compleet_open'].includes(form.centra['emotie']  ?? '');
-  return `Je bent een expert in Human Design en het schrijven van krachtige, persoonlijke affirmaties.
-Schrijf alleen de introtekst voor een Human Design affirmatierapport in het Nederlands.
-
-TYPE: ${form.type}
-PROFIEL: ${profiel}
-
-SCHRIJF UITSLUITEND:
-1. INTRODUCTIE (2-3 zinnen): Warm en herkenbaar voor dit Type. Hoe ervaart dit Type de wereld en wat is hun kracht? Schrijf niet "jij bent een Generator" maar "jij hebt het type Generator" — het is een gebruiksaanwijzing, geen identiteit.
-
-2. PROFIEL ${profiel} (2-3 zinnen): Inzicht in de levensstrategie en het levensthema van dit profiel.
-
-SCHRIJFINSTRUCTIES:
-- Nederlands, spreek de lezer aan als "jij" of "je"
-- Warm, direct en krachtig maar zacht
-- Doorlopende alinea's, geen koppen of markdown
-- Geen zinnen beginnen met "En"
-- Geen streepjes in lopende tekst`;
-}
 
 type SectieConfig = { key: keyof import('@/lib/hdAffirmatiesData').CentrumAffirmaties; label: string; kleur: string };
 
@@ -176,10 +147,8 @@ const initForm = { type: '', profielBewust: '', profielOnbewust: '', centra: {} 
 
 export default function HumanDesignAffirmaties() {
   const [form, setForm]                   = useState(initForm);
-  const [introTekst, setIntroTekst]       = useState('');
   const [generatedForm, setGeneratedForm] = useState<typeof initForm | null>(null);
   const [gesloten, setGesloten]           = useState<Set<string>>(new Set());
-  const [loading, setLoading]             = useState(false);
   const [fout, setFout]                   = useState('');
   const [pdfLoading, setPdfLoading]       = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
@@ -231,21 +200,10 @@ export default function HumanDesignAffirmaties() {
 
   const geselecteerdType = TYPES.find(t => t.naam === form.type);
 
-  async function genereer() {
-    setLoading(true); setFout(''); setIntroTekst(''); setGeneratedForm(form); setGesloten(new Set());
-    try {
-      await streamAnalyse(
-        bouwPrompt(form),
-        800,
-        chunk => setIntroTekst(prev => prev + chunk),
-        'Je bent een expert in Human Design. Je schrijft in het Nederlands, warm en bemoedigend, ' +
-        'en spreekt de gebruiker aan als "jij" of "je". Geen namen. Geen markdown, geen koppen, geen streepjes.',
-      );
-    } catch (e: unknown) {
-      setFout(e instanceof Error ? e.message : 'Er ging iets mis. Probeer het opnieuw.');
-    } finally {
-      setLoading(false);
-    }
+  function genereer() {
+    setFout('');
+    setGeneratedForm(form);
+    setGesloten(new Set());
   }
 
   async function downloadPdf() {
@@ -365,14 +323,14 @@ export default function HumanDesignAffirmaties() {
         </div>
       </div>
 
-      <button disabled={!alleFilled || loading} onClick={genereer}
+      <button disabled={!alleFilled} onClick={genereer}
         className={`w-full py-3.5 text-sm font-bold rounded-xl border-none text-white tracking-wide transition-colors ${
-          alleFilled && !loading ? 'bg-darkGreen cursor-pointer hover:bg-darkGreen/90' : 'bg-[#ccc] cursor-not-allowed'
+          alleFilled ? 'bg-darkGreen cursor-pointer hover:bg-darkGreen/90' : 'bg-[#ccc] cursor-not-allowed'
         }`}>
-        {loading ? 'Affirmaties worden gegenereerd...' : 'Genereer mijn affirmatierapport'}
+        Genereer mijn affirmatierapport
       </button>
 
-      {!alleFilled && !loading && (
+      {!alleFilled && (
         <p className="text-xs text-darkSlate/60 text-center mt-2">
           Vul type, profiel en alle energiecentra in om je rapport te genereren.
         </p>
@@ -384,7 +342,7 @@ export default function HumanDesignAffirmaties() {
         </div>
       )}
 
-      {(introTekst || generatedForm) && (
+      {generatedForm && (
         <div className="mt-8">
           <div className="flex items-center justify-between gap-2 mb-3">
             <div className="flex items-center gap-2">
@@ -395,7 +353,7 @@ export default function HumanDesignAffirmaties() {
               </svg>
               <h3 className="m-0 text-base font-bold text-darkGreen">Jouw Human Design Affirmaties</h3>
             </div>
-            <button onClick={downloadPdf} disabled={pdfLoading || loading}
+            <button onClick={downloadPdf} disabled={pdfLoading}
               className="shrink-0 px-3 py-1.5 rounded-full border border-darkGreen text-darkGreen text-xs cursor-pointer hover:bg-darkGreen hover:text-white transition-colors disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-darkGreen focus:ring-offset-2">
               {pdfLoading ? 'Bezig...' : 'Download PDF'}
             </button>
@@ -408,14 +366,17 @@ export default function HumanDesignAffirmaties() {
           </div>
 
           <div ref={resultRef} className="flex flex-col gap-4">
-            {/* Introtekst */}
-            {introTekst && (
-              <div className="bg-white border border-lightBg rounded-2xl p-5">
-                {introTekst.split('\n\n').filter(Boolean).map((alinea, i) => (
-                  <p key={i} className="text-sm text-darkSlate leading-[1.85] mb-3 last:mb-0">{alinea}</p>
-                ))}
-              </div>
-            )}
+            {/* Vaste typetekst */}
+            {(() => {
+              const typeTekst = HD_TYPE_TEKSTEN.find(t => t.type === generatedForm.type)?.tekst;
+              if (!typeTekst) return null;
+              return (
+                <div className="bg-white border border-lightBg rounded-2xl p-5">
+                  <p className="text-xs font-bold uppercase tracking-widest text-darkGreen mb-2">{generatedForm.type}</p>
+                  <p className="text-sm text-darkSlate leading-[1.85] m-0">{typeTekst}</p>
+                </div>
+              );
+            })()}
 
             {/* Accordeon per centrum */}
             {generatedForm && CENTRA.map(c => {
@@ -494,7 +455,7 @@ export default function HumanDesignAffirmaties() {
             })()}
           </div>
 
-          <button onClick={() => { setIntroTekst(''); setGeneratedForm(null); }}
+          <button onClick={() => { setGeneratedForm(null); }}
             className="mt-4 px-4 py-2 rounded-full border border-lightBg bg-white text-darkSlate text-xs cursor-pointer hover:border-darkSlate/40 transition-colors">
             Opnieuw genereren
           </button>
