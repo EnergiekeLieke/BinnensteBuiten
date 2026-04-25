@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { HD_AFFIRMATIES, HD_PATRONEN, HD_TYPE_TEKSTEN, type CentrumAffirmaties } from '@/lib/hdAffirmatiesData';
+import { HD_AFFIRMATIES, HD_PATRONEN, HD_TYPE_TEKSTEN, HD_PROFIEL_TEKSTEN, type CentrumAffirmaties } from '@/lib/hdAffirmatiesData';
 
 type SectieKey = keyof Omit<CentrumAffirmaties, 'key' | 'label'>;
 
@@ -17,7 +17,7 @@ const SECTIES: { key: SectieKey; label: string; kleur: string }[] = [
   { key: 'compleetOpen_gave',    label: 'Compleet open · gave',                           kleur: 'bg-midGreen text-white' },
 ];
 
-const ALLE_KEYS = [...HD_AFFIRMATIES.map(c => c.key), '__combinaties__', '__types__'];
+const ALLE_KEYS = [...HD_AFFIRMATIES.map(c => c.key), '__combinaties__', '__types__', '__profielen__'];
 
 export default function HDAffirmatiesOverzicht() {
   const [toelichtingOpen, setToelichtingOpen] = useState(false);
@@ -133,6 +133,32 @@ export default function HDAffirmatiesOverzicht() {
               {HD_TYPE_TEKSTEN.map(({ type, tekst }) => (
                 <div key={type} className="bg-cream border border-lightBg rounded-2xl p-4">
                   <p className="text-xs font-bold uppercase tracking-widest text-darkGreen mb-2">{type}</p>
+                  <p className="text-sm text-darkSlate leading-relaxed m-0">{tekst}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Profiel teksten */}
+      <div className="mb-8">
+        <div className="bg-white border border-lightBg rounded-2xl overflow-hidden">
+          <button
+            onClick={() => toggleCentrum('__profielen__')}
+            className="w-full bg-darkSlate px-5 py-3 flex justify-between items-center text-left cursor-pointer"
+          >
+            <div>
+              <p className="font-salmon text-xl text-white m-0">Vaste teksten per profiel</p>
+              <p className="text-white/70 text-xs mt-0.5 m-0">Introductietekst per profiel voor in het rapport</p>
+            </div>
+            <span className={`text-white/70 text-sm mt-1 shrink-0 transition-transform duration-200 ${gesloten.has('__profielen__') ? '' : 'rotate-180'}`}>▼</span>
+          </button>
+          <div className={`overflow-hidden transition-all duration-300 ${gesloten.has('__profielen__') ? 'max-h-0' : 'max-h-[5000px]'}`}>
+            <div className="p-5 flex flex-col gap-3">
+              {HD_PROFIEL_TEKSTEN.map(({ profiel, tekst }) => (
+                <div key={profiel} className="bg-cream border border-lightBg rounded-2xl p-4">
+                  <p className="text-xs font-bold uppercase tracking-widest text-darkGreen mb-2">Profiel {profiel}</p>
                   <p className="text-sm text-darkSlate leading-relaxed m-0">{tekst}</p>
                 </div>
               ))}
