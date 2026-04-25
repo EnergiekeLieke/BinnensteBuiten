@@ -2,7 +2,7 @@
 
 import { useState, useRef, useMemo } from 'react';
 import { exporteerAlsPdf } from '@/lib/huisstijl';
-import { HD_AFFIRMATIES, HD_PATRONEN, HD_TYPE_TEKSTEN } from '@/lib/hdAffirmatiesData';
+import { HD_AFFIRMATIES, HD_PATRONEN, HD_TYPE_TEKSTEN, HD_PROFIEL_TEKSTEN } from '@/lib/hdAffirmatiesData';
 
 const HD_AFFIRMATIES_MAP = new Map(HD_AFFIRMATIES.map(c => [c.key, c]));
 
@@ -374,6 +374,19 @@ export default function HumanDesignAffirmaties() {
                 <div className="bg-white border border-lightBg rounded-2xl p-5">
                   <p className="text-xs font-bold uppercase tracking-widest text-darkGreen mb-2">{generatedForm.type}</p>
                   <p className="text-sm text-darkSlate leading-[1.85] m-0">{typeTekst}</p>
+                </div>
+              );
+            })()}
+
+            {/* Vaste profieltekst */}
+            {(() => {
+              const profiel = `${generatedForm.profielBewust}/${generatedForm.profielOnbewust}`;
+              const profielTekst = HD_PROFIEL_TEKSTEN.find(p => p.profiel === profiel)?.tekst;
+              if (!profielTekst) return null;
+              return (
+                <div className="bg-white border border-lightBg rounded-2xl p-5">
+                  <p className="text-xs font-bold uppercase tracking-widest text-darkGreen mb-2">Profiel {profiel}</p>
+                  <p className="text-sm text-darkSlate leading-[1.85] m-0">{profielTekst}</p>
                 </div>
               );
             })()}
