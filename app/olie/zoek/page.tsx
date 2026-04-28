@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-type Olie = { naam: string; voor?: string };
+type Olie = { naam: string; voor?: string; href?: string };
 
 type Categorie = {
   id: string;
@@ -11,7 +11,7 @@ type Categorie = {
   emoji: string;
   kleur: string;
   olieen: Olie[];
-  blend?: { naam: string; olieen: string[] };
+  blend?: { naam: string; olieen: string[]; href?: string };
   notitie?: string;
 };
 
@@ -52,8 +52,8 @@ const groepen: Groep[] = [
         titel: 'Pollen',
         emoji: '🌸',
         kleur: 'border-midGreen',
-        olieen: [{ naam: 'Lavender' }, { naam: 'Lemon' }, { naam: 'Peppermint' }],
-        blend: { naam: 'het pollentrio', olieen: ['Lavender', 'Lemon', 'Peppermint'] },
+        olieen: [{ naam: 'Lavender', href: 'https://energiekelieke.kennis.shop/pay/Lavender5ML' }, { naam: 'Lemon' }, { naam: 'Peppermint' }],
+        blend: { naam: 'het pollentrio', olieen: ['Lavender', 'Lemon', 'Peppermint'], href: 'https://energiekelieke.kennis.shop/pay/pollen' },
       },
     ],
   },
@@ -82,9 +82,9 @@ const groepen: Groep[] = [
         emoji: '🔥',
         kleur: 'border-darkRed',
         olieen: [
-          { naam: 'Magnify Your Purpose', voor: 'richting' },
-          { naam: 'Motivation', voor: 'actie' },
-          { naam: 'Believe of Valor', voor: 'zelfvertrouwen' },
+          { naam: 'Magnify Your Purpose', voor: 'richting', href: 'https://energiekelieke.kennis.shop/pay/motivatieboostolien' },
+          { naam: 'Motivation', voor: 'actie', href: 'https://energiekelieke.kennis.shop/pay/motivatieboostolien' },
+          { naam: 'Believe of Valor', voor: 'zelfvertrouwen', href: 'https://energiekelieke.kennis.shop/pay/valor' },
         ],
       },
       {
@@ -92,7 +92,7 @@ const groepen: Groep[] = [
         titel: 'Zelfvertrouwen & Eigenwaarde',
         emoji: '💪',
         kleur: 'border-midGreen',
-        olieen: [{ naam: 'Believe' }, { naam: 'Valor' }],
+        olieen: [{ naam: 'Believe' }, { naam: 'Valor', href: 'https://energiekelieke.kennis.shop/pay/valor' }],
       },
     ],
   },
@@ -105,7 +105,7 @@ const groepen: Groep[] = [
         titel: 'Ontspanning & Slapen',
         emoji: '😴',
         kleur: 'border-darkSlate',
-        olieen: [{ naam: 'Lavender' }, { naam: 'Cedarwood' }, { naam: 'Stress Away' }],
+        olieen: [{ naam: 'Lavender', href: 'https://energiekelieke.kennis.shop/pay/Lavender5ML' }, { naam: 'Cedarwood' }, { naam: 'Stress Away', href: 'https://energiekelieke.kennis.shop/pay/stressaway' }],
       },
       {
         id: 'gronding',
@@ -144,7 +144,11 @@ function KaartItem({ cat, open, onToggle }: { cat: Categorie; open: boolean; onT
             {cat.olieen.map((o) => (
               <li key={o.naam} className="flex items-baseline gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-midGreen flex-shrink-0 mt-1.5" />
-                <span className="text-sm text-darkSlate font-medium">{o.naam}</span>
+                {o.href ? (
+                  <a href={o.href} target="_blank" rel="noopener noreferrer" className="text-sm text-midGreen font-medium hover:underline">{o.naam}</a>
+                ) : (
+                  <span className="text-sm text-darkSlate font-medium">{o.naam}</span>
+                )}
                 {o.voor && (
                   <span className="text-xs text-darkSlate/50">voor {o.voor}</span>
                 )}
@@ -157,6 +161,12 @@ function KaartItem({ cat, open, onToggle }: { cat: Categorie; open: boolean; onT
           )}
 
           {cat.blend && (
+            cat.blend.href ? (
+              <a href={cat.blend.href} target="_blank" rel="noopener noreferrer" className="mt-4 block bg-midGreen/10 hover:bg-midGreen/20 transition-colors rounded-xl px-4 py-3">
+                <p className="text-xs font-bold uppercase tracking-wide text-midGreen mb-1">Als blend: {cat.blend.naam} →</p>
+                <p className="text-xs text-darkSlate/70">{cat.blend.olieen.join(' + ')}</p>
+              </a>
+            ) : (
             <div className="mt-4 bg-midGreen/10 rounded-xl px-4 py-3">
               <p className="text-xs font-bold uppercase tracking-wide text-midGreen mb-1">
                 Als blend: {cat.blend.naam}
@@ -165,6 +175,7 @@ function KaartItem({ cat, open, onToggle }: { cat: Categorie; open: boolean; onT
                 {cat.blend.olieen.join(' + ')}
               </p>
             </div>
+            )
           )}
         </div>
       )}
@@ -173,7 +184,7 @@ function KaartItem({ cat, open, onToggle }: { cat: Categorie; open: boolean; onT
 }
 
 export default function ZoekPage() {
-  const [open, setOpen] = useState<string | null>(null);
+  const [open, setOpen] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const sendHeight = () => {
@@ -185,7 +196,11 @@ export default function ZoekPage() {
     return () => observer.disconnect();
   }, []);
 
-  const toggle = (id: string) => setOpen((prev) => (prev === id ? null : id));
+  const toggle = (id: string) => setOpen((prev) => {
+    const next = new Set(prev);
+    next.has(id) ? next.delete(id) : next.add(id);
+    return next;
+  });
 
   return (
     <div>
@@ -205,12 +220,12 @@ export default function ZoekPage() {
             <h2 className="font-bold text-xs uppercase tracking-widest text-darkSlate mb-3">
               {groep.emoji} {groep.titel}
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
               {groep.categories.map((cat) => (
                 <KaartItem
                   key={cat.id}
                   cat={cat}
-                  open={open === cat.id}
+                  open={open.has(cat.id)}
                   onToggle={() => toggle(cat.id)}
                 />
               ))}
