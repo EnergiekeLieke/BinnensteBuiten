@@ -93,14 +93,14 @@ export default function LentePage() {
           </div>
         </div>
 
-        <div className="flex overflow-hidden bg-white rounded-2xl border-l-4 border-darkGreen shadow">
-          <div className="p-5 flex-1">
+        <div className="bg-white rounded-2xl border-l-4 border-darkGreen shadow sm:col-span-2 overflow-hidden">
+          <div className="relative w-full h-48">
+            <img src="/fotos/ThievesSchoonmaakset.jpg" alt="Thieves schoonmaakset" className="w-full h-full object-cover" />
+          </div>
+          <div className="p-5">
             <div className="text-2xl mb-2">🌿</div>
             <h2 className="font-salmon text-lg text-darkSlate mb-1">Voorjaarsschoonmaak thuis</h2>
             <p className="text-sm text-darkSlate/70 leading-relaxed">De Thieves-lijn is perfect voor een frisse lenteaanpak in huis, van schoonmaakmiddelen tot diffuser.</p>
-          </div>
-          <div className="w-1/4 flex-shrink-0">
-            <img src="/fotos/ThievesSchoonmaakset.jpg" alt="Thieves schoonmaakset" className="w-full h-full object-cover" />
           </div>
         </div>
 
