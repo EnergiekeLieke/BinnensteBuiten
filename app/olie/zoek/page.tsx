@@ -177,7 +177,7 @@ export default function ZoekPage() {
 
   useEffect(() => {
     const sendHeight = () => {
-      window.parent.postMessage({ type: 'iframeHeight', height: document.documentElement.scrollHeight }, '*');
+      window.parent.postMessage({ type: 'iframeHeight', height: document.documentElement.scrollHeight + 32 }, '*');
     };
     const observer = new ResizeObserver(sendHeight);
     observer.observe(document.documentElement);
