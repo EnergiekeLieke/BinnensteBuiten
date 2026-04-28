@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import IframeResizer from '@/components/IframeResizer';
 
 const insecten = [
   { naam: 'Muggen',       emoji: '🦟', olieen: ['Cedarwood', 'Cinnamon', 'Citronella', 'Clove', 'Eucalyptus', 'Geranium', 'Hyssop', 'Lavender', 'Lemongrass', 'Orange', 'Peppermint', 'Spearmint'] },
@@ -18,6 +19,7 @@ const insecten = [
 export default function LentePage() {
   return (
     <div>
+      <IframeResizer />
       <div className="mb-2">
         <Link href="/olie" className="text-xs text-midGreen hover:underline">← Oliën</Link>
       </div>
