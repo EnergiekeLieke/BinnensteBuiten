@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 type Olie = { naam: string; voor?: string };
@@ -174,6 +174,16 @@ function KaartItem({ cat, open, onToggle }: { cat: Categorie; open: boolean; onT
 
 export default function ZoekPage() {
   const [open, setOpen] = useState<string | null>(null);
+
+  useEffect(() => {
+    const sendHeight = () => {
+      window.parent.postMessage({ type: 'iframeHeight', height: document.documentElement.scrollHeight }, '*');
+    };
+    const observer = new ResizeObserver(sendHeight);
+    observer.observe(document.documentElement);
+    sendHeight();
+    return () => observer.disconnect();
+  }, []);
 
   const toggle = (id: string) => setOpen((prev) => (prev === id ? null : id));
 
