@@ -5,6 +5,12 @@
       "headers": [
         { "key": "Content-Security-Policy", "value": "frame-ancestors *;" }
       ]
+    },
+    {
+      "source": "/olie/:path*",
+      "headers": [
+        { "key": "Content-Security-Policy", "value": "frame-ancestors *;" }
+      ]
     }
   ],
   "functions": {
