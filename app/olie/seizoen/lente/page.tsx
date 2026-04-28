@@ -95,7 +95,7 @@ export default function LentePage() {
 
         <div className="bg-white rounded-2xl border-l-4 border-darkGreen shadow sm:col-span-2 overflow-hidden">
           <div className="relative w-full h-48">
-            <img src="/fotos/ThievesSchoonmaakset.jpg" alt="Thieves schoonmaakset" className="w-full h-full object-cover object-bottom" />
+            <img src="/fotos/ThievesSchoonmaakset.jpg" alt="Thieves schoonmaakset" className="w-full h-full object-cover" style={{ objectPosition: 'center 70%' }} />
           </div>
           <div className="p-5">
             <div className="text-2xl mb-2">🌿</div>
