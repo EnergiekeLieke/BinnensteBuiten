@@ -13,7 +13,7 @@ export default function BeestjesKaart({ insecten }: { insecten: Insect[] }) {
       <h2 className="font-salmon text-lg text-darkSlate mb-4">Beestjes</h2>
 
       <div className="relative">
-        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 overflow-hidden transition-all duration-500 ${open ? 'max-h-[2000px]' : 'max-h-[280px]'}`}>
+        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 overflow-hidden transition-all duration-500 ${open ? 'max-h-[2000px]' : 'max-h-[420px]'}`}>
           {insecten.map(({ naam, emoji, href, olieen }) => {
             const cls = `bg-orange/5 rounded-xl p-4 ${href ? 'hover:bg-orange/10 transition-colors cursor-pointer' : ''}`;
             const inner = (
