@@ -48,6 +48,7 @@ export default function BeestjesKaart({ insecten }: { insecten: Insect[] }) {
       </button>
 
       <div className="flex flex-col gap-2 border-t border-darkSlate/10 pt-4 mt-4">
+        <p className="text-xs font-bold uppercase tracking-widest text-darkSlate/50 mb-1">💡 Tip</p>
         <p className="text-sm text-darkSlate/70 leading-relaxed">
           Zet een draadloze diffuser buiten op tafel om beestjes bij je vandaan te houden, bijv. de Macaron, Aroma Globe of Wanderbliss is hier geschikt voor. Super handig tijdens het eten of de BBQ. Heb je die niet? Een houten diffuserblokje met een paar druppels olie erop werkt ook best goed.
         </p>
