@@ -118,15 +118,13 @@ function SubKaarten({ inhoud, type }: { inhoud: string; type: 'patronen' | 'groe
         const { naam, badge } = parseBadge(k.titel);
         if (type === 'patronen') {
           return (
-            <div key={i} className={`bg-white rounded-xl border border-lightBg border-l-4 p-4 shadow-sm ${borderKleur(badge)}`}>
-              <div className="flex items-center gap-2 mb-2 flex-wrap">
-                <span className="font-salmon text-base text-darkSlate">{naam}</span>
-                {badge && (
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${badgeKleur(badge)}`}>
-                    {badge}
-                  </span>
-                )}
-              </div>
+            <div key={i} className={`relative bg-white rounded-xl border border-lightBg border-l-4 p-4 shadow-sm ${borderKleur(badge)}`}>
+              {badge && (
+                <span className={`absolute top-3 right-3 text-xs px-2 py-0.5 rounded-full font-medium ${badgeKleur(badge)}`}>
+                  {badge}
+                </span>
+              )}
+              <p className="font-salmon text-base text-darkSlate mb-2 pr-24">{naam}</p>
               <p className="text-sm text-darkSlate/80 leading-relaxed">
                 <RijkeTekst tekst={k.tekst.trim()} />
               </p>
@@ -212,11 +210,43 @@ export default function AnalyseResultaat({ tekst }: Props) {
         }
 
         if (type === 'afsluiting') {
+          const regels = s.inhoud.split('\n').map((r) => r.trim()).filter(Boolean);
+          const intro = regels.filter((r) => !r.startsWith('✨') && !r.startsWith('🌱'));
+          const affirmaties = regels.filter((r) => r.startsWith('✨'));
+          const groei = regels.filter((r) => r.startsWith('🌱'));
           return (
-            <div key={i} className="bg-lightBg2 border border-lightBg rounded-2xl p-5">
-              <p className="text-sm text-darkSlate leading-relaxed">
-                <RijkeTekst tekst={s.inhoud.trim()} />
-              </p>
+            <div key={i} className="bg-lightBg2 border border-lightBg rounded-2xl p-5 space-y-4">
+              {intro.length > 0 && (
+                <p className="text-sm text-darkSlate leading-relaxed">
+                  <RijkeTekst tekst={intro.join(' ')} />
+                </p>
+              )}
+              {affirmaties.length > 0 && (
+                <div>
+                  <p className="text-xs font-bold text-darkGreen uppercase tracking-widest mb-2">Affirmaties:</p>
+                  <ul className="space-y-1.5">
+                    {affirmaties.map((a, j) => (
+                      <li key={j} className="flex items-start gap-2 text-sm text-darkSlate leading-relaxed">
+                        <span className="mt-0.5 shrink-0">✨</span>
+                        <RijkeTekst tekst={a.replace(/^✨\s*/, '')} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {groei.length > 0 && (
+                <div className="pt-2 border-t border-lightBg">
+                  <p className="text-xs font-bold text-midGreen uppercase tracking-widest mb-2">Groei-affirmaties:</p>
+                  <ul className="space-y-1.5">
+                    {groei.map((a, j) => (
+                      <li key={j} className="flex items-start gap-2 text-sm text-darkSlate leading-relaxed">
+                        <span className="mt-0.5 shrink-0">🌱</span>
+                        <RijkeTekst tekst={a.replace(/^🌱\s*/, '')} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           );
         }
@@ -235,10 +265,18 @@ export default function AnalyseResultaat({ tekst }: Props) {
         <summary className="cursor-pointer text-xs text-midGreen hover:text-darkGreen select-none">
           Toon ruwe tekst
         </summary>
-        <textarea
-          readOnly value={tekst}
-          className="mt-2 w-full h-40 text-xs p-3 bg-cream border border-lightBg rounded-lg resize-none font-mono"
-        />
+        <div className="mt-2 relative">
+          <textarea
+            readOnly value={tekst}
+            className="w-full h-40 text-xs p-3 bg-cream border border-lightBg rounded-lg resize-none font-mono"
+          />
+          <button
+            onClick={kopieer}
+            className={`absolute bottom-3 right-3 text-xs px-2.5 py-1 rounded-md border transition-colors focus:outline-none ${gekopieerd ? 'bg-darkGreen border-darkGreen text-white' : 'bg-cream border-midGreen text-midGreen hover:border-darkGreen hover:text-darkGreen'}`}
+          >
+            {gekopieerd ? '✓ Gekopieerd' : 'Kopieer'}
+          </button>
+        </div>
       </details>
     </div>
   );

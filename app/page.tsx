@@ -48,6 +48,15 @@ export default function Home() {
         </Link>
       </div>
 
+      <p className="text-sm font-bold text-darkSlate mb-3">Wie ben jij als moeder?</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+        <Link href="/moedertype" className="block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+          <div className="text-4xl mb-3">🌿</div>
+          <h2 className="font-salmon text-xl text-darkSlate mb-2">Welk type moeder ben jij?</h2>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek via de biotensor welk moederpatroon het meest actief is én waar jouw kracht als moeder al volop aanwezig is.</p>
+        </Link>
+      </div>
+
       {/* Voor ondernemers */}
       <div className="rounded-2xl border-2 border-darkGreen overflow-hidden mb-8">
         <button
