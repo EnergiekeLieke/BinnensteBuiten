@@ -55,12 +55,19 @@ const REFLECTIEVRAGEN = [
   'Wat heb ik nodig om meer naar de rechterkant te bewegen?',
 ];
 
+const TOTAL_STEPS = MOEDERTYPEN.length + 1; // 7 vragen + 1 reflectiestap
+
 export default function MoederType() {
+  const [stap, setStap] = useState(0);
   const [scores, setScores] = useState<number[]>(MOEDERTYPEN.map(() => 50));
   const [reflecties, setReflecties] = useState(['', '', '']);
   const [analyse, setAnalyse] = useState('');
   const [loading, setLoading] = useState(false);
   const [fout, setFout] = useState('');
+
+  const isVraagStap = stap < MOEDERTYPEN.length;
+  const isReflectieStap = stap === MOEDERTYPEN.length;
+  const voortgang = Math.round((stap / TOTAL_STEPS) * 100);
 
   const analyseAanvragen = async () => {
     setLoading(true);
@@ -88,8 +95,8 @@ Stijlregels (VERPLICHT te volgen):
 - Gebruik NOOIT een m-dash (—). Splits de zin in twee losse zinnen of gebruik een komma of dubbele punt.
 - Verwijs naar het kind als 'je kind' of 'jouw kind', niet als 'hij' of 'zij'.
 - Gebruik 'niet onderhandelbaar', nooit 'niet negocieerbaar'.
-- Bij hoge scores (dichter bij 100%): noem de KRACHTNAAM, niet de paternoonnaam. Dus schrijf "de vertrouwende moeder" (niet "de overbeschermende moeder") als de score hoog is.
-- Bij lage scores (dichter bij 0%): noem de paternoonnaam.
+- Bij scores HOGER DAN 50%: noem altijd de KRACHTNAAM (rechts), niet de patroonnaam. Dus bij 55% of hoger schrijf je "de vertrouwende moeder", niet "de overbeschermende moeder".
+- Bij scores van 50% of lager: noem de patroonnaam (links).
 
 Schrijf een warme, persoonlijke analyse in het Nederlands met exact deze opmaak:
 
@@ -129,88 +136,118 @@ Schrijf één warme inleidende zin. Geef dan 3 affirmaties (begin elk met ✨ op
     }
   };
 
+  if (analyse) {
+    return (
+      <div className="space-y-6 max-w-lg mx-auto">
+        <div className="text-center">
+          <h1 className="font-salmon text-2xl text-darkSlate mb-1">Welk type moeder ben jij?</h1>
+        </div>
+        <AnalyseResultaat tekst={analyse} />
+        <div className="flex justify-center pt-2">
+          <button
+            onClick={() => { setAnalyse(''); setStap(0); setScores(MOEDERTYPEN.map(() => 50)); setReflecties(['', '', '']); }}
+            className="text-sm text-midGreen hover:text-darkGreen underline underline-offset-2"
+          >
+            Opnieuw beginnen
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const m = MOEDERTYPEN[stap];
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 max-w-lg mx-auto">
+
       <div className="text-center">
-        <h1 className="font-salmon text-3xl text-darkSlate mb-1">Welk type moeder ben jij?</h1>
-        <p className="text-midGreen italic text-sm">Biotensortest — alleen onbewuste scores</p>
+        <h1 className="font-salmon text-2xl text-darkSlate mb-1">Welk type moeder ben jij?</h1>
+        <p className="text-midGreen italic text-sm">Biotensortest · alleen onbewuste scores</p>
       </div>
 
-      <div className="bg-lightBg2 rounded-2xl p-5 border border-orange/20">
-        <p className="text-sm text-darkSlate font-medium mb-2">Instructie</p>
-        <p className="text-sm text-darkSlate leading-relaxed">
-          Voel per stelling waar jij zit tussen links en rechts.
-        </p>
-        <p className="text-sm text-darkSlate mt-1">
-          Meet op <strong>5% nauwkeurig</strong> je scores.
-        </p>
-        <div className="flex justify-between text-xs text-darkSlate/60 mt-3">
-          <span>⬅️ 0% = volledig patroon</span>
-          <span>100% = volledig in kracht ➡️</span>
+      {/* Progress */}
+      <div className="space-y-2">
+        <div className="flex justify-between text-xs text-darkSlate/60">
+          <span>{isReflectieStap ? 'Reflectie' : `Vraag ${stap + 1} van ${MOEDERTYPEN.length}`}</span>
+          <span>{voortgang}%</span>
+        </div>
+        <div className="w-full bg-lightBg rounded-full h-2">
+          <div
+            className="bg-darkGreen h-2 rounded-full transition-all duration-300"
+            style={{ width: `${voortgang}%` }}
+          />
         </div>
       </div>
 
-      <div className="space-y-6">
-        {MOEDERTYPEN.map((m, i) => (
-          <div key={i} className="bg-white rounded-2xl p-6 shadow-sm border border-lightBg">
-            <div className="grid grid-cols-2 gap-3 mb-4 items-start">
-              <h2 className="font-salmon text-lg text-darkRed leading-snug">
-                <span className="text-midGreen font-bold mr-1">{i + 1}.</span>
-                {m.naam}
-              </h2>
-              <h2 className="font-salmon text-lg text-darkGreen leading-snug text-right">
-                {m.kracht}
-              </h2>
-            </div>
+      {/* Instructie — alleen bij stap 0 */}
+      {stap === 0 && (
+        <div className="bg-lightBg2 rounded-2xl p-4 border border-orange/20 text-sm text-darkSlate space-y-1">
+          <p>Voel per stelling waar jij zit tussen links en rechts.</p>
+          <p>Meet op <strong>5% nauwkeurig</strong> je scores.</p>
+          <div className="flex justify-between text-xs text-darkSlate/50 pt-1">
+            <span>⬅️ 0% = volledig patroon</span>
+            <span>100% = volledig in kracht ➡️</span>
+          </div>
+        </div>
+      )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
-              <div className="bg-darkRed/5 rounded-xl p-4 border-l-4 border-darkRed">
-                <div className="text-[10px] font-bold text-darkRed uppercase tracking-widest mb-2">
-                  Patroon · 0%
-                </div>
-                <p className="text-sm text-darkSlate leading-relaxed italic">{m.links}</p>
-              </div>
-              <div className="bg-darkGreen/5 rounded-xl p-4 border-l-4 border-darkGreen">
-                <div className="text-[10px] font-bold text-darkGreen uppercase tracking-widest mb-2">
-                  Kracht · 100%
-                </div>
-                <p className="text-sm text-darkSlate leading-relaxed italic">{m.rechts}</p>
-              </div>
-            </div>
+      {/* Vraag */}
+      {isVraagStap && (
+        <div className="bg-white rounded-2xl p-5 shadow-sm border border-lightBg space-y-5">
+          <div className="flex justify-between items-start gap-2">
+            <h2 className="font-salmon text-base leading-snug text-darkRed">
+              <span className="text-midGreen font-bold mr-1">{stap + 1}.</span>
+              {m.naam}
+            </h2>
+            <h2 className="font-salmon text-base leading-snug text-darkGreen text-right shrink-0">
+              {m.kracht}
+            </h2>
+          </div>
 
-            <div className="space-y-1.5">
-              <div className="flex justify-between items-center text-xs">
-                <span className="text-darkRed">⬅️ patroon</span>
-                <span className="font-bold text-midGreen text-sm">{scores[i]}%</span>
-                <span className="text-darkGreen">kracht ➡️</span>
-              </div>
-              <input
-                type="range"
-                min={0}
-                max={100}
-                step={5}
-                value={scores[i]}
-                aria-label={`Score voor ${m.naam}`}
-                className="w-full slider-onbewust"
-                style={{ background: sliderBackground(scores[i], 100, C.darkGreen) }}
-                onChange={(e) =>
-                  setScores((prev) => prev.map((s, idx) => (idx === i ? Number(e.target.value) : s)))
-                }
-              />
+          <div className="grid grid-cols-1 gap-3">
+            <div className="bg-darkRed/5 rounded-xl p-4 border-l-4 border-darkRed">
+              <div className="text-[10px] font-bold text-darkRed uppercase tracking-widest mb-2">Patroon · 0%</div>
+              <p className="text-sm text-darkSlate leading-relaxed italic">{m.links}</p>
+            </div>
+            <div className="bg-darkGreen/5 rounded-xl p-4 border-l-4 border-darkGreen">
+              <div className="text-[10px] font-bold text-darkGreen uppercase tracking-widest mb-2">Kracht · 100%</div>
+              <p className="text-sm text-darkSlate leading-relaxed italic">{m.rechts}</p>
             </div>
           </div>
-        ))}
-      </div>
 
-      <section className="bg-lightBg2 rounded-2xl p-6 border border-orange/30">
-        <h2 className="font-salmon text-xl text-darkSlate mb-1">Reflectie</h2>
-        <p className="text-sm text-midGreen mb-5">Optioneel, maar geeft mooie extra diepte aan de analyse.</p>
-        <div className="space-y-5">
+          <div className="space-y-2">
+            <div className="flex justify-between items-center text-xs">
+              <span className="text-darkRed">⬅️ patroon</span>
+              <span className="font-bold text-midGreen text-lg">{scores[stap]}%</span>
+              <span className="text-darkGreen">kracht ➡️</span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              step={5}
+              value={scores[stap]}
+              aria-label={`Score voor ${m.naam}`}
+              className="w-full slider-onbewust"
+              style={{ background: sliderBackground(scores[stap], 100, C.darkGreen) }}
+              onChange={(e) =>
+                setScores((prev) => prev.map((s, idx) => (idx === stap ? Number(e.target.value) : s)))
+              }
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Reflectie */}
+      {isReflectieStap && (
+        <div className="bg-lightBg2 rounded-2xl p-5 border border-orange/30 space-y-5">
+          <div>
+            <h2 className="font-salmon text-xl text-darkSlate mb-1">Reflectie</h2>
+            <p className="text-sm text-midGreen">Optioneel, maar geeft mooie extra diepte aan de analyse.</p>
+          </div>
           {REFLECTIEVRAGEN.map((vraag, i) => (
             <div key={i}>
-              <label className="text-sm font-medium text-darkSlate block mb-1.5">
-                💛 {vraag}
-              </label>
+              <label className="text-sm font-medium text-darkSlate block mb-1.5">💛 {vraag}</label>
               <textarea
                 value={reflecties[i]}
                 onChange={(e) =>
@@ -223,20 +260,39 @@ Schrijf één warme inleidende zin. Geef dan 3 affirmaties (begin elk met ✨ op
             </div>
           ))}
         </div>
-      </section>
+      )}
 
-      <div className="flex flex-col items-center gap-3">
-        <button
-          onClick={analyseAanvragen}
-          disabled={loading}
-          className="px-8 py-3 rounded-xl bg-darkGreen text-cream font-salmon text-lg hover:bg-darkGreen/90 transition-colors disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-darkGreen focus:ring-offset-2"
-        >
-          {loading ? 'Bezig...' : 'Onthul mijn moederpatroon'}
-        </button>
-        {fout && <p className="text-darkRed text-sm">{fout}</p>}
+      {/* Navigatie */}
+      <div className="flex gap-3">
+        {stap > 0 && (
+          <button
+            onClick={() => setStap((s) => s - 1)}
+            className="flex-1 py-3.5 rounded-xl border border-midGreen text-midGreen font-salmon text-base hover:bg-midGreen/10 transition-colors"
+          >
+            ← Vorige
+          </button>
+        )}
+        {isVraagStap && (
+          <button
+            onClick={() => setStap((s) => s + 1)}
+            className="flex-1 py-3.5 rounded-xl bg-darkGreen text-cream font-salmon text-base hover:bg-darkGreen/90 transition-colors"
+          >
+            {stap === MOEDERTYPEN.length - 1 ? 'Naar reflectie →' : 'Volgende →'}
+          </button>
+        )}
+        {isReflectieStap && (
+          <button
+            onClick={analyseAanvragen}
+            disabled={loading}
+            className="flex-1 py-3.5 rounded-xl bg-darkGreen text-cream font-salmon text-base hover:bg-darkGreen/90 transition-colors disabled:opacity-50"
+          >
+            {loading ? 'Bezig...' : 'Onthul mijn moederpatroon'}
+          </button>
+        )}
       </div>
 
-      {analyse && <AnalyseResultaat tekst={analyse} />}
+      {fout && <p className="text-darkRed text-sm text-center">{fout}</p>}
+
     </div>
   );
 }

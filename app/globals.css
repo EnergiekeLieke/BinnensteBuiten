@@ -2,34 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Salmon';
-  src: url('/fonts/Salmon.woff2') format('woff2'),
-       url('/fonts/Salmon.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Brogi';
-  src: url('/fonts/Brogi.woff2') format('woff2'),
-       url('/fonts/Brogi.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
 html {
   scroll-behavior: smooth;
+}
+
+:focus-visible {
+  outline: 2px solid #758d69;
+  outline-offset: 3px;
 }
 
 body {
   background-color: #FCEBDC;
   color: #2a3a3c;
-  font-family: 'Brogi', Inter, sans-serif;
+  font-family: Inter, system-ui, sans-serif;
 }
 
 h1, h2, h3, h4 {
-  font-family: 'Salmon', Georgia, serif;
+  font-family: Georgia, serif;
 }
 
 /* Custom slider styling */

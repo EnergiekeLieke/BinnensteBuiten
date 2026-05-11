@@ -23,8 +23,8 @@ const config: Config = {
         xs: '360px',
       },
       fontFamily: {
-        salmon: ['Salmon', 'Georgia', 'serif'],
-        brogi:  ['Brogi', 'Inter', 'sans-serif'],
+        salmon: ['Georgia', 'serif'],
+        brogi:  ['Inter', 'system-ui', 'sans-serif'],
       },
     },
   },

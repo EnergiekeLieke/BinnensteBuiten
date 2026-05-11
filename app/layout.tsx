@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Energieke Lieke — Van denken naar voelen',
+  title: 'Energieke Lieke · Van denken naar voelen',
   description: 'Coaching tools voor persoonlijke en zakelijke groei',
 };
 
@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </header>
         <main className="max-w-5xl mx-auto px-4 py-8 pb-12">{children}</main>
         <footer className="mt-8 py-6 text-center text-sm text-midGreen border-t border-lightBg">
-          Energieke Lieke — Van denken naar voelen
+          Energieke Lieke · Van denken naar voelen
         </footer>
       </body>
     </html>

@@ -41,9 +41,11 @@ const STRATEGIEEN: { label: string; toelichting: string }[] = [
 ];
 
 const OVERTUIGINGEN = [
+  'Geld maakt niet gelukkig',
   'Geld groeit niet aan bomen',
   'Je moet hard werken voor je geld',
   'Rijke mensen zijn niet spiritueel',
+  'Rijke mensen zijn egoïstisch of slecht',
   'Geld is de oorzaak van alle problemen',
   'Ik ben niet goed met geld',
   'Geld is er nooit wanneer ik het nodig heb',
@@ -61,6 +63,9 @@ const OVERTUIGINGEN = [
   'Ik ben niet slim genoeg om rijk te worden',
   'Als ik succesvol ben krijg ik meer kritiek',
   'Geld maakt mij verantwoordelijk voor anderen',
+  'Ik moet eerst alles perfect doen voordat ik geld mag verdienen',
+  'Anderen zijn beter of succesvoller dan ik',
+  'Ik mag niet meer verdienen dan mijn ouders of omgeving',
 ];
 
 type Slider2 = { overtuigd: number; loslaten: number };
