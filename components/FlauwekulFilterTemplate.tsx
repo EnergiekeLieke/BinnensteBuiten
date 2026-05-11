@@ -1,107 +1,77 @@
 'use client';
 
+// ─── GEBRUIK ──────────────────────────────────────────────────────────────────
+// 1. Dupliceer dit bestand naar components/<NaamFilter>.tsx
+// 2. Vul de vier arrays in: STELLINGEN, GROEI_AFFIRMATIES, STRATEGIEEN, OVERTUIGINGEN
+// 3. Pas de teksten aan: filternaam, quote, scoreband-namen, AI-promptcontext
+// 4. Maak app/<routenaam>/page.tsx aan (zie onderaan dit bestand)
+// 5. Voeg een Link toe in app/page.tsx (Flauwekul Filter sectie)
+// ─────────────────────────────────────────────────────────────────────────────
+
 import { useState } from 'react';
 import AnalyseResultaat from './AnalyseResultaat';
 import { roepAnalyseAan, sliderBackground, kleuren as C } from '@/lib/huisstijl';
 
-const STELLINGEN = [
-  'Ik voel me helemaal op mijn gemak bij het idee om veel geld te verdienen.',
-  'Geld mag moeiteloos naar me toe stromen, zonder er keihard voor te hoeven werken.',
-  'Rijk zijn past bij wie ik ben en bij de bijdrage die ik lever.',
-  'Geld verdienen met wat ik leuk vind voelt eerlijk, natuurlijk en in lijn met mijn missie.',
-  'Ik kan met gemak geld ontvangen en behouden.',
-  'Ontvangen (geld, complimenten, hulp) voelt veilig en natuurlijk.',
-  'Ik gun mezelf meer geld, overvloed en financiële rust.',
-  'Ik geloof dat geld mensen juist versterkt in wie ze echt zijn.',
-  'Ik vertrouw erop dat succes hand in hand kan gaan met liefde, rust en verbinding.',
-  'Ik voel me slim, bekwaam en zakelijk genoeg om financieel te groeien.',
-  'Ik weet dat er overvloed genoeg is voor iedereen.',
-  'Ik voel me vrij om mijn geld alleen te dragen voor mezelf. Ik hoef niemand te redden.',
-  'Ik vertrouw erop dat ik altijd genoeg heb.',
-  'Sparen voelt als een liefdevolle keuze voor mijn toekomst.',
-  'Ik ga bewust en met plezier om met mijn geld.',
-];
-
-const STRATEGIEEN: { label: string; toelichting: string }[] = [
-  { label: 'Bewaren',                    toelichting: 'Geld oppotten uit angst dat het op raakt, ook als er genoeg is.' },
-  { label: 'Hamsteren',                  toelichting: 'Meer bewaren dan nodig vanuit een diep schaarstegevoel.' },
-  { label: 'Controleren',               toelichting: 'Alles tot achter de komma bijhouden om een gevoel van veiligheid te creëren.' },
-  { label: 'Schaamte verbergen',        toelichting: 'Je financiële situatie verbergen voor anderen uit schaamte of schuldgevoel.' },
-  { label: 'Geld vermijden',            toelichting: 'Rekeningen niet openen, bankapp mijden — geld liever niet onder ogen zien.' },
-  { label: 'Alles zelf doen',           toelichting: 'Geen hulp inhuren om kosten te besparen, ook als het jou energie kost.' },
-  { label: 'Uiten in spullen',          toelichting: 'Emoties of spanning omzetten in aankopen — retail therapy als ventiel.' },
-  { label: 'Geld verdienen als bewijs', toelichting: 'Geld gebruiken als bewijs van je waarde, succes of goed genoeg zijn.' },
-  { label: 'Geven zonder grenzen',      toelichting: 'Geld weggeven aan anderen zonder op je eigen behoeften te letten.' },
-  { label: 'Investeren zonder voelen',  toelichting: 'Impulsief investeren of uitgeven zonder je gevoel te checken.' },
-  { label: 'Onderhandelen vermijden',   toelichting: 'Prijzen stilzwijgend accepteren — onderhandelen voelt ongemakkelijk of onwaardig.' },
-  { label: 'Wachten op toestemming',    toelichting: 'Pas uitgeven of investeren als iemand anders zegt dat het mag of kan.' },
-  { label: 'Kleine stapjes blijven doen', toelichting: 'Voorzichtigheid als bescherming — nooit een grote stap durven zetten.' },
-  { label: 'Behoefte onderdrukken',     toelichting: 'Eigen wensen wegdrukken om te besparen, ook als de behoefte reëel is.' },
-  { label: 'Geld romantiseren',         toelichting: 'Dromen en fantaseren over financiële vrijheid zonder concreet actie te nemen.' },
-];
-
-const OVERTUIGINGEN = [
-  'Geld maakt niet gelukkig',
-  'Geld groeit niet aan bomen',
-  'Je moet hard werken voor je geld',
-  'Rijke mensen zijn niet spiritueel',
-  'Rijke mensen zijn egoïstisch of slecht',
-  'Geld is de oorzaak van alle problemen',
-  'Ik ben niet goed met geld',
-  'Geld is er nooit wanneer ik het nodig heb',
-  'Ik ben het niet waard om veel geld te hebben',
-  'Als ik geld verdien met wat ik leuk vind telt het niet',
-  'Geld verdienen mag geen plezier zijn',
-  'Geld gaat altijd snel weer weg',
-  'Ik moet eerst geven dan mag ik ontvangen',
-  'Anderen hebben meer recht op geld',
-  'Ik kan niet omgaan met geld dus hoef het ook niet',
-  'Geld maakt hebberig',
-  'Als ik veel geld heb verlies ik mensen',
-  'Ik moet sparen want het is nooit zeker',
-  'Het is verkeerd te verlangen naar meer geld',
-  'Ik ben niet slim genoeg om rijk te worden',
-  'Als ik succesvol ben krijg ik meer kritiek',
-  'Geld maakt mij verantwoordelijk voor anderen',
-  'Ik moet eerst alles perfect doen voordat ik geld mag verdienen',
-  'Anderen zijn beter of succesvoller dan ik',
-  'Ik mag niet meer verdienen dan mijn ouders of omgeving',
-];
-
 type Slider2 = { overtuigd: number; loslaten: number };
 
+// ── DEEL 1: 15 positief geformuleerde stellingen ──────────────────────────────
+const STELLINGEN: string[] = [
+  // Vul hier 15 stellingen in
+];
+
+// ── GROEI-AFFIRMATIES (output in rapport, niet scoreerbaar) ───────────────────
+const GROEI_AFFIRMATIES: string[] = [
+  // Vul hier de groei-affirmaties in
+];
+
+// ── DEEL 2: Strategieën (max ~15, top 3 kiezen) ───────────────────────────────
+const STRATEGIEEN: { label: string; toelichting: string }[] = [
+  // { label: 'Naam strategie', toelichting: 'Korte omschrijving.' },
+];
+
+// ── DEEL 3: Belemmerende overtuigingen (max 25) ───────────────────────────────
+const OVERTUIGINGEN: string[] = [
+  // Vul hier de overtuigingen in (worden automatisch genummerd)
+];
+
+// ── SCOREBANDS ────────────────────────────────────────────────────────────────
+// Pas de namen en teksten aan op het thema van het filter
 function scoreband(totaal: number): string {
-  if (totaal <= 40)  return 'Er stroomt nog weinig energie. Tijd om blokkades te helen.';
-  if (totaal <= 80)  return 'Je bent onderweg. Oude overtuigingen mogen loslaten.';
-  if (totaal <= 120) return 'Mooie transformatie van schaarste naar overvloed.';
-  return 'Geldenergie stroomt vrij!';
+  const max = STELLINGEN.length * 10;
+  const pct = totaal / max;
+  if (pct <= 0.25) return 'Flauwekul Alarm: [tekst invullen]';
+  if (pct <= 0.50) return 'Wankelende Wiebel: [tekst invullen]';
+  if (pct <= 0.75) return '[Naam]: [tekst invullen]';
+  return '[Naam]: [tekst invullen]';
 }
 
-export default function GeldGedoe() {
-  // Deel 1
+// ── FILTERNAAM & QUOTE ────────────────────────────────────────────────────────
+const FILTERNAAM = '[Filternaam]';
+const QUOTE      = '"[Openingsquote voor de header]"';
+
+// ── AI-CONTEXT ────────────────────────────────────────────────────────────────
+// Beschrijf het thema van dit filter voor de AI-prompts
+const THEMA_OVERTUIGINGEN = '[thema, bijv. geld / liefde / energie]';
+const THEMA_KERNOV        = '[thema, bijv. geld / liefde / energie]';
+
+export default function FlauwekulFilterTemplate() {
   const [d1, setD1] = useState<{ bewust: number; onbewust: number }[]>(
     STELLINGEN.map(() => ({ bewust: 5, onbewust: 5 }))
   );
-
-  // Deel 2
   const [gekozenStrategieen, setGekozenStrategieen] = useState<string[]>([]);
-
-  // Deel 3
-  const [aangevinktOv, setAangevinktOv]   = useState<boolean[]>(OVERTUIGINGEN.map(() => false));
-  const [slidersOv, setSlidersOv]         = useState<Slider2[]>(OVERTUIGINGEN.map(() => ({ overtuigd: 50, loslaten: 50 })));
-
-  // Deel 4
-  const [kernOvertuigingen, setKernOvertuigingen] = useState<string[]>([]);
-  const [aangevinktKern, setAangevinktKern]       = useState<boolean[]>([]);
-  const [slidersKern, setSlidersKern]             = useState<Slider2[]>([]);
-  const [kernLoading, setKernLoading]             = useState(false);
-
-  const [analyse, setAnalyse]       = useState('');
-  const [loading, setLoading] = useState(false);
-  const [fout, setFout]       = useState('');
+  const [aangevinktOv, setAangevinktOv]             = useState<boolean[]>(OVERTUIGINGEN.map(() => false));
+  const [slidersOv, setSlidersOv]                   = useState<Slider2[]>(OVERTUIGINGEN.map(() => ({ overtuigd: 50, loslaten: 50 })));
+  const [kernOvertuigingen, setKernOvertuigingen]   = useState<string[]>([]);
+  const [aangevinktKern, setAangevinktKern]         = useState<boolean[]>([]);
+  const [slidersKern, setSlidersKern]               = useState<Slider2[]>([]);
+  const [kernLoading, setKernLoading]               = useState(false);
+  const [analyse, setAnalyse]                       = useState('');
+  const [loading, setLoading]                       = useState(false);
+  const [fout, setFout]                             = useState('');
 
   const totaalBewust   = d1.reduce((s, x) => s + x.bewust, 0);
   const totaalOnbewust = d1.reduce((s, x) => s + x.onbewust, 0);
+  const max            = STELLINGEN.length * 10;
 
   const toggleStrategie = (s: string) => {
     setGekozenStrategieen((prev) =>
@@ -119,12 +89,12 @@ export default function GeldGedoe() {
         .filter(({ bewust, onbewust }) => bewust < 4 || onbewust < 4)
         .map(({ s, bewust, onbewust }) => `"${s}" (bewust: ${bewust}, onbewust: ${onbewust})`);
 
-      const prompt = `Op basis van deze belemmerende geldovertuigingen die iemand aangevinkt heeft:
+      const prompt = `Op basis van deze belemmerende ${THEMA_KERNOV}overtuigingen die iemand aangevinkt heeft:
 ${aangevinkteLijst.join('\n')}
 ${lageStellingen.length > 0 ? `\nEn deze stellingen waarop laag gescoord werd (bewust of onbewust onder 4):\n${lageStellingen.join('\n')}` : ''}
 
 Genereer 5 tot 8 NEGATIEVE existentiële kernovertuigingen in ik-vorm.
-Deze gaan NIET over geld maar over wie de persoon denkt te zijn.
+Deze gaan NIET over ${THEMA_KERNOV} maar over wie de persoon denkt te zijn.
 Voorbeelden: "Ik ben niet genoeg", "Ik moet mijn plek verdienen", "Ik ben niet veilig als ik te veel ruimte inneem".
 Geef alleen de kernovertuigingen, één per regel, zonder nummering of extra uitleg.`;
 
@@ -144,19 +114,6 @@ Geef alleen de kernovertuigingen, één per regel, zonder nummering of extra uit
     setLoading(true);
     setFout('');
     try {
-      const gekozenKern = kernOvertuigingen
-        .filter((_, i) => aangevinktKern[i])
-        .map((k) => {
-          const idx = kernOvertuigingen.indexOf(k);
-          const slider = slidersKern[idx] ?? { overtuigd: 50, loslaten: 50 };
-          return `"${k}" — overtuigd: ${slider.overtuigd}%, loslaten: ${slider.loslaten}%`;
-        });
-
-      const gekozenGeldOv = OVERTUIGINGEN.filter((_, i) => aangevinktOv[i]).map((ov) => {
-        const idx = OVERTUIGINGEN.indexOf(ov);
-        return `"${ov}" — overtuigd: ${slidersOv[idx].overtuigd}%, loslaten: ${slidersOv[idx].loslaten}%`;
-      });
-
       const stellingenDetail = STELLINGEN.map((s, i) =>
         `  - ${s} (bewust: ${d1[i].bewust}, onbewust: ${d1[i].onbewust})`
       ).join('\n');
@@ -166,24 +123,45 @@ Geef alleen de kernovertuigingen, één per regel, zonder nummering of extra uit
         .filter(({ kloof }) => kloof >= 4)
         .map(({ s, bewust, onbewust }) => `  - "${s}" (bewust: ${bewust}, onbewust: ${onbewust})`);
 
-      const prompt = `Sluit deze Geld Gedoe sessie af.
+      const gekozenKern = kernOvertuigingen
+        .filter((_, i) => aangevinktKern[i])
+        .map((k) => {
+          const idx = kernOvertuigingen.indexOf(k);
+          const slider = slidersKern[idx] ?? { overtuigd: 50, loslaten: 50 };
+          return `"${k}" - overtuigd: ${slider.overtuigd}%, loslaten: ${slider.loslaten}%`;
+        });
 
-## Geldenergie scores (deel 1)
-Bewust totaal: ${totaalBewust}/150 — ${scoreband(totaalBewust)}
-Onbewust totaal: ${totaalOnbewust}/150 — ${scoreband(totaalOnbewust)}
+      const gekozenOv = OVERTUIGINGEN.filter((_, i) => aangevinktOv[i]).map((ov) => {
+        const idx = OVERTUIGINGEN.indexOf(ov);
+        return `"${ov}" - overtuigd: ${slidersOv[idx].overtuigd}%, loslaten: ${slidersOv[idx].loslaten}%`;
+      });
+
+      const prompt = `Sluit deze ${FILTERNAAM} sessie af.
+
+## Energiemeting stellingen (deel 1)
+Bewust totaal: ${totaalBewust}/${max} - ${scoreband(totaalBewust)}
+Onbewust totaal: ${totaalOnbewust}/${max} - ${scoreband(totaalOnbewust)}
 Totaalkloof bewust/onbewust: ${Math.abs(totaalBewust - totaalOnbewust)} punten
 ${kloofStellingen.length > 0 ? `Stellingen met grote kloof (verschil ≥ 4):\n${kloofStellingen.join('\n')}` : ''}
 
 ${stellingenDetail}
 
-## Top 3 geldstrategieën (deel 2)
-${gekozenStrategieen.join(', ') || 'geen geselecteerd'}
+## Top 3 strategieën (deel 2)
+${gekozenStrategieen.length > 0
+  ? gekozenStrategieen.map((label, rank) => {
+      const s = STRATEGIEEN.find((x) => x.label === label);
+      return `${rank + 1}. ${label}: ${s?.toelichting ?? ''}`;
+    }).join('\n')
+  : 'geen geselecteerd'}
 
-## Belemmerende geldovertuigingen (deel 3)
-${gekozenGeldOv.join('\n') || 'geen aangevinkt'}
+## Belemmerende ${THEMA_OVERTUIGINGEN}overtuigingen (deel 3)
+${gekozenOv.join('\n') || 'geen aangevinkt'}
 
 ## Existentiële kernovertuigingen (deel 4)
 ${gekozenKern.join('\n') || 'geen aangevinkt'}
+
+## Beschikbare groei-affirmaties (gebruik de meest passende in de afsluiting)
+${GROEI_AFFIRMATIES.join('\n')}
 
 Let specifiek op de kloof tussen bewust en onbewust: een groot verschil bij individuele stellingen of in de totaalscore duidt op blinde vlekken of innerlijk conflict dat nog niet doorgebroken is.
 
@@ -194,7 +172,7 @@ Schrijf een persoonlijke conclusie in het Nederlands met exact deze opmaak:
 
 ## Opvallende patronen
 Gebruik voor elk patroon een ### blok:
-### [Thema, bijv. "Geldenergie", "Overtuiging: [naam]"]
+### [Thema]
 2-3 zinnen inzicht. Gebruik **vetgedrukte woorden** voor kernbegrippen.
 
 ## Groeikansen
@@ -203,7 +181,7 @@ Gebruik voor elke kans een ### blok:
 Concrete aanbeveling in 2-3 zinnen.
 
 ## Afsluiting
-Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
+Warme afsluitende alinea. Kies 3-4 affirmaties uit de beschikbare groei-affirmaties die het beste passen bij deze persoon (begin elk met ✨).`;
 
       const tekst = await roepAnalyseAan(prompt, 3000);
       setAnalyse(tekst);
@@ -217,24 +195,29 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
   return (
     <div className="space-y-10">
       <div className="text-center">
-        <h1 className="font-salmon text-3xl text-darkSlate mb-1">Flauwekul Filter: Geld Gedoe</h1>
-        <p className="text-orange italic text-sm">"Geld maakt niet gelukkig. Maar gelukkig is er geld!"</p>
+        <h1 className="font-salmon text-3xl text-darkSlate mb-1">Flauwekul Filter: {FILTERNAAM}</h1>
+        <p className="text-orange italic text-sm">{QUOTE}</p>
       </div>
 
       {/* DEEL 1 */}
       <section className="bg-white rounded-2xl p-6 shadow-sm border border-lightBg">
-        <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 1 — Energiemeting stellingen</h2>
-        <p className="text-sm text-midGreen mb-5">Scoor elke stelling met de biotensor: rood = bewust, groen = onbewust. <span className="text-darkSlate/70">0 = helemaal niet van toepassing · 10 = volledig van toepassing</span></p>
+        <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 1: Energiemeting stellingen</h2>
+        <p className="text-sm text-midGreen mb-5">
+          Scoor elke stelling met de biotensor: rood = bewust, groen = onbewust.{' '}
+          <span className="text-darkSlate/70">0 = helemaal niet van toepassing · 10 = volledig van toepassing</span>
+        </p>
         <div className="space-y-5">
           {STELLINGEN.map((stelling, i) => (
             <div key={i} className="border-b border-lightBg pb-4 last:border-0 last:pb-0">
-              <p className="text-sm text-darkSlate mb-2"><span className="text-midGreen font-bold mr-1">{i + 1}.</span>{stelling}</p>
+              <p className="text-sm text-darkSlate mb-2">
+                <span className="text-midGreen font-bold mr-1">{i + 1}.</span>{stelling}
+              </p>
               <div className="space-y-2">
-                <SliderRijGeld
+                <SliderRij
                   label="Bewust" waarde={d1[i].bewust} soort="slider-bewust" kleur="text-darkRed"
                   onChange={(v) => setD1((p) => p.map((x, idx) => idx === i ? { ...x, bewust: v } : x))}
                 />
-                <SliderRijGeld
+                <SliderRij
                   label="Onbewust" waarde={d1[i].onbewust} soort="slider-onbewust" kleur="text-darkGreen"
                   onChange={(v) => setD1((p) => p.map((x, idx) => idx === i ? { ...x, onbewust: v } : x))}
                 />
@@ -247,7 +230,9 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
             const totaal = soort === 'Bewust' ? totaalBewust : totaalOnbewust;
             return (
               <div key={soort} className={`rounded-xl p-4 text-center ${soort === 'Bewust' ? 'bg-darkRed/10' : 'bg-darkGreen/10'}`}>
-                <div className={`text-3xl font-bold ${soort === 'Bewust' ? 'text-darkRed' : 'text-darkGreen'}`}>{totaal}<span className="text-lg">/150</span></div>
+                <div className={`text-3xl font-bold ${soort === 'Bewust' ? 'text-darkRed' : 'text-darkGreen'}`}>
+                  {totaal}<span className="text-lg">/{max}</span>
+                </div>
                 <div className="text-xs text-darkSlate mt-1">{soort}</div>
                 <div className="text-xs text-midGreen mt-1 italic">{scoreband(totaal)}</div>
               </div>
@@ -258,7 +243,7 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
 
       {/* DEEL 2 */}
       <section className="bg-white rounded-2xl p-6 shadow-sm border border-lightBg">
-        <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 2 — Geldstrategieën</h2>
+        <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 2: Strategieën</h2>
         <p className="text-sm text-midGreen mb-4">
           Klik via je biotensor je top 3 strategieën in volgorde.
           {gekozenStrategieen.length < 3 && (
@@ -295,15 +280,13 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
             );
           })}
         </div>
-
-        {/* Legenda */}
         <details className="mt-4">
           <summary className="cursor-pointer text-sm text-midGreen hover:text-darkGreen select-none">
             Toon toelichting per strategie
           </summary>
           <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
             {STRATEGIEEN.map((s) => (
-              <div key={s.label} className="flex flex-col gap-0.5 text-xs leading-snug sm:grid sm:grid-cols-[140px_1fr] sm:gap-x-2">
+              <div key={s.label} className="flex flex-col gap-0.5 text-xs leading-snug sm:grid sm:grid-cols-[160px_1fr] sm:gap-x-2">
                 <span className="font-medium text-darkGreen">{s.label}</span>
                 <span className="text-darkSlate/70">{s.toelichting}</span>
               </div>
@@ -314,7 +297,7 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
 
       {/* DEEL 3 */}
       <section className="bg-white rounded-2xl p-6 shadow-sm border border-lightBg">
-        <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 3 — Belemmerende overtuigingen</h2>
+        <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 3: Belemmerende overtuigingen</h2>
         <p className="text-sm text-midGreen mb-4">Vink aan via biotensor, score dan hoe overtuigd en hoe klaar om los te laten</p>
         <div className="space-y-3">
           {OVERTUIGINGEN.map((ov, i) => (
@@ -350,10 +333,10 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
 
       {/* DEEL 4 */}
       <section className="bg-lightBg2 rounded-2xl p-6 border border-orange/30">
-        <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 4 — Existentiële kernovertuigingen</h2>
+        <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 4: Existentiële kernovertuigingen</h2>
         <p className="text-sm text-midGreen mb-4">
           <span className="font-semibold">Genereer existentiële kernovertuigingen op basis van jouw aangevinkte overtuigingen.</span>{' '}
-          <span className="italic">Existentiële kernovertuigingen zijn de diepste laag onder je gedrag — de stille stemmen over wie jij bent en wat jij verdient. Denk aan eigenwaarde, veiligheid en vertrouwen.</span>
+          <span className="italic">Dit zijn de diepste stemmen over wie jij bent en wat jij verdient.</span>
         </p>
         <button
           onClick={genereerKernOvertuigingen}
@@ -365,7 +348,6 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
         {!kernLoading && aangevinktOv.every((x) => !x) && (
           <p className="text-xs text-darkSlate/60 mt-2">Vink eerst overtuigingen aan in deel 3.</p>
         )}
-
         {kernOvertuigingen.length > 0 && (
           <div className="mt-5 space-y-3">
             {kernOvertuigingen.map((k, i) => (
@@ -411,14 +393,12 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
         {fout && <p className="text-darkRed text-sm">{fout}</p>}
       </div>
 
-      {analyse && (
-        <AnalyseResultaat tekst={analyse} />
-      )}
+      {analyse && <AnalyseResultaat tekst={analyse} />}
     </div>
   );
 }
 
-function SliderRijGeld({ label, waarde, soort, kleur, onChange }: {
+function SliderRij({ label, waarde, soort, kleur, onChange }: {
   label: string; waarde: number; soort: string; kleur: string; onChange: (v: number) => void;
 }) {
   const trackColor = soort === 'slider-onbewust' ? C.darkGreen : C.darkRed;
@@ -464,3 +444,13 @@ function SliderPercentage({ label, waarde, kleur, onChange }: {
     </div>
   );
 }
+
+// ── PAGINA (kopieer naar app/<routenaam>/page.tsx) ────────────────────────────
+//
+// import FlauwekulFilterTemplate from '@/components/FlauwekulFilterTemplate';
+//
+// export const metadata = { title: 'Flauwekul Filter: [Naam] · Energieke Lieke' };
+//
+// export default function Page() {
+//   return <FlauwekulFilterTemplate />;
+// }

@@ -146,10 +146,19 @@ export default function Home() {
                 <p className="text-sm text-darkSlate/70 leading-relaxed">Spoor je geldblokkades op en ontdek welk verhaal jij jezelf vertelt.</p>
               </Link>
 
+              <Link
+                href="/liefdeslek"
+                className="relative block bg-white rounded-2xl border-l-4 border-darkRed p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
+              >
+                <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-darkRed text-white rounded px-2 py-0.5">Nieuw!</span>
+                <div className="text-4xl mb-3">💔</div>
+                <h2 className="font-salmon text-xl text-darkSlate mb-2">Liefdes Lek</h2>
+                <p className="text-sm text-darkSlate/70 leading-relaxed">Herken de overtuigingen die jou van échte verbinding en zelfliefde weerhouden.</p>
+              </Link>
+
               {[
                 { titel: 'Tijd Tekort', icon: '⏳', sub: 'Ontdek waarom je agenda voller voelt dan ie is.' },
                 { titel: 'Batterij Blokkade', icon: '🔋', sub: 'Spoor op waar jouw energie weglekt, en ontdek hoe je dat stopt.' },
-                { titel: 'Liefdes Lek', icon: '💔', sub: 'Herken de overtuigingen die jou van échte verbinding en zelfliefde weerhouden.' },
                 { titel: 'Geniet Gebrek', icon: '🎉', sub: 'Ontdek wat er nog in de weg staat tussen jou en écht genieten.' },
                 { titel: 'Masker Moe', icon: '🎭', sub: 'Zet je masker af en laat jezelf zien zoals je écht bent!' },
               ].map((f) => (
