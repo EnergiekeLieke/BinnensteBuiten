@@ -49,24 +49,33 @@ const MOEDERTYPEN = [
   },
 ];
 
+const BEHOEFTEN = [
+  { naam: 'Emotionele validatie',      omschrijving: 'Mijn emoties werden gezien als echt en waardevol.' },
+  { naam: 'Warmte en zachtheid',       omschrijving: 'Ik ontving warmte en zachtheid, vooral in momenten van verdriet en onzekerheid.' },
+  { naam: 'Consistente aanwezigheid',  omschrijving: 'Er was consistente aanwezigheid wanneer ik contact en/of troost nodig had.' },
+  { naam: 'Een veilige plek',          omschrijving: 'Ik had een veilige plek om mijn innerlijke wereld bij kwijt te kunnen, zonder schaamte of schuldgevoel.' },
+];
+
 const REFLECTIEVRAGEN = [
   'Waar zit mijn grootste disbalans?',
   'Welk patroon herken ik uit mijn eigen jeugd?',
   'Wat heb ik nodig om meer naar de rechterkant te bewegen?',
 ];
 
-const TOTAL_STEPS = MOEDERTYPEN.length + 1; // 7 vragen + 1 reflectiestap
+const TOTAL_STEPS = 3; // moedertypen + behoeften + reflectie
 
 export default function MoederType() {
   const [stap, setStap] = useState(0);
   const [scores, setScores] = useState<number[]>(MOEDERTYPEN.map(() => 50));
+  const [behoeftenScores, setBehoeftenScores] = useState<number[]>(BEHOEFTEN.map(() => 50));
   const [reflecties, setReflecties] = useState(['', '', '']);
   const [analyse, setAnalyse] = useState('');
   const [loading, setLoading] = useState(false);
   const [fout, setFout] = useState('');
 
-  const isVraagStap = stap < MOEDERTYPEN.length;
-  const isReflectieStap = stap === MOEDERTYPEN.length;
+  const isVraagStap     = stap === 0;
+  const isBehoeftenStap = stap === 1;
+  const isReflectieStap = stap === 2;
   const voortgang = Math.round((stap / TOTAL_STEPS) * 100);
 
   const analyseAanvragen = async () => {
@@ -83,10 +92,17 @@ export default function MoederType() {
         .filter(Boolean)
         .join('\n\n');
 
+      const behoeftenLijst = BEHOEFTEN.map(
+        (b, i) => `${b.naam}: ${behoeftenScores[i]}% ontvangen — "${b.omschrijving}"`
+      ).join('\n');
+
       const prompt = `Analyseer de biotensor test "Welk type moeder ben jij?" van deze vrouw.
 
 Scores (0% = volledig in het patroon/wond, 100% = volledig in kracht):
 ${scoresLijst}
+
+Ontvangen basisbehoeften als kind (van haar eigen moeder, 0% = nauwelijks ontvangen, 100% = volop ontvangen):
+${behoeftenLijst}
 
 ${reflectieTekst ? `Reflectie van de vrouw:\n${reflectieTekst}` : ''}
 
@@ -97,6 +113,8 @@ Stijlregels (VERPLICHT te volgen):
 - Gebruik 'niet onderhandelbaar', nooit 'niet negocieerbaar'.
 - Bij scores HOGER DAN 50%: noem altijd de KRACHTNAAM (rechts), niet de patroonnaam. Dus bij 55% of hoger schrijf je "de vertrouwende moeder", niet "de overbeschermende moeder".
 - Bij scores van 50% of lager: noem de patroonnaam (links).
+
+Verbind waar mogelijk de ontvangen basisbehoeften als kind met de actieve moederpatronen: lage scores op een behoefte verklaren vaak waarom een bepaald patroon zo sterk aanwezig is.
 
 Schrijf een warme, persoonlijke analyse in het Nederlands met exact deze opmaak:
 
@@ -145,7 +163,7 @@ Schrijf één warme inleidende zin. Geef dan 3 affirmaties (begin elk met ✨ op
         <AnalyseResultaat tekst={analyse} />
         <div className="flex justify-center pt-2">
           <button
-            onClick={() => { setAnalyse(''); setStap(0); setScores(MOEDERTYPEN.map(() => 50)); setReflecties(['', '', '']); }}
+            onClick={() => { setAnalyse(''); setStap(0); setScores(MOEDERTYPEN.map(() => 50)); setBehoeftenScores(BEHOEFTEN.map(() => 50)); setReflecties(['', '', '']); }}
             className="text-sm text-midGreen hover:text-darkGreen underline underline-offset-2"
           >
             Opnieuw beginnen
@@ -154,8 +172,6 @@ Schrijf één warme inleidende zin. Geef dan 3 affirmaties (begin elk met ✨ op
       </div>
     );
   }
-
-  const m = MOEDERTYPEN[stap];
 
   return (
     <div className="space-y-6 max-w-lg mx-auto">
@@ -168,7 +184,7 @@ Schrijf één warme inleidende zin. Geef dan 3 affirmaties (begin elk met ✨ op
       {/* Progress */}
       <div className="space-y-2">
         <div className="flex justify-between text-xs text-darkSlate/60">
-          <span>{isReflectieStap ? 'Reflectie' : `Vraag ${stap + 1} van ${MOEDERTYPEN.length}`}</span>
+          <span>{isReflectieStap ? 'Reflectie' : isBehoeftenStap ? 'Behoeften als kind' : 'Moederpatronen'}</span>
           <span>{voortgang}%</span>
         </div>
         <div className="w-full bg-lightBg rounded-full h-2">
@@ -179,8 +195,8 @@ Schrijf één warme inleidende zin. Geef dan 3 affirmaties (begin elk met ✨ op
         </div>
       </div>
 
-      {/* Instructie — alleen bij stap 0 */}
-      {stap === 0 && (
+      {/* Instructie */}
+      {isVraagStap && (
         <div className="bg-lightBg2 rounded-2xl p-4 border border-orange/20 text-sm text-darkSlate space-y-1">
           <p>Voel per stelling waar jij zit tussen links en rechts.</p>
           <p>Meet op <strong>5% nauwkeurig</strong> je scores.</p>
@@ -191,50 +207,88 @@ Schrijf één warme inleidende zin. Geef dan 3 affirmaties (begin elk met ✨ op
         </div>
       )}
 
-      {/* Vraag */}
+      {/* Alle moedertypen */}
       {isVraagStap && (
+        <div className="space-y-4">
+          {MOEDERTYPEN.map((m, i) => (
+            <div key={i} className="bg-white rounded-2xl p-5 shadow-sm border border-lightBg space-y-4">
+              <div className="flex justify-between items-start gap-2">
+                <h2 className="font-salmon text-base leading-snug text-darkRed">
+                  <span className="text-midGreen font-bold mr-1">{i + 1}.</span>
+                  {m.naam}
+                </h2>
+                <h2 className="font-salmon text-base leading-snug text-darkGreen text-right shrink-0">
+                  {m.kracht}
+                </h2>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-darkRed/5 rounded-xl p-4 border-l-4 border-darkRed">
+                  <div className="text-[10px] font-bold text-darkRed uppercase tracking-widest mb-2">Patroon · 0%</div>
+                  <p className="text-sm text-darkSlate leading-relaxed italic">{m.links}</p>
+                </div>
+                <div className="bg-darkGreen/5 rounded-xl p-4 border-l-4 border-darkGreen">
+                  <div className="text-[10px] font-bold text-darkGreen uppercase tracking-widest mb-2">Kracht · 100%</div>
+                  <p className="text-sm text-darkSlate leading-relaxed italic">{m.rechts}</p>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center text-xs">
+                  <span className="text-darkRed">⬅️ patroon</span>
+                  <span className="font-bold text-midGreen text-lg">{scores[i]}%</span>
+                  <span className="text-darkGreen">kracht ➡️</span>
+                </div>
+                <input
+                  type="range"
+                  min={0}
+                  max={100}
+                  step={5}
+                  value={scores[i]}
+                  aria-label={`Score voor ${m.naam}`}
+                  className="w-full slider-onbewust"
+                  style={{ background: sliderBackground(scores[i], 100, C.darkGreen) }}
+                  onChange={(e) =>
+                    setScores((prev) => prev.map((s, idx) => idx === i ? Number(e.target.value) : s))
+                  }
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Behoeften als kind */}
+      {isBehoeftenStap && (
         <div className="bg-white rounded-2xl p-5 shadow-sm border border-lightBg space-y-5">
-          <div className="flex justify-between items-start gap-2">
-            <h2 className="font-salmon text-base leading-snug text-darkRed">
-              <span className="text-midGreen font-bold mr-1">{stap + 1}.</span>
-              {m.naam}
-            </h2>
-            <h2 className="font-salmon text-base leading-snug text-darkGreen text-right shrink-0">
-              {m.kracht}
-            </h2>
+          <div>
+            <h2 className="font-salmon text-xl text-darkSlate mb-1">Jouw behoeften als kind</h2>
+            <p className="text-sm text-midGreen">Meet via de biotensor hoeveel je van elk van deze behoeften hebt ontvangen van je eigen moeder.</p>
           </div>
-
-          <div className="grid grid-cols-1 gap-3">
-            <div className="bg-darkRed/5 rounded-xl p-4 border-l-4 border-darkRed">
-              <div className="text-[10px] font-bold text-darkRed uppercase tracking-widest mb-2">Patroon · 0%</div>
-              <p className="text-sm text-darkSlate leading-relaxed italic">{m.links}</p>
-            </div>
-            <div className="bg-darkGreen/5 rounded-xl p-4 border-l-4 border-darkGreen">
-              <div className="text-[10px] font-bold text-darkGreen uppercase tracking-widest mb-2">Kracht · 100%</div>
-              <p className="text-sm text-darkSlate leading-relaxed italic">{m.rechts}</p>
-            </div>
+          <div className="flex justify-between text-xs text-darkSlate/50 -mb-2">
+            <span>⬅️ nauwelijks ontvangen</span>
+            <span>volop ontvangen ➡️</span>
           </div>
-
-          <div className="space-y-2">
-            <div className="flex justify-between items-center text-xs">
-              <span className="text-darkRed">⬅️ patroon</span>
-              <span className="font-bold text-midGreen text-lg">{scores[stap]}%</span>
-              <span className="text-darkGreen">kracht ➡️</span>
+          {BEHOEFTEN.map((b, i) => (
+            <div key={i} className="space-y-2 border-b border-lightBg pb-4 last:border-0 last:pb-0">
+              <div className="flex justify-between items-baseline">
+                <span className="text-sm font-medium text-darkSlate">{b.naam}</span>
+                <span className="font-bold text-midGreen">{behoeftenScores[i]}%</span>
+              </div>
+              <p className="text-xs text-darkSlate/60 italic">{b.omschrijving}</p>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                step={5}
+                value={behoeftenScores[i]}
+                aria-label={b.naam}
+                className="w-full slider-onbewust"
+                style={{ background: sliderBackground(behoeftenScores[i], 100, C.darkGreen) }}
+                onChange={(e) =>
+                  setBehoeftenScores((prev) => prev.map((s, idx) => idx === i ? Number(e.target.value) : s))
+                }
+              />
             </div>
-            <input
-              type="range"
-              min={0}
-              max={100}
-              step={5}
-              value={scores[stap]}
-              aria-label={`Score voor ${m.naam}`}
-              className="w-full slider-onbewust"
-              style={{ background: sliderBackground(scores[stap], 100, C.darkGreen) }}
-              onChange={(e) =>
-                setScores((prev) => prev.map((s, idx) => (idx === stap ? Number(e.target.value) : s)))
-              }
-            />
-          </div>
+          ))}
         </div>
       )}
 
@@ -272,12 +326,12 @@ Schrijf één warme inleidende zin. Geef dan 3 affirmaties (begin elk met ✨ op
             ← Vorige
           </button>
         )}
-        {isVraagStap && (
+        {(isVraagStap || isBehoeftenStap) && (
           <button
             onClick={() => setStap((s) => s + 1)}
             className="flex-1 py-3.5 rounded-xl bg-darkGreen text-cream font-salmon text-base hover:bg-darkGreen/90 transition-colors"
           >
-            {stap === MOEDERTYPEN.length - 1 ? 'Naar reflectie →' : 'Volgende →'}
+            {isVraagStap ? 'Naar behoeften →' : 'Naar reflectie →'}
           </button>
         )}
         {isReflectieStap && (
