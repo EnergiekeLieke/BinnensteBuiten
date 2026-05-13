@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { sliderBackground, kleuren as C, exporteerAlsPdf } from '@/lib/huisstijl';
+import { sliderBackground, kleuren as C } from '@/lib/huisstijl';
 
 const STELLINGEN = [
   'Ik voel me licht en energiek bij wat ik doe.',
@@ -114,92 +114,10 @@ export default function AandachtladderFlow() {
   const [aangevinkt, setAangevinkt] = useState<boolean[]>(OVERTUIGINGEN.map(() => false));
   const [sliders, setSliders] = useState<SliderOv[]>(OVERTUIGINGEN.map(() => ({ overtuigd: 50, loslaten: 50 })));
 
-  const [pdfLoading, setPdfLoading] = useState(false);
-  const [pdfFout, setPdfFout] = useState('');
-
   const totaal = scores.reduce((s, x) => s + x, 0);
   const band = scoreband(totaal);
 
-  const exportPdf = async () => {
-    setPdfLoading(true);
-    setPdfFout('');
-    try {
-      const top3 = OVERTUIGINGEN
-        .map((ov, i) => ({ ov, i, overtuigd: sliders[i].overtuigd, loslaten: sliders[i].loslaten }))
-        .filter(({ i }) => aangevinkt[i])
-        .sort((a, b) => b.overtuigd - a.overtuigd)
-        .slice(0, 3);
-
-      const stellingenRijen = STELLINGEN.map((s, i) => `
-        <tr>
-          <td style="width:32px;color:#758d69;font-weight:bold;">${i + 1}</td>
-          <td>${s}</td>
-          <td style="text-align:center;font-weight:bold;color:${scores[i] >= 7 ? '#3b5633' : scores[i] >= 4 ? '#d56119' : '#9e3816'}">${scores[i]}</td>
-        </tr>`).join('');
-
-      const aangevinkteLijst = OVERTUIGINGEN
-        .map((ov, i) => ({ ov, i }))
-        .filter(({ i }) => aangevinkt[i]);
-
-      const overtuigingenRijen = aangevinkteLijst.length > 0
-        ? aangevinkteLijst.map(({ ov, i }) => `
-          <tr>
-            <td>${ov.tekst}</td>
-            <td style="text-align:center;color:#9e3816;font-weight:bold;">${sliders[i].overtuigd}%</td>
-            <td style="text-align:center;color:#3b5633;font-weight:bold;">${sliders[i].loslaten}%</td>
-          </tr>`).join('')
-        : '<tr><td colspan="3" style="color:#aaa;font-style:italic;">Geen overtuigingen aangevinkt</td></tr>';
-
-      const affirmatieLijst = top3.map(({ ov, i, loslaten }) => {
-        const klaar = loslaten >= 50;
-        const tekst = ov.tekst.endsWith('.') ? ov.tekst.slice(0, -1).toLowerCase() : ov.tekst.toLowerCase();
-        const affirmatieTekst = klaar
-          ? `Ik kies ervoor om de overtuiging "${tekst}" los te laten, omdat ik weet dat ${ov.positief}. Dankjewel overtuiging, dat je me al die tijd hebt beschermd. Ik kies er nu voor om te vertrouwen op mijn natuurlijke flow.`
-          : (klaar ? ov.experiment : ov.experimentGroei.replace('Ik leer', 'Ik leer').replace('Ik wen', 'Ik wen').replace('Ik werk', 'Ik werk'));
-        const groeiTekst = klaar ? ov.groei : ov.groei;
-        const experimentTekst = klaar ? ov.experiment : ov.experimentGroei;
-        const klasse = klaar ? 'affirmatie' : 'groei-affirmatie';
-        const label = klaar ? `${loslaten}% bereid — loslaten` : `${loslaten}% bereid — groei-affirmatie`;
-        return `
-          <div style="margin-bottom:16px;">
-            <div class="${klasse}" style="margin-bottom:6px;">
-              <em>${klaar ? affirmatieTekst : ov.groei}</em>
-            </div>
-            <div style="font-size:9pt;color:#758d69;margin-bottom:4px;">${label}</div>
-            <div style="background:#fff;border:1px solid #e0dbd4;border-radius:4px;padding:8px 12px;font-size:9.5pt;">
-              <strong style="font-size:8pt;text-transform:uppercase;letter-spacing:0.05em;color:#aaa;">Speel het anders!</strong><br/>
-              🧪 ${experimentTekst}
-            </div>
-          </div>`;
-      }).join('');
-
-      const html = `
-        <h2>Flowmeting</h2>
-        <table>
-          <thead><tr><th>#</th><th>Stelling</th><th style="text-align:center;">Score</th></tr></thead>
-          <tbody>${stellingenRijen}</tbody>
-        </table>
-        <div class="analyse-block" style="margin-top:12px;">
-          <strong style="font-size:16pt;color:#2a3a3c;">${totaal}<span style="font-size:11pt;color:#aaa;">/100</span></strong>
-          &nbsp;&nbsp;<span style="color:${totaal >= 80 ? '#3b5633' : totaal >= 50 ? '#d56119' : '#9e3816'}">${band.tekst}</span>
-        </div>
-
-        <h2 style="margin-top:24px;">Aangevinkte overtuigingen</h2>
-        <table>
-          <thead><tr><th>Overtuiging</th><th style="text-align:center;">% Overtuigd</th><th style="text-align:center;">% Bereid tot loslaten</th></tr></thead>
-          <tbody>${overtuigingenRijen}</tbody>
-        </table>
-
-        ${top3.length > 0 ? `<h2 style="margin-top:24px;">Jouw affirmaties</h2>${affirmatieLijst}` : ''}
-      `;
-
-      await exporteerAlsPdf(html, 'FLOW-test');
-    } catch (e: unknown) {
-      setPdfFout(e instanceof Error ? e.message : 'PDF export mislukt');
-    } finally {
-      setPdfLoading(false);
-    }
-  };
+  const exportPdf = () => window.print();
 
   return (
     <div className="space-y-10">
@@ -324,15 +242,14 @@ export default function AandachtladderFlow() {
       {/* Affirmaties voor de hardnekkigste 3 */}
       <AffirmatieBlok aangevinkt={aangevinkt} sliders={sliders} />
 
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-col items-center gap-2 print:hidden">
         <button
           onClick={exportPdf}
-          disabled={pdfLoading}
-          className="px-8 py-3 rounded-xl bg-darkGreen text-cream font-salmon text-lg hover:bg-darkGreen/90 transition-colors disabled:opacity-50"
+          className="px-8 py-3 rounded-xl bg-darkGreen text-cream font-salmon text-lg hover:bg-darkGreen/90 transition-colors"
         >
-          {pdfLoading ? 'PDF maken…' : 'Exporteer naar PDF'}
+          Exporteer naar PDF
         </button>
-        {pdfFout && <p className="text-darkRed text-sm">{pdfFout}</p>}
+        <p className="text-xs text-darkSlate/50">Kies in de printdialoog voor "Opslaan als PDF"</p>
       </div>
     </div>
   );
@@ -438,7 +355,7 @@ function AffirmatieBlok({
                 )}
               </p>
               <p className={`text-[10px] mt-2 mb-3 ${klaar ? 'text-darkGreen' : 'text-orange'}`}>
-                {klaar ? `${loslaten}% bereid — klaar om los te laten` : `${loslaten}% bereid — groei-affirmatie`}
+                {klaar ? `${loslaten}% bereid: klaar om los te laten` : `${loslaten}% bereid: groei-affirmatie`}
               </p>
               <div className="rounded-lg bg-white/70 border border-darkSlate/10 px-3 py-2">
                 <p className="text-[10px] font-bold uppercase tracking-widest text-darkSlate/40 mb-1">Speel het anders!</p>
