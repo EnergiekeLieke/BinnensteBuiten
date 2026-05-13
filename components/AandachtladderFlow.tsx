@@ -8,7 +8,7 @@ const STELLINGEN = [
   'Ik ben gefocust zonder mezelf te forceren.',
   'Ik verlies de tijd uit het oog omdat ik helemaal opga in mijn taak.',
   'Mijn hoofd voelt rustig en helder.',
-  'Ik ervaar weinig tot geen innerlijke weerstand.',
+  'Ik voel innerlijke rust en beweeg moeiteloos met de stroom mee (ik ervaar weinig tot geen innerlijke weerstand).',
   'Ik handel vanuit vertrouwen in plaats van controle.',
   'Ik voel me creatief en geïnspireerd.',
   'Ik maak keuzes moeiteloos en intuïtief.',
