@@ -401,17 +401,18 @@ function AffirmatieBlok({
 
   return (
     <section className="bg-white rounded-2xl p-6 shadow-sm border border-lightBg">
-      <h2 className="font-salmon text-xl text-darkSlate mb-1">Jouw affirmaties</h2>
+      <h2 className="font-salmon text-xl text-darkSlate mb-3">Tijd voor een doorbraak!</h2>
       <div className="text-sm text-darkSlate/80 leading-relaxed mb-3 space-y-2">
         <p>De meest hardnekkige overtuigingen vragen jou om een <strong>bewuste keuze</strong> te maken.</p>
         <ul className="list-disc list-outside pl-4 space-y-1">
           <li>Als je al meer dan 50% bereid bent tot loslaten van je oude verhaal, dan kom je met positieve affirmaties (en kleine acties of gedragsexperimentjes die daarbij passen) vaak al een heel eind.</li>
-          <li>Soms heb je eerst nog te werken aan de bereidheid tot het loslaten ervan, omdat de overtuiging je ook nog steeds een voordeel brengt. In dat geval is een groei-affirmatie fijner. Daarmee vergroot je de bereidheid en laat je je lichaam wennen aan het idee van verandering (dat voelt veilig, want een groei-affirmatie voelt minder groots, affirmaties die compleet ongeloofwaardig voelen doen namelijk weinig of niets voor je).</li>
+          <li>Soms heb je eerst nog te werken aan het vergroten van de bereidheid tot het loslaten van je overtuiging, omdat die overtuiging je ook nog steeds een voordeel brengt. In dat geval is een groei-affirmatie fijner. Daarmee laat je je lichaam wennen aan het idee van verandering (dat voelt veilig, want een groei-affirmatie voelt minder groots). Affirmaties die compleet ongeloofwaardig voelen doen namelijk weinig of niets voor je.</li>
         </ul>
       </div>
       <p className="text-sm text-midGreen mb-4">
         Spreek onderstaande affirmaties hardop uit (met of zonder je biotensor), of schrijf ze op.
       </p>
+      <h3 className="font-salmon text-lg text-darkSlate mb-3">Jouw affirmaties</h3>
       <div className="space-y-3">
         {top3.map(({ ov, i, loslaten }) => {
           const klaar = loslaten >= 50;
