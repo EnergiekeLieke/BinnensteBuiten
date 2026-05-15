@@ -139,9 +139,10 @@ export default function AandachtladderFlow() {
       <section className="bg-white rounded-2xl p-6 shadow-sm border border-lightBg">
         <h2 className="font-salmon text-xl text-darkSlate mb-2">Flowmeting</h2>
         <p className="text-sm text-midGreen mb-1">Vraag met de biotensor aan jouw onderbewustzijn:</p>
-        <p className="text-sm text-darkSlate italic mb-6 pl-3 border-l-2 border-midGreen">
+        <p className="text-sm text-darkSlate italic mb-3 pl-3 border-l-2 border-midGreen">
           "Op een schaal van 0 tot 10, hoe waar is deze stelling op dit moment voor mij?"
         </p>
+        <p className="text-xs text-darkSlate/70 mb-6"><span className="font-semibold">0</span> = helemaal niet waar, deze stelling resoneert niet. <span className="font-semibold">10</span> = volledig waar, dit voel ik volop in mijn lijf.</p>
 
         <div className="space-y-5">
           {STELLINGEN.map((stelling, i) => (
