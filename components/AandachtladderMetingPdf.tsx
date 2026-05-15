@@ -4,10 +4,10 @@ import { Document, Page, Text, View, StyleSheet, PDFDownloadLink } from '@react-
 import { K, gedeeldeStijlen as g, PdfHeader, PdfFooter } from '@/lib/pdfHelpers';
 import type { Trede, Duo } from './AandachtladderMeting';
 
-function UitlegPdf({ tekst, stijl }: { tekst: string; stijl: object }) {
+function UitlegPdf({ tekst }: { tekst: string }) {
   const delen = tekst.split(/\*\*(.+?)\*\*/g);
   return (
-    <Text style={stijl}>
+    <Text style={s.uitlegTekst}>
       {delen.map((deel, i) =>
         i % 2 === 1
           ? <Text key={i} style={{ fontFamily: 'Helvetica-Bold' }}>{deel}</Text>
@@ -87,7 +87,7 @@ function MetingDocument({ trede, duo, subkeuzeKeuze, percentage, antwoorden }: P
 
           {/* Uitleg */}
           <View style={s.uitlegBlok} wrap={false}>
-            <UitlegPdf tekst={duo.uitleg} stijl={s.uitlegTekst} />
+            <UitlegPdf tekst={duo.uitleg} />
             {duo.tip && <Text style={s.tipTekst}>{duo.tip}</Text>}
           </View>
 
