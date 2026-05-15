@@ -1,6 +1,6 @@
-import FutureSelfVisualisatie from '@/components/FutureSelfVisualisatie';
+﻿import FutureSelfVisualisatie from '@/components/FutureSelfVisualisatie';
 
-export const metadata = { title: 'Future Self Visualisatie — Energieke Lieke' };
+export const metadata = { title: 'Future Self Visualisatie: Energieke Lieke' };
 
 export default function Page() {
   return <FutureSelfVisualisatie />;

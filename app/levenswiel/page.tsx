@@ -1,6 +1,6 @@
-import LevenswielAnalyse from '@/components/LevenswielAnalyse';
+﻿import LevenswielAnalyse from '@/components/LevenswielAnalyse';
 
-export const metadata = { title: 'Levenswiel Analyse — Energieke Lieke' };
+export const metadata = { title: 'Levenswiel Analyse: Energieke Lieke' };
 
 export default function Page() {
   return <LevenswielAnalyse />;
