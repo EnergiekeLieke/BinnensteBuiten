@@ -1,8 +1,13 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef, useMemo } from 'react';
-import { exporteerAlsPdf } from '@/lib/huisstijl';
+import dynamic from 'next/dynamic';
 import { HD_AFFIRMATIES, HD_PATRONEN, HD_TYPE_TEKSTEN, HD_PROFIEL_TEKSTEN } from '@/lib/hdAffirmatiesData';
+
+const HdAffimatiesPdfKnop = dynamic(
+  () => import('./HumanDesignAffimatiesPdf').then(m => m.HdAffimatiesPdfKnop),
+  { ssr: false, loading: () => <span className="text-xs text-midGreen">PDF laden…</span> }
+);
 
 const HD_AFFIRMATIES_MAP = new Map(HD_AFFIRMATIES.map(c => [c.key, c]));
 
@@ -150,7 +155,6 @@ export default function HumanDesignAffirmaties() {
   const [generatedForm, setGeneratedForm] = useState<typeof initForm | null>(null);
   const [gesloten, setGesloten]           = useState<Set<string>>(new Set());
   const [fout, setFout]                   = useState('');
-  const [pdfLoading, setPdfLoading]       = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
 
   function toggleAccordion(key: string) {
@@ -206,13 +210,6 @@ export default function HumanDesignAffirmaties() {
     setGesloten(new Set());
   }
 
-  async function downloadPdf() {
-    if (!resultRef.current) return;
-    setPdfLoading(true);
-    try { await exporteerAlsPdf(resultRef.current.innerHTML, 'Human Design Affirmaties'); }
-    catch { setFout('PDF exporteren mislukt. Probeer het opnieuw.'); }
-    finally { setPdfLoading(false); }
-  }
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -220,6 +217,11 @@ export default function HumanDesignAffirmaties() {
         <p className="m-0 text-xs font-semibold tracking-widest text-darkGreen uppercase">Human Design · BinnensteBuiten Spel</p>
         <h1 className="font-salmon text-3xl text-darkSlate mt-1 mb-1">Human Design Affirmaties</h1>
         <p className="text-sm text-midGreen italic m-0">Laat los wat niet van jou is</p>
+      </div>
+
+      <div className="bg-lightBg2 border-l-4 border-midGreen rounded-xl px-4 py-3 text-sm text-darkSlate leading-relaxed">
+        <span className="font-semibold text-midGreen">Zo gebruik je dit: </span>
+        Voer het Human Design-chart van je klant in. Geen biotensor nodig: de tool genereert direct affirmaties op basis van de staat van elk energiecentrum.
       </div>
 
       {/* Type */}
@@ -353,10 +355,12 @@ export default function HumanDesignAffirmaties() {
               </svg>
               <h3 className="m-0 text-base font-bold text-darkGreen">Jouw Human Design Affirmaties</h3>
             </div>
-            <button onClick={downloadPdf} disabled={pdfLoading}
-              className="shrink-0 px-3 py-1.5 rounded-full border border-darkGreen text-darkGreen text-xs cursor-pointer hover:bg-darkGreen hover:text-white transition-colors disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-darkGreen focus:ring-offset-2">
-              {pdfLoading ? 'Bezig...' : 'Download PDF'}
-            </button>
+            <HdAffimatiesPdfKnop
+              type={generatedForm.type}
+              profielBewust={generatedForm.profielBewust}
+              profielOnbewust={generatedForm.profielOnbewust}
+              centra={generatedForm.centra}
+            />
           </div>
           <div className="flex justify-end mb-4">
             <button onClick={toggleAllesResultaat}
