@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
-import { kleuren as C, sliderBackground } from '@/lib/huisstijl';
+import { kleuren as C, sliderBackground, vervangMDashes } from '@/lib/huisstijl';
 
 const VerbindingswielPdfKnop = dynamic(
   () => import('./VerbindingswielPdf').then(m => m.VerbindingswielPdfKnop),
@@ -61,12 +61,12 @@ function Spider({ scoresA, scoresB, fase }: { scoresA: Score[]; scoresB: Score[]
       {fase === 'analyse' && (
         <polygon points={avgPoly()} fill="rgba(213,97,25,0.15)" stroke={C.orange} strokeWidth="2" strokeDasharray="5,3" strokeLinejoin="round" />
       )}
-      {/* Partner A: doorgetrokken — rood=bewust, groen=onbewust */}
+      {/* Partner A: doorgetrokken (rood=bewust, groen=onbewust) */}
       <polygon points={poly(scoresA, 'vervullingOnbewust')} fill={C.darkGreen} fillOpacity="0.08" stroke={C.darkGreen} strokeWidth="2" strokeLinejoin="round" />
       <polygon points={poly(scoresA, 'vervullingBewust')} fill={C.darkRed} fillOpacity="0.1" stroke={C.darkRed} strokeWidth="2" strokeLinejoin="round" />
       {fase !== 'A' && (
         <>
-          {/* Partner B: gestippeld — rood=bewust, groen=onbewust */}
+          {/* Partner B: gestippeld (rood=bewust, groen=onbewust) */}
           <polygon points={poly(scoresB, 'vervullingOnbewust')} fill="none" stroke={C.darkGreen} strokeWidth="2" strokeLinejoin="round" strokeDasharray="5,4" />
           <polygon points={poly(scoresB, 'vervullingBewust')} fill="none" stroke={C.darkRed} strokeWidth="2" strokeLinejoin="round" strokeDasharray="5,4" />
         </>
@@ -120,8 +120,8 @@ function ScoreBlok({ scores, onUpdate, showGap }: { scores: Score; onUpdate: (ke
         const label = (gap: number, type: 'bewust' | 'onbewust') => {
           const prefix = type === 'bewust' ? 'Bewust' : 'Onbewust';
           if (gap <= -2) {
-            if (type === 'bewust' && gapO > -2) return `✓ ${prefix} meer dan vervuld — het hoofd zegt 'prima', kijk ook wat de biotensor zegt`;
-            return `✓ ${prefix} meer dan vervuld — hier zit ruimte en overvloed`;
+            if (type === 'bewust' && gapO > -2) return `✓ ${prefix} meer dan vervuld: het hoofd zegt 'prima', kijk ook wat de biotensor zegt`;
+            return `✓ ${prefix} meer dan vervuld: hier zit ruimte en overvloed`;
           }
           if (gap >= 4) return `⚠ ${prefix} gat: ${gap}`;
           return `○ ${prefix} gat: ${gap}`;
@@ -136,11 +136,11 @@ function ScoreBlok({ scores, onUpdate, showGap }: { scores: Score; onUpdate: (ke
         return (
           <div style={{ marginTop: 4, display: 'flex', flexWrap: 'wrap', gap: '6px 14px', alignItems: 'center' }}>
             {beidenOvervuld
-              ? <span style={{ fontSize: 11, fontWeight: 600, color: C.darkGreen }}>✓ Meer dan vervuld — hier zit ruimte en overvloed</span>
+              ? <span style={{ fontSize: 11, fontWeight: 600, color: C.darkGreen }}>✓ Meer dan vervuld: hier zit ruimte en overvloed</span>
               : onbewustBeter
               ? <>
                   {iB && <span style={{ fontSize: 11, fontWeight: 600, color: kleur(gapB) }}>{label(gapB, 'bewust')}</span>}
-                  <span style={{ fontSize: 11, fontWeight: 600, color: C.darkGreen }}>✓ Onbewust meer dan vervuld — het gaat beter dan je denkt, focus je aandacht eens bewust op wat er al wél is!</span>
+                  <span style={{ fontSize: 11, fontWeight: 600, color: C.darkGreen }}>✓ Onbewust meer dan vervuld: het gaat beter dan je denkt! Focus je aandacht eens bewust op wat er al wél is.</span>
                 </>
               : <>
                   {iB && <span style={{ fontSize: 11, fontWeight: 600, color: kleur(gapB) }}>{label(gapB, 'bewust')}</span>}
@@ -168,14 +168,14 @@ function Legenda() {
           <div key={titel} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
             <span style={{ width: 10, height: 10, borderRadius: '50%', background: kleur, flexShrink: 0, marginTop: 2 }}></span>
             <span style={{ color: C.darkSlate }}>
-              <strong style={{ color: kleur }}>{titel}</strong> — {omschr}<br />
+              <strong style={{ color: kleur }}>{titel}</strong>: {omschr}<br />
               <span style={{ opacity: 0.75 }}>{sub}</span>
               {extra && <><br /><span style={{ opacity: 0.65, fontStyle: 'italic', fontSize: 11 }}>{extra}</span></>}
             </span>
           </div>
         ))}
         <div style={{ borderTop: '1px solid ' + C.lightBg, paddingTop: 8, marginTop: 2, color: C.darkSlate, opacity: 0.8 }}>
-          Het verschil tussen <strong>belang</strong> en <strong>vervulling</strong> is het <em>verlangengat</em> — hoe groter het gat, hoe meer dit aspect aandacht vraagt.
+          Het verschil tussen <strong>belang</strong> en <strong>vervulling</strong> is het <em>verlangengat</em>: hoe groter het gat, hoe meer dit aspect aandacht vraagt.
         </div>
       </div>
     </div>
@@ -267,21 +267,21 @@ export default function Verbindingswiel() {
       'Een koppel heeft het Verbindingswiel ingevuld. Per verbindingsaspect gaven beiden drie scores: ' +
       'belang (hoe belangrijk is dit voor mij?), vervulling bewust (hoe vervuld voel ik me hier nu?) en vervulling onbewust (via biotensor).\n\n' +
       'Het verlangengat = belang minus vervulling bewust. Hoe groter dit gat, hoe meer pijn of gemis hier zit. ' +
-      'Let ook op aspecten waar het belang laag is — een lage vervulling daar is minder urgent. ' +
+      'Let ook op aspecten waar het belang laag is: een lage vervulling daar is minder urgent. ' +
       'Een groot verschil in belang tussen partners verklaart vaak misverstanden: ze leven in verschillende prioriteiten.\n\n' +
       'SCORES:\n' + lines + '\n\n' +
       'Gebruik als leidraad:\n' +
       '- Welke verbindingen zijn belangrijk voor beiden? Welke zijn voor de een essentieel maar voor de ander minder?\n' +
       '- Waar zitten de grootste verlangengaten? Wat betekent dit voor het koppel?\n' +
-      '- Wat zegt het verschil tussen bewuste en onbewuste vervulling — speelt er iets onder de oppervlakte?\n' +
+      '- Wat zegt het verschil tussen bewuste en onbewuste vervulling: speelt er iets onder de oppervlakte?\n' +
       '- Zijn er verbindingen die vroeger misschien meer aanwezig waren?\n' +
       '- Aan welke verbinding wil dit koppel de komende tijd aandacht geven?\n\n' +
-      'Wees warm, hoopvol, speels en niet-oordelend — alsof een goede vriendin die toevallig ook relatiecoach is met jullie aan tafel zit. ' +
-      'Gebruik beeldende taal en spreek het koppel direct aan als \'jullie\'. Geen droog rapport — een warm gesprek op papier.\n\n' +
+      'Wees warm, hoopvol, speels en niet-oordelend, alsof een goede vriendin die toevallig ook relatiecoach is met jullie aan tafel zit. ' +
+      'Gebruik beeldende taal en spreek het koppel direct aan als \'jullie\'. Geen droog rapport. Een warm gesprek op papier.\n\n' +
       'Schrijf in het NEDERLANDS. Antwoord ALLEEN met geldige JSON zonder markdown:\n' +
-      '{"samenvatting":"3-4 zinnen over het patroon van dit koppel — wat springt eruit, wat is de rode draad? Speels en warm.",' +
-      '"sterktes":[{"aspect":"naam","inzicht":"wat dit koppel hier goed doet of wat ze kunnen koesteren — concreet en warm"}],' +
-      '"aandacht":[{"aspect":"naam","type":"groot_verlangengat|belangverschil|onbewust_lager|beiden_laag","inzicht":"wat dit zegt over de verbinding, zonder oordeel — met een vleugje humor of beeldende taal"}],' +
+      '{"samenvatting":"3-4 zinnen over het patroon van dit koppel: wat springt eruit, wat is de rode draad? Speels en warm.",' +
+      '"sterktes":[{"aspect":"naam","inzicht":"wat dit koppel hier goed doet of wat ze kunnen koesteren, concreet en warm"}],' +
+      '"aandacht":[{"aspect":"naam","type":"groot_verlangengat|belangverschil|onbewust_lager|beiden_laag","inzicht":"wat dit zegt over de verbinding, zonder oordeel, met een vleugje humor of beeldende taal"}],' +
       '"groei":[{"aspect":"naam","tip":"concrete warme groeisuggestie voor dit koppel samen, praktisch en haalbaar"}],' +
       '"reflectie":{"vraag1":"een diepe open vraag over hun sterkste verbinding","vraag2":"een zachte vraag over het aspect met het grootste verlangengat","vraag3":"een vooruitkijkende vraag: aan welke verbinding willen jullie de komende tijd aandacht geven?"},' +
       '"afsluiting":"warme, hoopvolle afsluitzin gericht aan het koppel samen"}';
@@ -292,9 +292,22 @@ export default function Verbindingswiel() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Fout bij analyse');
-      setAnalyse(data as Analyse);
+      const data = await res.json() as Analyse;
+      if (!res.ok) throw new Error((data as { error?: string }).error || 'Fout bij analyse');
+      const schoon = (t?: string) => t ? vervangMDashes(t) : t;
+      setAnalyse({
+        ...data,
+        samenvatting: schoon(data.samenvatting),
+        sterktes:     data.sterktes?.map(s => ({ ...s, inzicht: vervangMDashes(s.inzicht) })),
+        aandacht:     data.aandacht?.map(a => ({ ...a, inzicht: vervangMDashes(a.inzicht) })),
+        groei:        data.groei?.map(g => ({ ...g, tip: vervangMDashes(g.tip) })),
+        reflectie:    data.reflectie ? {
+          vraag1: vervangMDashes(data.reflectie.vraag1),
+          vraag2: vervangMDashes(data.reflectie.vraag2),
+          vraag3: vervangMDashes(data.reflectie.vraag3),
+        } : undefined,
+        afsluiting: schoon(data.afsluiting),
+      });
     } catch (err) {
       setAnalyse({ error: err instanceof Error ? err.message : 'Onbekende fout' });
     }
@@ -311,7 +324,7 @@ export default function Verbindingswiel() {
     const sterktes = (analyse.sterktes || []).map(s => '- ' + s.aspect + ': ' + s.inzicht).join('\n');
     const aandacht = (analyse.aandacht || []).map(a => '- ' + a.aspect + ': ' + a.inzicht).join('\n');
     const groei = (analyse.groei || []).map(g => '- ' + g.aspect + ': ' + g.tip).join('\n');
-    return 'VERBINDINGSWIEL — ' + labelA + ' & ' + labelB + '\n------------------------------\n\n' +
+    return 'VERBINDINGSWIEL: ' + labelA + ' & ' + labelB + '\n------------------------------\n\n' +
       'SCORES\n' + lines + '\n\n------------------------------\n\n' +
       'SAMENVATTING\n' + analyse.samenvatting + '\n\n' +
       'STERKTES\n' + sterktes + '\n\n' +
@@ -382,7 +395,7 @@ export default function Verbindingswiel() {
           {fase === 'A' && (
             <button onClick={() => setFase('B')}
               style={{ width: '100%', padding: '13px', fontSize: 15, fontWeight: 700, cursor: 'pointer', borderRadius: 10, border: 'none', background: C.darkGreen, color: '#fff' }}>
-              {labelA} is klaar — door naar {labelB}
+              {labelA} is klaar. Door naar {labelB}
             </button>
           )}
           {fase === 'B' && (
@@ -484,7 +497,7 @@ export default function Verbindingswiel() {
 
               <button onClick={() => setShowText(s => !s)}
                 style={{ width: '100%', padding: '11px', fontSize: 14, fontWeight: 600, cursor: 'pointer', borderRadius: 10, marginBottom: 10, background: C.lightBg, color: C.darkSlate, border: '2px solid ' + C.lightBg }}>
-                {showText ? 'Verberg tekst' : 'Kopieer analyse — toon tekst'}
+                {showText ? 'Verberg tekst' : 'Kopieer analyse: toon tekst'}
               </button>
               {showText && (
                 <div style={{ marginBottom: 12 }}>
