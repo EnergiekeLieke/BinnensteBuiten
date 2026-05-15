@@ -86,7 +86,7 @@ Warme, persoonlijke afsluitende alinea als doorlopende tekst.`;
           <li className="flex gap-2"><span className="text-darkRed mt-0.5 shrink-0">●</span><span><span className="font-semibold">Bewust:</span> geef een cijfer vanuit je hoofd. Wat voel je bewust over dit gebied?</span></li>
           <li className="flex gap-2"><span className="text-darkGreen mt-0.5 shrink-0">●</span><span><span className="font-semibold">Onbewust:</span> wat geeft de biotensor (jouw onderbewustzijn) aan? Klopt het cijfer, of is het hoger of lager?</span></li>
         </ul>
-        <p>Vul beide sliders per levensgebied in, voordat je op de knop drukt voor de analyse.</p>
+        <p>Vul beide sliders voor alle levensgebieden in, voordat je op de knop drukt voor de analyse.</p>
         <p className="text-xs text-darkSlate/70"><span className="font-semibold">0</span> = volledig onvervuld, hier zit veel pijn of gemis. <span className="font-semibold">10</span> = volledig vervuld, dit gebied bloeit en geeft energie.</p>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
