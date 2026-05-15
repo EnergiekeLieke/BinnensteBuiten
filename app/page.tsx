@@ -25,13 +25,13 @@ export default function Home() {
         <Link href="/levenswiel" className="block h-full bg-white rounded-2xl border-l-4 border-darkRed p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">🌐</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-1">Levenswiel Analyse</h2>
-          <p className="text-xs text-midGreen italic mb-2">Je klant wil een helikopterview van haar leven.</p>
+          <p className="text-xs text-midGreen italic mb-2">Bekijk je leven vanuit helikopterview.</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Het spinnenweb maakt zichtbaar hoe tevreden jij bewust en onbewust bent over 8 levensgebieden. De analyse toont welke patronen je te doorbreken hebt én geeft je concrete tips.</p>
         </Link>
         <Link href="/verbindingswiel" className="block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">💞</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-1">Verbindingswiel</h2>
-          <p className="text-xs text-midGreen italic mb-2">Je werkt met een koppel dat de onderlinge verbinding wil doorvoelen.</p>
+          <p className="text-xs text-midGreen italic mb-2">Voor koppels die hun onderlinge verbinding willen doorvoelen.</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek hoe verbonden jullie écht zijn op 10 dimensies. Inclusief biotensor-scores, reflectievragen en concrete tips in een warm rapport voor koppels.</p>
         </Link>
       </div>
@@ -41,7 +41,7 @@ export default function Home() {
         <Link href="/basisverlangens" className="block h-full bg-white rounded-2xl border-l-4 border-orange p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">💡</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-1">Basisverlangens Werkblad</h2>
-          <p className="text-xs text-midGreen italic mb-2">Je klant weet niet wat ze écht wil, of maakt steeds keuzes die niet kloppen.</p>
+          <p className="text-xs text-midGreen italic mb-2">Je weet niet wat je écht wilt, of je maakt steeds keuzes die niet kloppen.</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek welke basisverlangens jou drijven per levensgebied en wat dat onthult over jouw patronen. Een krachtig inzicht in wat jou écht beweegt en waarom je doet wat je doet.</p>
         </Link>
         <Link href="/future-self" className="relative block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
