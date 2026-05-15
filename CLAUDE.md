@@ -1,3 +1,63 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Commands
+
+```bash
+npm run dev       # dev server op localhost:3000
+npm run build     # production build
+npx tsc --noEmit  # type check zonder build
+npm run lint      # ESLint
+```
+
+Vereiste env var: `ANTHROPIC_API_KEY` in `.env.local`.
+
+## Architectuur
+
+Next.js 16 App Router. Elke tool is een standalone client component met eigen route. Geen database, geen auth, geen persistentie — alle state is in-memory.
+
+### AI-analyse: twee call-patronen
+
+Beide roepen `/api/analyse/route.ts` aan (model: `claude-sonnet-4-6`, max 8000 tokens):
+
+- `roepAnalyseAan(prompt, maxTokens, signal?)` — buffert volledige response. Alleen gebruiken voor korte structuuruitvoer (≤ 500 tokens, bijv. kernovertuigingen genereren).
+- `streamAnalyse(prompt, maxTokens, onChunk, system?, signal?)` — streamt chunk voor chunk. Gebruik dit voor alle lange analyses.
+
+Standaard streaming patroon in componenten:
+```typescript
+const abortRef = useRef<AbortController | null>(null);
+useEffect(() => () => { abortRef.current?.abort(); }, []);
+
+const controller = new AbortController();
+abortRef.current = controller;
+let acc = '';
+await streamAnalyse(prompt, tokens, (chunk) => { acc += chunk; setAnalyse(acc); }, undefined, controller.signal);
+setAnalyse(vervangMDashes(acc));  // vervangMDashes altijd ná streaming op de volledige tekst
+```
+
+### AI-analyse weergave
+
+`AnalyseResultaat.tsx` is de gedeelde weergavecomponent. Verwacht markdown met `##`/`###` koppen. Props: `tekst`, `titel`, `verbergPrintKnop?`, `isLoading?`. Geef `isLoading={loading}` altijd mee — blokkeert de PDF-knop tijdens streaming.
+
+### PDF-export
+
+Client-side via `@react-pdf/renderer` (geen Puppeteer). Gedeelde stijlen en componenten staan in `lib/pdfHelpers.tsx` (`K`-kleuren, `PdfHeader`, `PdfFooter`, `PdfSectieKop`, `TekstMetVet`, `AnalyseInhoud`).
+
+PDF-componenten altijd dynamisch importeren:
+```typescript
+const MijnPdfKnop = dynamic(() => import('./MijnPdf').then(m => m.MijnPdfKnop), { ssr: false });
+```
+
+### Kleuren: twee bronnen
+
+- `tailwind.config.ts` — voor Tailwind classes in JSX
+- `lib/pdfHelpers.tsx` (`K`-object) — voor react-pdf inline styles
+
+Waarden zijn identiek. Bij kleurwijzigingen beide aanpassen. Slider-styling via `globals.css` (`.slider-bewust` rood, `.slider-onbewust` groen); achtergrond dynamisch via `sliderBackground()` uit `lib/huisstijl.ts`.
+
+---
+
 # Projectinstructies — BinnensteBuiten
 
 ## Schrijfstijl

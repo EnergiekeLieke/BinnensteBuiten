@@ -51,11 +51,12 @@ async function leesStream(res: Response): Promise<string> {
   return result;
 }
 
-export async function roepAnalyseAan(prompt: string, maxTokens = 2000): Promise<string> {
+export async function roepAnalyseAan(prompt: string, maxTokens = 2000, signal?: AbortSignal): Promise<string> {
   const res = await fetch('/api/analyse', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ prompt, maxTokens }),
+    signal,
   });
   return leesStream(res);
 }
@@ -64,11 +65,14 @@ export async function streamAnalyse(
   prompt: string,
   maxTokens = 2000,
   onChunk: (chunk: string) => void,
+  system?: string,
+  signal?: AbortSignal,
 ): Promise<void> {
   const res = await fetch('/api/analyse', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ prompt, maxTokens }),
+    body: JSON.stringify({ prompt, maxTokens, ...(system ? { system } : {}) }),
+    signal,
   });
   if (!res.ok || !res.body) {
     const tekst = await res.text();
@@ -90,6 +94,7 @@ export async function streamAnalyse(
   }
 }
 
+// Nog in gebruik door HumanDesignAffirmaties — vervanging gepland
 export async function exporteerAlsPdf(html: string, toolName: string): Promise<void> {
   const res = await fetch('/api/pdf', {
     method: 'POST',
@@ -107,4 +112,20 @@ export async function exporteerAlsPdf(html: string, toolName: string): Promise<v
   a.download = `${toolName.replace(/\s+/g, '-')}.pdf`;
   a.click();
   URL.revokeObjectURL(url);
+}
+
+const KOMMA_WOORDEN = new Set([
+  'maar', 'want', 'en', 'of', 'dus', 'toch', 'ook', 'zelfs',
+  'soms', 'nog', 'al', 'dan', 'hoewel', 'terwijl',
+]);
+
+export function vervangMDashes(tekst: string): string {
+  return tekst.replace(/[ \t]*—[ \t]*/g, (match, offset: number, str: string) => {
+    const na = str.slice(offset + match.length);
+    const eersteChar = na[0] ?? '';
+    const volgend = (na.match(/^([a-zA-Z]+)/)?.[1] ?? '').toLowerCase();
+    if (eersteChar >= 'A' && eersteChar <= 'Z') return '. ';
+    if (KOMMA_WOORDEN.has(volgend)) return ', ';
+    return ': ';
+  });
 }

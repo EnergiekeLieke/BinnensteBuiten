@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 // ─── GEBRUIK ──────────────────────────────────────────────────────────────────
 // 1. Dupliceer dit bestand naar components/<NaamFilter>.tsx
@@ -8,9 +8,9 @@
 // 5. Voeg een Link toe in app/page.tsx (Flauwekul Filter sectie)
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import AnalyseResultaat from './AnalyseResultaat';
-import { roepAnalyseAan, sliderBackground, kleuren as C } from '@/lib/huisstijl';
+import { roepAnalyseAan, streamAnalyse, vervangMDashes, sliderBackground, kleuren as C } from '@/lib/huisstijl';
 
 type Slider2 = { overtuigd: number; loslaten: number };
 
@@ -98,17 +98,23 @@ Deze gaan NIET over ${THEMA_KERNOV} maar over wie de persoon denkt te zijn.
 Voorbeelden: "Ik ben niet genoeg", "Ik moet mijn plek verdienen", "Ik ben niet veilig als ik te veel ruimte inneem".
 Geef alleen de kernovertuigingen, één per regel, zonder nummering of extra uitleg.`;
 
-      const tekst = await roepAnalyseAan(prompt, 500);
+      const controller = new AbortController();
+      abortRef.current = controller;
+      const tekst = await roepAnalyseAan(prompt, 500, controller.signal);
       const lijst = tekst.split('\n').map((r) => r.trim()).filter(Boolean);
       setKernOvertuigingen(lijst);
       setAangevinktKern(lijst.map(() => false));
       setSlidersKern(lijst.map(() => ({ overtuigd: 50, loslaten: 50 })));
     } catch (e: unknown) {
+      if (e instanceof Error && e.name === 'AbortError') return;
       setFout(e instanceof Error ? e.message : 'Fout bij genereren kernovertuigingen');
     } finally {
       setKernLoading(false);
     }
   };
+
+  const abortRef = useRef<AbortController | null>(null);
+  useEffect(() => () => { abortRef.current?.abort(); }, []);
 
   const sluitSessieAf = async () => {
     setLoading(true);
@@ -183,9 +189,13 @@ Concrete aanbeveling in 2-3 zinnen.
 ## Afsluiting
 Warme afsluitende alinea. Kies 3-4 affirmaties uit de beschikbare groei-affirmaties die het beste passen bij deze persoon (begin elk met ✨).`;
 
-      const tekst = await roepAnalyseAan(prompt, 3000);
-      setAnalyse(tekst);
+      const controller = new AbortController();
+      abortRef.current = controller;
+      let acc = '';
+      await streamAnalyse(prompt, 3000, (chunk) => { acc += chunk; setAnalyse(acc); }, undefined, controller.signal);
+      setAnalyse(vervangMDashes(acc));
     } catch (e: unknown) {
+      if (e instanceof Error && e.name === 'AbortError') return;
       setFout(e instanceof Error ? e.message : 'Er ging iets mis');
     } finally {
       setLoading(false);
@@ -393,7 +403,7 @@ Warme afsluitende alinea. Kies 3-4 affirmaties uit de beschikbare groei-affirmat
         {fout && <p className="text-darkRed text-sm">{fout}</p>}
       </div>
 
-      {analyse && <AnalyseResultaat tekst={analyse} />}
+      {analyse && <AnalyseResultaat tekst={analyse} titel="Flauwekul Filter" isLoading={loading} />}
     </div>
   );
 }

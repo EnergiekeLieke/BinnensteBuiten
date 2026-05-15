@@ -1,7 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { sliderBackground, kleuren as C } from '@/lib/huisstijl';
+import type { FlowOvertuiging } from './AandachtladderPdf';
+
+const AandachtladderPdfKnop = dynamic(
+  () => import('./AandachtladderPdf').then((m) => m.AandachtladderPdfKnop),
+  { ssr: false, loading: () => <span className="text-midGreen text-sm">PDF laden…</span> }
+);
 
 const STELLINGEN = [
   'Ik voel me licht en energiek bij wat ik doe.',
@@ -110,14 +117,16 @@ function scoreband(totaal: number): { tekst: string; kleur: string; bg: string }
 }
 
 export default function AandachtladderFlow() {
-  const [scores, setScores] = useState<number[]>(STELLINGEN.map(() => 5));
+  const [scores, setScores] = useState<number[]>(STELLINGEN.map(() => 0));
   const [aangevinkt, setAangevinkt] = useState<boolean[]>(OVERTUIGINGEN.map(() => false));
   const [sliders, setSliders] = useState<SliderOv[]>(OVERTUIGINGEN.map(() => ({ overtuigd: 50, loslaten: 50 })));
 
   const totaal = scores.reduce((s, x) => s + x, 0);
   const band = scoreband(totaal);
 
-  const exportPdf = () => window.print();
+  const actieveOvertuigingen: FlowOvertuiging[] = OVERTUIGINGEN
+    .map((ov, i) => ({ ...ov, overtuigd: sliders[i].overtuigd, loslaten: sliders[i].loslaten }))
+    .filter((_, i) => aangevinkt[i]);
 
   return (
     <div className="space-y-10">
@@ -242,14 +251,13 @@ export default function AandachtladderFlow() {
       {/* Affirmaties voor de hardnekkigste 3 */}
       <AffirmatieBlok aangevinkt={aangevinkt} sliders={sliders} />
 
-      <div className="flex flex-col items-center gap-2 print:hidden">
-        <button
-          onClick={exportPdf}
-          className="px-8 py-3 rounded-xl bg-darkGreen text-cream font-salmon text-lg hover:bg-darkGreen/90 transition-colors"
-        >
-          Exporteer naar PDF
-        </button>
-        <p className="text-xs text-darkSlate/50">Kies in de printdialoog voor "Opslaan als PDF"</p>
+      <div className="flex justify-center">
+        <AandachtladderPdfKnop
+          totaal={totaal}
+          bandTekst={band.tekst}
+          stellingen={STELLINGEN.map((tekst, i) => ({ tekst, score: scores[i] }))}
+          overtuigingen={actieveOvertuigingen}
+        />
       </div>
     </div>
   );

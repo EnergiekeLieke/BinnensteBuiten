@@ -1,7 +1,8 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import Link from 'next/link';
+import AandachtBingo from '@/components/AandachtBingo';
 
 
 export default function Home() {
@@ -23,12 +24,14 @@ export default function Home() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
         <Link href="/levenswiel" className="block h-full bg-white rounded-2xl border-l-4 border-darkRed p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">🌐</div>
-          <h2 className="font-salmon text-xl text-darkSlate mb-2">Levenswiel Analyse</h2>
+          <h2 className="font-salmon text-xl text-darkSlate mb-1">Levenswiel Analyse</h2>
+          <p className="text-xs text-midGreen italic mb-2">Je klant wil een helikopterview van haar leven.</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Het spinnenweb maakt zichtbaar hoe tevreden jij bewust en onbewust bent over 8 levensgebieden. De analyse toont welke patronen je te doorbreken hebt én geeft je concrete tips.</p>
         </Link>
         <Link href="/verbindingswiel" className="block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">💞</div>
-          <h2 className="font-salmon text-xl text-darkSlate mb-2">Verbindingswiel</h2>
+          <h2 className="font-salmon text-xl text-darkSlate mb-1">Verbindingswiel</h2>
+          <p className="text-xs text-midGreen italic mb-2">Je werkt met een koppel dat de onderlinge verbinding wil doorvoelen.</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek hoe verbonden jullie écht zijn op 10 dimensies. Inclusief biotensor-scores, reflectievragen en concrete tips in een warm rapport voor koppels.</p>
         </Link>
       </div>
@@ -37,22 +40,45 @@ export default function Home() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
         <Link href="/basisverlangens" className="block h-full bg-white rounded-2xl border-l-4 border-orange p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">💡</div>
-          <h2 className="font-salmon text-xl text-darkSlate mb-2">Basisverlangens Werkblad</h2>
+          <h2 className="font-salmon text-xl text-darkSlate mb-1">Basisverlangens Werkblad</h2>
+          <p className="text-xs text-midGreen italic mb-2">Je klant weet niet wat ze écht wil, of maakt steeds keuzes die niet kloppen.</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek welke basisverlangens jou drijven per levensgebied en wat dat onthult over jouw patronen. Een krachtig inzicht in wat jou écht beweegt en waarom je doet wat je doet.</p>
         </Link>
         <Link href="/future-self" className="relative block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-midGreen text-white rounded px-2 py-0.5">Nieuw!</span>
           <div className="text-4xl mb-3">🌟</div>
-          <h2 className="font-salmon text-xl text-darkSlate mb-2">Future Self Visualisatie</h2>
+          <h2 className="font-salmon text-xl text-darkSlate mb-1">Future Self Visualisatie</h2>
+          <p className="text-xs text-midGreen italic mb-2">Je klant is toe aan perspectief en wil voelen wie ze aan het worden is.</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontmoet wie jij al aan het worden bent. Kies je tijdlijn, thema en sfeer, en ontvang een persoonlijke geleide visualisatie om te lezen of in te spreken.</p>
         </Link>
+      </div>
+
+      <p className="text-sm font-bold text-darkSlate mb-3">Hoe vrij stroomt jouw energie?</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+        <Link href="/flowtest" className="block h-full bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+          <div className="text-4xl mb-3">🌊</div>
+          <h2 className="font-salmon text-xl text-darkSlate mb-1">FLOW-test</h2>
+          <p className="text-xs text-midGreen italic mb-2">Je klant wil weten wat haar tegenhoudt om echt in flow te komen.</p>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Meet hoe vrij de energie stroomt, spoor belemmerende overtuigingen op en ontvang persoonlijke affirmaties om de blokkades los te laten.</p>
+        </Link>
+        <Link href="/aandachtladder" className="block h-full bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+          <div className="text-4xl mb-3">🪜</div>
+          <h2 className="font-salmon text-xl text-darkSlate mb-1">Aandachtladder</h2>
+          <p className="text-xs text-midGreen italic mb-2">Waar zit je met je aandacht?</p>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek op welke trede van de aandachtladder jij staat en wat je nodig hebt om een stap hoger te komen. Gebruik je biotensor als journalling-buddy.</p>
+        </Link>
+      </div>
+
+      <div className="mb-8">
+        <AandachtBingo />
       </div>
 
       <p className="text-sm font-bold text-darkSlate mb-3">Wie ben jij als moeder?</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
         <Link href="/moedertype" className="block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">🌿</div>
-          <h2 className="font-salmon text-xl text-darkSlate mb-2">Welk type moeder ben jij?</h2>
+          <h2 className="font-salmon text-xl text-darkSlate mb-1">Welk type moeder ben jij?</h2>
+          <p className="text-xs text-midGreen italic mb-2">Moederschap of de moederwond speelt een rol in de sessie.</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek via de biotensor welk moederpatroon het meest actief is én waar jouw kracht als moeder al volop aanwezig is.</p>
         </Link>
       </div>
@@ -81,7 +107,8 @@ export default function Home() {
                 className="block bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
               >
                 <div className="text-4xl mb-3">📊</div>
-                <h2 className="font-salmon text-xl text-darkSlate mb-2">Business Scan</h2>
+                <h2 className="font-salmon text-xl text-darkSlate mb-1">Business Scan</h2>
+                <p className="text-xs text-midGreen italic mb-2">Een ondernemer wil snel zien waar haar energie weglekt.</p>
                 <p className="text-sm text-darkSlate/70 leading-relaxed">Snel overzicht van 12 bedrijfscategorieën met bewust/onbewust scores en het ONE THING om nu op te focussen.</p>
               </Link>
               <Link
@@ -89,7 +116,8 @@ export default function Home() {
                 className="block bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
               >
                 <div className="text-4xl mb-3">🔍</div>
-                <h2 className="font-salmon text-xl text-darkSlate mb-2">Business Scan · uitgebreid</h2>
+                <h2 className="font-salmon text-xl text-darkSlate mb-1">Business Scan · uitgebreid</h2>
+                <p className="text-xs text-midGreen italic mb-2">Je wilt dieper dan de snelle scan en zoekt de precieze blokkade per subonderdeel.</p>
                 <p className="text-sm text-darkSlate/70 leading-relaxed">Diepgaande business scan met scores per subonderdeel, uitgebreide analyse en het ONE THING om op te focussen.</p>
               </Link>
             </div>
@@ -142,7 +170,8 @@ export default function Home() {
               >
                 <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-darkRed text-white rounded px-2 py-0.5">Nieuw!</span>
                 <div className="text-4xl mb-3">💸</div>
-                <h2 className="font-salmon text-xl text-darkSlate mb-2">Geld Gedoe</h2>
+                <h2 className="font-salmon text-xl text-darkSlate mb-1">Geld Gedoe</h2>
+                <p className="text-xs text-midGreen italic mb-2">Geld voelt beladen, of je klant wil haar geldenergie doorvoelen.</p>
                 <p className="text-sm text-darkSlate/70 leading-relaxed">Spoor je geldblokkades op en ontdek welk verhaal jij jezelf vertelt.</p>
               </Link>
 
@@ -152,7 +181,8 @@ export default function Home() {
               >
                 <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-darkRed text-white rounded px-2 py-0.5">Nieuw!</span>
                 <div className="text-4xl mb-3">💔</div>
-                <h2 className="font-salmon text-xl text-darkSlate mb-2">Liefdes Lek</h2>
+                <h2 className="font-salmon text-xl text-darkSlate mb-1">Liefdes Lek</h2>
+                <p className="text-xs text-midGreen italic mb-2">Moeite met zelfliefde, verbinding of intimiteit speelt een rol.</p>
                 <p className="text-sm text-darkSlate/70 leading-relaxed">Herken de overtuigingen die jou van échte verbinding en zelfliefde weerhouden.</p>
               </Link>
 
@@ -179,6 +209,26 @@ export default function Home() {
             <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-cream to-transparent pointer-events-none" />
           )}
         </div>
+      </div>
+
+      {/* Human Design */}
+      <h2 className="font-bold text-xs uppercase tracking-widest text-darkSlate mb-3">Human Design</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <Link
+          href="/human-design-affirmaties"
+          className="block h-full bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
+        >
+          <svg viewBox="0 0 40 50" className="w-10 h-10 mb-3" fill="none" stroke="#3b5633" strokeWidth="1.5" strokeLinejoin="round">
+            <polygon points="20,1 13,11 27,11" />
+            <polygon points="20,12 13,22 27,22" />
+            <rect x="14" y="23" width="12" height="6" />
+            <polygon points="20,30 13,37 20,44 27,37" />
+            <rect x="12" y="45" width="16" height="5" />
+          </svg>
+          <h2 className="font-salmon text-xl text-darkSlate mb-1">Human Design Affirmaties</h2>
+          <p className="text-xs text-midGreen italic mb-2">Je klant kent haar Human Design en wil werken met haar energiecentra.</p>
+          <p className="text-sm text-darkSlate/70 leading-relaxed italic">Laat los wat niet van jou is</p>
+        </Link>
       </div>
 
     </div>

@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import SpinnenWeb from './SpinnenWeb';
 import AnalyseResultaat from './AnalyseResultaat';
-import { LEVENSGEBIEDEN, roepAnalyseAan, sliderBackground, kleuren as C } from '@/lib/huisstijl';
+import { LEVENSGEBIEDEN, streamAnalyse, vervangMDashes, sliderBackground, kleuren as C } from '@/lib/huisstijl';
 
 type Scores = { bewust: number; onbewust: number };
 
@@ -17,6 +17,9 @@ export default function LevenswielAnalyse() {
 
   const updateScore = (i: number, soort: keyof Scores, waarde: number) =>
     setScores((prev) => prev.map((s, idx) => (idx === i ? { ...s, [soort]: waarde } : s)));
+
+  const abortRef = useRef<AbortController | null>(null);
+  useEffect(() => () => { abortRef.current?.abort(); }, []);
 
   const analyseer = async () => {
     setLoading(true);
@@ -45,7 +48,7 @@ Schrijf een persoonlijke analyse in het Nederlands met exact deze opmaak:
 
 ## Opvallende patronen
 Gebruik voor elk patroon een ### blok met dit formaat:
-### [Gebiedsnaam] — [Bewust hoger / Onbewust hoger / Laag in beide / Sterk gebied]
+### [Gebiedsnaam]: [Bewust hoger / Onbewust hoger / Laag in beide / Sterk gebied]
 1-2 zinnen uitleg. Gebruik **vetgedrukte woorden** voor kernbegrippen.
 
 ## Groeikansen
@@ -56,9 +59,13 @@ Concrete aanbeveling in 2-3 zinnen. Gebruik **vetgedrukte woorden** voor sleutel
 ## Afsluiting
 Warme, persoonlijke afsluitende alinea als doorlopende tekst.`;
 
-      const tekst = await roepAnalyseAan(prompt, 2500);
-      setAnalyse(tekst);
+      const controller = new AbortController();
+      abortRef.current = controller;
+      let acc = '';
+      await streamAnalyse(prompt, 2500, (chunk) => { acc += chunk; setAnalyse(acc); }, undefined, controller.signal);
+      setAnalyse(vervangMDashes(acc));
     } catch (e: unknown) {
+      if (e instanceof Error && e.name === 'AbortError') return;
       setFout(e instanceof Error ? e.message : 'Er ging iets mis');
     } finally {
       setLoading(false);
@@ -72,6 +79,10 @@ Warme, persoonlijke afsluitende alinea als doorlopende tekst.`;
         <p className="text-midGreen">Scoor elk levensgebied: rood = bewust, groen = onbewust</p>
       </div>
 
+      <div className="bg-lightBg2 border-l-4 border-midGreen rounded-xl px-4 py-3 text-sm text-darkSlate leading-relaxed">
+        <span className="font-semibold text-midGreen">Zo gebruik je dit: </span>
+        Vraag je klant per levensgebied op de biotensor: 'Op een schaal van 0 tot 10, hoe vervuld voel jij je hier bewust? En wat geeft de biotensor onbewust aan?' Vul beide sliders in voor je analyseert.
+      </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Sliders */}
         <div className="space-y-5">
@@ -105,7 +116,7 @@ Warme, persoonlijke afsluitende alinea als doorlopende tekst.`;
 
           <button
             onClick={analyseer}
-            disabled={loading}
+            disabled={loading || scores.every(s => s.bewust === 5 && s.onbewust === 5)}
             className="w-full py-3 rounded-xl bg-darkGreen text-cream font-salmon text-lg hover:bg-darkGreen/90 transition-colors disabled:opacity-50"
           >
             {loading ? 'Analyseren…' : 'Analyseer mijn levenswiel'}
@@ -116,7 +127,7 @@ Warme, persoonlijke afsluitende alinea als doorlopende tekst.`;
       </div>
 
       {analyse && (
-        <AnalyseResultaat tekst={analyse} />
+        <AnalyseResultaat tekst={analyse} titel="Levenswiel Analyse" isLoading={loading} />
       )}
     </div>
   );

@@ -1,9 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
+
+const AnalysePdfKnop = dynamic(
+  () => import('./AnalysePdf').then((m) => m.AnalysePdfKnop),
+  { ssr: false, loading: () => <span className="text-sm px-3 py-1.5 text-midGreen">PDF laden…</span> }
+);
 
 interface Props {
   tekst: string;
+  titel?: string;
+  verbergPrintKnop?: boolean;
+  isLoading?: boolean;
 }
 
 interface Sectie {
@@ -75,14 +84,16 @@ function borderKleur(badge: string | null): string {
 }
 
 function RijkeTekst({ tekst }: { tekst: string }) {
-  const delen = tekst.split(/(\*\*[^\n]+?\*\*)/g);
+  const delen = tekst.split(/(\*\*[^*\n]+?\*\*|\*[^*\n]+?\*)/g);
   return (
     <>
-      {delen.map((deel, i) =>
-        deel.startsWith('**') && deel.endsWith('**')
-          ? <strong key={i} className="font-semibold text-orange">{deel.slice(2, -2)}</strong>
-          : <span key={i}>{deel}</span>
-      )}
+      {delen.map((deel, i) => {
+        if (deel.startsWith('**') && deel.endsWith('**'))
+          return <strong key={i} className="font-semibold text-orange">{deel.slice(2, -2)}</strong>;
+        if (deel.startsWith('*') && deel.endsWith('*'))
+          return <strong key={i} className="font-semibold text-orange">{deel.slice(1, -1)}</strong>;
+        return <span key={i}>{deel}</span>;
+      })}
     </>
   );
 }
@@ -100,7 +111,7 @@ function SubKaarten({ inhoud, type }: { inhoud: string; type: 'patronen' | 'groe
     } else if (regel.startsWith('- ') || regel.startsWith('* ')) {
       if (huidig) huidig.tekst += regel.replace(/^[-*]\s/, '') + '\n';
       else loseTekst += regel.replace(/^[-*]\s/, '') + '\n';
-    } else if (regel.trim()) {
+    } else if (regel.trim() && !/^[-*_]{3,}$/.test(regel.trim())) {
       if (huidig) huidig.tekst += regel + '\n';
       else loseTekst += regel + '\n';
     }
@@ -154,7 +165,7 @@ function SubKaarten({ inhoud, type }: { inhoud: string; type: 'patronen' | 'groe
   );
 }
 
-export default function AnalyseResultaat({ tekst }: Props) {
+export default function AnalyseResultaat({ tekst, titel = 'Analyse', verbergPrintKnop = false, isLoading = false }: Props) {
   const [gekopieerd, setGekopieerd] = useState(false);
 
   const kopieer = async () => {
@@ -176,12 +187,11 @@ export default function AnalyseResultaat({ tekst }: Props) {
           >
             {gekopieerd ? '✓ Gekopieerd' : 'Kopieer tekst'}
           </button>
-          <button
-            onClick={() => window.print()}
-            className="text-sm px-3 py-1.5 rounded-lg bg-darkRed text-white hover:bg-darkRed/80 transition-colors focus:outline-none focus:ring-2 focus:ring-darkRed focus:ring-offset-2"
-          >
-            Exporteer als PDF
-          </button>
+          {!verbergPrintKnop && (
+            isLoading
+              ? <span className="text-sm px-3 py-1.5 rounded-lg bg-darkRed/40 text-white cursor-not-allowed inline-block">Download als PDF</span>
+              : <AnalysePdfKnop titel={titel} tekst={tekst} />
+          )}
         </div>
       </div>
 
@@ -261,23 +271,6 @@ export default function AnalyseResultaat({ tekst }: Props) {
         );
       })}
 
-      <details className="mt-2 no-print">
-        <summary className="cursor-pointer text-xs text-midGreen hover:text-darkGreen select-none">
-          Toon ruwe tekst
-        </summary>
-        <div className="mt-2 relative">
-          <textarea
-            readOnly value={tekst}
-            className="w-full h-40 text-xs p-3 bg-cream border border-lightBg rounded-lg resize-none font-mono"
-          />
-          <button
-            onClick={kopieer}
-            className={`absolute bottom-3 right-3 text-xs px-2.5 py-1 rounded-md border transition-colors focus:outline-none ${gekopieerd ? 'bg-darkGreen border-darkGreen text-white' : 'bg-cream border-midGreen text-midGreen hover:border-darkGreen hover:text-darkGreen'}`}
-          >
-            {gekopieerd ? '✓ Gekopieerd' : 'Kopieer'}
-          </button>
-        </div>
-      </details>
     </div>
   );
 }

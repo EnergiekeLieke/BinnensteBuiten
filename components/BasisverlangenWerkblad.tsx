@@ -1,8 +1,15 @@
-'use client';
+﻿'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import AnalyseResultaat from './AnalyseResultaat';
-import { LEVENSGEBIEDEN, roepAnalyseAan } from '@/lib/huisstijl';
+import type { PdfKeuze } from './BasisverlangenPdf';
+import { LEVENSGEBIEDEN, streamAnalyse, vervangMDashes } from '@/lib/huisstijl';
+
+const BasisverlangenPdfKnop = dynamic(
+  () => import('./BasisverlangenPdf').then((m) => m.BasisverlangenPdfKnop),
+  { ssr: false, loading: () => <span className="text-sm px-3 py-1.5 text-midGreen">PDF laden…</span> }
+);
 
 const VERLANGENS = [
   { id: 'certainty',    label: 'Zekerheid',   beschrijving: 'veiligheid, comfort, stabiliteit',            kleur: 'bg-darkSlate text-cream' },
@@ -22,6 +29,9 @@ export default function BasisverlangenWerkblad() {
   const [analyse, setAnalyse]       = useState('');
   const [loading, setLoading] = useState(false);
   const [fout, setFout]       = useState('');
+
+  const abortRef = useRef<AbortController | null>(null);
+  useEffect(() => () => { abortRef.current?.abort(); }, []);
 
   const analyseer = async () => {
     setLoading(true);
@@ -58,9 +68,13 @@ Concrete tip voor tijd, geld of energie in 2-3 zinnen.
 ## Afsluiting
 Warme afsluiting gebaseerd op wat de klant zelf schreef.`;
 
-      const tekst = await roepAnalyseAan(prompt, 2500);
-      setAnalyse(tekst);
+      const controller = new AbortController();
+      abortRef.current = controller;
+      let acc = '';
+      await streamAnalyse(prompt, 2500, (chunk) => { acc += chunk; setAnalyse(acc); }, undefined, controller.signal);
+      setAnalyse(vervangMDashes(acc));
     } catch (e: unknown) {
+      if (e instanceof Error && e.name === 'AbortError') return;
       setFout(e instanceof Error ? e.message : 'Er ging iets mis');
     } finally {
       setLoading(false);
@@ -72,6 +86,11 @@ Warme afsluiting gebaseerd op wat de klant zelf schreef.`;
       <div className="text-center">
         <h1 className="font-salmon text-3xl text-darkSlate mb-2">Basisverlangens Werkblad</h1>
         <p className="text-midGreen">Welk basisverlangen drijft jou in elk levensgebied?</p>
+      </div>
+
+      <div className="bg-lightBg2 border-l-4 border-midGreen rounded-xl px-4 py-3 text-sm text-darkSlate leading-relaxed">
+        <span className="font-semibold text-midGreen">Zo gebruik je dit: </span>
+        Vraag de biotensor per levensgebied: 'Welk basisverlangen is nu het meest actief?' Laat je klant daarna de twee reflectievragen beantwoorden voordat je analyseert.
       </div>
 
       {/* Legenda */}
@@ -96,9 +115,9 @@ Warme afsluiting gebaseerd op wat de klant zelf schreef.`;
               onChange={(e) => setKeuzes((prev) => prev.map((k, idx) => idx === i ? e.target.value as VerlangensId : k))}
               className="w-full rounded-lg border border-lightBg px-3 py-2 text-sm bg-cream focus:outline-none focus:border-darkGreen"
             >
-              <option value="">— Kies een basisverlangen —</option>
+              <option value="">Kies een basisverlangen</option>
               {VERLANGENS.map((v) => (
-                <option key={v.id} value={v.id}>{v.label} — {v.beschrijving}</option>
+                <option key={v.id} value={v.id}>{v.label}: {v.beschrijving}</option>
               ))}
             </select>
           </div>
@@ -131,7 +150,7 @@ Warme afsluiting gebaseerd op wat de klant zelf schreef.`;
       <div className="flex flex-col items-center gap-3">
         <button
           onClick={analyseer}
-          disabled={loading}
+          disabled={loading || keuzes.filter(k => k !== '').length < 4}
           className="px-8 py-3 rounded-xl bg-darkGreen text-cream font-salmon text-lg hover:bg-darkGreen/90 transition-colors disabled:opacity-50"
         >
           {loading ? 'Analyseren…' : 'Analyseer mijn verlangens'}
@@ -140,7 +159,23 @@ Warme afsluiting gebaseerd op wat de klant zelf schreef.`;
       </div>
 
       {analyse && (
-        <AnalyseResultaat tekst={analyse} />
+        <>
+          <AnalyseResultaat tekst={analyse} verbergPrintKnop isLoading={loading} />
+          <div className="flex justify-end mt-4 no-print">
+            {loading
+              ? <span className="text-sm px-3 py-1.5 rounded-lg bg-darkRed/40 text-white cursor-not-allowed inline-block">Download als PDF</span>
+              : <BasisverlangenPdfKnop
+                  keuzes={LEVENSGEBIEDEN.map((g, i): PdfKeuze => {
+                    const v = VERLANGENS.find((x) => x.id === keuzes[i]) ?? null;
+                    return { gebied: g, verlangenId: v?.id ?? null, verlangenLabel: v?.label ?? null };
+                  })}
+                  opvallend={opvallend}
+                  actie={actie}
+                  analyse={analyse}
+                />
+            }
+          </div>
+        </>
       )}
     </div>
   );
