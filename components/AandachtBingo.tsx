@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 
 const GEVERS = [
   'Aandacht gegeven aan wat wél goed gaat',
@@ -141,9 +140,8 @@ function BingoKaart({ titel, subtitel, items, thema }: {
   );
 }
 
-export default function AandachtBingo() {
-  const params = useSearchParams();
-  const [open, setOpen] = useState(params.get('embed') === 'true');
+export default function AandachtBingo({ isEmbed = false }: { isEmbed?: boolean }) {
+  const [open, setOpen] = useState(isEmbed);
 
   return (
     <div className="rounded-2xl overflow-hidden border border-lightBg shadow-sm">

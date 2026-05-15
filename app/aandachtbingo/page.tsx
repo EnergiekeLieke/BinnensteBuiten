@@ -1,7 +1,18 @@
+'use client';
+
+import { Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import AandachtBingo from '@/components/AandachtBingo';
 
-export const metadata = { title: 'AandachtBINGO: Energieke Lieke' };
+function BingoEmbed() {
+  const params = useSearchParams();
+  return <AandachtBingo isEmbed={params.get('embed') === 'true'} />;
+}
 
 export default function Page() {
-  return <AandachtBingo />;
+  return (
+    <Suspense fallback={<AandachtBingo />}>
+      <BingoEmbed />
+    </Suspense>
+  );
 }
