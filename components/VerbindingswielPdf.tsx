@@ -2,7 +2,6 @@
 
 import { Document, Page, Text, View, StyleSheet, PDFDownloadLink, Svg, Polygon, Line } from '@react-pdf/renderer';
 import { K, gedeeldeStijlen as g, PdfHeader, PdfFooter, PdfSectieKop } from '@/lib/pdfHelpers';
-import { aspecten } from './Verbindingswiel';
 import type { Score, Analyse } from './Verbindingswiel';
 
 const BLAUW = '#1a4a7a';
@@ -31,7 +30,7 @@ function SpinnenwebPdf({ scoresA, scoresB }: { scoresA: Score[]; scoresB: Score[
     return `${(cx + rr * Math.cos(angles[i])).toFixed(2)},${(cy + rr * Math.sin(angles[i])).toFixed(2)}`;
   };
   const poly = (scores: Score[], key: keyof Score) => scores.map((s, i) => pt(s[key], i)).join(' ');
-  const avgPoly = () => aspecten.map((_, i) => {
+  const avgPoly = () => ASPECT_LABELS.map((_, i) => {
     const avg = (scoresA[i].vervullingBewust + scoresA[i].vervullingOnbewust + scoresB[i].vervullingBewust + scoresB[i].vervullingOnbewust) / 4;
     return pt(avg, i);
   }).join(' ');
@@ -164,8 +163,8 @@ function VerbindingswielDocument({ naamA, naamB, scoresA, scoresB, analyse }: Ve
               <Text style={{ width: 156, fontSize: 7, fontFamily: 'Helvetica-Bold', color: K.darkSlate, textAlign: 'center' }}>{naamA}</Text>
               <Text style={{ width: 156, fontSize: 7, fontFamily: 'Helvetica-Bold', color: K.darkSlate, textAlign: 'center' }}>{naamB}</Text>
             </View>
-            {aspecten.map((a, i) => (
-              <View key={a.id} style={[s.tabelRij, { backgroundColor: i % 2 === 0 ? K.wit : K.cream }]} wrap={false}>
+            {ASPECT_LABELS.map((_, i) => (
+              <View key={i} style={[s.tabelRij, { backgroundColor: i % 2 === 0 ? K.wit : K.cream }]} wrap={false}>
                 <Text style={s.tabelAspect}>{ASPECT_LABELS[i]}</Text>
                 <Text style={[s.tabelCel, { color: BLAUW }]}>{scoresA[i].belang}</Text>
                 <Text style={[s.tabelCel, { color: K.darkRed }]}>{scoresA[i].vervullingBewust}</Text>
