@@ -90,7 +90,7 @@ Warme afsluiting gebaseerd op wat de klant zelf schreef.`;
 
       <div className="bg-lightBg2 border-l-4 border-midGreen rounded-xl px-4 py-3 text-sm text-darkSlate leading-relaxed">
         <span className="font-semibold text-midGreen">Zo gebruik je dit: </span>
-        Vraag de biotensor per levensgebied: 'Welk basisverlangen is nu het meest actief?' Laat je klant daarna de twee reflectievragen beantwoorden voordat je analyseert.
+        Vraag de biotensor per levensgebied: 'Welk basisverlangen is nu het meest actief?' Beantwoord daarna de twee reflectievragen, voordat je de analyse aanvraagt.
       </div>
 
       {/* Legenda */}
