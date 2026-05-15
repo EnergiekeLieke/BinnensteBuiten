@@ -48,7 +48,7 @@ export default function Home() {
           <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-midGreen text-white rounded px-2 py-0.5">Nieuw!</span>
           <div className="text-4xl mb-3">🌟</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-1">Future Self Visualisatie</h2>
-          <p className="text-xs text-midGreen italic mb-2">Je klant is toe aan perspectief en wil voelen wie ze aan het worden is.</p>
+          <p className="text-xs text-midGreen italic mb-2">Je bent toe aan perspectief en wil voelen wie je aan het worden bent.</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontmoet wie jij al aan het worden bent. Kies je tijdlijn, thema en sfeer, en ontvang een persoonlijke geleide visualisatie om te lezen of in te spreken.</p>
         </Link>
       </div>
@@ -58,7 +58,7 @@ export default function Home() {
         <Link href="/flowtest" className="block h-full bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">🌊</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-1">FLOW-test</h2>
-          <p className="text-xs text-midGreen italic mb-2">Je klant wil weten wat haar tegenhoudt om echt in flow te komen.</p>
+          <p className="text-xs text-midGreen italic mb-2">Ontdek wat jou tegenhoudt om echt in flow te komen.</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Meet hoe vrij de energie stroomt, spoor belemmerende overtuigingen op en ontvang persoonlijke affirmaties om de blokkades los te laten.</p>
         </Link>
         <Link href="/aandachtladder" className="block h-full bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
@@ -78,7 +78,7 @@ export default function Home() {
         <Link href="/moedertype" className="block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">🌿</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-1">Welk type moeder ben jij?</h2>
-          <p className="text-xs text-midGreen italic mb-2">Moederschap of de moederwond speelt een rol in de sessie.</p>
+          <p className="text-xs text-midGreen italic mb-2">Moederschap of de moederwond speelt een rol in jouw leven.</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek via de biotensor welk moederpatroon het meest actief is én waar jouw kracht als moeder al volop aanwezig is.</p>
         </Link>
       </div>
@@ -108,7 +108,7 @@ export default function Home() {
               >
                 <div className="text-4xl mb-3">📊</div>
                 <h2 className="font-salmon text-xl text-darkSlate mb-1">Business Scan</h2>
-                <p className="text-xs text-midGreen italic mb-2">Een ondernemer wil snel zien waar haar energie weglekt.</p>
+                <p className="text-xs text-midGreen italic mb-2">Snel zien waar jouw energie als ondernemer weglekt.</p>
                 <p className="text-sm text-darkSlate/70 leading-relaxed">Snel overzicht van 12 bedrijfscategorieën met bewust/onbewust scores en het ONE THING om nu op te focussen.</p>
               </Link>
               <Link
@@ -171,7 +171,7 @@ export default function Home() {
                 <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-darkRed text-white rounded px-2 py-0.5">Nieuw!</span>
                 <div className="text-4xl mb-3">💸</div>
                 <h2 className="font-salmon text-xl text-darkSlate mb-1">Geld Gedoe</h2>
-                <p className="text-xs text-midGreen italic mb-2">Geld voelt beladen, of je klant wil haar geldenergie doorvoelen.</p>
+                <p className="text-xs text-midGreen italic mb-2">Geld voelt beladen, of je wilt jouw geldenergie doorvoelen.</p>
                 <p className="text-sm text-darkSlate/70 leading-relaxed">Spoor je geldblokkades op en ontdek welk verhaal jij jezelf vertelt.</p>
               </Link>
 
@@ -182,7 +182,7 @@ export default function Home() {
                 <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-darkRed text-white rounded px-2 py-0.5">Nieuw!</span>
                 <div className="text-4xl mb-3">💔</div>
                 <h2 className="font-salmon text-xl text-darkSlate mb-1">Liefdes Lek</h2>
-                <p className="text-xs text-midGreen italic mb-2">Moeite met zelfliefde, verbinding of intimiteit speelt een rol.</p>
+                <p className="text-xs text-midGreen italic mb-2">Moeite met zelfliefde, verbinding of intimiteit speelt een rol in jouw leven.</p>
                 <p className="text-sm text-darkSlate/70 leading-relaxed">Herken de overtuigingen die jou van échte verbinding en zelfliefde weerhouden.</p>
               </Link>
 
