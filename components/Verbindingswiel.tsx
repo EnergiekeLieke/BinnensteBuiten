@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { kleuren as C, sliderBackground, vervangMDashes } from '@/lib/huisstijl';
 
@@ -240,6 +240,13 @@ export default function Verbindingswiel() {
   const [loading, setLoading] = useState(false);
   const [showText, setShowText] = useState(false);
 
+  useEffect(() => {
+    if (window.self !== window.top) {
+      document.documentElement.style.overflow = 'hidden';
+      return () => { document.documentElement.style.overflow = ''; };
+    }
+  }, []);
+
   const updateScore = (setter: React.Dispatch<React.SetStateAction<Score[]>>, i: number, key: keyof Score, val: number) =>
     setter(s => s.map((r, idx) => idx === i ? { ...r, [key]: val } : r));
 
@@ -335,7 +342,7 @@ export default function Verbindingswiel() {
   }
 
   return (
-    <div style={{ background: C.cream, minHeight: '100vh' }}>
+    <div style={{ background: C.cream }}>
       <style>{sliderStyles}</style>
       <div style={{ display: 'flex', gap: 0, marginBottom: '1.5rem', borderRadius: 10, overflow: 'hidden', border: '1px solid ' + C.lightBg }}>
         {(['A', 'B', 'analyse'] as const).map((f, i) => {
