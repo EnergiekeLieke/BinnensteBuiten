@@ -79,9 +79,10 @@ Warme, persoonlijke afsluitende alinea als doorlopende tekst.`;
         <p className="text-midGreen">Scoor elk levensgebied: rood = bewust, groen = onbewust</p>
       </div>
 
-      <div className="bg-lightBg2 border-l-4 border-midGreen rounded-xl px-4 py-3 text-sm text-darkSlate leading-relaxed">
-        <span className="font-semibold text-midGreen">Zo gebruik je dit: </span>
-        Vraag je klant per levensgebied op de biotensor: 'Op een schaal van 0 tot 10, hoe vervuld voel jij je hier bewust? En wat geeft de biotensor onbewust aan?' Vul beide sliders in voor je analyseert.
+      <div className="bg-lightBg2 border-l-4 border-midGreen rounded-xl px-4 py-3 text-sm text-darkSlate leading-relaxed space-y-2">
+        <p><span className="font-semibold text-midGreen">Zo gebruik je dit: </span>
+        Op een schaal van 0 tot 10, hoe vervuld voel jij je per levensgebied? Geef eerst een bewust cijfer (vanuit je hoofd). Wat geeft de biotensor (jouw onderbewustzijn) aan: klopt het cijfer? Of is het hoger of lager? Vul beide sliders per levensgebied in, voordat je op de knop drukt voor de analyse.</p>
+        <p className="text-xs text-darkSlate/70"><span className="font-semibold">0</span> = volledig onvervuld, hier zit veel pijn of gemis. <span className="font-semibold">10</span> = volledig vervuld, dit gebied bloeit en geeft energie.</p>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Sliders */}
