@@ -240,12 +240,6 @@ export default function Verbindingswiel() {
   const [loading, setLoading] = useState(false);
   const [showText, setShowText] = useState(false);
 
-  useEffect(() => {
-    if (window.self !== window.top) {
-      document.documentElement.style.overflow = 'hidden';
-      return () => { document.documentElement.style.overflow = ''; };
-    }
-  }, []);
 
   const updateScore = (setter: React.Dispatch<React.SetStateAction<Score[]>>, i: number, key: keyof Score, val: number) =>
     setter(s => s.map((r, idx) => idx === i ? { ...r, [key]: val } : r));
