@@ -1,9 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { kleuren as C, sliderBackground } from '@/lib/huisstijl';
 
-const aspecten = [
+const VerbindingswielPdfKnop = dynamic(
+  () => import('./VerbindingswielPdf').then(m => m.VerbindingswielPdfKnop),
+  { ssr: false, loading: () => <span className="text-sm text-midGreen">PDF laden…</span> }
+);
+
+export const aspecten = [
   { id: 'emotioneel', label: 'Emotionele verbinding', omschr: 'Veiligheid, openheid, gezien worden' },
   { id: 'recreatief', label: 'Recreatieve verbinding', omschr: 'Samen plezier, spelen en ontspannen' },
   { id: 'economisch', label: 'Economische verbinding', omschr: 'Financiën, doelen en verantwoordelijkheid' },
@@ -16,12 +22,12 @@ const aspecten = [
   { id: 'esthetisch', label: 'Esthetische verbinding', omschr: 'Smaak, schoonheid en gedeelde beleving' },
 ];
 
-type Score = { belang: number; vervullingBewust: number; vervullingOnbewust: number };
-type Sterkte = { aspect: string; inzicht: string };
-type Aandacht = { aspect: string; type: string; inzicht: string };
-type Groei = { aspect: string; tip: string };
-type Reflectie = { vraag1: string; vraag2: string; vraag3: string };
-type Analyse = {
+export type Score = { belang: number; vervullingBewust: number; vervullingOnbewust: number };
+export type Sterkte = { aspect: string; inzicht: string };
+export type Aandacht = { aspect: string; type: string; inzicht: string };
+export type Groei = { aspect: string; tip: string };
+export type Reflectie = { vraag1: string; vraag2: string; vraag3: string };
+export type Analyse = {
   error?: string;
   samenvatting?: string;
   sterktes?: Sterkte[];
@@ -467,6 +473,14 @@ export default function Verbindingswiel() {
                   <p style={{ margin: 0, fontSize: 14, color: C.darkSlate, lineHeight: 1.7, fontStyle: 'italic' }}>{analyse.afsluiting}</p>
                 </div>
               )}
+
+              <div style={{ marginBottom: 10 }}>
+                <VerbindingswielPdfKnop
+                  naamA={labelA} naamB={labelB}
+                  scoresA={scoresA} scoresB={scoresB}
+                  analyse={analyse}
+                />
+              </div>
 
               <button onClick={() => setShowText(s => !s)}
                 style={{ width: '100%', padding: '11px', fontSize: 14, fontWeight: 600, cursor: 'pointer', borderRadius: 10, marginBottom: 10, background: C.lightBg, color: C.darkSlate, border: '2px solid ' + C.lightBg }}>
