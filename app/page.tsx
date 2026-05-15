@@ -48,7 +48,7 @@ export default function Home() {
           <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-midGreen text-white rounded px-2 py-0.5">Nieuw!</span>
           <div className="text-4xl mb-3">🌟</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-1">Future Self Visualisatie</h2>
-          <p className="text-xs text-midGreen italic mb-2">Je bent toe aan perspectief en wil voelen wie je aan het worden bent.</p>
+          <p className="text-xs text-midGreen italic mb-2">Je bent toe aan perspectief: voel de energie van jouw toekomstige zelf.</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontmoet wie jij al aan het worden bent. Kies je tijdlijn, thema en sfeer, en ontvang een persoonlijke geleide visualisatie om te lezen of in te spreken.</p>
         </Link>
       </div>
