@@ -1,8 +1,8 @@
-'use client';
+﻿'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import AnalyseResultaat from './AnalyseResultaat';
-import { roepAnalyseAan, sliderBackground, kleuren as C } from '@/lib/huisstijl';
+import { roepAnalyseAan, streamAnalyse, vervangMDashes, sliderBackground, kleuren as C } from '@/lib/huisstijl';
 
 type Slider2 = { overtuigd: number; loslaten: number };
 
@@ -140,17 +140,23 @@ Deze gaan NIET over liefde maar over wie de persoon denkt te zijn.
 Voorbeelden: "Ik ben niet genoeg", "Ik moet mijn plek verdienen", "Ik ben niet veilig als ik te veel ruimte inneem".
 Geef alleen de kernovertuigingen, één per regel, zonder nummering of extra uitleg.`;
 
-      const tekst = await roepAnalyseAan(prompt, 500);
+      const controller = new AbortController();
+      abortRef.current = controller;
+      const tekst = await roepAnalyseAan(prompt, 500, controller.signal);
       const lijst = tekst.split('\n').map((r) => r.trim()).filter(Boolean);
       setKernOvertuigingen(lijst);
       setAangevinktKern(lijst.map(() => false));
       setSlidersKern(lijst.map(() => ({ overtuigd: 50, loslaten: 50 })));
     } catch (e: unknown) {
+      if (e instanceof Error && e.name === 'AbortError') return;
       setFout(e instanceof Error ? e.message : 'Fout bij genereren kernovertuigingen');
     } finally {
       setKernLoading(false);
     }
   };
+
+  const abortRef = useRef<AbortController | null>(null);
+  useEffect(() => () => { abortRef.current?.abort(); }, []);
 
   const sluitSessieAf = async () => {
     setLoading(true);
@@ -225,9 +231,13 @@ Concrete aanbeveling in 2-3 zinnen.
 ## Afsluiting
 Warme afsluitende alinea. Kies dan 3-4 affirmaties uit de beschikbare groei-affirmaties die het beste passen bij deze persoon (begin elk met ✨).`;
 
-      const tekst = await roepAnalyseAan(prompt, 3000);
-      setAnalyse(tekst);
+      const controller = new AbortController();
+      abortRef.current = controller;
+      let acc = '';
+      await streamAnalyse(prompt, 3000, (chunk) => { acc += chunk; setAnalyse(acc); }, undefined, controller.signal);
+      setAnalyse(vervangMDashes(acc));
     } catch (e: unknown) {
+      if (e instanceof Error && e.name === 'AbortError') return;
       setFout(e instanceof Error ? e.message : 'Er ging iets mis');
     } finally {
       setLoading(false);
@@ -236,6 +246,10 @@ Warme afsluitende alinea. Kies dan 3-4 affirmaties uit de beschikbare groei-affi
 
   return (
     <div className="space-y-10">
+      <div className="bg-lightBg2 border-l-4 border-midGreen rounded-xl px-4 py-3 text-sm text-darkSlate leading-relaxed">
+        <span className="font-semibold text-midGreen">Zo gebruik je dit: </span>
+        Doorloop de vier delen op volgorde. Genereer de kernovertuigingen aan het einde van deel 3, laat je klant de resonerende overtuigingen aanvinken, en sluit daarna pas de sessie af.
+      </div>
       <div className="text-center">
         <h1 className="font-salmon text-3xl text-darkSlate mb-1">Flauwekul Filter: LiefdesLek</h1>
         <p className="text-orange italic text-sm">"Je kunt niet geven wat je niet hebt. Begin bij jezelf."</p>
@@ -428,7 +442,7 @@ Warme afsluitende alinea. Kies dan 3-4 affirmaties uit de beschikbare groei-affi
       <div className="flex flex-col items-center gap-3">
         <button
           onClick={sluitSessieAf}
-          disabled={loading}
+          disabled={loading || kernOvertuigingen.length === 0}
           className="px-8 py-3 rounded-xl bg-darkGreen text-cream font-salmon text-lg hover:bg-darkGreen/90 transition-colors disabled:opacity-50"
         >
           {loading ? 'Bezig…' : 'Maak mijn analyse'}
@@ -436,7 +450,7 @@ Warme afsluitende alinea. Kies dan 3-4 affirmaties uit de beschikbare groei-affi
         {fout && <p className="text-darkRed text-sm">{fout}</p>}
       </div>
 
-      {analyse && <AnalyseResultaat tekst={analyse} />}
+      {analyse && <AnalyseResultaat tekst={analyse} titel="Liefdes Lek" isLoading={loading} />}
     </div>
   );
 }

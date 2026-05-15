@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import SpinnenWeb from './SpinnenWeb';
 import AnalyseResultaat from './AnalyseResultaat';
-import { roepAnalyseAan } from '@/lib/huisstijl';
+import { streamAnalyse, vervangMDashes } from '@/lib/huisstijl';
 
 const CATEGORIEEN = [
   {
@@ -102,6 +102,9 @@ export default function BusinessScan() {
   const patroon = (b: number, o: number) =>
     b > o + 1 ? 'bewust_hoger' : o > b + 1 ? 'onbewust_hoger' : b <= 4 ? 'laag_beiden' : 'sterk_gebied';
 
+  const abortRef = useRef<AbortController | null>(null);
+  useEffect(() => () => { abortRef.current?.abort(); }, []);
+
   const analyseer = async () => {
     setLoading(true);
     setFout('');
@@ -138,9 +141,13 @@ Concrete tip voor tijd, geld of energie in 2-3 zinnen.
 ## Het ONE THING
 Beschrijf in 2-3 alinea's het meest impactvolle gebied om NU op te focussen. Motiveer waarom dit ene ding de meeste andere knelpunten ontsluit. Sluit af met een warme, bemoedigende zin.`;
 
-      const tekst = await roepAnalyseAan(prompt, 5000);
-      setAnalyse(tekst);
+      const controller = new AbortController();
+      abortRef.current = controller;
+      let acc = '';
+      await streamAnalyse(prompt, 5000, (chunk) => { acc += chunk; setAnalyse(acc); }, undefined, controller.signal);
+      setAnalyse(vervangMDashes(acc));
     } catch (e: unknown) {
+      if (e instanceof Error && e.name === 'AbortError') return;
       setFout(e instanceof Error ? e.message : 'Er ging iets mis');
     } finally {
       setLoading(false);
@@ -152,6 +159,11 @@ Beschrijf in 2-3 alinea's het meest impactvolle gebied om NU op te focussen. Mot
       <div className="text-center">
         <h1 className="font-salmon text-3xl text-darkSlate mb-2">Business Scan</h1>
         <p className="text-midGreen text-sm mb-4">Scoor elk gebied van <span className="font-medium">0</span> (gaat voor geen meter) tot <span className="font-medium">10</span> (gaat perfect en moeiteloos) — en voel wat er echt speelt.</p>
+      </div>
+
+      <div className="bg-lightBg2 border-l-4 border-midGreen rounded-xl px-4 py-3 text-sm text-darkSlate leading-relaxed">
+        <span className="font-semibold text-midGreen">Zo gebruik je dit: </span>
+        Stel per categorie de biotensor-vraag: 'Op een schaal van 0 tot 10, hoe gaat dit bewust? En onbewust?' Vul alle 12 gebieden in voor je de analyse start.
       </div>
 
       <div className="bg-lightBg2 rounded-2xl p-5 border border-lightBg text-sm text-darkSlate space-y-2 leading-relaxed">
@@ -272,7 +284,7 @@ Beschrijf in 2-3 alinea's het meest impactvolle gebied om NU op te focussen. Mot
           </div>
           <button
             onClick={analyseer}
-            disabled={loading}
+            disabled={loading || (scores.every(s => s.bewust === 5 && s.onbewust === 5) && bonus.bewust === 5 && bonus.onbewust === 5)}
             className="w-full py-3 rounded-xl bg-darkGreen text-cream font-salmon text-lg hover:bg-darkGreen/90 transition-colors disabled:opacity-50"
           >
             {loading ? 'Analyseren…' : 'Analyseer mijn business'}
@@ -282,7 +294,7 @@ Beschrijf in 2-3 alinea's het meest impactvolle gebied om NU op te focussen. Mot
       </div>
 
       {analyse && (
-        <AnalyseResultaat tekst={analyse} />
+        <AnalyseResultaat tekst={analyse} titel="Business Scan" isLoading={loading} />
       )}
     </div>
   );

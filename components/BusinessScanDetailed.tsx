@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import SpinnenWeb from './SpinnenWeb';
 import AnalyseResultaat from './AnalyseResultaat';
-import { roepAnalyseAan } from '@/lib/huisstijl';
+import { streamAnalyse, vervangMDashes } from '@/lib/huisstijl';
 
 const CATEGORIEEN_DETAIL = [
   {
@@ -111,6 +111,9 @@ export default function BusinessScanDetailed() {
       )
     );
 
+  const abortRef = useRef<AbortController | null>(null);
+  useEffect(() => () => { abortRef.current?.abort(); }, []);
+
   const analyseer = async () => {
     setLoading(true);
     setFout('');
@@ -148,9 +151,13 @@ Concrete actie + tip voor tijd, geld of energie in 2-3 zinnen.
 ## Het ONE THING
 Beschrijf in 2-3 alinea's het meest impactvolle subonderdeel om NU op te focussen. Leg uit waarom dit ene ding als een domino de andere knelpunten ontsluit. Sluit af met een warme, bemoedigende zin.`;
 
-      const tekst = await roepAnalyseAan(prompt, 6000);
-      setAnalyse(tekst);
+      const controller = new AbortController();
+      abortRef.current = controller;
+      let acc = '';
+      await streamAnalyse(prompt, 6000, (chunk) => { acc += chunk; setAnalyse(acc); }, undefined, controller.signal);
+      setAnalyse(vervangMDashes(acc));
     } catch (e: unknown) {
+      if (e instanceof Error && e.name === 'AbortError') return;
       setFout(e instanceof Error ? e.message : 'Er ging iets mis');
     } finally {
       setLoading(false);
@@ -165,6 +172,11 @@ Beschrijf in 2-3 alinea's het meest impactvolle subonderdeel om NU op te focusse
       <div className="text-center">
         <h1 className="font-salmon text-3xl text-darkSlate mb-2">Business Scan Gedetailleerd</h1>
         <p className="text-midGreen text-sm">Per subonderdeel scoren voor diepgaand inzicht in jouw onderneming</p>
+      </div>
+
+      <div className="bg-lightBg2 border-l-4 border-midGreen rounded-xl px-4 py-3 text-sm text-darkSlate leading-relaxed">
+        <span className="font-semibold text-midGreen">Zo gebruik je dit: </span>
+        Dezelfde werkwijze als de Business Scan, maar met subonderdelen. Plan minimaal 45 minuten: je scoort 48 afzonderlijke onderdelen met de biotensor.
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -298,7 +310,7 @@ Beschrijf in 2-3 alinea's het meest impactvolle subonderdeel om NU op te focusse
           </div>
           <button
             onClick={analyseer}
-            disabled={loading}
+            disabled={loading || (cats.every(c => c.sub.every(s => s.bewust === 5 && s.onbewust === 5)) && bonus.bewust === 5 && bonus.onbewust === 5)}
             className="w-full py-3 rounded-xl bg-darkGreen text-cream font-salmon text-lg hover:bg-darkGreen/90 transition-colors disabled:opacity-50"
           >
             {loading ? 'Analyseren…' : 'Diepgaande analyse'}
@@ -308,7 +320,7 @@ Beschrijf in 2-3 alinea's het meest impactvolle subonderdeel om NU op te focusse
       </div>
 
       {analyse && (
-        <AnalyseResultaat tekst={analyse} />
+        <AnalyseResultaat tekst={analyse} titel="Business Scan Gedetailleerd" isLoading={loading} />
       )}
     </div>
   );

@@ -1,8 +1,8 @@
-'use client';
+﻿'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import AnalyseResultaat from './AnalyseResultaat';
-import { roepAnalyseAan, sliderBackground, kleuren as C } from '@/lib/huisstijl';
+import { roepAnalyseAan, streamAnalyse, vervangMDashes, sliderBackground, kleuren as C } from '@/lib/huisstijl';
 
 const STELLINGEN = [
   'Ik voel me helemaal op mijn gemak bij het idee om veel geld te verdienen.',
@@ -27,15 +27,15 @@ const STRATEGIEEN: { label: string; toelichting: string }[] = [
   { label: 'Hamsteren',                  toelichting: 'Meer bewaren dan nodig vanuit een diep schaarstegevoel.' },
   { label: 'Controleren',               toelichting: 'Alles tot achter de komma bijhouden om een gevoel van veiligheid te creëren.' },
   { label: 'Schaamte verbergen',        toelichting: 'Je financiële situatie verbergen voor anderen uit schaamte of schuldgevoel.' },
-  { label: 'Geld vermijden',            toelichting: 'Rekeningen niet openen, bankapp mijden — geld liever niet onder ogen zien.' },
+  { label: 'Geld vermijden',            toelichting: 'Rekeningen niet openen, bankapp mijden, geld liever niet onder ogen zien.' },
   { label: 'Alles zelf doen',           toelichting: 'Geen hulp inhuren om kosten te besparen, ook als het jou energie kost.' },
-  { label: 'Uiten in spullen',          toelichting: 'Emoties of spanning omzetten in aankopen — retail therapy als ventiel.' },
+  { label: 'Uiten in spullen',          toelichting: 'Emoties of spanning omzetten in aankopen: retail therapy als ventiel.' },
   { label: 'Geld verdienen als bewijs', toelichting: 'Geld gebruiken als bewijs van je waarde, succes of goed genoeg zijn.' },
   { label: 'Geven zonder grenzen',      toelichting: 'Geld weggeven aan anderen zonder op je eigen behoeften te letten.' },
   { label: 'Investeren zonder voelen',  toelichting: 'Impulsief investeren of uitgeven zonder je gevoel te checken.' },
-  { label: 'Onderhandelen vermijden',   toelichting: 'Prijzen stilzwijgend accepteren — onderhandelen voelt ongemakkelijk of onwaardig.' },
+  { label: 'Onderhandelen vermijden',   toelichting: 'Prijzen stilzwijgend accepteren: onderhandelen voelt ongemakkelijk of onwaardig.' },
   { label: 'Wachten op toestemming',    toelichting: 'Pas uitgeven of investeren als iemand anders zegt dat het mag of kan.' },
-  { label: 'Kleine stapjes blijven doen', toelichting: 'Voorzichtigheid als bescherming — nooit een grote stap durven zetten.' },
+  { label: 'Kleine stapjes blijven doen', toelichting: 'Voorzichtigheid als bescherming: nooit een grote stap durven zetten.' },
   { label: 'Behoefte onderdrukken',     toelichting: 'Eigen wensen wegdrukken om te besparen, ook als de behoefte reëel is.' },
   { label: 'Geld romantiseren',         toelichting: 'Dromen en fantaseren over financiële vrijheid zonder concreet actie te nemen.' },
 ];
@@ -128,17 +128,23 @@ Deze gaan NIET over geld maar over wie de persoon denkt te zijn.
 Voorbeelden: "Ik ben niet genoeg", "Ik moet mijn plek verdienen", "Ik ben niet veilig als ik te veel ruimte inneem".
 Geef alleen de kernovertuigingen, één per regel, zonder nummering of extra uitleg.`;
 
-      const tekst = await roepAnalyseAan(prompt, 500);
+      const controller = new AbortController();
+      abortRef.current = controller;
+      const tekst = await roepAnalyseAan(prompt, 500, controller.signal);
       const lijst = tekst.split('\n').map((r) => r.trim()).filter(Boolean);
       setKernOvertuigingen(lijst);
       setAangevinktKern(lijst.map(() => false));
       setSlidersKern(lijst.map(() => ({ overtuigd: 50, loslaten: 50 })));
     } catch (e: unknown) {
+      if (e instanceof Error && e.name === 'AbortError') return;
       setFout(e instanceof Error ? e.message : 'Fout bij genereren kernovertuigingen');
     } finally {
       setKernLoading(false);
     }
   };
+
+  const abortRef = useRef<AbortController | null>(null);
+  useEffect(() => () => { abortRef.current?.abort(); }, []);
 
   const sluitSessieAf = async () => {
     setLoading(true);
@@ -149,12 +155,12 @@ Geef alleen de kernovertuigingen, één per regel, zonder nummering of extra uit
         .map((k) => {
           const idx = kernOvertuigingen.indexOf(k);
           const slider = slidersKern[idx] ?? { overtuigd: 50, loslaten: 50 };
-          return `"${k}" — overtuigd: ${slider.overtuigd}%, loslaten: ${slider.loslaten}%`;
+          return `"${k}": overtuigd: ${slider.overtuigd}%, loslaten: ${slider.loslaten}%`;
         });
 
       const gekozenGeldOv = OVERTUIGINGEN.filter((_, i) => aangevinktOv[i]).map((ov) => {
         const idx = OVERTUIGINGEN.indexOf(ov);
-        return `"${ov}" — overtuigd: ${slidersOv[idx].overtuigd}%, loslaten: ${slidersOv[idx].loslaten}%`;
+        return `"${ov}": overtuigd: ${slidersOv[idx].overtuigd}%, loslaten: ${slidersOv[idx].loslaten}%`;
       });
 
       const stellingenDetail = STELLINGEN.map((s, i) =>
@@ -169,8 +175,8 @@ Geef alleen de kernovertuigingen, één per regel, zonder nummering of extra uit
       const prompt = `Sluit deze Geld Gedoe sessie af.
 
 ## Geldenergie scores (deel 1)
-Bewust totaal: ${totaalBewust}/150 — ${scoreband(totaalBewust)}
-Onbewust totaal: ${totaalOnbewust}/150 — ${scoreband(totaalOnbewust)}
+Bewust totaal: ${totaalBewust}/150: ${scoreband(totaalBewust)}
+Onbewust totaal: ${totaalOnbewust}/150: ${scoreband(totaalOnbewust)}
 Totaalkloof bewust/onbewust: ${Math.abs(totaalBewust - totaalOnbewust)} punten
 ${kloofStellingen.length > 0 ? `Stellingen met grote kloof (verschil ≥ 4):\n${kloofStellingen.join('\n')}` : ''}
 
@@ -205,9 +211,13 @@ Concrete aanbeveling in 2-3 zinnen.
 ## Afsluiting
 Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
 
-      const tekst = await roepAnalyseAan(prompt, 3000);
-      setAnalyse(tekst);
+      const controller = new AbortController();
+      abortRef.current = controller;
+      let acc = '';
+      await streamAnalyse(prompt, 3000, (chunk) => { acc += chunk; setAnalyse(acc); }, undefined, controller.signal);
+      setAnalyse(vervangMDashes(acc));
     } catch (e: unknown) {
+      if (e instanceof Error && e.name === 'AbortError') return;
       setFout(e instanceof Error ? e.message : 'Er ging iets mis');
     } finally {
       setLoading(false);
@@ -216,6 +226,10 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
 
   return (
     <div className="space-y-10">
+      <div className="bg-lightBg2 border-l-4 border-midGreen rounded-xl px-4 py-3 text-sm text-darkSlate leading-relaxed">
+        <span className="font-semibold text-midGreen">Zo gebruik je dit: </span>
+        Doorloop de vier delen op volgorde. Genereer de kernovertuigingen aan het einde van deel 3, laat je klant de resonerende overtuigingen aanvinken, en sluit daarna pas de sessie af.
+      </div>
       <div className="text-center">
         <h1 className="font-salmon text-3xl text-darkSlate mb-1">Flauwekul Filter: Geld Gedoe</h1>
         <p className="text-orange italic text-sm">"Geld maakt niet gelukkig. Maar gelukkig is er geld!"</p>
@@ -223,7 +237,7 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
 
       {/* DEEL 1 */}
       <section className="bg-white rounded-2xl p-6 shadow-sm border border-lightBg">
-        <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 1 — Energiemeting stellingen</h2>
+        <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 1: Energiemeting stellingen</h2>
         <p className="text-sm text-midGreen mb-5">Scoor elke stelling met de biotensor: rood = bewust, groen = onbewust. <span className="text-darkSlate/70">0 = helemaal niet van toepassing · 10 = volledig van toepassing</span></p>
         <div className="space-y-5">
           {STELLINGEN.map((stelling, i) => (
@@ -258,7 +272,7 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
 
       {/* DEEL 2 */}
       <section className="bg-white rounded-2xl p-6 shadow-sm border border-lightBg">
-        <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 2 — Geldstrategieën</h2>
+        <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 2: Geldstrategieën</h2>
         <p className="text-sm text-midGreen mb-4">
           Klik via je biotensor je top 3 strategieën in volgorde.
           {gekozenStrategieen.length < 3 && (
@@ -314,7 +328,7 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
 
       {/* DEEL 3 */}
       <section className="bg-white rounded-2xl p-6 shadow-sm border border-lightBg">
-        <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 3 — Belemmerende overtuigingen</h2>
+        <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 3: Belemmerende overtuigingen</h2>
         <p className="text-sm text-midGreen mb-4">Vink aan via biotensor, score dan hoe overtuigd en hoe klaar om los te laten</p>
         <div className="space-y-3">
           {OVERTUIGINGEN.map((ov, i) => (
@@ -350,10 +364,10 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
 
       {/* DEEL 4 */}
       <section className="bg-lightBg2 rounded-2xl p-6 border border-orange/30">
-        <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 4 — Existentiële kernovertuigingen</h2>
+        <h2 className="font-salmon text-xl text-darkSlate mb-1">Deel 4: Existentiële kernovertuigingen</h2>
         <p className="text-sm text-midGreen mb-4">
           <span className="font-semibold">Genereer existentiële kernovertuigingen op basis van jouw aangevinkte overtuigingen.</span>{' '}
-          <span className="italic">Existentiële kernovertuigingen zijn de diepste laag onder je gedrag — de stille stemmen over wie jij bent en wat jij verdient. Denk aan eigenwaarde, veiligheid en vertrouwen.</span>
+          <span className="italic">Existentiële kernovertuigingen zijn de diepste laag onder je gedrag: de stille stemmen over wie jij bent en wat jij verdient. Denk aan eigenwaarde, veiligheid en vertrouwen.</span>
         </p>
         <button
           onClick={genereerKernOvertuigingen}
@@ -403,7 +417,7 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
       <div className="flex flex-col items-center gap-3">
         <button
           onClick={sluitSessieAf}
-          disabled={loading}
+          disabled={loading || kernOvertuigingen.length === 0}
           className="px-8 py-3 rounded-xl bg-darkGreen text-cream font-salmon text-lg hover:bg-darkGreen/90 transition-colors disabled:opacity-50"
         >
           {loading ? 'Bezig…' : 'Maak mijn analyse'}
@@ -412,7 +426,7 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
       </div>
 
       {analyse && (
-        <AnalyseResultaat tekst={analyse} />
+        <AnalyseResultaat tekst={analyse} titel="Geld Gedoe" isLoading={loading} />
       )}
     </div>
   );

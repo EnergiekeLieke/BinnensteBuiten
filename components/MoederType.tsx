@@ -1,8 +1,8 @@
-'use client';
+﻿'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import AnalyseResultaat from './AnalyseResultaat';
-import { roepAnalyseAan, sliderBackground, kleuren as C } from '@/lib/huisstijl';
+import { streamAnalyse, vervangMDashes, sliderBackground, kleuren as C } from '@/lib/huisstijl';
 
 const MOEDERTYPEN = [
   {
@@ -78,6 +78,9 @@ export default function MoederType() {
   const isReflectieStap = stap === 2;
   const voortgang = Math.round((stap / TOTAL_STEPS) * 100);
 
+  const abortRef = useRef<AbortController | null>(null);
+  useEffect(() => () => { abortRef.current?.abort(); }, []);
+
   const analyseAanvragen = async () => {
     setLoading(true);
     setFout('');
@@ -93,7 +96,7 @@ export default function MoederType() {
         .join('\n\n');
 
       const behoeftenLijst = BEHOEFTEN.map(
-        (b, i) => `${b.naam}: ${behoeftenScores[i]}% ontvangen — "${b.omschrijving}"`
+        (b, i) => `${b.naam}: ${behoeftenScores[i]}% ontvangen: "${b.omschrijving}"`
       ).join('\n');
 
       const prompt = `Analyseer de biotensor test "Welk type moeder ben jij?" van deze vrouw.
@@ -145,9 +148,13 @@ Concrete tip in 2-3 zinnen.
 ## Afsluiting
 Schrijf één warme inleidende zin. Geef dan 3 affirmaties (begin elk met ✨ op een nieuwe regel). Voeg daarna 3 groei-affirmaties toe voor als de affirmaties nog te groots voelen (begin elk met 🌱 op een nieuwe regel, gebruik formuleringen als 'Ik leer...', 'Elke dag een beetje meer...', 'Het mag...').`;
 
-      const tekst = await roepAnalyseAan(prompt, 3000);
-      setAnalyse(tekst);
+      const controller = new AbortController();
+      abortRef.current = controller;
+      let acc = '';
+      await streamAnalyse(prompt, 3000, (chunk) => { acc += chunk; setAnalyse(acc); }, undefined, controller.signal);
+      setAnalyse(vervangMDashes(acc));
     } catch (e: unknown) {
+      if (e instanceof Error && e.name === 'AbortError') return;
       setFout(e instanceof Error ? e.message : 'Er ging iets mis');
     } finally {
       setLoading(false);
@@ -160,10 +167,13 @@ Schrijf één warme inleidende zin. Geef dan 3 affirmaties (begin elk met ✨ op
         <div className="text-center">
           <h1 className="font-salmon text-2xl text-darkSlate mb-1">Welk type moeder ben jij?</h1>
         </div>
-        <AnalyseResultaat tekst={analyse} />
+        <AnalyseResultaat tekst={analyse} titel="Moedertype" isLoading={loading} />
         <div className="flex justify-center pt-2">
           <button
-            onClick={() => { setAnalyse(''); setStap(0); setScores(MOEDERTYPEN.map(() => 50)); setBehoeftenScores(BEHOEFTEN.map(() => 50)); setReflecties(['', '', '']); }}
+            onClick={() => {
+              if (!window.confirm('Weet je zeker dat je opnieuw wilt beginnen? Al je invoer gaat verloren.')) return;
+              setAnalyse(''); setStap(0); setScores(MOEDERTYPEN.map(() => 50)); setBehoeftenScores(BEHOEFTEN.map(() => 50)); setReflecties(['', '', '']);
+            }}
             className="text-sm text-midGreen hover:text-darkGreen underline underline-offset-2"
           >
             Opnieuw beginnen
