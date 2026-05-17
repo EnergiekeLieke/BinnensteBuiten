@@ -159,6 +159,7 @@ export default function StemmetjeQuiz() {
   const [personage, setPersonage] = useState('');
   const [voornaam, setVoornaam] = useState('');
   const [emailAdres, setEmailAdres] = useState('');
+  const [akkoord, setAkkoord] = useState(false);
   const [resultaat, setResultaat] = useState<Resultaat | null>(null);
   const [loading, setLoading] = useState(false);
   const [fout, setFout] = useState('');
@@ -173,6 +174,7 @@ export default function StemmetjeQuiz() {
   const genereer = async () => {
     if (!voornaam.trim() || !emailAdres.trim()) { setFout('Vul je naam en e-mailadres in.'); return; }
     if (!emailAdres.includes('@')) { setFout('Vul een geldig e-mailadres in.'); return; }
+    if (!akkoord) { setFout('Vink het vakje aan om door te gaan.'); return; }
     const controller = new AbortController();
     abortRef.current = controller;
     setLoading(true);
@@ -229,7 +231,7 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
   const opnieuw = () => {
     setResultaat(null); setStap(0);
     setSelecties([[], [], [], []]); setEigenWoorden(''); setPersonage('');
-    setVoornaam(''); setEmailAdres(''); setFout('');
+    setVoornaam(''); setEmailAdres(''); setAkkoord(false); setFout('');
   };
 
   // Resultaatscherm
@@ -413,7 +415,17 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
                 className="w-full rounded-xl border border-lightBg bg-lightBg2 px-3 py-2.5 text-sm text-darkSlate focus:outline-none focus:ring-2 focus:ring-midGreen"
               />
             </div>
-            <p className="text-xs text-darkSlate/40">Geen spam. Je kunt je altijd uitschrijven.</p>
+            <label className="flex items-start gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={akkoord}
+                onChange={(e) => setAkkoord(e.target.checked)}
+                className="mt-0.5 shrink-0 w-4 h-4 accent-darkGreen cursor-pointer"
+              />
+              <span className="text-xs text-darkSlate/60 leading-relaxed">
+                Ja, ik geef Energieke Lieke toestemming om mij e-mails te sturen. Ik kan me op elk moment uitschrijven via de link onderaan elke mail.
+              </span>
+            </label>
           </div>
           {fout && <p className="text-darkRed text-sm text-center">{fout}</p>}
         </div>
@@ -442,7 +454,7 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
         {stap === 7 && (
           <button
             onClick={genereer}
-            disabled={loading || !voornaam.trim() || !emailAdres.trim()}
+            disabled={loading || !voornaam.trim() || !emailAdres.trim() || !akkoord}
             className="flex-1 py-3.5 rounded-xl bg-darkRed text-cream font-salmon text-base hover:bg-darkRed/90 transition-colors disabled:opacity-50"
           >
             {loading ? 'Jouw stemmetje wordt geboren...' : 'Ontmoet mijn stemmetje →'}
