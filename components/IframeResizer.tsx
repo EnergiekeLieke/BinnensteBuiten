@@ -4,22 +4,34 @@ import { useEffect } from 'react';
 
 export default function IframeResizer() {
   useEffect(() => {
-    const sendHeight = () => {
-      window.parent.postMessage({ type: 'iframeHeight', height: document.documentElement.scrollHeight + 32 }, '*');
+    let rafId: ReturnType<typeof requestAnimationFrame>;
+    let laatste = 0;
+
+    const stuur = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        // offsetHeight is stabieler dan scrollHeight en triggert geen loop
+        const h = document.body.offsetHeight;
+        if (Math.abs(h - laatste) > 8) {
+          laatste = h;
+          window.parent.postMessage({ type: 'iframeHeight', height: h + 32 }, '*');
+        }
+      });
     };
 
-    const observer = new ResizeObserver(sendHeight);
-    observer.observe(document.documentElement);
+    // Observeer body, niet documentElement (voorkomt scroll-feedback)
+    const observer = new ResizeObserver(stuur);
+    observer.observe(document.body);
 
-    sendHeight();
-    setTimeout(sendHeight, 300);
-    setTimeout(sendHeight, 800);
-
-    window.addEventListener('load', sendHeight);
+    stuur();
+    const t1 = setTimeout(stuur, 300);
+    const t2 = setTimeout(stuur, 800);
 
     return () => {
       observer.disconnect();
-      window.removeEventListener('load', sendHeight);
+      cancelAnimationFrame(rafId);
+      clearTimeout(t1);
+      clearTimeout(t2);
     };
   }, []);
 
