@@ -89,13 +89,12 @@ export default function Home() {
               <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek via de biotensor welk moederpatroon het meest actief is én waar jouw kracht als moeder al volop aanwezig is.</p>
             </Link>
 
-            <div className="relative bg-[#e8e6e1] rounded-2xl border-l-4 border-[#ccc] p-5 opacity-60 cursor-not-allowed">
-              <span className="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wide bg-darkGreen text-white rounded px-2 py-0.5">Binnenkort</span>
+            <Link href="/vadertype" className="block h-full bg-white rounded-2xl border-l-4 border-darkRed p-5 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
               <div className="text-3xl mb-2">🦁</div>
-              <h2 className="font-salmon text-lg text-[#999] mb-1">Vaderwond</h2>
-              <p className="text-xs text-[#aaa] italic mb-2">Welk vaderpatroon draag jij mee?</p>
-              <p className="text-sm text-[#bbb] leading-relaxed">Ontdek welk vaderpatroon het meest actief is in jouw leven en wat dat zegt over wie je bent geworden.</p>
-            </div>
+              <h2 className="font-salmon text-lg text-darkSlate mb-1">Vaderwond</h2>
+              <p className="text-xs text-midGreen italic mb-2">Welk vaderpatroon draag jij mee?</p>
+              <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek welk vaderpatroon het meest actief is in jouw leven en wat dat zegt over wie je bent geworden.</p>
+            </Link>
 
             <Link href="/innerlijk-kind" className="block h-full bg-white rounded-2xl border-l-4 border-darkRed p-5 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
               <div className="text-3xl mb-2">🧸</div>
