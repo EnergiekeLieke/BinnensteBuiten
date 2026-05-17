@@ -149,14 +149,6 @@ export default function StemmetjeQuiz() {
     setLoading(true);
     setFout('');
     try {
-      // MailBlue registreren (stille fout als mislukt)
-      await fetch('/api/mailblue', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ voornaam: voornaam.trim(), email: emailAdres.trim() }),
-      });
-
-      // Stemmetje genereren
       const prompt = `Je bent een speelse Nederlandse schrijver. Genereer het karakter van het 'strenge stemmetje' van ${voornaam.trim()}.
 
 Wat het stemmetje het vaakst zegt: ${selecties[0].join(' / ') || 'niet ingevuld'}
@@ -175,13 +167,26 @@ Stijlregels:
 
 Geef EXACT dit format terug, niets anders, geen extra tekst:
 
-NAAM: [naam + descriptor, bijv. "Strenge Agnes"]
+NAAM: [naam + descriptor, bijv. "Strenge Stella"]
 KARAKTER: [2-3 levendige zinnen: wie is dit personage, hoe ziet het eruit, wat is zijn/haar typische manier van doen]
 UITSPRAAK: "[één zin die dit stemmetje typisch zegt, in de directe stem van het stemmetje zelf]"
-CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje vandaan komt en wat het betekent dat je hem nu herkent]`;
+CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje vandaan komt en wat het betekent dat je haar nu herkent]`;
 
-      const tekst = await roepAnalyseAan(prompt, 600);
-      setResultaat(parseResultaat(tekst));
+      // Stemmetje genereren
+      const tekst = await roepAnalyseAan(prompt, 800);
+      const res = parseResultaat(tekst);
+
+      // Tag afleiden uit eerste woord van de naam ("Strenge Stella" → "stemmetje-strenge")
+      const tag = `stemmetje-${res.naam.split(' ')[0].toLowerCase()}`;
+
+      // MailBlue registreren met tag (niet-blokkerend)
+      fetch('/api/mailblue', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ voornaam: voornaam.trim(), email: emailAdres.trim(), tag }),
+      }).catch(() => null);
+
+      setResultaat(res);
     } catch (e: unknown) {
       setFout(e instanceof Error ? e.message : 'Er ging iets mis. Probeer het opnieuw.');
     } finally {
@@ -270,7 +275,7 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-lightBg space-y-3">
             <div className="text-4xl">🎭</div>
             <p className="text-sm text-darkSlate leading-relaxed">
-              Dat stemmetje dat zegt dat het niet goed genoeg is, dat het te laat is, of dat anderen het zoveel beter doen. Je kent het.
+              Dat stemmetje dat fluistert: niet goed genoeg, te laat, anderen doen het beter. Je kent het.
             </p>
             <p className="text-sm text-darkSlate leading-relaxed">
               In 6 korte vragen ontdek je wie dat stemmetje is, en krijgt het een naam. Want een stemmetje met een naam heeft minder grip op jou.
@@ -353,7 +358,7 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
           <div className="bg-darkRed/5 rounded-2xl p-5 border border-darkRed/20 text-center space-y-2">
             <div className="text-4xl">🎭</div>
             <h2 className="font-salmon text-xl text-darkSlate">Jouw stemmetje heeft een naam...</h2>
-            <p className="text-sm text-darkSlate/70">Vul je gegevens in om hem te ontmoeten.</p>
+            <p className="text-sm text-darkSlate/70">Vul je gegevens in om kennis te maken.</p>
           </div>
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-lightBg space-y-4">
             <div>
@@ -396,7 +401,8 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
         {stap >= 1 && stap < 7 && (
           <button
             onClick={() => setStap(s => s + 1)}
-            className="flex-1 py-3.5 rounded-xl bg-darkGreen text-cream font-salmon text-base hover:bg-darkGreen/90 transition-colors"
+            disabled={stap >= 1 && stap <= 4 && selecties[stap - 1].length === 0}
+            className="flex-1 py-3.5 rounded-xl bg-darkGreen text-cream font-salmon text-base hover:bg-darkGreen/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Volgende →
           </button>

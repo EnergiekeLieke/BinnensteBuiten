@@ -1,26 +1,59 @@
-export async function POST(req: Request) {
-  const { voornaam, email } = await req.json();
+const API_URL = process.env.MAILBLUE_API_URL!;
+const API_KEY  = process.env.MAILBLUE_API_KEY!;
 
-  const params = new URLSearchParams({
-    u: '5',
-    f: '5',
-    s: '',
-    c: '0',
-    m: '0',
-    act: 'sub',
-    v: '2',
-    or: '6dbe16bc-c973-4234-b90b-3b73ef2b6f1f',
-    firstname: voornaam,
-    email: email,
-    'nlbox[]': '11',
-    jsonp: 'true',
+const hdrs = {
+  'Api-Token': API_KEY,
+  'Content-Type': 'application/json',
+};
+
+async function syncContact(voornaam: string, email: string): Promise<number> {
+  const res  = await fetch(`${API_URL}/api/3/contact/sync`, {
+    method: 'POST', headers: hdrs,
+    body: JSON.stringify({ contact: { email, firstName: voornaam } }),
   });
+  const data = await res.json();
+  return Number(data.contact.id);
+}
 
+async function voegToeAanLijst(contactId: number): Promise<void> {
+  await fetch(`${API_URL}/api/3/contactLists`, {
+    method: 'POST', headers: hdrs,
+    body: JSON.stringify({ contactList: { list: 11, contact: contactId, status: 1 } }),
+  });
+}
+
+async function vindOfMaakTag(tagNaam: string): Promise<number> {
+  const zoek = await fetch(`${API_URL}/api/3/tags?search=${encodeURIComponent(tagNaam)}`, { headers: hdrs });
+  const data  = await zoek.json();
+  const bestaand = (data.tags ?? []).find((t: { tag: string }) => t.tag === tagNaam);
+  if (bestaand) return Number(bestaand.id);
+
+  const maak = await fetch(`${API_URL}/api/3/tags`, {
+    method: 'POST', headers: hdrs,
+    body: JSON.stringify({ tag: { tag: tagNaam, tagType: 'contact' } }),
+  });
+  const nieuw = await maak.json();
+  return Number(nieuw.tag.id);
+}
+
+async function voegTagToe(contactId: number, tagId: number): Promise<void> {
+  await fetch(`${API_URL}/api/3/contactTags`, {
+    method: 'POST', headers: hdrs,
+    body: JSON.stringify({ contactTag: { contact: contactId, tag: tagId } }),
+  });
+}
+
+export async function POST(req: Request) {
+  const { voornaam, email, tag } = await req.json();
   try {
-    await fetch(`https://energiekelieke.activehosted.com/proc.php?${params.toString()}`);
-  } catch {
-    // Stille fout: lead toch tonen ook als MailBlue tijdelijk niet bereikbaar is
+    const contactId = await syncContact(voornaam, email);
+    await voegToeAanLijst(contactId);
+    if (tag) {
+      const tagId = await vindOfMaakTag(tag);
+      await voegTagToe(contactId, tagId);
+    }
+  } catch (e) {
+    console.error('MailBlue fout:', e);
   }
-
   return Response.json({ ok: true });
 }
