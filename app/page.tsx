@@ -18,6 +18,15 @@ export default function Home() {
         <p className="text-midGreen text-sm mt-3">Kies hieronder een tool of Flauwekul Filter en zet jouw eerste stap richting vrijheid en genieten!</p>
       </div>
 
+      {/* Stemmetje leadmagnet */}
+      <Link href="/stemmetje" className="relative block bg-darkRed rounded-2xl p-6 mb-10 shadow-md hover:shadow-lg transition-shadow hover:-translate-y-0.5 transform">
+        <span className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-wide bg-white text-darkRed rounded px-2 py-0.5">Gratis</span>
+        <div className="text-4xl mb-3">🎭</div>
+        <h2 className="font-salmon text-xl text-cream mb-1">Wie fluistert er in jouw hoofd?</h2>
+        <p className="text-xs text-cream/70 italic mb-2">Ontdek en benoem jouw strenge stemmetje</p>
+        <p className="text-sm text-cream/80 leading-relaxed">Dat stemmetje dat zegt dat het niet goed genoeg is. In 6 vragen ontdek je wie het is en krijgt het een naam. Want een stemmetje met een naam heeft minder grip op jou.</p>
+      </Link>
+
       <h2 className="font-bold text-xs uppercase tracking-widest text-darkSlate mb-3">Tools</h2>
 
       <p className="text-sm font-bold text-darkSlate mb-3">Hoe sta je ervoor?</p>
