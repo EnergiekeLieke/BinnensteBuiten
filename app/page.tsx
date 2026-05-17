@@ -73,14 +73,38 @@ export default function Home() {
         <AandachtBingo />
       </div>
 
-      <p className="text-sm font-bold text-darkSlate mb-3">Wie ben jij als moeder?</p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-        <Link href="/moedertype" className="block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
-          <div className="text-4xl mb-3">🌿</div>
-          <h2 className="font-salmon text-xl text-darkSlate mb-1">Welk type moeder ben jij?</h2>
-          <p className="text-xs text-midGreen italic mb-2">Moederschap of de moederwond speelt een rol in jouw leven.</p>
-          <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek via de biotensor welk moederpatroon het meest actief is én waar jouw kracht als moeder al volop aanwezig is.</p>
-        </Link>
+      {/* De wortels van jouw verhaal */}
+      <div className="rounded-2xl border-2 border-darkRed overflow-hidden mb-8">
+        <div className="bg-darkRed px-4 sm:px-6 py-3 sm:py-4">
+          <p className="text-lg font-bold text-white mt-0.5">De wortels van jouw verhaal</p>
+          <p className="text-xs text-white/70 mt-0.5">Patronen uit je jeugd die nog steeds doorwerken in wie je nu bent.</p>
+        </div>
+
+        <div className="bg-cream px-4 sm:px-6 py-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Link href="/moedertype" className="block h-full bg-white rounded-2xl border-l-4 border-darkRed p-5 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+              <div className="text-3xl mb-2">🌿</div>
+              <h2 className="font-salmon text-lg text-darkSlate mb-1">Moederwond</h2>
+              <p className="text-xs text-midGreen italic mb-2">Welk type moeder ben jij?</p>
+              <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek via de biotensor welk moederpatroon het meest actief is én waar jouw kracht als moeder al volop aanwezig is.</p>
+            </Link>
+
+            <div className="relative bg-[#e8e6e1] rounded-2xl border-l-4 border-[#ccc] p-5 opacity-60 cursor-not-allowed">
+              <span className="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wide bg-darkGreen text-white rounded px-2 py-0.5">Binnenkort</span>
+              <div className="text-3xl mb-2">🦁</div>
+              <h2 className="font-salmon text-lg text-[#999] mb-1">Vaderwond</h2>
+              <p className="text-xs text-[#aaa] italic mb-2">Welk vaderpatroon draag jij mee?</p>
+              <p className="text-sm text-[#bbb] leading-relaxed">Ontdek welk vaderpatroon het meest actief is in jouw leven en wat dat zegt over wie je bent geworden.</p>
+            </div>
+
+            <Link href="/innerlijk-kind" className="block h-full bg-white rounded-2xl border-l-4 border-darkRed p-5 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+              <div className="text-3xl mb-2">🧸</div>
+              <h2 className="font-salmon text-lg text-darkSlate mb-1">Jouw innerlijk kind</h2>
+              <p className="text-xs text-midGreen italic mb-2">Welke wond draag jij al van kinds af aan?</p>
+              <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek welke van de vijf basiswonden het sterkst aanwezig is in jouw leven, naar het werk van Lise Bourbeau.</p>
+            </Link>
+          </div>
+        </div>
       </div>
 
       {/* Voor ondernemers */}
