@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { roepAnalyseAan } from '@/lib/huisstijl';
 
 const VRAGEN = [
@@ -70,13 +70,37 @@ interface Resultaat {
 }
 
 function parseResultaat(tekst: string): Resultaat {
-  const naam       = tekst.match(/NAAM:\s*(.+)/)?.[1]?.trim() ?? 'Jouw stemmetje';
-  const karakter   = tekst.match(/KARAKTER:\s*([\s\S]+?)(?=UITSPRAAK:|$)/)?.[1]?.trim() ?? '';
-  const uitspraak  = tekst.match(/UITSPRAAK:\s*"?([\s\S]+?)"?\s*\n/)?.[1]?.trim()
-                  ?? tekst.match(/UITSPRAAK:\s*"?([\s\S]+?)"?\s*$/)?.[1]?.trim()
-                  ?? '';
-  const cliffhanger = tekst.match(/CLIFFHANGER:\s*([\s\S]+?)$/)?.[1]?.trim() ?? '';
-  return { naam, karakter, uitspraak, cliffhanger };
+  // Markdown code blocks weghalen als de AI die toevoegt
+  const schoon = tekst.replace(/```[\s\S]*?```/g, '').replace(/`/g, '').trim();
+
+  const velden: Record<string, string> = {};
+  let huidig: string | null = null;
+  const buffer: string[] = [];
+
+  const opslaan = () => {
+    if (!huidig || buffer.length === 0) return;
+    velden[huidig] = buffer.join('\n').trim().replace(/^["']|["']$/g, '');
+  };
+
+  for (const regel of schoon.split('\n')) {
+    const match = regel.match(/^(NAAM|KARAKTER|UITSPRAAK|CLIFFHANGER):\s*(.*)/i);
+    if (match) {
+      opslaan();
+      huidig = match[1].toUpperCase();
+      buffer.length = 0;
+      if (match[2].trim()) buffer.push(match[2].trim());
+    } else if (huidig) {
+      buffer.push(regel);
+    }
+  }
+  opslaan();
+
+  return {
+    naam:        velden['NAAM']        || 'Jouw stemmetje',
+    karakter:    velden['KARAKTER']    || '',
+    uitspraak:   velden['UITSPRAAK']   || '',
+    cliffhanger: velden['CLIFFHANGER'] || '',
+  };
 }
 
 function MultiSelect({ opties, selecties, onChange }: {
@@ -139,6 +163,9 @@ export default function StemmetjeQuiz() {
   const [loading, setLoading] = useState(false);
   const [fout, setFout] = useState('');
 
+  const abortRef = useRef<AbortController | null>(null);
+  useEffect(() => () => { abortRef.current?.abort(); }, []);
+
   // stap 0=intro, 1-4=vragen, 5=eigen woorden, 6=personage, 7=emailgate
   const TOTAAL = 7;
   const voortgang = Math.round((Math.min(stap, TOTAAL) / TOTAAL) * 100);
@@ -146,6 +173,8 @@ export default function StemmetjeQuiz() {
   const genereer = async () => {
     if (!voornaam.trim() || !emailAdres.trim()) { setFout('Vul je naam en e-mailadres in.'); return; }
     if (!emailAdres.includes('@')) { setFout('Vul een geldig e-mailadres in.'); return; }
+    const controller = new AbortController();
+    abortRef.current = controller;
     setLoading(true);
     setFout('');
     try {
@@ -158,7 +187,7 @@ Wat het doet: ${selecties[3].join(' / ') || 'niet ingevuld'}
 ${eigenWoorden.trim() ? `In eigen woorden: "${eigenWoorden.trim()}"` : ''}
 ${personage ? `Lijkt het meest op: ${personage}` : ''}
 
-Geef dit stemmetje een naam en karakter. Gebruik bij voorkeur een vrouwelijke Nederlandse naam die past bij de toon. Alleen een mannelijke naam als de toon daar echt om vraagt. Combineer met een beschrijvend bijvoeglijk naamwoord dat begint met dezelfde letter als de naam (alliteratie). Voorbeelden van goede namen: "Strenge Stella", "Giftige Gerda", "Kritische Katrien", "Haastige Jet", "Malle Beppie". Zorg dat de alliteratie klinkt en de naam direct herkenbaar is.
+Geef dit stemmetje een naam en karakter. Gebruik bij voorkeur een vrouwelijke Nederlandse naam die past bij de toon. Alleen een mannelijke naam als de toon daar echt om vraagt. Combineer met een beschrijvend bijvoeglijk naamwoord dat begint met dezelfde letter als de naam (alliteratie). Voorbeelden van goede namen: "Strenge Stella", "Giftige Gerda", "Kritische Katrien", "Haastige Jet", "Malle Beppie". Zorg dat de alliteratie klinkt en de naam direct herkenbaar is. De naam begint NOOIT met een lidwoord ("de", "het", "een").
 
 Stijlregels:
 - Speels, warm en een beetje humoristisch. Nooit kwetsend.
@@ -173,11 +202,13 @@ UITSPRAAK: "[één zin die dit stemmetje typisch zegt, in de directe stem van he
 CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje vandaan komt en wat het betekent dat je haar nu herkent]`;
 
       // Stemmetje genereren
-      const tekst = await roepAnalyseAan(prompt, 800);
+      const tekst = await roepAnalyseAan(prompt, 800, controller.signal);
       const res = parseResultaat(tekst);
 
-      // Tag afleiden uit eerste woord van de naam ("Strenge Stella" → "stemmetje-strenge")
-      const tag = `stemmetje-${res.naam.split(' ')[0].toLowerCase()}`;
+      // Tag afleiden: eerste woord dat geen lidwoord is ("Strenge Stella" → "stemmetje-strenge")
+      const lidwoorden = new Set(['de', 'het', 'een']);
+      const adjective = res.naam.split(' ').find(w => !lidwoorden.has(w.toLowerCase())) ?? res.naam.split(' ')[0];
+      const tag = `stemmetje-${adjective.toLowerCase()}`;
 
       // MailBlue registreren met tag (niet-blokkerend)
       fetch('/api/mailblue', {
@@ -188,6 +219,7 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
 
       setResultaat(res);
     } catch (e: unknown) {
+      if (e instanceof Error && e.name === 'AbortError') return;
       setFout(e instanceof Error ? e.message : 'Er ging iets mis. Probeer het opnieuw.');
     } finally {
       setLoading(false);
@@ -228,7 +260,7 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
               href="/"
               className="block w-full text-center py-3.5 rounded-xl bg-darkGreen text-cream font-salmon text-base hover:bg-darkGreen/90 transition-colors"
             >
-              Ontdek het BinnensteBuiten Spel →
+              Aan de slag met jouw stemmetje →
             </a>
           </div>
         )}
@@ -330,8 +362,8 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
       {stap === 6 && (
         <div className="bg-white rounded-2xl p-5 shadow-sm border border-lightBg space-y-4">
           <div>
-            <h2 className="font-salmon text-xl text-darkSlate mb-1">Het uiterlijk</h2>
-            <p className="text-sm text-midGreen">Optioneel. Welk personage past het best bij jouw stemmetje?</p>
+            <h2 className="font-salmon text-xl text-darkSlate mb-1">Wie lijkt het meest op haar?</h2>
+            <p className="text-sm text-midGreen">Optioneel. Kies het personage dat het best bij jouw stemmetje past.</p>
           </div>
           <div className="space-y-2">
             {PERSONAGES.map((p) => (
@@ -413,7 +445,7 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
             disabled={loading || !voornaam.trim() || !emailAdres.trim()}
             className="flex-1 py-3.5 rounded-xl bg-darkRed text-cream font-salmon text-base hover:bg-darkRed/90 transition-colors disabled:opacity-50"
           >
-            {loading ? 'Even geduld...' : 'Ontmoet mijn stemmetje →'}
+            {loading ? 'Jouw stemmetje wordt geboren...' : 'Ontmoet mijn stemmetje →'}
           </button>
         )}
       </div>
