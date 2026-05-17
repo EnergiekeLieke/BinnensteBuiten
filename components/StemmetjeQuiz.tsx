@@ -423,7 +423,7 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
                 className="mt-0.5 shrink-0 w-4 h-4 accent-darkGreen cursor-pointer"
               />
               <span className="text-xs text-darkSlate/60 leading-relaxed">
-                Ja, ik geef Energieke Lieke toestemming om mij e-mails te sturen. Ik kan me op elk moment uitschrijven via de link onderaan elke mail.
+                Ja, ik geef Energieke Lieke toestemming om mij e-mails te sturen over het BinnensteBuiten Spel™. Ik kan me op elk moment uitschrijven via de link onderaan elke mail.
               </span>
             </label>
           </div>
