@@ -183,7 +183,7 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
       fetch('/api/mailblue', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ voornaam: voornaam.trim(), email: emailAdres.trim(), tag }),
+        body: JSON.stringify({ voornaam: voornaam.trim(), email: emailAdres.trim(), tag, naam: res.naam }),
       }).catch(() => null);
 
       setResultaat(res);

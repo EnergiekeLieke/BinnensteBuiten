@@ -6,10 +6,16 @@ const hdrs = {
   'Content-Type': 'application/json',
 };
 
-async function syncContact(voornaam: string, email: string): Promise<number> {
+async function syncContact(voornaam: string, email: string, stemmetjeNaam: string): Promise<number> {
   const res  = await fetch(`${API_URL}/api/3/contact/sync`, {
     method: 'POST', headers: hdrs,
-    body: JSON.stringify({ contact: { email, firstName: voornaam } }),
+    body: JSON.stringify({
+      contact: {
+        email,
+        firstName: voornaam,
+        fieldValues: [{ field: '1', value: stemmetjeNaam }],
+      },
+    }),
   });
   const data = await res.json();
   return Number(data.contact.id);
@@ -44,9 +50,9 @@ async function voegTagToe(contactId: number, tagId: number): Promise<void> {
 }
 
 export async function POST(req: Request) {
-  const { voornaam, email, tag } = await req.json();
+  const { voornaam, email, tag, naam } = await req.json();
   try {
-    const contactId = await syncContact(voornaam, email);
+    const contactId = await syncContact(voornaam, email, naam ?? '');
     await voegToeAanLijst(contactId);
     if (tag) {
       const tagId = await vindOfMaakTag(tag);
