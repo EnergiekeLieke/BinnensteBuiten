@@ -10,8 +10,10 @@ export default function IframeResizer() {
     const stuur = () => {
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
-        // offsetHeight is stabieler dan scrollHeight en triggert geen loop
-        const h = document.body.offsetHeight;
+        // Meet <main>, niet body — body heeft min-h-screen waardoor hij
+        // altijd minstens de viewporthoogte rapporteert
+        const doel = document.querySelector('main') ?? document.body;
+        const h = doel.scrollHeight;
         if (Math.abs(h - laatste) > 8) {
           laatste = h;
           window.parent.postMessage({ type: 'iframeHeight', height: h + 32 }, '*');
@@ -19,9 +21,9 @@ export default function IframeResizer() {
       });
     };
 
-    // Observeer body, niet documentElement (voorkomt scroll-feedback)
+    const doel = document.querySelector('main') ?? document.body;
     const observer = new ResizeObserver(stuur);
-    observer.observe(document.body);
+    observer.observe(doel);
 
     stuur();
     const t1 = setTimeout(stuur, 300);
