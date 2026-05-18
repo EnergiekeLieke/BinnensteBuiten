@@ -260,6 +260,7 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
             <p className="text-sm text-darkSlate leading-relaxed">{resultaat.cliffhanger}</p>
             <a
               href="https://www.energiekelieke.nl/binnenstebuiten"
+              target="_top"
               className="block w-full text-center py-3.5 rounded-xl bg-darkGreen text-cream font-salmon text-base hover:bg-darkGreen/90 transition-colors"
             >
               Aan de slag met jouw stemmetje →
