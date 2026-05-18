@@ -318,7 +318,7 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-lightBg space-y-3">
             <div className="text-4xl">🎭</div>
             <p className="text-sm text-darkSlate leading-relaxed">
-              Dat stemmetje dat fluistert: niet goed genoeg, te laat, anderen doen het beter. Je kent het.
+              Dat stemmetje dat fluistert: <em>&ldquo;niet goed genoeg&rdquo;</em>, <em>&ldquo;te laat&rdquo;</em>, <em>&ldquo;anderen doen het beter&rdquo;</em>. Je kent het.
             </p>
             <p className="text-sm text-darkSlate leading-relaxed">
               In 6 korte vragen ontdek je wie dat stemmetje is, en krijgt het een naam. Want een stemmetje met een naam heeft minder grip op jou.
