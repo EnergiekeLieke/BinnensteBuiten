@@ -265,8 +265,6 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
               type="button"
               onClick={() => {
                 const url = 'https://www.energiekelieke.nl/binnenstebuiten';
-                console.log('[StemmetjeQuiz] postMessage navigate naar:', url);
-                console.log('[StemmetjeQuiz] window.parent === window:', window.parent === window);
                 window.parent.postMessage({ type: 'navigate', url }, '*');
                 if (window.parent === window) window.location.href = url;
               }}
