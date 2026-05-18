@@ -168,7 +168,7 @@ export default function StemmetjeQuiz() {
   useEffect(() => () => { abortRef.current?.abort(); }, []);
 
   // stap 0=intro, 1-4=vragen, 5=eigen woorden, 6=personage, 7=emailgate
-  const TOTAAL = 7;
+  const TOTAAL = 8;
   const voortgang = Math.round((Math.min(stap, TOTAAL) / TOTAAL) * 100);
 
   const genereer = async () => {
@@ -197,7 +197,7 @@ De naam begint NOOIT met een lidwoord ("de", "het", "een").
 Stijlregels:
 - Speels, warm en een beetje humoristisch. Nooit kwetsend.
 - Gebruik NOOIT een m-dash (—). Gebruik een komma of een dubbele punt.
-- Spreek ${voornaam.trim()} aan als dat past.
+- Spreek ${voornaam.trim()} persoonlijk aan in de cliffhanger.
 
 Geef EXACT dit format terug, niets anders, geen extra tekst:
 
@@ -259,21 +259,22 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
         )}
 
         {resultaat.cliffhanger && (
-          <div className="bg-lightBg2 rounded-2xl p-5 border border-orange/20 space-y-4">
+          <div className="bg-lightBg2 rounded-2xl p-5 border border-orange/20">
             <p className="text-sm text-darkSlate leading-relaxed">{resultaat.cliffhanger}</p>
-            <button
-              type="button"
-              onClick={() => {
-                const url = 'https://www.energiekelieke.nl/binnenstebuiten';
-                window.parent.postMessage({ type: 'navigate', url }, '*');
-                if (window.parent === window) window.location.href = url;
-              }}
-              className="block w-full text-center py-3.5 rounded-xl bg-darkGreen text-cream font-salmon text-base hover:bg-darkGreen/90 transition-colors"
-            >
-              Aan de slag met jouw stemmetje →
-            </button>
           </div>
         )}
+
+        <button
+          type="button"
+          onClick={() => {
+            const url = 'https://www.energiekelieke.nl/binnenstebuiten';
+            window.parent.postMessage({ type: 'navigate', url }, '*');
+            if (window.parent === window) window.location.href = url;
+          }}
+          className="block w-full text-center py-3.5 rounded-xl bg-darkGreen text-cream font-salmon text-base hover:bg-darkGreen/90 transition-colors"
+        >
+          Aan de slag met jouw stemmetje →
+        </button>
 
         <div className="flex justify-center">
           <button onClick={opnieuw} className="text-sm text-midGreen hover:text-darkGreen underline underline-offset-2">
@@ -463,8 +464,14 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
           <button
             onClick={genereer}
             disabled={loading || !voornaam.trim() || !emailAdres.trim() || !akkoord}
-            className="flex-1 py-3.5 rounded-xl bg-darkRed text-cream font-salmon text-base hover:bg-darkRed/90 transition-colors disabled:opacity-50"
+            className="flex-1 py-3.5 rounded-xl bg-darkRed text-cream font-salmon text-base hover:bg-darkRed/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
           >
+            {loading && (
+              <svg className="animate-spin h-4 w-4 text-cream shrink-0" viewBox="0 0 24 24" fill="none">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"/>
+              </svg>
+            )}
             {loading ? 'Jouw stemmetje wordt geboren...' : 'Ontmoet mijn stemmetje →'}
           </button>
         )}
