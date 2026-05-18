@@ -261,11 +261,11 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
             <button
               type="button"
               onClick={() => {
-                try {
-                  if (window.top) window.top.location.href = 'https://www.energiekelieke.nl/binnenstebuiten';
-                } catch {
-                  window.location.href = 'https://www.energiekelieke.nl/binnenstebuiten';
-                }
+                const url = 'https://www.energiekelieke.nl/binnenstebuiten';
+                // Stuur navigatieverzoek naar bovenliggende pagina (werkt cross-origin)
+                window.parent.postMessage({ type: 'navigate', url }, '*');
+                // Fallback: direct navigeren als de quiz standalone draait
+                if (window.parent === window) window.location.href = url;
               }}
               className="block w-full text-center py-3.5 rounded-xl bg-darkGreen text-cream font-salmon text-base hover:bg-darkGreen/90 transition-colors"
             >
