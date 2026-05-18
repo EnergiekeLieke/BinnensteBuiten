@@ -357,7 +357,7 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
             <p className="text-sm text-midGreen">Optioneel, maar hoe concreter, hoe persoonlijker de naam wordt.</p>
           </div>
           <label className="text-sm font-medium text-darkSlate block">
-            💛 Wat zegt jouw stemmetje woordelijk als het echt loslaat?
+            💛 Wat zegt jouw stemmetje woordelijk als het echt losgaat?
           </label>
           <textarea
             value={eigenWoorden}
