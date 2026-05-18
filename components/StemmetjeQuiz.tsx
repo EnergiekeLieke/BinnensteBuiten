@@ -189,7 +189,10 @@ Wat het doet: ${selecties[3].join(' / ') || 'niet ingevuld'}
 ${eigenWoorden.trim() ? `In eigen woorden: "${eigenWoorden.trim()}"` : ''}
 ${personage ? `Lijkt het meest op: ${personage}` : ''}
 
-Geef dit stemmetje een naam en karakter. Gebruik bij voorkeur een vrouwelijke Nederlandse naam die past bij de toon. Alleen een mannelijke naam als de toon daar echt om vraagt. Combineer met een beschrijvend bijvoeglijk naamwoord dat begint met dezelfde letter als de naam (alliteratie). Voorbeelden van goede namen: "Strenge Stella", "Giftige Gerda", "Kritische Katrien", "Haastige Jet", "Malle Beppie". Zorg dat de alliteratie klinkt en de naam direct herkenbaar is. De naam begint NOOIT met een lidwoord ("de", "het", "een").
+Geef dit stemmetje een naam en karakter. Gebruik bij voorkeur een vrouwelijke Nederlandse naam die past bij de toon. Alleen een mannelijke naam als de toon daar echt om vraagt. Combineer met een beschrijvend bijvoeglijk naamwoord dat begint met dezelfde letter als de naam (alliteratie).
+
+VOLGORDE: het bijvoeglijk naamwoord staat ALTIJD EERST, dan de naam. Correct: "Strenge Stella", "Giftige Gerda", "Kritische Katrien", "Haastige Jet", "Malle Beppie". Fout: "Stella Streng", "Gerda Giftig". Nooit de naam eerst.
+De naam begint NOOIT met een lidwoord ("de", "het", "een").
 
 Stijlregels:
 - Speels, warm en een beetje humoristisch. Nooit kwetsend.
