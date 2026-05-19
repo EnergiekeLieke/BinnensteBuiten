@@ -321,9 +321,11 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
               Dat stemmetje dat fluistert: <em>&ldquo;niet goed genoeg&rdquo;</em>, <em>&ldquo;te laat&rdquo;</em>, <em>&ldquo;anderen doen het beter&rdquo;</em>. Je kent het.
             </p>
             <p className="text-sm text-darkSlate leading-relaxed">
-              In 6 korte vragen ontdek je wie dat stemmetje is, en krijgt het een naam. Want een stemmetje met een naam heeft minder grip op jou.
+              In 6 korte vragen ontdek je wie er bij jou aan de touwtjes trekt. Jouw stemmetje krijgt een naam.
             </p>
-            <p className="text-sm font-bold text-darkRed">Wie woont er in jouw hoofd?</p>
+            <p className="text-sm text-darkSlate leading-relaxed">
+              Vanaf het moment dat je ontdekt wie het hoogste woord heeft, kun je er anders mee omgaan. Je creëert afstand en het stopt met <strong><em>jouw stem</em></strong> te zijn.
+            </p>
           </div>
           <button
             onClick={() => setStap(1)}
