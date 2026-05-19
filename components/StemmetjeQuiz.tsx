@@ -331,7 +331,7 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
             onClick={() => setStap(1)}
             className="w-full py-4 rounded-xl bg-darkRed text-cream font-salmon text-lg hover:bg-darkRed/90 transition-colors"
           >
-            Ik wil het weten →
+            Wie heeft het hoogste woord?
           </button>
         </div>
       )}
