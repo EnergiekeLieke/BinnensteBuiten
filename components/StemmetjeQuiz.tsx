@@ -58,7 +58,7 @@ const PERSONAGES = [
   { label: 'De strenge schooljuf met een liniaal', emoji: '📏' },
   { label: 'De zuchtende tante die altijd weet hoe het beter kan', emoji: '😮‍💨' },
   { label: 'De paniekerige buurvrouw die altijd het ergste verwacht', emoji: '😰' },
-  { label: 'De koude baas die nooit tevreden is', emoji: '🧊' },
+  { label: 'De koude directrice die nooit tevreden is', emoji: '🧊' },
   { label: 'De bezorgde oma die je constant waarschuwt', emoji: '👵' },
 ];
 
@@ -290,8 +290,8 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
 
       {/* Header */}
       <div className="text-center space-y-1">
-        <h1 className="font-salmon text-2xl text-darkSlate">Wie fluistert er in jouw hoofd?</h1>
-        <p className="text-midGreen italic text-sm">Ontdek en benoem jouw strenge stemmetje</p>
+        <h1 className="font-salmon text-2xl text-darkSlate">Ze trekt al jaren aan jouw touwtjes.</h1>
+        <p className="text-midGreen italic text-sm">Ontdek welk stemmetje bij jou het hardst roept</p>
       </div>
 
       {/* Voortgang */}
