@@ -312,7 +312,6 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
       {stap === 0 && (
         <div className="space-y-4">
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-lightBg space-y-3">
-            <div className="text-4xl">🎭</div>
             <p className="text-sm text-darkSlate leading-relaxed">
               In 6 korte vragen ontdek je wie er bij jou aan de touwtjes trekt. Jouw stemmetje krijgt een naam.
             </p>
