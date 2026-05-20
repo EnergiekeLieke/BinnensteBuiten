@@ -288,11 +288,7 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
   return (
     <div className="space-y-6 max-w-lg mx-auto">
 
-      {/* Header */}
-      <div className="text-center space-y-1">
-        <h1 className="font-salmon text-2xl text-darkSlate">Ze trekt al jaren aan jouw touwtjes.</h1>
-        <p className="text-midGreen italic text-sm">Ontdek welk stemmetje bij jou het hardst roept</p>
-      </div>
+
 
       {/* Voortgang */}
       {stap > 0 && (
@@ -318,9 +314,6 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-lightBg space-y-3">
             <div className="text-4xl">🎭</div>
             <p className="text-sm text-darkSlate leading-relaxed">
-              Dat stemmetje dat fluistert: <em>&ldquo;niet goed genoeg&rdquo;</em>, <em>&ldquo;te laat&rdquo;</em>, <em>&ldquo;anderen doen het beter&rdquo;</em>. Je kent het.
-            </p>
-            <p className="text-sm text-darkSlate leading-relaxed">
               In 6 korte vragen ontdek je wie er bij jou aan de touwtjes trekt. Jouw stemmetje krijgt een naam.
             </p>
             <p className="text-sm text-darkSlate leading-relaxed">
@@ -331,7 +324,7 @@ CLIFFHANGER: [1-2 zinnen die nieuwsgierigheid wekken naar waar dit stemmetje van
             onClick={() => setStap(1)}
             className="w-full py-4 rounded-xl bg-darkRed text-cream font-salmon text-lg hover:bg-darkRed/90 transition-colors"
           >
-            Wie heeft het hoogste woord?
+            Start de quiz
           </button>
         </div>
       )}
