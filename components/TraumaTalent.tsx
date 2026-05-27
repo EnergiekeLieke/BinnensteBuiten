@@ -233,6 +233,7 @@ export default function TraumaTalent() {
 
   async function suggereerKwadrant() {
     if (!focusPatroon) return;
+    abortRef.current?.abort();
     setSuggestieLoading(true);
     setFout('');
     try {
@@ -271,6 +272,7 @@ Gebruik nooit een m-dash. Gebruik "je" in plaats van "jij".`;
 
   async function analyseAanvragen() {
     if (!focusPatroon || !uitdaging.trim() || !allergie.trim()) return;
+    abortRef.current?.abort();
     setLoading(true);
     setAnalyse('');
     setFout('');
@@ -355,6 +357,8 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
               focusPatroon={focusPatroon!}
               uitdaging={uitdaging}
               allergie={allergie}
+              uitdagingToelichting={uitdagingToelichting}
+              allergieToelichting={allergieToelichting}
               analyse={analyse}
             />
           </div>
@@ -371,6 +375,7 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
               setAllergie('');
               setUitdagingToelichting('');
               setAllergieToelichting('');
+              setUitgeklapt([]);
             }}
             className="text-sm text-midGreen hover:text-darkGreen underline underline-offset-2"
           >
@@ -618,50 +623,29 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
               <p className="text-xs text-darkRed/60 mt-2 italic">Onbewust, vanuit angst</p>
             </div>
 
-            {/* LINKS midden: leeg (diagonaal loopt via center) */}
+            {/* LINKS midden: ↑ positief tegendeel (allergie → kwaliteit) */}
+            <div className="flex items-center justify-center">
+              <div className="flex flex-col items-center gap-0.5">
+                <span className="text-sm text-darkSlate/25 leading-none">↑</span>
+                <span className="text-[9px] text-darkSlate/40 italic leading-none text-center">positief</span>
+                <span className="text-[9px] text-darkSlate/40 italic leading-none text-center">tegendeel</span>
+              </div>
+            </div>
+
+            {/* CENTER: leeg */}
             <div />
 
-            {/* CENTER: kruispunt van beide diagonalen */}
-            <div className="flex flex-col items-center justify-center gap-0.5">
-              <div className="flex items-center gap-1">
-                <span className="text-[8px] text-darkSlate/30 italic leading-none">pos.teg.</span>
-                <span className="text-xs text-darkSlate/25 leading-none">↗</span>
-              </div>
-              <div className="w-4 h-4 rounded-full border border-lightBg bg-lightBg2 flex items-center justify-center">
-                <span className="text-[8px] text-darkSlate/30 select-none">✕</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <span className="text-xs text-darkSlate/25 leading-none">↙</span>
-                <span className="text-[8px] text-darkSlate/30 italic leading-none">pos.teg.</span>
+            {/* RECHTS midden: ↓ positief tegendeel (valkuil → uitdaging) */}
+            <div className="flex items-center justify-center">
+              <div className="flex flex-col items-center gap-0.5">
+                <span className="text-[9px] text-darkSlate/40 italic leading-none text-center">positief</span>
+                <span className="text-[9px] text-darkSlate/40 italic leading-none text-center">tegendeel</span>
+                <span className="text-sm text-darkSlate/25 leading-none">↓</span>
               </div>
             </div>
 
-            {/* RECHTS midden: leeg */}
-            <div />
-
-            {/* UITDAGING */}
-            <div className={`rounded-bl-xl border-2 p-3 transition-colors ${uitdaging.trim() ? 'bg-midGreen/10 border-midGreen' : 'bg-white border-lightBg'}`}>
-              <p className="text-xs font-medium text-midGreen uppercase tracking-wide mb-1.5">Uitdaging</p>
-              <input
-                type="text"
-                value={uitdaging}
-                onChange={(e) => setUitdaging(e.target.value)}
-                placeholder="Vul zelf in of genereer met AI"
-                className="w-full text-sm font-semibold text-darkSlate bg-transparent outline-none placeholder-darkSlate/30"
-              />
-              <p className="text-xs text-darkSlate/50 mt-2">
-                {uitdagingToelichting || 'Positieve tegenhanger van de valkuil'}
-              </p>
-            </div>
-
-            {/* PIJL: te veel → (uitdaging naar allergie) */}
-            <div className="flex flex-col items-center justify-center text-center">
-              <span className="text-base text-darkSlate/25 leading-none mb-0.5">→</span>
-              <span className="text-[9px] font-medium text-darkSlate/40 leading-none">te veel</span>
-            </div>
-
-            {/* ALLERGIE */}
-            <div className={`rounded-br-xl border-2 p-3 transition-colors ${allergie.trim() ? 'bg-orange/10 border-orange' : 'bg-white border-lightBg'}`}>
+            {/* ALLERGIE (linksonder) */}
+            <div className={`rounded-bl-xl border-2 p-3 transition-colors ${allergie.trim() ? 'bg-orange/10 border-orange' : 'bg-white border-lightBg'}`}>
               <p className="text-xs font-medium text-orange uppercase tracking-wide mb-1.5">Allergie</p>
               <input
                 type="text"
@@ -672,6 +656,27 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
               />
               <p className="text-xs text-darkSlate/50 mt-2">
                 {allergieToelichting || 'Wat jou irriteert in anderen'}
+              </p>
+            </div>
+
+            {/* PIJL: ← te veel (uitdaging → allergie) */}
+            <div className="flex flex-col items-center justify-center text-center">
+              <span className="text-base text-darkSlate/25 leading-none mb-0.5">←</span>
+              <span className="text-[9px] font-medium text-darkSlate/40 leading-none">te veel</span>
+            </div>
+
+            {/* UITDAGING (rechtsonder) */}
+            <div className={`rounded-br-xl border-2 p-3 transition-colors ${uitdaging.trim() ? 'bg-midGreen/10 border-midGreen' : 'bg-white border-lightBg'}`}>
+              <p className="text-xs font-medium text-midGreen uppercase tracking-wide mb-1.5">Uitdaging</p>
+              <input
+                type="text"
+                value={uitdaging}
+                onChange={(e) => setUitdaging(e.target.value)}
+                placeholder="Vul zelf in of genereer met AI"
+                className="w-full text-sm font-semibold text-darkSlate bg-transparent outline-none placeholder-darkSlate/30"
+              />
+              <p className="text-xs text-darkSlate/50 mt-2">
+                {uitdagingToelichting || 'Positieve tegenhanger van de valkuil'}
               </p>
             </div>
           </div>

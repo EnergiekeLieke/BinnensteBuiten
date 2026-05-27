@@ -29,10 +29,12 @@ interface Props {
   focusPatroon: TraumaPatroon;
   uitdaging: string;
   allergie: string;
+  uitdagingToelichting: string;
+  allergieToelichting: string;
   analyse: string;
 }
 
-function TraumaTalentDocument({ patronen, focusPatroon, uitdaging, allergie, analyse }: Props) {
+function TraumaTalentDocument({ patronen, focusPatroon, uitdaging, allergie, uitdagingToelichting, allergieToelichting, analyse }: Props) {
   const datum = new Date().toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
 
   return (
@@ -79,33 +81,36 @@ function TraumaTalentDocument({ patronen, focusPatroon, uitdaging, allergie, ana
               </View>
             </View>
 
-            {/* Rij 2: diagonale pijlen */}
+            {/* Rij 2: verticale pijlen links (↑) en rechts (↓) */}
             <View style={s.kwadrantMidden}>
-              <View style={{ flex: 1 }} />
-              <View style={[s.kwadrantBrug, { flexDirection: 'column' }]}>
-                <Text style={[s.kwadrantBrugTekst, { color: K.midGreen }]}>↗ pos.</Text>
-                <Text style={[s.kwadrantBrugTekst, { color: K.midGreen }]}>teg.</Text>
-                <Text style={[s.kwadrantBrugTekst, { color: K.midGreen }]}>↙ pos.</Text>
-                <Text style={[s.kwadrantBrugTekst, { color: K.midGreen }]}>teg.</Text>
+              <View style={[s.kwadrantBrug, { flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
+                <Text style={s.kwadrantBrugTekst}>↑</Text>
+                <Text style={s.kwadrantBrugTekst}>positief</Text>
+                <Text style={s.kwadrantBrugTekst}>tegendeel</Text>
               </View>
-              <View style={{ flex: 1 }} />
+              <View style={{ width: 36 }} />
+              <View style={[s.kwadrantBrug, { flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
+                <Text style={s.kwadrantBrugTekst}>positief</Text>
+                <Text style={s.kwadrantBrugTekst}>tegendeel</Text>
+                <Text style={s.kwadrantBrugTekst}>↓</Text>
+              </View>
             </View>
 
-            {/* Rij 3: UITDAGING — brug — ALLERGIE */}
+            {/* Rij 3: ALLERGIE — brug — UITDAGING */}
             <View style={s.kwadrantRij}>
-              <View style={[s.kwadrantVak, { borderColor: K.midGreen, backgroundColor: '#f3f6f0' }]}>
-                <Text style={[s.kwadrantLabel, { color: K.midGreen }]}>UITDAGING</Text>
-                <Text style={[s.kwadrantWaarde, { color: K.midGreen }]}>{uitdaging}</Text>
-                <Text style={[s.kwadrantSub, { color: K.darkSlate }]}>Positieve tegenhanger van de valkuil</Text>
-              </View>
-              <View style={s.kwadrantBrug}>
-                <Text style={s.kwadrantBrugTekst}>→ te</Text>
-                <Text style={s.kwadrantBrugTekst}>veel</Text>
-              </View>
               <View style={[s.kwadrantVak, { borderColor: K.orange, backgroundColor: '#fdf4ec' }]}>
                 <Text style={[s.kwadrantLabel, { color: K.orange }]}>ALLERGIE</Text>
                 <Text style={[s.kwadrantWaarde, { color: K.orange }]}>{allergie}</Text>
-                <Text style={[s.kwadrantSub, { color: K.darkSlate }]}>Wat jou irriteert in anderen</Text>
+                <Text style={[s.kwadrantSub, { color: K.darkSlate }]}>{allergieToelichting || 'Wat jou irriteert in anderen'}</Text>
+              </View>
+              <View style={s.kwadrantBrug}>
+                <Text style={s.kwadrantBrugTekst}>← te</Text>
+                <Text style={s.kwadrantBrugTekst}>veel</Text>
+              </View>
+              <View style={[s.kwadrantVak, { borderColor: K.midGreen, backgroundColor: '#f3f6f0' }]}>
+                <Text style={[s.kwadrantLabel, { color: K.midGreen }]}>UITDAGING</Text>
+                <Text style={[s.kwadrantWaarde, { color: K.midGreen }]}>{uitdaging}</Text>
+                <Text style={[s.kwadrantSub, { color: K.darkSlate }]}>{uitdagingToelichting || 'Positieve tegenhanger van de valkuil'}</Text>
               </View>
             </View>
 
