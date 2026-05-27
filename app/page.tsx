@@ -111,6 +111,13 @@ export default function Home() {
               <p className="text-xs text-midGreen italic mb-2">Welke wond draag jij al van kinds af aan?</p>
               <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek welke van de vijf basiswonden het sterkst aanwezig is in jouw leven, naar het werk van Lise Bourbeau.</p>
             </Link>
+
+            <Link href="/trauma-talent" className="block h-full bg-white rounded-2xl border-l-4 border-darkRed p-5 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+              <div className="text-3xl mb-2">🌀</div>
+              <h2 className="font-salmon text-lg text-darkSlate mb-1">Trauma-talent</h2>
+              <p className="text-xs text-midGreen italic mb-2">Van elastiek naar jouw kernkwaliteit</p>
+              <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek welk onbewust patroon jou terughoudt én welk talent er onder schuilt. Bouw je persoonlijke Ofman-kernkwadrant.</p>
+            </Link>
           </div>
         </div>
       </div>
