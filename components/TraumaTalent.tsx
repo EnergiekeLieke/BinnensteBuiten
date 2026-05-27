@@ -448,16 +448,21 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
                     </div>
                   </div>
                   <p className="text-xs text-darkSlate/70 mb-2">{p.elastiekBeschrijving}</p>
-                  <ul className="space-y-0.5">
+                  <ul className="space-y-1 mt-auto pt-2">
                     {p.gedachten.map((g, i) => (
-                      <li key={i} className="text-xs text-darkSlate/55 italic">{g}</li>
+                      <li key={i} className="text-xs text-darkSlate/60 italic bg-lightBg/60 rounded-lg px-2.5 py-1.5 leading-snug">{g}</li>
                     ))}
                   </ul>
                 </button>
               );
             })}
           </div>
-          <div className="flex justify-end">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-darkSlate/50">
+              {aangevinkt.length === 0
+                ? 'Vink aan wat je herkent'
+                : `${aangevinkt.length} ${aangevinkt.length === 1 ? 'patroon' : 'patronen'} herkend`}
+            </span>
             <button
               onClick={() => setStap(1)}
               disabled={aangevinkt.length === 0}
