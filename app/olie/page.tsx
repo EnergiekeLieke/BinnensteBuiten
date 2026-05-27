@@ -98,6 +98,9 @@ export default function OliePage() {
               Olie uitgemeten? Scan stap voor stap hoe je hem het beste kunt inzetten.
             </p>
           </div>
+          <div className="w-28 flex-shrink-0">
+            <img src="/fotos/AromaGlobeDiffuser.jpg" alt="Diffuser met stoom" className="w-full h-full object-cover" />
+          </div>
         </Link>
 
         <div className="bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow">
