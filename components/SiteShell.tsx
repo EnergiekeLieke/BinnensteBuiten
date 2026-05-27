@@ -1,11 +1,24 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 function Shell({ children }: { children: React.ReactNode }) {
   const params = useSearchParams();
-  const embed = params.get('embed') === 'true';
+  const paramEmbed = params.get('embed') === 'true';
+
+  const [embedStored, setEmbedStored] = useState(() =>
+    typeof window !== 'undefined' && sessionStorage.getItem('embed') === 'true'
+  );
+
+  useEffect(() => {
+    if (paramEmbed) {
+      sessionStorage.setItem('embed', 'true');
+      setEmbedStored(true);
+    }
+  }, [paramEmbed]);
+
+  const embed = paramEmbed || embedStored;
 
   useEffect(() => {
     if (embed) {
