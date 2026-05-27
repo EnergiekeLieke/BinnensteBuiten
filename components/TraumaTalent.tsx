@@ -428,7 +428,7 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
                 <button
                   key={p.id}
                   onClick={() => togglePatroon(p.id)}
-                  className={`text-left rounded-2xl border-2 p-4 transition-all ${
+                  className={`text-left rounded-2xl border-2 p-4 transition-all h-full flex flex-col justify-start ${
                     actief
                       ? 'border-darkRed bg-darkRed/10'
                       : 'border-lightBg bg-white hover:border-orange/40'
