@@ -87,6 +87,19 @@ export default function OliePage() {
           </div>
         </Link>
 
+        <Link
+          href="/olie/keuzehulp"
+          className="flex overflow-hidden bg-white rounded-2xl border-l-4 border-darkSlate shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform"
+        >
+          <div className="p-6 flex-1">
+            <div className="text-4xl mb-3">🧭</div>
+            <h2 className="font-salmon text-xl text-darkSlate mb-2">Keuzehulp: hoe zet je de olie in?</h2>
+            <p className="text-sm text-darkSlate/70 leading-relaxed">
+              Olie uitgemeten? Scan stap voor stap hoe je hem het beste kunt inzetten.
+            </p>
+          </div>
+        </Link>
+
         <div className="bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow">
           <div className="text-4xl mb-3">🎲</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-2">Speel de quiz</h2>
