@@ -153,9 +153,9 @@ const PATRONEN: TraumaPatroon[] = [
     regulatie: {
       stressstand: 'fight',
       heeftNodig: ['vertrouwen', 'overgave', 'loslaten in kleine stapjes'],
-      oefeningen: ['één ding per dag níet controleren', 'ademhaling vertragen', 'hulp vragen of taken delegeren: jezelf laten dragen in plaats van alles dragen'],
+      oefeningen: ['één ding per dag níet controleren', 'ademhaling vertragen', 'één onderdeel van een taak door iemand anders laten doen, niet de hele taak, gewoon een stukje'],
       sleutelzin: 'Ik hoef het niet alleen te doen',
-      ontvangenTip: 'Vraag hulp en laat daarna los hoe het gedaan wordt. Dat is ook ontvangen: het goede binnenlaten zonder het te sturen.',
+      ontvangenTip: 'Als iemand hulp aanbiedt, oefen dan met "ja, graag" in plaats van "nee hoor, laat maar". Daarna: niet bijsturen hoe het gedaan wordt.',
     },
     affirmaties: [
       'Ik leer loslaten wat niet van mij is.',
@@ -165,7 +165,7 @@ const PATRONEN: TraumaPatroon[] = [
       'Ik leer dat loslaten me geen controle kost, maar ruimte geeft.',
     ],
     feedbackPositief: 'Klopt het met je eigen beeld, dan neem je het aan. Zo niet: je legt het naast je neer of herformuleert het net zo lang tot jij er zelf ook achter kunt staan.',
-    feedbackNegatief: 'Eerste reactie: weerstand. Je moet zelf concluderen dat de feedback klopt, anders zet je het van je af. Externe kritiek voelt als controleverlies.',
+    feedbackNegatief: 'Eerste reactie: weerstand. Je moet zelf concluderen dat de feedback klopt, anders zet je het van je af. Externe kritiek voelt als: ik heb het niet goed genoeg gedaan.',
   },
   {
     id: 'vermijder',
