@@ -21,6 +21,8 @@ export type TraumaPatroon = {
   valkuil: string;
   affirmaties: string[];
   positieveIntentie: string;
+  behoefte: string;
+  lichaamsgevoel: string;
 };
 
 const PATRONEN: TraumaPatroon[] = [
@@ -36,8 +38,10 @@ const PATRONEN: TraumaPatroon[] = [
     ],
     talent: 'Discipline & veerkracht',
     talentBeschrijving: 'Jij zet door als anderen stoppen. Je discipline, doorzettingsvermogen en vermogen om dingen af te maken zijn een echte kracht als je ze bewust inzet.',
-    valkuil: 'Over grenzen gaan / geen rust nemen',
+    valkuil: 'Rigiditeit / doordraven zonder grenzen',
     positieveIntentie: 'Je hebt bergen verzet die anderen opgaven. Jouw doorzettingsvermogen heeft je door zware periodes heen getrokken en resultaten opgeleverd waar je trots op mag zijn.',
+    behoefte: 'Veiligheid en rust: het gevoel dat je er mag zijn, ook als je stilstaat.',
+    lichaamsgevoel: 'Een gespannen kaak, strakke schouders, een gevoel van "aan" staan dat maar niet uitzet.',
     affirmaties: [
       'Ik leer dat rust ook productief is.',
       'Elke dag oefen ik met stoppen als het genoeg is.',
@@ -58,8 +62,10 @@ const PATRONEN: TraumaPatroon[] = [
     ],
     talent: 'Empathie & verbinding',
     talentBeschrijving: 'Jij voelt haarfijn aan wat de ander nodig heeft. Je empathie, vermogen tot afstemming en warmte creëren echte verbinding.',
-    valkuil: 'Jezelf wegcijferen',
+    valkuil: 'Jezelf verliezen / grenzeloosheid',
     positieveIntentie: 'Je bent geliefd en mensen voelen zich veilig bij jou. Je hebt harmonie bewaard en verbindingen gecreëerd op momenten dat dat echt nodig was.',
+    behoefte: 'Acceptatie en liefde: het gevoel dat je geliefd bent zoals je bent, zonder iets te hoeven doen.',
+    lichaamsgevoel: 'Een zinkend gevoel in je maag op het moment dat je "ja" zegt terwijl je "nee" voelt. Je adem wordt vlakker, iets in je trekt zich samen.',
     affirmaties: [
       'Ik leer dat mijn gevoel er ook toe doet.',
       'Ik leer nee zeggen als daad van zelfliefde.',
@@ -80,8 +86,10 @@ const PATRONEN: TraumaPatroon[] = [
     ],
     talent: 'Kwaliteit & precisie',
     talentBeschrijving: 'Jij ziet wat anderen missen. Je oog voor detail, precisie en kwaliteitsbewustzijn tillen alles wat je aanraakt naar een hoger niveau.',
-    valkuil: 'Faalangst / uitstelgedrag',
+    valkuil: 'Verlammend perfectionisme / nooit klaar',
     positieveIntentie: 'Je werk valt op door kwaliteit. Je oog voor detail heeft fouten voorkomen, vertrouwen gewonnen en een reputatie opgebouwd als iemand op wie je kunt rekenen.',
+    behoefte: 'Erkenning en goedkeuring: het gevoel dat je goed genoeg bent, ook zonder bewijs.',
+    lichaamsgevoel: 'Een knoop in je maag als iets "nog niet goed genoeg" is, een constante innerlijke spanning die niet weggaat.',
     affirmaties: [
       'Ik leer dat goed genoeg echt goed genoeg is.',
       'Elke dag oefen ik met klaar is klaar.',
@@ -102,8 +110,10 @@ const PATRONEN: TraumaPatroon[] = [
     ],
     talent: 'Structuur & overzicht',
     talentBeschrijving: 'Jij houdt het hoofd koel als het complex wordt. Je verantwoordelijkheidsgevoel, oog voor structuur en overzicht zijn echte sterktes.',
-    valkuil: 'Spanning / moeilijk loslaten',
+    valkuil: 'Overcontrole / micromanagen',
     positieveIntentie: 'Je hebt chaos voorkomen op momenten dat anderen het overzicht verloren. Jouw structuur heeft projecten en mensen in goede banen geleid wanneer het er echt toe deed.',
+    behoefte: 'Veiligheid en vertrouwen: het gevoel dat het goed komt, ook als jij het niet stuurt.',
+    lichaamsgevoel: 'Een onrust in je borst als dingen buiten je controle gaan, een vasthouden in je ademhaling.',
     affirmaties: [
       'Ik leer loslaten wat niet van mij is.',
       'Elke dag vertrouw ik iets meer op anderen.',
@@ -124,8 +134,10 @@ const PATRONEN: TraumaPatroon[] = [
     ],
     talent: 'Timing & aanvoelen',
     talentBeschrijving: 'Jij voelt aan wanneer iets nog niet klopt. Die intuïtie voor timing en het vermogen om subtiele signalen op te pikken zijn een onmisbare kracht.',
-    valkuil: 'Stilstand / jezelf klein houden',
+    valkuil: 'Eindeloos afwachten / handelingsverlamming',
     positieveIntentie: 'Je hebt jezelf beschermd tegen pijn en afwijzing op momenten dat je dat nodig had. Door te wachten heb je risico\'s vermeden en ruimte gecreëerd om na te denken.',
+    behoefte: 'Veiligheid en toestemming: het gevoel dat het oké is om te beginnen, ook als de uitkomst onzeker is.',
+    lichaamsgevoel: 'Een plotselinge vermoeidheid of waas (brain fog) die over je heen trekt zodra iets je aandacht vraagt. Je lichaam wil letterlijk een andere kant op.',
     affirmaties: [
       'Ik leer kleine stappen te zetten, ook als het niet perfect voelt.',
       'Elke dag doe ik één ding waar ik van af wil kijken.',
@@ -146,8 +158,10 @@ const PATRONEN: TraumaPatroon[] = [
     ],
     talent: 'Helder denken & rust bewaren',
     talentBeschrijving: 'Jij blijft helder als de emoties hoog oplopen. Je vermogen om te relativeren, rust te bewaren en scherp te denken is waardevol.',
-    valkuil: 'Afstand / weinig verbinding voelen',
+    valkuil: 'Kilheid / emotionele afstandelijkheid',
     positieveIntentie: 'Je bleef functioneren op momenten dat anderen instortten. Je rustige hoofd heeft je geholpen om helder te blijven in situaties die voor anderen overweldigend waren.',
+    behoefte: 'Rust en veiligheid om te voelen: het gevoel dat emoties je niet overweldigen maar informeren.',
+    lichaamsgevoel: 'Een soort verdoving of leegte vanbinnen, alsof je achter glas zit en de wereld op afstand houdt.',
     affirmaties: [
       'Ik leer dat voelen me niet overweldigt, maar informeert.',
       'Elke dag maak ik iets meer ruimte voor wat ik voel.',
@@ -168,8 +182,10 @@ const PATRONEN: TraumaPatroon[] = [
     ],
     talent: 'Flexibiliteit & sociale intelligentie',
     talentBeschrijving: 'Jij beweegt moeiteloos tussen mensen en situaties. Je sociale antenne en flexibiliteit zijn strategische talenten.',
-    valkuil: 'Jezelf kwijtraken',
+    valkuil: 'Geen eigenheid / verdwijnen in de verwachting',
     positieveIntentie: 'Je wordt overal geaccepteerd en past je moeiteloos aan. Je flexibiliteit heeft je geholpen om in veel verschillende omgevingen te overleven en erbij te horen.',
+    behoefte: 'Erbij horen en gezien worden: het gevoel dat je geaccepteerd bent zoals je werkelijk bent.',
+    lichaamsgevoel: 'Een gevoel van jezelf "samenpersen" als je een ruimte binnenkomt, alsof je minder plek mag innemen.',
     affirmaties: [
       'Ik leer wie ik ben, los van andermans verwachtingen.',
       'Elke dag neem ik iets meer ruimte in als mezelf.',
@@ -190,8 +206,10 @@ const PATRONEN: TraumaPatroon[] = [
     ],
     talent: 'Ambitie & drive',
     talentBeschrijving: 'Jij gaat voor resultaat. Je ambitie, drive en vermogen om doelen te stellen zijn een echte kracht als je ze bewust inzet.',
-    valkuil: 'Nooit genoeg voelen',
+    valkuil: 'Verslavend presteren / nooit stilstaan',
     positieveIntentie: 'Je hebt indrukwekkende dingen bereikt. Je drive heeft je gestimuleerd grenzen te verleggen en resultaten neer te zetten waar je zonder die motor misschien niet was gekomen.',
+    behoefte: 'Erkenning en "genoeg zijn": het gevoel dat je waardevol bent, los van wat je presteert.',
+    lichaamsgevoel: 'Een rusteloosheid in je lijf alsof stilstaan niet mag, een drang die je voortdrijft ook als je moe bent.',
     affirmaties: [
       'Ik leer dat ik genoeg ben, ook zonder bewijs.',
       'Elke dag herken ik één moment waarop ik al genoeg was.',
@@ -242,7 +260,7 @@ export default function TraumaTalent() {
       const prompt = `Geef uitsluitend JSON terug, geen andere tekst. Voorbeeld:
 {"uitdaging":"Eigenheid","uitdagingToelichting":"Jezelf durven zijn, ook als dat spannend voelt","allergie":"Egocentrisch","allergieToelichting":"Als eigenheid doorslaat naar alleen aan jezelf denken"}
 
-Kwaliteit: ${focusPatroon.talent} — ${focusPatroon.talentBeschrijving}
+Kwaliteit: ${focusPatroon.talent}: ${focusPatroon.talentBeschrijving}
 Valkuil: ${focusPatroon.valkuil}
 
 Uitdaging = de positieve tegenhanger van de valkuil (1-4 woorden).
@@ -288,16 +306,16 @@ Herkende patronen van deze persoon:
 ${herkend}
 
 Focuspatroon voor het kernkwadrant:
-- Trauma-elastiek: ${focusPatroon.naam} — ${focusPatroon.elastiekBeschrijving}
+- Trauma-elastiek: ${focusPatroon.naam}: ${focusPatroon.elastiekBeschrijving}
 - Herkenbare gedachten: ${focusPatroon.gedachten.join(' / ')}
 
 Ingevuld kernkwadrant (Ofman):
-- Kwaliteit: ${focusPatroon.talent} — ${focusPatroon.talentBeschrijving}
+- Kwaliteit: ${focusPatroon.talent}: ${focusPatroon.talentBeschrijving}
 - Valkuil: ${focusPatroon.valkuil}
 - Uitdaging: ${uitdaging}
 - Allergie: ${allergie}
 
-Schrijf een persoonlijke, warme analyse in markdown. Gebruik "je" (niet "jij" of "u"). Gebruik nooit een m-dash (—). Gebruik dubbele punt in subkoppen.
+Schrijf een persoonlijke, warme analyse in markdown. Gebruik "je" (niet "jij" of "u"). Gebruik nooit een m-dash. Gebruik dubbele punt in subkoppen.
 
 ## Jouw kwaliteit
 2-3 zinnen over het trauma-talent en waarom dit een echte kwaliteit is, ook al voelde het lang als overleven.
@@ -491,7 +509,8 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
                 <div className="bg-darkRed/10 border-r border-lightBg p-3">
                   <p className="text-xs font-medium text-darkRed mb-1.5 uppercase tracking-wide">Als elastiek</p>
                   <p className="text-xs text-darkSlate/80 mb-1.5">{p.elastiekBeschrijving}</p>
-                  <p className="text-xs text-darkSlate/50 italic">Onbewust, vanuit angst</p>
+                  <p className="text-xs text-darkSlate/50 italic mb-2">Onbewust, vanuit angst</p>
+                  <p className="text-xs text-darkSlate/60">🫀 {p.lichaamsgevoel}</p>
                 </div>
                 <div className="bg-darkGreen/10 p-3">
                   <p className="text-xs font-medium text-darkGreen mb-1.5 uppercase tracking-wide">Als talent</p>
@@ -499,6 +518,12 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
                   <p className="text-xs text-darkSlate/80 mb-1.5">{p.talentBeschrijving}</p>
                   <p className="text-xs text-darkSlate/50 italic">Bewust, vanuit kracht</p>
                 </div>
+              </div>
+              <div className="border-t border-lightBg bg-orange/5 px-3 py-2">
+                <p className="text-xs text-darkSlate/70">
+                  <span className="font-medium text-darkSlate">Onderliggende behoefte: </span>
+                  {p.behoefte}
+                </p>
               </div>
               <div className="border-t border-lightBg">
                 <button
