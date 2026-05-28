@@ -28,7 +28,10 @@ export type TraumaPatroon = {
     heeftNodig: string[];
     oefeningen: string[];
     sleutelzin: string;
+    ontvangenTip: string;
   };
+  feedbackPositief: string;
+  feedbackNegatief: string;
 };
 
 const PATRONEN: TraumaPatroon[] = [
@@ -53,6 +56,7 @@ const PATRONEN: TraumaPatroon[] = [
       heeftNodig: ['vertragen', 'voelen in plaats van doen', 'veiligheid in stilstand'],
       oefeningen: ['bewust pauzes nemen vóórdat je moe bent', 'inchecken: wat voel ik in mijn lichaam?', 'jezelf toestemming geven om te stoppen'],
       sleutelzin: 'Ik ben veilig, ook als ik stilsta',
+      ontvangenTip: 'Oefen met complimenten of hulp ontvangen zonder ze meteen te relativeren. Zeg "dank je" en laat het landen.',
     },
     affirmaties: [
       'Ik leer dat rust ook productief is.',
@@ -61,6 +65,8 @@ const PATRONEN: TraumaPatroon[] = [
       'Elke dag verdien ik mijn rust, zonder dat ik het hoef te verdienen.',
       'Ik leer dat zachtheid en kracht samen gaan.',
     ],
+    feedbackPositief: 'Laat het amper landen: je bent al bezig met de volgende taak. "Ja maar het kan beter."',
+    feedbackNegatief: 'Je ervaart het als aanval op je inzet. Je wordt defensief of gaat juist nóg harder werken om het te compenseren.',
   },
   {
     id: 'pleaser',
@@ -83,6 +89,7 @@ const PATRONEN: TraumaPatroon[] = [
       heeftNodig: ['terug naar jezelf', 'grenzen voelen', 'eigen behoefte serieus nemen'],
       oefeningen: ['eerst jezelf iets geven vóór je een ander helpt', 'oefenen met "nee" voelen (en daarna met "nee" zeggen)', 'hand op je hart: wat wil ík?'],
       sleutelzin: 'Mijn behoeften doen ertoe',
+      ontvangenTip: 'Merk op wanneer je een compliment meteen teruggeeft of klein maakt ("jij deed het ook zo goed"). Oefen met het gewoon aannemen, zonder het te verdelen of weg te geven.',
     },
     affirmaties: [
       'Ik leer dat mijn gevoel er ook toe doet.',
@@ -91,6 +98,8 @@ const PATRONEN: TraumaPatroon[] = [
       'Elke dag vertrouw ik iets meer op mijn eigen gevoel.',
       'Ik leer dat ik niet overal voor verantwoordelijk ben.',
     ],
+    feedbackPositief: 'Even opluchting, maar al snel: "Oh het stelde niks voor." Je schrijft het toe aan geluk of de ander.',
+    feedbackNegatief: 'Spiraal van zelfverwijt en over-excuus maken. Soms ga je akkoord met kritiek die niet klopt, want blokkeren voelt gevaarlijker dan instemmen.',
   },
   {
     id: 'perfectionist',
@@ -113,6 +122,7 @@ const PATRONEN: TraumaPatroon[] = [
       heeftNodig: ['veiligheid in imperfectie', 'speelsheid', 'zachtheid'],
       oefeningen: ['iets expres "goed genoeg" doen', 'kleine acties in plaats van grote perfectie', 'fouten normaliseren'],
       sleutelzin: 'Ik ben goed, ook als het niet perfect is',
+      ontvangenTip: 'Ontvang een compliment zonder te reageren met een "ja maar". Schrijf op wat goed was, vóórdat je kijkt naar wat beter kon.',
     },
     affirmaties: [
       'Ik leer dat goed genoeg echt goed genoeg is.',
@@ -121,6 +131,8 @@ const PATRONEN: TraumaPatroon[] = [
       'Elke dag laat ik iets los wat niet meer perfect hoeft.',
       'Ik leer dat fouten me laten groeien, niet falen.',
     ],
+    feedbackPositief: 'Korte tevredenheid, dan onmiddellijk de volgende tekortkoming. "Maar hier had ik beter kunnen..."',
+    feedbackNegatief: 'Disproportioneel zware landing. Eén kritiekpunt overschaduwt tien complimenten. Kan dagenlang blijven hangen.',
   },
   {
     id: 'controleur',
@@ -143,6 +155,7 @@ const PATRONEN: TraumaPatroon[] = [
       heeftNodig: ['vertrouwen', 'overgave', 'loslaten in kleine stapjes'],
       oefeningen: ['één ding per dag níet controleren', 'ademhaling vertragen', 'hulp vragen of taken delegeren: jezelf laten dragen in plaats van alles dragen'],
       sleutelzin: 'Ik hoef het niet alleen te doen',
+      ontvangenTip: 'Vraag hulp en laat daarna los hoe het gedaan wordt. Dat is ook ontvangen: het goede binnenlaten zonder het te sturen.',
     },
     affirmaties: [
       'Ik leer loslaten wat niet van mij is.',
@@ -151,6 +164,8 @@ const PATRONEN: TraumaPatroon[] = [
       'Elke dag oefen ik met vertrouwen in het proces.',
       'Ik leer dat loslaten me geen controle kost, maar ruimte geeft.',
     ],
+    feedbackPositief: 'Klopt het met je eigen beeld, dan neem je het aan. Zo niet: je legt het naast je neer of herformuleert het net zo lang tot jij er zelf ook achter kunt staan.',
+    feedbackNegatief: 'Eerste reactie: weerstand. Je moet zelf concluderen dat de feedback klopt, anders zet je het van je af. Externe kritiek voelt als controleverlies.',
   },
   {
     id: 'vermijder',
@@ -173,6 +188,7 @@ const PATRONEN: TraumaPatroon[] = [
       heeftNodig: ['zachte activatie', 'veiligheid in beweging', 'kleine stapjes'],
       oefeningen: ['mini-acties (2 minuten beginnen)', 'lichaam activeren: wandelen, bewegen', 'niet denken, doen'],
       sleutelzin: 'Ik mag het stap voor stap doen',
+      ontvangenTip: 'Begin klein: ontvang één compliment zonder te minimaliseren of van onderwerp te wisselen. Laat het er gewoon zijn.',
     },
     affirmaties: [
       'Ik leer kleine stappen te zetten, ook als het niet perfect voelt.',
@@ -181,6 +197,8 @@ const PATRONEN: TraumaPatroon[] = [
       'Elke dag ontdek ik dat ik meer aankan dan ik denk.',
       'Ik leer dat mijn timing-gevoel kracht is als ik het bewust gebruik.',
     ],
+    feedbackPositief: 'Het voelt goed, maar leidt niet tot actie. Er iets mee doen voelt te groots of te spannend, dus het blijft rustig in je hoofd hangen.',
+    feedbackNegatief: 'Je trekt je terug, stelt een reactie uit, kan weken later nog "vergeten" om iets te veranderen. Niet passief-agressief, gewoon bevroren.',
   },
   {
     id: 'afsluiter',
@@ -203,6 +221,7 @@ const PATRONEN: TraumaPatroon[] = [
       heeftNodig: ['weer voelen (veilig)', 'lichaamsbewustzijn', 'zachte verbinding'],
       oefeningen: ['voelen via lichaam: warm/koud, spanning', 'muziek, aanraking, adem', 'emoties in kleine doses toelaten'],
       sleutelzin: 'Het is veilig om te voelen',
+      ontvangenTip: 'Oefen met complimenten lichamelijk ontvangen: wat voel je als iemand je iets aardigs zegt? Sta toe dat je het voelt.',
     },
     affirmaties: [
       'Ik leer dat voelen me niet overweldigt, maar informeert.',
@@ -211,6 +230,8 @@ const PATRONEN: TraumaPatroon[] = [
       'Elke dag oefen ik met één ding voelen in plaats van denken.',
       'Ik leer dat mijn helderheid nog krachtiger wordt als ik ook voel.',
     ],
+    feedbackPositief: 'Je verwerkt het intellectueel en reageert beleefd. Maar het komt emotioneel niet echt binnen.',
+    feedbackNegatief: 'Hetzelfde patroon bij kritiek: rationeel verwerken, geen zichtbare reactie. Maar vanbinnen valt er iets stil. Verbinding verbreekt subtiel daarna.',
   },
   {
     id: 'aanpasser',
@@ -233,6 +254,7 @@ const PATRONEN: TraumaPatroon[] = [
       heeftNodig: ['eigen identiteit voelen', 'vertragen vóór reageren: pauze inbouwen om eerst te voelen', 'innerlijk kompas: weten wat jíj wilt'],
       oefeningen: ['eerst voelen, dan reageren', 'jezelf afvragen: wil ik dit echt?', 'tijd nemen voordat je "ja" zegt'],
       sleutelzin: 'Ik mag mezelf zijn',
+      ontvangenTip: 'Merk op of je een compliment krijgt omdat je jezelf was of omdat je je aanpaste. Alleen het eerste voedt je echt.',
     },
     affirmaties: [
       'Ik leer wie ik ben, los van andermans verwachtingen.',
@@ -241,6 +263,8 @@ const PATRONEN: TraumaPatroon[] = [
       'Elke dag ontdek ik wat ik echt denk en voel.',
       'Ik leer dat aanpassen en mezelf zijn samen kunnen gaan.',
     ],
+    feedbackPositief: 'Je past je direct aan om nog meer te behagen. Het compliment bevestigt dat aanpassen werkt.',
+    feedbackNegatief: 'Je past je aan de kritiek aan, ook als die onterecht is. Je eigen mening verdwijnt. Achteraf soms wrok zonder te weten waaruit.',
   },
   {
     id: 'bewijzer',
@@ -263,6 +287,7 @@ const PATRONEN: TraumaPatroon[] = [
       heeftNodig: ['intrinsieke waarde voelen', 'rust in "zijn"', 'erkenning van binnenuit'],
       oefeningen: ['stoppen vóór het "af" is', 'jezelf waarderen zonder resultaat', 'oefenen met ontvangen (van bijv. complimenten, hulp, liefde, geld)'],
       sleutelzin: 'Ik ben al genoeg',
+      ontvangenTip: 'Oefen met ontvangen vóór je iets terug doet. Complimenten, hulp, rust: laat het binnenkomen zonder dat je er iets voor hoeft te doen.',
     },
     affirmaties: [
       'Ik leer dat ik genoeg ben, ook zonder bewijs.',
@@ -271,6 +296,8 @@ const PATRONEN: TraumaPatroon[] = [
       'Elke dag kies ik bewuster waar ik mijn energie in stop.',
       'Ik leer dat ambitie vanuit kracht anders voelt dan ambitie vanuit angst.',
     ],
+    feedbackPositief: 'Korte boost, dan de lat hoger. "Mooi, maar nu moet ik ook nog..." Nooit echt genoeg.',
+    feedbackNegatief: 'Identiteitsbedreiging. Je zet de kritiek weg ("ze begrijpen het niet") of je overcompenseert en levert bewijs dat het niet klopt.',
   },
 ];
 
@@ -290,6 +317,7 @@ export default function TraumaTalent() {
   const [fout, setFout] = useState('');
   const [uitgeklapt, setUitgeklapt] = useState<string[]>([]);
   const [uitgeklaptRegulatie, setUitgeklaptRegulatie] = useState<string[]>([]);
+  const [uitgeklaptFeedback, setUitgeklaptFeedback] = useState<string[]>([]);
   const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => () => { abortRef.current?.abort(); }, []);
@@ -355,10 +383,16 @@ Gebruik nooit een m-dash. Gebruik "je" in plaats van "jij".`;
       const herkend = geselecteerdePatronen
         .map((p) => `- ${p.naam}: ${p.elastiekBeschrijving}`)
         .join('\n');
+      const feedbackContext = geselecteerdePatronen
+        .map((p) => `- ${p.naam}: bij complimenten: ${p.feedbackPositief} Bij kritiek: ${p.feedbackNegatief}`)
+        .join('\n');
       const prompt = `Je helpt iemand ontdekken hoe hun trauma-elastieken werken en welk talent er onder schuilt, gebaseerd op het werk van Monique Lavec (Fearless Ondernemen).
 
 Herkende patronen van deze persoon:
 ${herkend}
+
+Hoe deze persoon omgaat met feedback (relevant voor de analyse):
+${feedbackContext}
 
 Focuspatroon voor het kernkwadrant:
 - Trauma-elastiek: ${focusPatroon.naam}: ${focusPatroon.elastiekBeschrijving}
@@ -385,7 +419,7 @@ Schrijf een persoonlijke, warme analyse in markdown. Gebruik "je" (niet "jij" of
 Beschrijf 2-3 concrete herkenbare situaties of gedachten. Laat zien hoe het elastiek eruitziet én hoe het talent eruitziet als het bewust ingezet wordt.
 ${geselecteerdePatronen.length > 1 ? `
 ## De combinatie
-1-2 zinnen over hoe de combinatie van patronen (${geselecteerdePatronen.map((p) => p.naam).join(', ')}) samenhangt of elkaar kan versterken. Wat zegt het over de onderliggende behoefte als je meerdere patronen herkent?` : ''}
+2-3 zinnen over hoe de combinatie van patronen (${geselecteerdePatronen.map((p) => p.naam).join(', ')}) samenhangt of elkaar kan versterken. Benoem ook hoe de feedbackpatronen van deze combinatie elkaar kunnen versterken of hoe ze samen laten zien wat er echt speelt. Wat zegt het over de onderliggende behoefte als je meerdere patronen herkent?` : ''}
 
 ## Afsluiting
 Warme afsluitende alinea over de reis van elastiek naar talent. Kies daarna de 3-4 meest passende groei-affirmaties uit onderstaande lijst en schrijf ze elk op een nieuwe regel, beginnend met ✨. Pas de gekozen affirmaties niet aan.
@@ -450,6 +484,7 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
               setAllergieToelichting('');
               setUitgeklapt([]);
               setUitgeklaptRegulatie([]);
+              setUitgeklaptFeedback([]);
             }}
             className="text-sm text-midGreen hover:text-darkGreen underline underline-offset-2"
           >
@@ -631,6 +666,31 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
                     </div>
                     <div className="bg-darkGreen/10 rounded-lg px-3 py-2">
                       <p className="text-xs text-darkGreen italic">"{p.regulatie.sleutelzin}"</p>
+                    </div>
+                    <div className="bg-orange/10 rounded-lg px-3 py-2">
+                      <p className="text-[10px] font-medium text-orange uppercase tracking-wide mb-1">Tip: oefenen met ontvangen</p>
+                      <p className="text-xs text-darkSlate/70 leading-relaxed">{p.regulatie.ontvangenTip}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className="border-t border-lightBg">
+                <button
+                  onClick={() => setUitgeklaptFeedback(prev => prev.includes(p.id) ? prev.filter(x => x !== p.id) : [...prev, p.id])}
+                  className="w-full flex items-center justify-between px-3 py-2 text-xs hover:bg-cream/30 transition-colors"
+                >
+                  <span className="font-medium text-darkSlate">Zo ga jij om met feedback</span>
+                  <span className="text-darkSlate/40 ml-2">{uitgeklaptFeedback.includes(p.id) ? '▲' : '▼'}</span>
+                </button>
+                {uitgeklaptFeedback.includes(p.id) && (
+                  <div className="bg-cream/40 px-3 pb-3 space-y-2">
+                    <div className="pt-1">
+                      <p className="text-[10px] font-medium text-darkGreen uppercase tracking-wide mb-1">Positieve feedback</p>
+                      <p className="text-xs text-darkSlate/70 leading-relaxed">{p.feedbackPositief}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-medium text-darkRed/70 uppercase tracking-wide mb-1">Negatieve feedback</p>
+                      <p className="text-xs text-darkSlate/70 leading-relaxed">{p.feedbackNegatief}</p>
                     </div>
                   </div>
                 )}
