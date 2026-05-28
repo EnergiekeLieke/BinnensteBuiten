@@ -23,6 +23,12 @@ export type TraumaPatroon = {
   positieveIntentie: string;
   behoefte: string;
   lichaamsgevoel: string;
+  regulatie: {
+    stressstand: string;
+    heeftNodig: string[];
+    oefeningen: string[];
+    sleutelzin: string;
+  };
 };
 
 const PATRONEN: TraumaPatroon[] = [
@@ -42,6 +48,12 @@ const PATRONEN: TraumaPatroon[] = [
     positieveIntentie: 'Je hebt bergen verzet die anderen opgaven. Jouw doorzettingsvermogen heeft je door zware periodes heen getrokken en resultaten opgeleverd waar je trots op mag zijn.',
     behoefte: 'Veiligheid en rust: het gevoel dat je er mag zijn, ook als je stilstaat.',
     lichaamsgevoel: 'Een gespannen kaak, strakke schouders, een gevoel van "aan" staan dat maar niet uitzet.',
+    regulatie: {
+      stressstand: 'fight (altijd "aan")',
+      heeftNodig: ['vertragen', 'voelen in plaats van doen', 'veiligheid in stilstand'],
+      oefeningen: ['bewust pauzes nemen vóórdat je moe bent', 'inchecken: wat voel ik in mijn lichaam?', 'jezelf toestemming geven om te stoppen'],
+      sleutelzin: 'Ik ben veilig, ook als ik stilsta',
+    },
     affirmaties: [
       'Ik leer dat rust ook productief is.',
       'Elke dag oefen ik met stoppen als het genoeg is.',
@@ -66,6 +78,12 @@ const PATRONEN: TraumaPatroon[] = [
     positieveIntentie: 'Je bent geliefd en mensen voelen zich veilig bij jou. Je hebt harmonie bewaard en verbindingen gecreëerd op momenten dat dat echt nodig was.',
     behoefte: 'Acceptatie en liefde: het gevoel dat je geliefd bent zoals je bent, zonder iets te hoeven doen.',
     lichaamsgevoel: 'Een zinkend gevoel in je maag op het moment dat je "ja" zegt terwijl je "nee" voelt. Je adem wordt vlakker, iets in je trekt zich samen.',
+    regulatie: {
+      stressstand: 'fawn (aanpassen voor verbinding)',
+      heeftNodig: ['terug naar jezelf', 'grenzen voelen', 'eigen behoefte serieus nemen'],
+      oefeningen: ['eerst jezelf iets geven vóór je een ander helpt', 'oefenen met "nee" voelen (en daarna met "nee" zeggen)', 'hand op je hart: wat wil ík?'],
+      sleutelzin: 'Mijn behoeften doen ertoe',
+    },
     affirmaties: [
       'Ik leer dat mijn gevoel er ook toe doet.',
       'Ik leer nee zeggen als daad van zelfliefde.',
@@ -90,6 +108,12 @@ const PATRONEN: TraumaPatroon[] = [
     positieveIntentie: 'Je werk valt op door kwaliteit. Je oog voor detail heeft fouten voorkomen, vertrouwen gewonnen en een reputatie opgebouwd als iemand op wie je kunt rekenen.',
     behoefte: 'Erkenning en goedkeuring: het gevoel dat je goed genoeg bent, ook zonder bewijs.',
     lichaamsgevoel: 'Een knoop in je maag als iets "nog niet goed genoeg" is, een constante innerlijke spanning die niet weggaat.',
+    regulatie: {
+      stressstand: 'fight + freeze',
+      heeftNodig: ['veiligheid in imperfectie', 'speelsheid', 'zachtheid'],
+      oefeningen: ['iets expres "goed genoeg" doen', 'kleine acties in plaats van grote perfectie', 'fouten normaliseren'],
+      sleutelzin: 'Ik ben goed, ook als het niet perfect is',
+    },
     affirmaties: [
       'Ik leer dat goed genoeg echt goed genoeg is.',
       'Elke dag oefen ik met klaar is klaar.',
@@ -114,6 +138,12 @@ const PATRONEN: TraumaPatroon[] = [
     positieveIntentie: 'Je hebt chaos voorkomen op momenten dat anderen het overzicht verloren. Jouw structuur heeft projecten en mensen in goede banen geleid wanneer het er echt toe deed.',
     behoefte: 'Veiligheid en vertrouwen: het gevoel dat het goed komt, ook als jij het niet stuurt.',
     lichaamsgevoel: 'Een onrust in je borst als dingen buiten je controle gaan, een vasthouden in je ademhaling.',
+    regulatie: {
+      stressstand: 'fight',
+      heeftNodig: ['vertrouwen', 'overgave', 'loslaten in kleine stapjes'],
+      oefeningen: ['één ding per dag níet controleren', 'ademhaling vertragen', 'hulp vragen of taken delegeren: jezelf laten dragen in plaats van alles dragen'],
+      sleutelzin: 'Ik hoef het niet alleen te doen',
+    },
     affirmaties: [
       'Ik leer loslaten wat niet van mij is.',
       'Elke dag vertrouw ik iets meer op anderen.',
@@ -138,6 +168,12 @@ const PATRONEN: TraumaPatroon[] = [
     positieveIntentie: 'Je hebt jezelf beschermd tegen pijn en afwijzing op momenten dat je dat nodig had. Door te wachten heb je risico\'s vermeden en ruimte gecreëerd om na te denken.',
     behoefte: 'Veiligheid en toestemming: het gevoel dat het oké is om te beginnen, ook als de uitkomst onzeker is.',
     lichaamsgevoel: 'Een plotselinge vermoeidheid of waas (brain fog) die over je heen trekt zodra iets je aandacht vraagt. Je lichaam wil letterlijk een andere kant op.',
+    regulatie: {
+      stressstand: 'freeze',
+      heeftNodig: ['zachte activatie', 'veiligheid in beweging', 'kleine stapjes'],
+      oefeningen: ['mini-acties (2 minuten beginnen)', 'lichaam activeren: wandelen, bewegen', 'niet denken, doen'],
+      sleutelzin: 'Ik mag het stap voor stap doen',
+    },
     affirmaties: [
       'Ik leer kleine stappen te zetten, ook als het niet perfect voelt.',
       'Elke dag doe ik één ding waar ik van af wil kijken.',
@@ -162,6 +198,12 @@ const PATRONEN: TraumaPatroon[] = [
     positieveIntentie: 'Je bleef functioneren op momenten dat anderen instortten. Je rustige hoofd heeft je geholpen om helder te blijven in situaties die voor anderen overweldigend waren.',
     behoefte: 'Rust en veiligheid om te voelen: het gevoel dat emoties je niet overweldigen maar informeren.',
     lichaamsgevoel: 'Een soort verdoving of leegte vanbinnen, alsof je achter glas zit en de wereld op afstand houdt.',
+    regulatie: {
+      stressstand: 'freeze / shutdown',
+      heeftNodig: ['weer voelen (veilig)', 'lichaamsbewustzijn', 'zachte verbinding'],
+      oefeningen: ['voelen via lichaam: warm/koud, spanning', 'muziek, aanraking, adem', 'emoties in kleine doses toelaten'],
+      sleutelzin: 'Het is veilig om te voelen',
+    },
     affirmaties: [
       'Ik leer dat voelen me niet overweldigt, maar informeert.',
       'Elke dag maak ik iets meer ruimte voor wat ik voel.',
@@ -186,6 +228,12 @@ const PATRONEN: TraumaPatroon[] = [
     positieveIntentie: 'Je wordt overal geaccepteerd en past je moeiteloos aan. Je flexibiliteit heeft je geholpen om in veel verschillende omgevingen te overleven en erbij te horen.',
     behoefte: 'Erbij horen en gezien worden: het gevoel dat je geaccepteerd bent zoals je werkelijk bent.',
     lichaamsgevoel: 'Een gevoel van jezelf "samenpersen" als je een ruimte binnenkomt, alsof je minder plek mag innemen.',
+    regulatie: {
+      stressstand: 'fawn',
+      heeftNodig: ['eigen identiteit voelen', 'vertragen vóór reageren: pauze inbouwen om eerst te voelen', 'innerlijk kompas: weten wat jíj wilt'],
+      oefeningen: ['eerst voelen, dan reageren', 'jezelf afvragen: wil ik dit echt?', 'tijd nemen voordat je "ja" zegt'],
+      sleutelzin: 'Ik mag mezelf zijn',
+    },
     affirmaties: [
       'Ik leer wie ik ben, los van andermans verwachtingen.',
       'Elke dag neem ik iets meer ruimte in als mezelf.',
@@ -210,6 +258,12 @@ const PATRONEN: TraumaPatroon[] = [
     positieveIntentie: 'Je hebt indrukwekkende dingen bereikt. Je drive heeft je gestimuleerd grenzen te verleggen en resultaten neer te zetten waar je zonder die motor misschien niet was gekomen.',
     behoefte: 'Erkenning en "genoeg zijn": het gevoel dat je waardevol bent, los van wat je presteert.',
     lichaamsgevoel: 'Een rusteloosheid in je lijf alsof stilstaan niet mag, een drang die je voortdrijft ook als je moe bent.',
+    regulatie: {
+      stressstand: 'fight',
+      heeftNodig: ['intrinsieke waarde voelen', 'rust in "zijn"', 'erkenning van binnenuit'],
+      oefeningen: ['stoppen vóór het "af" is', 'jezelf waarderen zonder resultaat', 'oefenen met ontvangen (van bijv. complimenten, hulp, liefde, geld)'],
+      sleutelzin: 'Ik ben al genoeg',
+    },
     affirmaties: [
       'Ik leer dat ik genoeg ben, ook zonder bewijs.',
       'Elke dag herken ik één moment waarop ik al genoeg was.',
@@ -235,6 +289,7 @@ export default function TraumaTalent() {
   const [loading, setLoading] = useState(false);
   const [fout, setFout] = useState('');
   const [uitgeklapt, setUitgeklapt] = useState<string[]>([]);
+  const [uitgeklaptRegulatie, setUitgeklaptRegulatie] = useState<string[]>([]);
   const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => () => { abortRef.current?.abort(); }, []);
@@ -394,6 +449,7 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
               setUitdagingToelichting('');
               setAllergieToelichting('');
               setUitgeklapt([]);
+              setUitgeklaptRegulatie([]);
             }}
             className="text-sm text-midGreen hover:text-darkGreen underline underline-offset-2"
           >
@@ -498,6 +554,7 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
           <div className="bg-lightBg2 rounded-2xl p-4 border border-orange/20 text-sm text-darkSlate space-y-2">
             <p>Elk patroon heeft een positieve intentie: het heeft je ooit geholpen. Het zorgde voor veiligheid, erkenning of controle op een moment dat je dat nodig had.</p>
             <p>Hetzelfde gedrag dat je soms gevangen houdt, bevat ook je kracht. Hetzelfde patroon, een ander bewustzijn.</p>
+            <p className="text-darkSlate/60 text-xs border-t border-orange/20 pt-2">Elk archetype probeert hetzelfde: veiligheid voelen. Regulatie betekent je zenuwstelsel laten ervaren dat het nu ook veilig is, zonder het oude gedrag.</p>
           </div>
           {geselecteerdePatronen.map((p) => (
             <div key={p.id} className="rounded-2xl overflow-hidden border border-lightBg shadow-sm">
@@ -536,6 +593,45 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
                 {uitgeklapt.includes(p.id) && (
                   <div className="bg-cream/60 px-3 pb-3">
                     <p className="text-xs text-darkSlate/70 leading-relaxed">{p.positieveIntentie}</p>
+                  </div>
+                )}
+              </div>
+              <div className="border-t border-lightBg">
+                <button
+                  onClick={() => setUitgeklaptRegulatie(prev => prev.includes(p.id) ? prev.filter(x => x !== p.id) : [...prev, p.id])}
+                  className="w-full flex items-center justify-between px-3 py-2 text-xs hover:bg-lightBg2/60 transition-colors"
+                >
+                  <span className="font-medium text-darkSlate">Zenuwstelselregulatie</span>
+                  <span className="text-darkSlate/40 ml-2">{uitgeklaptRegulatie.includes(p.id) ? '▲' : '▼'}</span>
+                </button>
+                {uitgeklaptRegulatie.includes(p.id) && (
+                  <div className="bg-lightBg2/40 px-3 pb-3 space-y-2.5">
+                    <p className="text-[10px] font-medium text-darkRed/70 uppercase tracking-wide pt-1">
+                      Stressstand: <span className="normal-case font-normal text-darkSlate/70">{p.regulatie.stressstand}</span>
+                    </p>
+                    <div>
+                      <p className="text-[10px] font-medium text-darkSlate/50 uppercase tracking-wide mb-1">Heeft nodig</p>
+                      <ul className="space-y-0.5">
+                        {p.regulatie.heeftNodig.map((n, i) => (
+                          <li key={i} className="text-xs text-darkSlate/70 flex items-start gap-1.5">
+                            <span className="text-midGreen mt-0.5 flex-shrink-0">·</span>{n}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-medium text-darkSlate/50 uppercase tracking-wide mb-1">Zo reguleer je</p>
+                      <ul className="space-y-0.5">
+                        {p.regulatie.oefeningen.map((o, i) => (
+                          <li key={i} className="text-xs text-darkSlate/70 flex items-start gap-1.5">
+                            <span className="text-midGreen mt-0.5 flex-shrink-0">·</span>{o}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="bg-darkGreen/10 rounded-lg px-3 py-2">
+                      <p className="text-xs text-darkGreen italic">"{p.regulatie.sleutelzin}"</p>
+                    </div>
                   </div>
                 )}
               </div>
