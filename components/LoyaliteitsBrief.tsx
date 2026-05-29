@@ -12,6 +12,14 @@ const LoyaliteitsBriefPdfKnop = dynamic(
 
 type Status = 'leeft' | 'geen-contact' | 'overleden';
 
+const RAKE_VRAGEN = [
+  { id: 'dragen',     vraag: 'Wanneer ben je voor het eerst begonnen deze persoon te dragen?' },
+  { id: 'goedHad',   vraag: 'Wat zou het voor hen betekend hebben als jij het wél goed had?' },
+  { id: 'gelukkig',  vraag: 'Mag jij gelukkig zijn terwijl zij het moeilijk had (of heeft)?' },
+  { id: 'identiteit',vraag: 'Wie ben jij als je deze persoon niet meer draagt?' },
+  { id: 'gebracht',  vraag: 'Heeft jouw loyaliteit hen iets gebracht?' },
+];
+
 export default function LoyaliteitsBrief() {
   const [naam, setNaam] = useState('');
   const [relatie, setRelatie] = useState('');
@@ -23,6 +31,8 @@ export default function LoyaliteitsBrief() {
   const [keuze, setKeuze] = useState('');
   const [loslaten, setLoslaten] = useState('');
   const [jouwNaam, setJouwNaam] = useState('');
+  const [rakeVragenOpen, setRakeVragenOpen] = useState(false);
+  const [rakeAntwoorden, setRakeAntwoorden] = useState<Record<string, string>>({});
   const [systemischeZinnen, setSystemischeZinnen] = useState<string[]>([]);
   const [geselecteerdeZinnen, setGeselecteerdeZinnen] = useState<string[]>([]);
   const [zinnenLoading, setZinnenLoading] = useState(false);
@@ -109,6 +119,11 @@ Geen m-dashes. Begin geen zin met "En". Schrijf in de ik-persoon.`;
     const ctrl = new AbortController();
     abortRef.current = ctrl;
 
+    const rakeContext = RAKE_VRAGEN
+      .filter((v) => rakeAntwoorden[v.id]?.trim())
+      .map((v) => `- ${v.vraag}\n  ${rakeAntwoorden[v.id]}`)
+      .join('\n');
+
     const statusZin =
       status === 'overleden'
         ? `${naam} is al overleden`
@@ -140,7 +155,10 @@ Concreet beeld of herinnering: ${herinnering || 'niet ingevuld'}
 Dankbaar voor: ${dankbaar}
 Verboden uit loyaliteit: ${verboden || 'niet ingevuld'}
 Kiest nu voor: ${keuze}
-Laat achter: ${loslaten || 'niet ingevuld'}${geselecteerdeZinnen.length > 0 ? `
+Laat achter: ${loslaten || 'niet ingevuld'}${rakeContext ? `
+
+Verdieping via rake vragen (gebruik dit als extra emotionele laag in de brief, niet als opsomming):
+${rakeContext}` : ''}${geselecteerdeZinnen.length > 0 ? `
 
 Verwerk de volgende systemische zinnen op een natuurlijke plek in de brief. Laat ze landen waar ze het meest kloppen, niet als opsomming maar als deel van de tekst:
 ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
@@ -170,6 +188,8 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
     setBrief('');
     setLoading(false);
     setZinnenLoading(false);
+    setRakeAntwoorden({});
+    setRakeVragenOpen(false);
     setNaam(''); setRelatie(''); setStatus('leeft');
     setPatroon(''); setHerinnering(''); setDankbaar('');
     setVerboden(''); setKeuze(''); setLoslaten(''); setJouwNaam('');
@@ -263,6 +283,37 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
           <input type="text" value={jouwNaam} onChange={(e) => setJouwNaam(e.target.value)} placeholder="bijv. Lieke" className={inputKlasse} />
         </div>
 
+      </div>
+
+      {/* Rake vragen */}
+      <div className="border-t border-lightBg pt-4">
+        <button
+          onClick={() => setRakeVragenOpen((v) => !v)}
+          className="w-full flex items-center justify-between text-left group"
+        >
+          <div>
+            <p className="text-sm font-medium text-darkSlate">Rake vragen</p>
+            <p className="text-xs text-darkSlate/50">Optioneel: verdiep de brief met eerlijkere antwoorden</p>
+          </div>
+          <span className="text-darkSlate/40 ml-3 text-xs">{rakeVragenOpen ? '▲' : '▼'}</span>
+        </button>
+
+        {rakeVragenOpen && (
+          <div className="mt-4 space-y-4">
+            {RAKE_VRAGEN.map((v) => (
+              <div key={v.id}>
+                <label className="block text-xs font-medium text-darkSlate mb-1">{v.vraag}</label>
+                <textarea
+                  value={rakeAntwoorden[v.id] || ''}
+                  onChange={(e) => setRakeAntwoorden((prev) => ({ ...prev, [v.id]: e.target.value }))}
+                  rows={2}
+                  className={textareaKlasse}
+                  placeholder="Je hoeft niet alles in te vullen…"
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Systemische zinnen */}
