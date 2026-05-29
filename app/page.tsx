@@ -55,7 +55,7 @@ export default function Home() {
         </Link>
       </div>
 
-      <p className="text-sm font-bold text-darkSlate mb-3">Hoe vrij stroomt jouw energie?</p>
+      <p className="text-sm font-bold text-darkSlate mb-3">Naar vrij spel: Hoe vrij stroomt jouw energie?</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
         <Link href="/flowtest" className="block h-full bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">🌊</div>
