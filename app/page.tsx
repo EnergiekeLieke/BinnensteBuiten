@@ -79,7 +79,7 @@ export default function Home() {
       <div className="rounded-2xl border-2 border-darkGreen overflow-hidden mb-8">
         <div className="bg-darkGreen px-4 sm:px-6 py-3 sm:py-4">
           <p className="text-lg font-bold text-white mt-0.5">Spelen met Richting</p>
-          <p className="text-xs text-white/70 mt-0.5">Uit het 1:1 traject · Kies je richting, ontmoet je toekomstige zelf</p>
+          <p className="text-xs text-white/70 mt-0.5">Vind jouw persoonlijke spelregels voor een fijn leven. Een ontdekkingstocht langs jouw verlangens, keuzes en grenzen.</p>
         </div>
         <div className="bg-cream px-4 sm:px-6 py-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
