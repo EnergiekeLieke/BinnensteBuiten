@@ -13,11 +13,36 @@ const LoyaliteitsBriefPdfKnop = dynamic(
 type Status = 'leeft' | 'geen-contact' | 'overleden';
 
 const RAKE_VRAGEN = [
-  { id: 'dragen',     vraag: 'Wanneer ben je voor het eerst begonnen deze persoon te dragen?' },
-  { id: 'goedHad',   vraag: 'Wat zou het voor hen betekend hebben als jij het wél goed had?' },
-  { id: 'gelukkig',  vraag: 'Mag jij gelukkig zijn terwijl zij het moeilijk had (of heeft)?' },
-  { id: 'identiteit',vraag: 'Wie ben jij als je deze persoon niet meer draagt?' },
-  { id: 'gebracht',  vraag: 'Heeft jouw loyaliteit hen iets gebracht?' },
+  {
+    id: 'dragen',
+    vraag: 'Wanneer ben je voor het eerst begonnen deze persoon te dragen?',
+    uitleg: 'Dit moment toont wanneer jouw rol van drager begon. Het maakt het patroon concreet en geeft de brief een ankerpunt in de tijd.',
+    voorbeeld: 'bijv. toen mijn vader ziek werd en ik zag hoe mijn moeder dat alleen droeg',
+  },
+  {
+    id: 'goedHad',
+    vraag: 'Wat zou het voor hen betekend hebben als jij het wél goed had?',
+    uitleg: 'Achter loyaliteit schuilt vaak de overtuiging dat jouw succes of vreugde iets wegneemt bij de ander. Deze vraag maakt dat zichtbaar.',
+    voorbeeld: 'bijv. dan had zij zich misschien tekortgeschoten gevoeld als moeder',
+  },
+  {
+    id: 'gelukkig',
+    vraag: 'Mag jij gelukkig zijn terwijl zij het moeilijk had (of heeft)?',
+    uitleg: 'Dit raakt de kern van loyaliteitsconflicten: het gevoel dat je eigen geluk ontrouw is aan hun pijn. Het eerlijke antwoord maakt ruimte in de brief.',
+    voorbeeld: 'bijv. nee, blij zijn voelde altijd als haar pijn negeren',
+  },
+  {
+    id: 'identiteit',
+    vraag: 'Wie ben jij als je deze persoon niet meer draagt?',
+    uitleg: 'Loslaten raakt ook aan identiteit. Wie je bent zonder dit patroon is soms onbekend terrein. Dit antwoord voedt de keuze-passage van de brief.',
+    voorbeeld: 'bijv. iemand die haar eigen dromen serieus neemt, zonder schuldgevoel',
+  },
+  {
+    id: 'gebracht',
+    vraag: 'Heeft jouw loyaliteit hen iets gebracht?',
+    uitleg: 'Soms was de opoffering helemaal niet nuttig voor de ander. Dat inzicht maakt loslaten makkelijker en eerlijker.',
+    voorbeeld: 'bijv. ik denk het niet, ze had liever gehad dat ik voor mezelf koos',
+  },
 ];
 
 export default function LoyaliteitsBrief() {
@@ -33,6 +58,7 @@ export default function LoyaliteitsBrief() {
   const [jouwNaam, setJouwNaam] = useState('');
   const [rakeVragenOpen, setRakeVragenOpen] = useState(false);
   const [rakeAntwoorden, setRakeAntwoorden] = useState<Record<string, string>>({});
+  const [rakeUitlegOpen, setRakeUitlegOpen] = useState<Record<string, boolean>>({});
   const [systemischeZinnen, setSystemischeZinnen] = useState<string[]>([]);
   const [geselecteerdeZinnen, setGeselecteerdeZinnen] = useState<string[]>([]);
   const [zinnenLoading, setZinnenLoading] = useState(false);
@@ -190,6 +216,7 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
     setZinnenLoading(false);
     setRakeAntwoorden({});
     setRakeVragenOpen(false);
+    setRakeUitlegOpen({});
     setNaam(''); setRelatie(''); setStatus('leeft');
     setPatroon(''); setHerinnering(''); setDankbaar('');
     setVerboden(''); setKeuze(''); setLoslaten(''); setJouwNaam('');
@@ -302,7 +329,23 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
           <div className="mt-4 space-y-4">
             {RAKE_VRAGEN.map((v) => (
               <div key={v.id}>
-                <label className="block text-xs font-medium text-darkSlate mb-1">{v.vraag}</label>
+                <div className="flex items-start justify-between gap-2 mb-1">
+                  <label className="text-xs font-medium text-darkSlate leading-snug">{v.vraag}</label>
+                  <button
+                    type="button"
+                    onClick={() => setRakeUitlegOpen((prev) => ({ ...prev, [v.id]: !prev[v.id] }))}
+                    className="flex-shrink-0 w-5 h-5 rounded-full border border-darkSlate/30 text-darkSlate/40 text-[10px] font-bold flex items-center justify-center hover:border-midGreen hover:text-midGreen transition-colors"
+                    title="Meer uitleg"
+                  >
+                    i
+                  </button>
+                </div>
+                {rakeUitlegOpen[v.id] && (
+                  <div className="mb-2 bg-lightBg2 rounded-xl px-3 py-2 space-y-1">
+                    <p className="text-xs text-darkSlate/70 leading-relaxed">{v.uitleg}</p>
+                    <p className="text-[11px] text-darkSlate/40 italic">{v.voorbeeld}</p>
+                  </div>
+                )}
                 <textarea
                   value={rakeAntwoorden[v.id] || ''}
                   onChange={(e) => setRakeAntwoorden((prev) => ({ ...prev, [v.id]: e.target.value }))}
