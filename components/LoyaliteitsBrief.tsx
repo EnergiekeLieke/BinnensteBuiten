@@ -137,7 +137,9 @@ Kenmerken van goede systemische zinnen:
 - Erkennen wat was, zonder erin vast te blijven
 - Zijn liefdevol en bevrijdend tegelijk
 - Geschreven in de ik-persoon
-${loyaliteitType === 'gemis' ? `
+${loyaliteitType === 'patroon' ? `
+Als het patroon gaat over het herhalen van iemands lot (ziek worden op dezelfde leeftijd, nooit verder komen, hetzelfde levensverhaal naleven), genereer dan zinnen in de richting van: "Jouw verhaal was van jou, het mijne is van mij", "Ik hoef jouw lot niet te herhalen om van jou te houden", "Ik mag verder leven dan jij kon".
+` : ''}${loyaliteitType === 'gemis' ? `
 Belangrijk voor deze situatie: de loyaliteit is aan het eigen gemis en verdriet, niet aan een patroon van de ander. Het verdriet is van de schrijver, niet van de persoon aan wie geschreven wordt. Genereer zinnen die gaan over de vrijheid om vreugde en verdriet naast elkaar te laten bestaan, zonder de ander of het verlies te verraden. Denk aan de richting van: "Mijn vreugde verraadt jou niet", "Mijn gemis is van mij, mijn vreugde ook", "Ik draag jou mee in mijn vreugde, niet alleen in mijn pijn".
 ` : ''}
 Situatie:
@@ -203,7 +205,7 @@ Begin geen enkele zin met het woord "En". Gebruik geen m-dashes. Geen markdown, 
 
 ${loyaliteitType === 'patroon'
   ? `De brief doorloopt organisch deze emotionele beweging:
-begin bij herkenning (ik zie jou, gebruik de herinnering als ankerpunt als die er is), ga dan naar dankbaarheid (wat ik van jou heb meegekregen), dan naar de loyaliteit (hoe ik jou heb meegedragen via het patroon, benoem dit zonder oordeel), dan de kosten (wat ik mezelf daardoor heb ontzegd), dan de keuze (wat ik nu kies, niet als verraad maar als eerbetoon aan wie ik word), en sluit warm af in 2-3 regels.`
+begin bij herkenning (ik zie jou, gebruik de herinnering als ankerpunt als die er is), ga dan naar dankbaarheid (wat ik van jou heb meegekregen), dan naar de loyaliteit (hoe ik jou heb meegedragen via het patroon of lot, benoem dit zonder oordeel), dan de kosten (wat ik mezelf daardoor heb ontzegd), dan de keuze (wat ik nu kies, niet als verraad maar als eerbetoon aan wie ik word), en sluit warm af in 2-3 regels. Als het patroon gaat over het herhalen van iemands lot (ziek worden op dezelfde leeftijd, nooit verder komen, hetzelfde levensverhaal naleven), is de bevrijdingsbeweging: ik hoef jouw lot niet te herhalen om jou te eren — jouw verhaal was van jou, het mijne is van mij.`
   : `De brief doorloopt organisch deze emotionele beweging:
 begin bij herkenning en wat er was (gebruik de herinnering als ankerpunt als die er is), ga dan naar dankbaarheid en naar wat je mist, dan naar de loyaliteit aan het gemis (hoe je jezelf vreugde hebt ontzegd alsof blij zijn het verlies zou verraden, benoem dit liefdevol en zonder oordeel: het verdriet is van jou, niet van hem/haar), dan de bevrijding (jouw vreugde verraadt hem/haar niet, je kunt hem/haar meedragen in je vreugde en niet alleen in je pijn), dan de keuze (wat je jezelf nu toestaat), en sluit warm af in 2-3 regels.`}
 
@@ -341,14 +343,14 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
         <div>
           <label className="block text-xs font-medium text-darkSlate mb-1">
             {loyaliteitType === 'patroon'
-              ? 'Welk patroon heb je onbewust van hem/haar overgenomen?'
+              ? 'Welk patroon of lot heb je onbewust meegedragen?'
               : 'Hoe uit jouw loyaliteit aan het gemis zich?'}
           </label>
           <textarea
             value={patroon}
             onChange={(e) => setPatroon(e.target.value)}
             placeholder={loyaliteitType === 'patroon'
-              ? 'bijv. altijd doorgaan, niet genieten, voor iedereen zorgen…'
+              ? 'bijv. altijd doorgaan, voor iedereen zorgen… of: hetzelfde lot naleven, nooit verder komen dan hij/zij'
               : 'bijv. ik laat mezelf geen vreugde toe, ik voel me schuldig als ik lach…'}
             rows={2}
             className={textareaKlasse}
