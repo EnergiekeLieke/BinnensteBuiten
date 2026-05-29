@@ -34,13 +34,13 @@ const RAKE_VRAGEN = [
   {
     id: 'identiteit',
     vraag: 'Wie ben jij als je deze persoon niet meer draagt?',
-    uitleg: 'Loslaten raakt ook aan identiteit. Wie je bent zonder dit patroon is soms onbekend terrein. Dit antwoord voedt de keuze-passage van de brief.',
-    voorbeeld: 'bijv. iemand die haar eigen dromen serieus neemt, zonder schuldgevoel',
+    uitleg: 'Loslaten raakt ook aan identiteit. Wie je bent zonder dit patroon is soms onbekend terrein. Toch is dit het eerlijkste antwoord op de vraag: waarheen ga ik eigenlijk?',
+    voorbeeld: 'bijv. iemand die mijn eigen dromen serieus neemt, zonder schuldgevoel',
   },
   {
     id: 'gebracht',
     vraag: 'Heeft jouw loyaliteit hen iets gebracht?',
-    uitleg: 'Soms was de opoffering helemaal niet nuttig voor de ander. Dat inzicht maakt loslaten makkelijker en eerlijker.',
+    uitleg: 'Een eerlijke vraag, want het antwoord kan beide kanten op. Heeft het hen geholpen? Of was het eigenlijk voor jou, om de verbinding te houden? Beide antwoorden zijn waardevol in de brief.',
     voorbeeld: 'bijv. ik denk het niet, ze had liever gehad dat ik voor mezelf koos',
   },
 ];
