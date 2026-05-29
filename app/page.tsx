@@ -122,6 +122,22 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Keuze Kompas */}
+      <div className="rounded-2xl border-2 border-darkGreen overflow-hidden mb-8">
+        <div className="bg-darkGreen px-4 sm:px-6 py-3 sm:py-4">
+          <p className="text-lg font-bold text-white mt-0.5">Keuze Kompas</p>
+          <p className="text-xs text-white/70 mt-0.5">Uit het 1:1 traject · Spelen met Richting</p>
+        </div>
+        <div className="bg-cream px-4 sm:px-6 py-5">
+          <Link href="/keuze-kompas" className="block bg-white rounded-2xl border-l-4 border-darkGreen p-5 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+            <div className="text-3xl mb-2">🧭</div>
+            <h2 className="font-salmon text-lg text-darkSlate mb-1">Keuze Kompas</h2>
+            <p className="text-xs text-midGreen italic mb-2">Vier windrichtingen voor bewuste keuzes</p>
+            <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek waar je naartoe wilt, wat je meeneemt, wie je draagt en aan wie je nog loyaal bent. Vier richtingen, één kompas.</p>
+          </Link>
+        </div>
+      </div>
+
       {/* Voor ondernemers */}
       <div className="rounded-2xl border-2 border-darkGreen overflow-hidden mb-8">
         <button
