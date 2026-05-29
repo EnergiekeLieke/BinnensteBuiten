@@ -11,6 +11,7 @@ const LoyaliteitsBriefPdfKnop = dynamic(
 );
 
 type Status = 'leeft' | 'geen-contact' | 'overleden';
+type LoyaliteitType = 'patroon' | 'gemis';
 
 const RAKE_VRAGEN = [
   {
@@ -45,10 +46,44 @@ const RAKE_VRAGEN = [
   },
 ];
 
+const RAKE_VRAGEN_GEMIS = [
+  {
+    id: 'eersteGemis',
+    vraag: 'Wanneer merkte je voor het eerst dat je jezelf vreugde ontzegde vanuit je gemis?',
+    uitleg: 'Dit moment toont wanneer het gemis overgaat in een verbod op vreugde. Het maakt zichtbaar waar de grens ligt die je onbewust trok.',
+    voorbeeld: 'bijv. toen ik voor het eerst weer hardop lachte en me daarna schuldig voelde',
+  },
+  {
+    id: 'gewild',
+    vraag: 'Zou hij/zij gewild hebben dat jij gelukkig bent?',
+    uitleg: 'Een van de krachtigste vragen in rouw: wat zou de ander jou gunnen? Het antwoord maakt ruimte voor toestemming die je misschien nog niet aan jezelf hebt gegeven.',
+    voorbeeld: 'bijv. ja, dat weet ik eigenlijk wel, hij wilde altijd het beste voor mij',
+  },
+  {
+    id: 'magGelukkig',
+    vraag: 'Mag jij gelukkig zijn nu hij/zij er niet meer is?',
+    uitleg: 'Dit raakt de kern: vreugde voelen voelt als ontrouw aan het verlies. Maar het verlies is van jou, niet van hem/haar. Het eerlijke antwoord maakt de brief eerlijker.',
+    voorbeeld: 'bijv. ik weet het eigenlijk niet, het voelt als hem loslaten',
+  },
+  {
+    id: 'naastVerdriet',
+    vraag: 'Wie ben jij als je naast je verdriet ook vreugde toelaat?',
+    uitleg: 'Vreugde en verdriet kunnen tegelijk bestaan. Deze vraag gaat over identiteit: ben jij ook iemand die kan genieten, zonder de verbinding met hem/haar te verliezen?',
+    voorbeeld: 'bijv. iemand die hem meedraagt in mijn vreugde, niet alleen in mijn pijn',
+  },
+  {
+    id: 'eerbetoon',
+    vraag: 'Is jouw verdriet een eerbetoon aan hem/haar, of houdt het je ook bij hem/haar?',
+    uitleg: 'Verdriet is liefde die nergens naartoe kan. Maar soms wordt het ook een manier om dicht bij de ander te blijven. Dit onderscheid is waardevol in de brief.',
+    voorbeeld: 'bijv. allebei, en dat maakt loslaten zo moeilijk',
+  },
+];
+
 export default function LoyaliteitsBrief() {
   const [naam, setNaam] = useState('');
   const [relatie, setRelatie] = useState('');
   const [status, setStatus] = useState<Status>('leeft');
+  const [loyaliteitType, setLoyaliteitType] = useState<LoyaliteitType>('patroon');
   const [patroon, setPatroon] = useState('');
   const [herinnering, setHerinnering] = useState('');
   const [dankbaar, setDankbaar] = useState('');
@@ -102,10 +137,12 @@ Kenmerken van goede systemische zinnen:
 - Erkennen wat was, zonder erin vast te blijven
 - Zijn liefdevol en bevrijdend tegelijk
 - Geschreven in de ik-persoon
-
+${loyaliteitType === 'gemis' ? `
+Belangrijk voor deze situatie: de loyaliteit is aan het eigen gemis en verdriet, niet aan een patroon van de ander. Het verdriet is van de schrijver, niet van de persoon aan wie geschreven wordt. Genereer zinnen die gaan over de vrijheid om vreugde en verdriet naast elkaar te laten bestaan, zonder de ander of het verlies te verraden. Denk aan de richting van: "Mijn vreugde verraadt jou niet", "Mijn gemis is van mij, mijn vreugde ook", "Ik draag jou mee in mijn vreugde, niet alleen in mijn pijn".
+` : ''}
 Situatie:
 Persoon: ${naam} (${relatie})
-Overgenomen patroon: ${patroon || 'niet ingevuld'}
+${loyaliteitType === 'patroon' ? `Overgenomen patroon: ${patroon || 'niet ingevuld'}` : `Loyaliteit aan het gemis: ${patroon || 'niet ingevuld'}`}
 Wat verboden was uit loyaliteit: ${verboden || 'niet ingevuld'}
 Kiest nu voor: ${keuze}
 Laat achter: ${loslaten || 'niet ingevuld'}
@@ -145,7 +182,8 @@ Geen m-dashes. Begin geen zin met "En". Schrijf in de ik-persoon.`;
     const ctrl = new AbortController();
     abortRef.current = ctrl;
 
-    const rakeContext = RAKE_VRAGEN
+    const actieveRakeVragen = loyaliteitType === 'patroon' ? RAKE_VRAGEN : RAKE_VRAGEN_GEMIS;
+    const rakeContext = actieveRakeVragen
       .filter((v) => rakeAntwoorden[v.id]?.trim())
       .map((v) => `- ${v.vraag}\n  ${rakeAntwoorden[v.id]}`)
       .join('\n');
@@ -163,8 +201,11 @@ Geen m-dashes. Begin geen zin met "En". Schrijf in de ik-persoon.`;
 
 Begin geen enkele zin met het woord "En". Gebruik geen m-dashes. Geen markdown, geen sterretjes, gewone tekst met regelafbrekingen.
 
-De brief doorloopt organisch deze emotionele beweging:
-begin bij herkenning (ik zie jou, gebruik de herinnering als ankerpunt als die er is), ga dan naar dankbaarheid (wat ik van jou heb meegekregen), dan naar de loyaliteit (hoe ik jou heb meegedragen, het patroon benoemen zonder oordeel), dan de kosten (wat ik mezelf daardoor heb ontzegd), dan de keuze (wat ik nu kies, niet als verraad maar als eerbetoon aan wie ik word), en sluit warm af in 2-3 regels.
+${loyaliteitType === 'patroon'
+  ? `De brief doorloopt organisch deze emotionele beweging:
+begin bij herkenning (ik zie jou, gebruik de herinnering als ankerpunt als die er is), ga dan naar dankbaarheid (wat ik van jou heb meegekregen), dan naar de loyaliteit (hoe ik jou heb meegedragen via het patroon, benoem dit zonder oordeel), dan de kosten (wat ik mezelf daardoor heb ontzegd), dan de keuze (wat ik nu kies, niet als verraad maar als eerbetoon aan wie ik word), en sluit warm af in 2-3 regels.`
+  : `De brief doorloopt organisch deze emotionele beweging:
+begin bij herkenning en wat er was (gebruik de herinnering als ankerpunt als die er is), ga dan naar dankbaarheid en naar wat je mist, dan naar de loyaliteit aan het gemis (hoe je jezelf vreugde hebt ontzegd alsof blij zijn het verlies zou verraden, benoem dit liefdevol en zonder oordeel: het verdriet is van jou, niet van hem/haar), dan de bevrijding (jouw vreugde verraadt hem/haar niet, je kunt hem/haar meedragen in je vreugde en niet alleen in je pijn), dan de keuze (wat je jezelf nu toestaat), en sluit warm af in 2-3 regels.`}
 
 Begin met: Lieve ${naam},
 Sluit af met een lege regel en dan: Liefs, ${jouwNaam || '...'}
@@ -173,10 +214,10 @@ Schrijf in de ik-persoon. Spreek de persoon aan met "je/jij".
 
 Context:
 Persoon: ${naam} (${relatie}). ${statusZin}.
-Overgenomen patroon: ${patroon || 'niet ingevuld'}
+${loyaliteitType === 'patroon' ? `Overgenomen patroon: ${patroon || 'niet ingevuld'}` : `Hoe de loyaliteit aan het gemis zich uit: ${patroon || 'niet ingevuld'}`}
 Concreet beeld of herinnering: ${herinnering || 'niet ingevuld'}
 Dankbaar voor: ${dankbaar}
-Verboden uit loyaliteit: ${verboden || 'niet ingevuld'}
+${loyaliteitType === 'patroon' ? `Verboden uit loyaliteit: ${verboden || 'niet ingevuld'}` : `Verboden uit loyaliteit aan het gemis: ${verboden || 'niet ingevuld'}`}
 Kiest nu voor: ${keuze}
 Laat achter: ${loslaten || 'niet ingevuld'}${rakeContext ? `
 
@@ -214,7 +255,7 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
     setRakeAntwoorden({});
     setRakeVragenOpen(false);
     setRakeUitlegOpen({});
-    setNaam(''); setRelatie(''); setStatus('leeft');
+    setNaam(''); setRelatie(''); setStatus('leeft'); setLoyaliteitType('patroon');
     setPatroon(''); setHerinnering(''); setDankbaar('');
     setVerboden(''); setKeuze(''); setLoslaten(''); setJouwNaam('');
     setSystemischeZinnen([]); setGeselecteerdeZinnen([]);
@@ -276,8 +317,42 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-darkSlate mb-1">Welk patroon heb je onbewust van hem/haar overgenomen?</label>
-          <textarea value={patroon} onChange={(e) => setPatroon(e.target.value)} placeholder="bijv. altijd doorgaan, niet genieten, voor iedereen zorgen…" rows={2} className={textareaKlasse} />
+          <label className="block text-xs font-medium text-darkSlate mb-2">Waar gaat deze loyaliteit over?</label>
+          <div className="flex flex-col gap-2">
+            {([
+              ['patroon', 'Aan een patroon dat ik van hem/haar heb meegekregen'] as [LoyaliteitType, string],
+              ['gemis', 'Aan mijn eigen verdriet of gemis om hem/haar'] as [LoyaliteitType, string],
+            ]).map(([val, label]) => (
+              <label key={val} className="flex items-center gap-2.5 cursor-pointer">
+                <input
+                  type="radio"
+                  name="loyaliteitType"
+                  value={val}
+                  checked={loyaliteitType === val}
+                  onChange={() => { setLoyaliteitType(val); setRakeAntwoorden({}); }}
+                  className="accent-darkRed"
+                />
+                <span className="text-sm text-darkSlate">{label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-xs font-medium text-darkSlate mb-1">
+            {loyaliteitType === 'patroon'
+              ? 'Welk patroon heb je onbewust van hem/haar overgenomen?'
+              : 'Hoe uit jouw loyaliteit aan het gemis zich?'}
+          </label>
+          <textarea
+            value={patroon}
+            onChange={(e) => setPatroon(e.target.value)}
+            placeholder={loyaliteitType === 'patroon'
+              ? 'bijv. altijd doorgaan, niet genieten, voor iedereen zorgen…'
+              : 'bijv. ik laat mezelf geen vreugde toe, ik voel me schuldig als ik lach…'}
+            rows={2}
+            className={textareaKlasse}
+          />
         </div>
 
         <div>
@@ -291,8 +366,20 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-darkSlate mb-1">Wat heb je jezelf verboden uit loyaliteit aan hem/haar?</label>
-          <textarea value={verboden} onChange={(e) => setVerboden(e.target.value)} placeholder="bijv. genieten, rusten, voor mezelf kiezen…" rows={2} className={textareaKlasse} />
+          <label className="block text-xs font-medium text-darkSlate mb-1">
+            {loyaliteitType === 'patroon'
+              ? 'Wat heb je jezelf verboden uit loyaliteit aan hem/haar?'
+              : 'Wat heb je jezelf verboden uit loyaliteit aan het gemis?'}
+          </label>
+          <textarea
+            value={verboden}
+            onChange={(e) => setVerboden(e.target.value)}
+            placeholder={loyaliteitType === 'patroon'
+              ? 'bijv. genieten, rusten, voor mezelf kiezen…'
+              : 'bijv. genieten, verliefd worden, blij zijn, verder gaan…'}
+            rows={2}
+            className={textareaKlasse}
+          />
         </div>
 
         <div>
@@ -327,7 +414,7 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
 
         {rakeVragenOpen && (
           <div className="mt-4 space-y-4">
-            {RAKE_VRAGEN.map((v) => (
+            {(loyaliteitType === 'patroon' ? RAKE_VRAGEN : RAKE_VRAGEN_GEMIS).map((v) => (
               <div key={v.id}>
                 <div className="flex items-start justify-between gap-2 mb-1">
                   <label className="text-xs font-medium text-darkSlate leading-snug">{v.vraag}</label>
