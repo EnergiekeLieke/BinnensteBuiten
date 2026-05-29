@@ -21,7 +21,7 @@ const RAKE_VRAGEN = [
   },
   {
     id: 'goedHad',
-    vraag: 'Wat zou het voor hen betekend hebben als jij het wél goed had?',
+    vraag: 'Wat zou het voor hem/haar betekend hebben als jij het wél goed had?',
     uitleg: 'Achter loyaliteit schuilt vaak de overtuiging dat jouw succes of vreugde iets wegneemt bij de ander. Deze vraag maakt dat zichtbaar.',
     voorbeeld: 'bijv. dan had zij zich misschien tekortgeschoten gevoeld als moeder',
   },
@@ -39,8 +39,8 @@ const RAKE_VRAGEN = [
   },
   {
     id: 'gebracht',
-    vraag: 'Heeft jouw loyaliteit hen iets gebracht?',
-    uitleg: 'Een eerlijke vraag, want het antwoord kan beide kanten op. Heeft het hen geholpen? Of was het eigenlijk voor jou, om de verbinding te houden? Beide antwoorden zijn waardevol in de brief.',
+    vraag: 'Heeft jouw loyaliteit hem/haar iets gebracht?',
+    uitleg: 'Een eerlijke vraag, want het antwoord kan beide kanten op. Heeft het hem/haar geholpen? Of was het eigenlijk voor jou, om de verbinding te houden? Beide antwoorden zijn waardevol in de brief.',
     voorbeeld: 'bijv. ik denk het niet, ze had liever gehad dat ik voor mezelf koos',
   },
 ];
@@ -243,7 +243,7 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
 
       <div className="bg-lightBg2 rounded-2xl p-4 border border-orange/20 text-sm text-darkSlate space-y-2">
         <p>Soms draag je iemand mee die je liefhebt, en houd je jezelf daardoor klein. Niet met opzet, maar uit loyaliteit.</p>
-        <p>Schrijf een brief aan die persoon. Erken wat je van hen hebt meegekregen, benoem wat je jezelf daardoor ontzegt, en geef jezelf toestemming om verder te gaan.</p>
+        <p>Schrijf een brief aan die persoon. Erken wat je van hem/haar hebt meegekregen, benoem wat je jezelf daardoor ontzegt, en geef jezelf toestemming om verder te gaan.</p>
       </div>
 
       <div className="space-y-4">
@@ -257,7 +257,7 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
             )}
           </div>
           <div>
-            <label className="block text-xs font-medium text-darkSlate mb-1">Jouw relatie tot hen</label>
+            <label className="block text-xs font-medium text-darkSlate mb-1">Jouw relatie tot hem/haar</label>
             <input type="text" value={relatie} onChange={(e) => setRelatie(e.target.value)} placeholder="bijv. mijn moeder" className={inputKlasse} />
           </div>
         </div>
@@ -279,7 +279,7 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-darkSlate mb-1">Welk patroon heb je onbewust van hen overgenomen?</label>
+          <label className="block text-xs font-medium text-darkSlate mb-1">Welk patroon heb je onbewust van hem/haar overgenomen?</label>
           <textarea value={patroon} onChange={(e) => setPatroon(e.target.value)} placeholder="bijv. altijd doorgaan, niet genieten, voor iedereen zorgen…" rows={2} className={textareaKlasse} />
         </div>
 
@@ -289,12 +289,12 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-darkSlate mb-1">Wat heb je van hen geleerd, of waarvoor wil je bedanken? <span className="text-darkRed">*</span></label>
+          <label className="block text-xs font-medium text-darkSlate mb-1">Wat heb je van hem/haar geleerd, of waarvoor wil je bedanken? <span className="text-darkRed">*</span></label>
           <textarea value={dankbaar} onChange={(e) => setDankbaar(e.target.value)} placeholder="bijv. doorzettingsvermogen, het gevoel van geborgenheid…" rows={2} className={textareaKlasse} />
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-darkSlate mb-1">Wat heb je jezelf verboden uit loyaliteit aan hen?</label>
+          <label className="block text-xs font-medium text-darkSlate mb-1">Wat heb je jezelf verboden uit loyaliteit aan hem/haar?</label>
           <textarea value={verboden} onChange={(e) => setVerboden(e.target.value)} placeholder="bijv. genieten, rusten, voor mezelf kiezen…" rows={2} className={textareaKlasse} />
         </div>
 
