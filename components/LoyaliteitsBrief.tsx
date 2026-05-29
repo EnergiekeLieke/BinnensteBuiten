@@ -157,17 +157,14 @@ Geen m-dashes. Begin geen zin met "En". Schrijf in de ik-persoon.`;
         ? `${naam} is nog in leven maar er is geen contact meer`
         : `${naam} leeft nog en er is contact`;
 
-    const prompt = `Schrijf een persoonlijke brief in het Nederlands. De stijl is warm en poëtisch: zinnen mogen vloeiend zijn en 1-2 volledige zinnen per gedachte bevatten. Gebruik witruimte tussen gedachteblokken, maar schrijf geen losse 3-woordfragmenten. De brief voelt intiem, zacht en oprecht, niet als een lijst.
+    const briefSystem = 'Je schrijft persoonlijke brieven in het Nederlands. Je toon is warm, poëtisch en intiem. Je gebruikt namen zoals opgegeven. Je schrijft plain text: geen markdown, geen koppen, geen sterretjes, geen opsommingstekens. Witregels mogen, maar alleen tussen gedachteblokken.';
+
+    const prompt = `Schrijf een persoonlijke brief als één doorlopende tekst. Geen genummerde secties, geen koppen, geen opsomming. De stijl is warm en poëtisch: zinnen zijn vloeiend en bevatten 1-2 volledige gedachten. Gebruik witruimte tussen gedachteblokken. De brief voelt intiem, zacht en oprecht.
 
 Begin geen enkele zin met het woord "En". Gebruik geen m-dashes. Geen markdown, geen sterretjes, gewone tekst met regelafbrekingen.
 
-De brief volgt deze emotionele boog:
-1. Herkenning: ik zie jou, ik begrijp je (gebruik de herinnering als ankerpunt als die er is)
-2. Dankbaarheid: wat ik van jou heb meegekregen
-3. De loyaliteit: hoe ik jou heb meegedragen, bewust of onbewust, het patroon benoemen zonder oordeel
-4. De kosten: wat ik mezelf daardoor heb ontzegd
-5. De keuze: wat ik nu kies, niet als verraad maar als eerbetoon aan wie ik word
-6. Warme afsluiting (2-3 regels)
+De brief doorloopt organisch deze emotionele beweging:
+begin bij herkenning (ik zie jou, gebruik de herinnering als ankerpunt als die er is), ga dan naar dankbaarheid (wat ik van jou heb meegekregen), dan naar de loyaliteit (hoe ik jou heb meegedragen, het patroon benoemen zonder oordeel), dan de kosten (wat ik mezelf daardoor heb ontzegd), dan de keuze (wat ik nu kies, niet als verraad maar als eerbetoon aan wie ik word), en sluit warm af in 2-3 regels.
 
 Begin met: Lieve ${naam},
 Sluit af met een lege regel en dan: Liefs, ${jouwNaam || '...'}
@@ -193,9 +190,9 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
       let acc = '';
       await streamAnalyse(
         prompt,
-        1500,
+        1800,
         (chunk) => { acc += chunk; setBrief(acc); },
-        undefined,
+        briefSystem,
         ctrl.signal
       );
       setBrief(vervangMDashes(acc));
