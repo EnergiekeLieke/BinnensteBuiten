@@ -29,7 +29,7 @@ export default function Home() {
 
       <h2 className="font-bold text-xs uppercase tracking-widest text-darkSlate mb-3">Tools</h2>
 
-      <p className="text-sm font-bold text-darkSlate mb-3">Hoe sta je ervoor?</p>
+      <p className="text-sm font-bold text-darkSlate mb-3">Ontdek wat er speelt: Hoe sta je ervoor?</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
         <Link href="/levenswiel" className="block h-full bg-white rounded-2xl border-l-4 border-darkRed p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">🌐</div>
@@ -45,7 +45,7 @@ export default function Home() {
         </Link>
       </div>
 
-      <p className="text-sm font-bold text-darkSlate mb-3">Wat wil je écht?</p>
+      <p className="text-sm font-bold text-darkSlate mb-3">Spelen met verlangen: Wat wil je écht?</p>
       <div className="mb-8">
         <Link href="/basisverlangens" className="block bg-white rounded-2xl border-l-4 border-orange p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">💡</div>
