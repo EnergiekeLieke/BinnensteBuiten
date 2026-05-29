@@ -46,19 +46,12 @@ export default function Home() {
       </div>
 
       <p className="text-sm font-bold text-darkSlate mb-3">Wat wil je écht?</p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-        <Link href="/basisverlangens" className="block h-full bg-white rounded-2xl border-l-4 border-orange p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+      <div className="mb-8">
+        <Link href="/basisverlangens" className="block bg-white rounded-2xl border-l-4 border-orange p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">💡</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-1">Basisverlangens Werkblad</h2>
           <p className="text-xs text-midGreen italic mb-2">Je weet niet wat je écht wilt, of je maakt steeds keuzes die niet kloppen.</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek welke basisverlangens jou drijven per levensgebied en wat dat onthult over jouw patronen. Een krachtig inzicht in wat jou écht beweegt en waarom je doet wat je doet.</p>
-        </Link>
-        <Link href="/future-self" className="relative block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
-          <span className="absolute top-3 right-4 text-[10px] font-bold uppercase tracking-wide bg-midGreen text-white rounded px-2 py-0.5">Nieuw!</span>
-          <div className="text-4xl mb-3">🌟</div>
-          <h2 className="font-salmon text-xl text-darkSlate mb-1">Future Self Visualisatie</h2>
-          <p className="text-xs text-midGreen italic mb-2">Je bent toe aan perspectief: voel de energie van jouw toekomstige zelf.</p>
-          <p className="text-sm text-darkSlate/70 leading-relaxed">Ontmoet wie jij al aan het worden bent. Kies je tijdlijn, thema en sfeer, en ontvang een persoonlijke geleide visualisatie om te lezen of in te spreken.</p>
         </Link>
       </div>
 
@@ -122,19 +115,27 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Keuze Kompas */}
+      {/* Spelen met Richting */}
       <div className="rounded-2xl border-2 border-darkGreen overflow-hidden mb-8">
         <div className="bg-darkGreen px-4 sm:px-6 py-3 sm:py-4">
-          <p className="text-lg font-bold text-white mt-0.5">Keuze Kompas</p>
-          <p className="text-xs text-white/70 mt-0.5">Uit het 1:1 traject · Spelen met Richting</p>
+          <p className="text-lg font-bold text-white mt-0.5">Spelen met Richting</p>
+          <p className="text-xs text-white/70 mt-0.5">Uit het 1:1 traject · Kies je richting, ontmoet je toekomstige zelf</p>
         </div>
         <div className="bg-cream px-4 sm:px-6 py-5">
-          <Link href="/keuze-kompas" className="block bg-white rounded-2xl border-l-4 border-darkGreen p-5 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
-            <div className="text-3xl mb-2">🧭</div>
-            <h2 className="font-salmon text-lg text-darkSlate mb-1">Keuze Kompas</h2>
-            <p className="text-xs text-midGreen italic mb-2">Vier windrichtingen voor bewuste keuzes</p>
-            <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek waar je naartoe wilt, wat je meeneemt, wie je draagt en aan wie je nog loyaal bent. Vier richtingen, één kompas.</p>
-          </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Link href="/keuze-kompas" className="block h-full bg-white rounded-2xl border-l-4 border-darkGreen p-5 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+              <div className="text-3xl mb-2">🧭</div>
+              <h2 className="font-salmon text-lg text-darkSlate mb-1">Keuze Kompas</h2>
+              <p className="text-xs text-midGreen italic mb-2">Vier windrichtingen voor bewuste keuzes</p>
+              <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek waar je naartoe wilt, wat je meeneemt, wie je draagt en aan wie je nog loyaal bent. Vier richtingen, één kompas.</p>
+            </Link>
+            <Link href="/future-self" className="relative block h-full bg-white rounded-2xl border-l-4 border-midGreen p-5 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+              <div className="text-3xl mb-2">🌟</div>
+              <h2 className="font-salmon text-lg text-darkSlate mb-1">Future Self Visualisatie</h2>
+              <p className="text-xs text-midGreen italic mb-2">Voel de energie van jouw toekomstige zelf</p>
+              <p className="text-sm text-darkSlate/70 leading-relaxed">Ontmoet wie jij al aan het worden bent. Kies je tijdlijn, thema en sfeer, en ontvang een persoonlijke geleide visualisatie.</p>
+            </Link>
+          </div>
         </div>
       </div>
 
