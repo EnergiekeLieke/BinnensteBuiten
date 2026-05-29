@@ -86,7 +86,7 @@ export default function Home() {
             <Link href="/keuze-kompas" className="block h-full bg-white rounded-2xl border-l-4 border-darkGreen p-5 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
               <div className="text-3xl mb-2">🧭</div>
               <h2 className="font-salmon text-lg text-darkSlate mb-1">Keuze Kompas</h2>
-              <p className="text-xs text-midGreen italic mb-2">Vier windrichtingen voor bewuste keuzes</p>
+              <p className="text-xs text-midGreen italic mb-2">Vier windrichtingen voor jouw persoonlijke spelregels</p>
               <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek waar je naartoe wilt, wat je meeneemt, wie je draagt en aan wie je nog loyaal bent. Vier richtingen, één kompas.</p>
             </Link>
             <Link href="/future-self" className="relative block h-full bg-white rounded-2xl border-l-4 border-midGreen p-5 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
