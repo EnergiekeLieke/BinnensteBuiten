@@ -250,8 +250,11 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-xs font-medium text-darkSlate mb-1">Naam van de persoon</label>
-            <input type="text" value={naam} onChange={(e) => setNaam(e.target.value)} placeholder="bijv. mama" className={inputKlasse} />
+            <label className="block text-xs font-medium text-darkSlate mb-1">Hoe noem jij deze persoon?</label>
+            <input type="text" value={naam} onChange={(e) => setNaam(e.target.value)} placeholder="bijv. mama, opa, Jan" className={inputKlasse} />
+            {naam.trim() && (
+              <p className="mt-1 text-[11px] text-darkSlate/40 italic">Jouw brief begint met: Lieve {naam.trim()},</p>
+            )}
           </div>
           <div>
             <label className="block text-xs font-medium text-darkSlate mb-1">Jouw relatie tot hen</label>
