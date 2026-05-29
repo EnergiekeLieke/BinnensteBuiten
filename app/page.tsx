@@ -268,7 +268,7 @@ export default function Home() {
       </div>
 
       {/* Human Design */}
-      <h2 className="font-bold text-xs uppercase tracking-widest text-darkSlate mb-3">Human Design</h2>
+      <h2 className="font-bold text-xs uppercase tracking-widest text-darkSlate mb-3">Speel het anders</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <Link
           href="/human-design-affirmaties"
