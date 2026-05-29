@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { streamAnalyse, roepAnalyseAan, vervangMDashes } from '@/lib/huisstijl';
 
@@ -56,7 +57,7 @@ export default function LoyaliteitsBrief() {
 Gebruik als achtergrondkennis en inspiratiebron:
 - "Zinnen die de ziel raken" van Elmer Hendrix: korte, directe zinnen die een systemische waarheid uitspreken en het zenuwstelsel tot rust brengen.
 - Het werk van Els van Steijn (o.a. de Fonteijn): systemisch werk met loyaliteitspatronen, familiesystemen en het herstellen van de juiste volgorde.
-- "Het is niet met jou begonnen" en het bijbehorende werkboek van Mark Wolynn: geïnteresseerd trauma dat via de familielijn is doorgegeven. De kerngedachte: veel van onze patronen, angsten en beperkingen begonnen niet bij onszelf, maar bij onze ouders of grootouders. Helende zinnen geven het patroon terug aan de oorsprong en maken ruimte voor een nieuw verhaal.
+- "Het is niet met jou begonnen" en het bijbehorende werkboek van Mark Wolynn: geïnternaliseerd trauma dat via de familielijn is doorgegeven. De kerngedachte: veel van onze patronen, angsten en beperkingen begonnen niet bij onszelf, maar bij onze ouders of grootouders. Helende zinnen geven het patroon terug aan de oorsprong en maken ruimte voor een nieuw verhaal.
 
 Kenmerken van goede systemische zinnen:
 - Kort en krachtig, zelden meer dan 1-2 zinnen
@@ -148,7 +149,7 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
       let acc = '';
       await streamAnalyse(
         prompt,
-        900,
+        1500,
         (chunk) => { acc += chunk; setBrief(acc); },
         undefined,
         ctrl.signal
@@ -165,7 +166,10 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
 
   function opnieuwBeginnen() {
     if (!window.confirm('Weet je zeker dat je opnieuw wilt beginnen? Je brief en invoer gaan verloren.')) return;
+    abortRef.current?.abort();
     setBrief('');
+    setLoading(false);
+    setZinnenLoading(false);
     setNaam(''); setRelatie(''); setStatus('leeft');
     setPatroon(''); setHerinnering(''); setDankbaar('');
     setVerboden(''); setKeuze(''); setLoslaten(''); setJouwNaam('');
@@ -178,6 +182,12 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
 
   return (
     <div className="space-y-6 max-w-lg mx-auto">
+
+      <div className="flex items-center gap-3 mb-1">
+        <Link href="/keuze-kompas/oost" className="text-xs text-midGreen hover:text-darkGreen underline underline-offset-2">
+          ← Richting Oost
+        </Link>
+      </div>
 
       <div className="text-center">
         <h1 className="font-salmon text-2xl text-darkSlate mb-1">Loyaliteitsbrief</h1>
@@ -284,7 +294,7 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
                   onClick={() => toggleZin(zin)}
                   className={`w-full text-left flex items-start gap-3 rounded-xl border px-3 py-2.5 transition-all ${
                     geselecteerd
-                      ? 'border-darkGreen bg-darkGreen/8 '
+                      ? 'border-darkGreen bg-darkGreen/10'
                       : 'border-lightBg bg-white hover:border-darkGreen/30'
                   }`}
                 >
