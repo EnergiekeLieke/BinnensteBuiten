@@ -201,13 +201,13 @@ Geen m-dashes. Begin geen zin met "En". Schrijf in de ik-persoon.`;
 
     const prompt = `Schrijf een persoonlijke brief als één doorlopende tekst. Geen genummerde secties, geen koppen, geen opsomming. De stijl is warm en poëtisch: zinnen zijn vloeiend en bevatten 1-2 volledige gedachten. Gebruik witruimte tussen gedachteblokken. De brief voelt intiem, zacht en oprecht.
 
-Begin geen enkele zin met het woord "En". Gebruik geen m-dashes. Geen markdown, geen sterretjes, gewone tekst met regelafbrekingen.
+Begin geen enkele zin met het woord "En". Gebruik geen m-dashes. Geen markdown, geen sterretjes, gewone tekst met regelafbrekingen. De brief is 280-380 woorden.
 
 ${loyaliteitType === 'patroon'
   ? `De brief doorloopt organisch deze emotionele beweging:
-begin bij herkenning (ik zie jou, gebruik de herinnering als ankerpunt als die er is), ga dan naar dankbaarheid (wat ik van jou heb meegekregen), dan naar de loyaliteit (hoe ik jou heb meegedragen via het patroon of lot, benoem dit zonder oordeel), dan de kosten (wat ik mezelf daardoor heb ontzegd), dan de keuze (wat ik nu kies, niet als verraad maar als eerbetoon aan wie ik word), en sluit warm af in 2-3 regels. Als het patroon gaat over het herhalen van iemands lot (ziek worden op dezelfde leeftijd, nooit verder komen, hetzelfde levensverhaal naleven), is de bevrijdingsbeweging: ik hoef jouw lot niet te herhalen om jou te eren — jouw verhaal was van jou, het mijne is van mij.`
+begin bij herkenning (ik zie jou, gebruik de herinnering als ankerpunt als die er is), ga dan naar dankbaarheid (wat ik van jou heb meegekregen), dan naar de loyaliteit (hoe ik jou heb meegedragen via het patroon of lot, benoem dit zonder oordeel), dan de kosten (wat ik mezelf daardoor heb ontzegd), dan de keuze (wat ik nu kies, niet als verraad maar als eerbetoon aan wie ik word) inclusief wat ik daarbij achterlaat, en sluit warm af in 2-3 regels. Als het patroon gaat over het herhalen van iemands lot (ziek worden op dezelfde leeftijd, nooit verder komen, hetzelfde levensverhaal naleven), is de bevrijdingsbeweging: ik hoef jouw lot niet te herhalen om jou te eren — jouw verhaal was van jou, het mijne is van mij.`
   : `De brief doorloopt organisch deze emotionele beweging:
-begin bij herkenning en wat er was (gebruik de herinnering als ankerpunt als die er is), ga dan naar dankbaarheid en naar wat je mist, dan naar de loyaliteit aan het gemis (hoe je jezelf vreugde hebt ontzegd alsof blij zijn het verlies zou verraden, benoem dit liefdevol en zonder oordeel: het verdriet is van jou, niet van hem/haar), dan de bevrijding (jouw vreugde verraadt hem/haar niet, je kunt hem/haar meedragen in je vreugde en niet alleen in je pijn), dan de keuze (wat je jezelf nu toestaat), en sluit warm af in 2-3 regels.`}
+begin bij herkenning en wat er was (gebruik de herinnering als ankerpunt als die er is), ga dan naar dankbaarheid en naar wat je mist, dan naar de loyaliteit aan het gemis (hoe je jezelf vreugde hebt ontzegd alsof blij zijn het verlies zou verraden, benoem dit liefdevol en zonder oordeel: het verdriet is van jou, niet van hem/haar), dan de bevrijding (jouw vreugde verraadt hem/haar niet, je kunt hem/haar meedragen in je vreugde en niet alleen in je pijn), dan de keuze (wat je jezelf nu toestaat) inclusief wat je daarbij achterlaat, en sluit warm af in 2-3 regels.`}
 
 Begin met: Lieve ${naam},
 Sluit af met een lege regel en dan: Liefs, ${jouwNaam || '...'}
@@ -283,7 +283,7 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
 
       <div className="bg-lightBg2 rounded-2xl p-4 border border-orange/20 text-sm text-darkSlate space-y-2">
         <p>Soms draag je iemand mee die je liefhebt, en houd je jezelf daardoor klein. Niet met opzet, maar uit loyaliteit.</p>
-        <p>Schrijf een brief aan die persoon. Erken wat je van hem/haar hebt meegekregen, benoem wat je jezelf daardoor ontzegt, en geef jezelf toestemming om verder te gaan.</p>
+        <p>Schrijf een brief aan die persoon. Erken wat er was, benoem wat je jezelf daardoor ontzegt, en geef jezelf toestemming om verder te gaan.</p>
       </div>
 
       <div className="space-y-4">
@@ -359,7 +359,7 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
 
         <div>
           <label className="block text-xs font-medium text-darkSlate mb-1">Een concreet beeld of herinnering bij deze persoon</label>
-          <textarea value={herinnering} onChange={(e) => setHerinnering(e.target.value)} placeholder="bijv. hoe ze altijd klaarstond voor iedereen, nooit stilzat…" rows={2} className={textareaKlasse} />
+          <textarea value={herinnering} onChange={(e) => setHerinnering(e.target.value)} placeholder="bijv. haar handen die altijd bezet waren, zijn lach bij kleine dingen…" rows={2} className={textareaKlasse} />
         </div>
 
         <div>
@@ -386,7 +386,15 @@ ${geselecteerdeZinnen.map((z) => `- "${z}"`).join('\n')}` : ''}`;
 
         <div>
           <label className="block text-xs font-medium text-darkSlate mb-1">Waarvoor kies jij nu? <span className="text-darkRed">*</span></label>
-          <textarea value={keuze} onChange={(e) => setKeuze(e.target.value)} placeholder="bijv. vrijheid, plezier, mijn leven voluit leven…" rows={2} className={textareaKlasse} />
+          <textarea
+            value={keuze}
+            onChange={(e) => setKeuze(e.target.value)}
+            placeholder={loyaliteitType === 'gemis'
+              ? 'bijv. blij zijn zonder dat het verraad voelt, vreugde naast verdriet toelaten…'
+              : 'bijv. rusten zonder schuldgevoel, genieten, voor mezelf kiezen…'}
+            rows={2}
+            className={textareaKlasse}
+          />
         </div>
 
         <div>
