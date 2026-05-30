@@ -201,7 +201,7 @@ Geen m-dashes. Begin geen zin met "En". Schrijf in de ik-persoon.`;
 
     const prompt = `Schrijf een persoonlijke brief als één doorlopende tekst. Geen genummerde secties, geen koppen, geen opsomming. De stijl is warm en poëtisch: zinnen zijn vloeiend en bevatten 1-2 volledige gedachten. Gebruik witruimte tussen gedachteblokken. De brief voelt intiem, zacht en oprecht.
 
-Begin geen enkele zin met het woord "En". Gebruik geen m-dashes. Geen markdown, geen sterretjes, gewone tekst met regelafbrekingen. De brief is 280-380 woorden.
+Begin geen enkele zin met het woord "En". Gebruik geen m-dashes. Geen markdown, geen sterretjes, gewone tekst met regelafbrekingen. Schrijf zo lang als de inhoud vraagt, niet langer.
 
 ${loyaliteitType === 'patroon'
   ? `De brief doorloopt organisch deze emotionele beweging:
