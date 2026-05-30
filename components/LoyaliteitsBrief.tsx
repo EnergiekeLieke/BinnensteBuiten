@@ -197,7 +197,7 @@ Geen m-dashes. Begin geen zin met "En". Schrijf in de ik-persoon.`;
         ? `${naam} is nog in leven maar er is geen contact meer`
         : `${naam} leeft nog en er is contact`;
 
-    const briefSystem = 'Je schrijft persoonlijke brieven in het Nederlands. Je toon is warm, poëtisch en intiem. Je gebruikt namen zoals opgegeven. Je schrijft plain text: geen markdown, geen koppen, geen sterretjes, geen opsommingstekens. Witregels mogen, maar alleen tussen gedachteblokken.';
+    const briefSystem = 'Je schrijft persoonlijke brieven in correct Nederlands: grammaticaal juist, correcte spelling, correcte interpunctie en geen anglicismen. Je toon is warm, poëtisch en intiem. Je gebruikt namen zoals opgegeven. Je schrijft plain text: geen markdown, geen koppen, geen sterretjes, geen opsommingstekens. Witregels mogen, maar alleen tussen gedachteblokken.';
 
     const prompt = `Schrijf een persoonlijke brief als één doorlopende tekst. Geen genummerde secties, geen koppen, geen opsomming. De stijl is warm en poëtisch: zinnen zijn vloeiend en bevatten 1-2 volledige gedachten. Gebruik witruimte tussen gedachteblokken. De brief voelt intiem, zacht en oprecht.
 
