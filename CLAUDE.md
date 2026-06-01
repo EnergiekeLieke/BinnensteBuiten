@@ -65,6 +65,14 @@ Waarden zijn identiek. Bij kleurwijzigingen beide aanpassen. Slider-styling via 
 - Beperk het gebruik van een lang streepje (—) in teksten.
 - Begin zinnen niet met het woord "En". Laat het weg of herschrijf de zin, tenzij het echt onvermijdelijk is.
 
+## AI-gegenereerde tekst: correct Nederlands
+
+Elke system prompt voor een tool die tekst genereert (brieven, analyses, affirmaties, intenties, etc.) bevat altijd deze instructie:
+
+> Schrijf in correct Nederlands: grammaticaal juist, correcte spelling, correcte woordkeuze en geen anglicismen.
+
+Voeg dit toe aan het begin van de system prompt, vóór toon- en stijlinstructies.
+
 ## Werkmap
 
 Lokale bestanden worden opgeslagen in `D:\Claude`.
