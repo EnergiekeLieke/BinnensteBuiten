@@ -30,7 +30,7 @@ export default function Home() {
       <h2 className="font-bold text-xs uppercase tracking-widest text-darkSlate mb-3">Tools</h2>
 
       <p className="text-sm font-bold text-darkSlate mb-3">Ontdek wat er speelt: Hoe sta je ervoor?</p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
         <Link href="/levenswiel" className="block h-full bg-white rounded-2xl border-l-4 border-darkRed p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">🌐</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-1">Levenswiel Analyse</h2>
@@ -48,6 +48,12 @@ export default function Home() {
           <h2 className="font-salmon text-xl text-darkSlate mb-1">7 Typen Rust</h2>
           <p className="text-xs text-midGreen italic mb-2">Welk type rust heeft jouw lichaam en geest nu nodig?</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Kies met de biotensor welke rusttypen nu het meest nodig zijn. Selecteer affirmaties per type en schrijf op wat je deze week gaat doen.</p>
+        </Link>
+        <Link href="/congruentie-checker" className="block h-full bg-white rounded-2xl border-l-4 border-orange p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+          <div className="text-4xl mb-3">🎯</div>
+          <h2 className="font-salmon text-xl text-darkSlate mb-1">Congruentie Checker</h2>
+          <p className="text-xs text-midGreen italic mb-2">Kloppen jouw woorden, daden en zichtbaarheid met elkaar?</p>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Meet met de biotensor hoe congruent je bent op drie niveaus. Ontdek waar de grootste gap zit en wat de Toltekse inzichten je spiegelen.</p>
         </Link>
       </div>
 
