@@ -9,6 +9,7 @@ export type RustTyp = {
   naam: string;
   beschrijving: string;
   affirmaties: string[];
+  olieen: string[];
 };
 
 export const RUST_TYPEN: RustTyp[] = [
@@ -21,6 +22,7 @@ export const RUST_TYPEN: RustTyp[] = [
       'Mijn lichaam mag ontspannen en herstellen.',
       'Ik geef mezelf toestemming om te rusten zonder schuldgevoel.',
     ],
+    olieen: ['Lavender', 'Blue Relief', 'PanAway'],
   },
   {
     id: 'mentaal',
@@ -32,6 +34,7 @@ export const RUST_TYPEN: RustTyp[] = [
       'Ik hoef niet alles nu op te lossen.',
       'Stilte en leegte zijn helpend voor mij.',
     ],
+    olieen: ['Vetiver', 'Peace & Calming', 'Idaho Blue Spruce'],
   },
   {
     id: 'sensorisch',
@@ -42,6 +45,7 @@ export const RUST_TYPEN: RustTyp[] = [
       'Ik kies voor momenten zonder prikkels.',
       'Mijn zintuigen mogen pauzeren en herstellen.',
     ],
+    olieen: ['Lavender', 'Frankincense', 'Roman Chamomile'],
   },
   {
     id: 'creatief',
@@ -52,6 +56,7 @@ export const RUST_TYPEN: RustTyp[] = [
       'Ik mag mij laten inspireren zonder druk.',
       'In stilte vind ik nieuwe ideeën en helderheid.',
     ],
+    olieen: ['Citrus Fresh', 'Inspiration', 'Clarity'],
   },
   {
     id: 'emotioneel',
@@ -62,6 +67,7 @@ export const RUST_TYPEN: RustTyp[] = [
       'Ik mag mijn emoties voelen zonder ze te verbergen.',
       'Mijn binnenwereld verdient liefdevolle aandacht.',
     ],
+    olieen: ['Rose', 'Release', 'Harmony'],
   },
   {
     id: 'sociaal',
@@ -72,6 +78,7 @@ export const RUST_TYPEN: RustTyp[] = [
       'Ik mag afstand nemen van relaties die mij uitputten.',
       'Stilte en alleen zijn is helpend voor mij.',
     ],
+    olieen: ['Cedarwood', 'Vetiver', 'Grounding'],
   },
   {
     id: 'spiritueel',
@@ -82,6 +89,7 @@ export const RUST_TYPEN: RustTyp[] = [
       'Ik ben verbonden met iets groters dan mijzelf.',
       'Ik vertrouw erop dat ik het juiste pad loop. Ik ben precies waar ik op dit moment moet zijn.',
     ],
+    olieen: ['Frankincense', 'Sacred Frankincense', 'Magnify Your Purpose'],
   },
 ];
 
@@ -117,6 +125,8 @@ export default function ZevenTypenRust() {
   const [gekozenAffirmaties, setGekozenAffirmaties] = useState<Record<string, boolean[]>>({});
   const [notities, setNotities] = useState<Record<string, string>>({});
   const [gekopieerd, setGekopieerd] = useState(false);
+  const [openOlie, setOpenOlie] = useState<Record<string, boolean>>({});
+  const [gekozenOlieen, setGekozenOlieen] = useState<Record<string, string[]>>({});
 
   function toggleTyp(id: string) {
     setGeselecteerd((prev) =>
@@ -155,9 +165,13 @@ export default function ZevenTypenRust() {
         const gekozen = gekozenAffirmaties[typ.id] || [false, false];
         const regels = typ.affirmaties.filter((_, i) => gekozen[i]);
         const notitie = notities[typ.id];
-        return [typ.naam, ...regels, notitie ? `Actie: ${notitie}` : '']
-          .filter(Boolean)
-          .join('\n');
+        const olieen = gekozenOlieen[typ.id] || [];
+        return [
+          typ.naam,
+          ...regels,
+          notitie ? `Actie: ${notitie}` : '',
+          olieen.length ? `Olie: ${olieen.join(', ')}` : '',
+        ].filter(Boolean).join('\n');
       })
       .join('\n\n');
   }
@@ -283,7 +297,7 @@ export default function ZevenTypenRust() {
                       </button>
                     ))}
                   </div>
-                  <div>
+                  <div className="mb-4">
                     <label className="text-xs text-darkSlate/50 block mb-1">Wat ga ik deze week doen?</label>
                     <AutoTextarea
                       value={notities[typ.id] || ''}
@@ -292,6 +306,47 @@ export default function ZevenTypenRust() {
                       className="w-full text-sm text-darkSlate border border-lightBg rounded-lg px-3 py-2 bg-cream/40 focus:outline-none focus:border-midGreen"
                     />
                   </div>
+
+                  <button
+                    onClick={() => setOpenOlie((prev) => ({ ...prev, [typ.id]: !prev[typ.id] }))}
+                    className="w-full flex items-center justify-between text-xs text-darkSlate/60 border border-lightBg rounded-lg px-3 py-2 bg-white hover:border-midGreen transition-colors"
+                  >
+                    <span>Welke olie past hierbij?</span>
+                    <span className="text-midGreen">{openOlie[typ.id] ? '▲' : '▼'}</span>
+                  </button>
+                  {openOlie[typ.id] && (
+                    <div className="mt-2 px-3 py-3 bg-cream/50 rounded-lg border border-lightBg">
+                      <div className="flex flex-wrap gap-2 mb-2">
+                        {typ.olieen.map((olie) => {
+                          const gekozen = (gekozenOlieen[typ.id] || []).includes(olie);
+                          return (
+                            <button
+                              key={olie}
+                              onClick={() => setGekozenOlieen((prev) => {
+                                const huidig = prev[typ.id] || [];
+                                return {
+                                  ...prev,
+                                  [typ.id]: gekozen
+                                    ? huidig.filter((o) => o !== olie)
+                                    : [...huidig, olie],
+                                };
+                              })}
+                              className={`text-xs px-2.5 py-1 rounded-full font-medium border transition-colors ${
+                                gekozen
+                                  ? 'bg-darkGreen text-cream border-darkGreen'
+                                  : 'bg-white border-midGreen text-darkGreen hover:border-darkGreen'
+                              }`}
+                            >
+                              {olie}
+                            </button>
+                          );
+                        })}
+                      </div>
+                      <p className="text-xs text-darkSlate/60 leading-relaxed">
+                        Test met je biotensor welke olie nu het beste bij je past.
+                      </p>
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -313,6 +368,7 @@ export default function ZevenTypenRust() {
               typen={RUST_TYPEN}
               gekozenAffirmaties={gekozenAffirmaties}
               notities={notities}
+              gekozenOlieen={gekozenOlieen}
             />
           </div>
         </>

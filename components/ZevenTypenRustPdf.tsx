@@ -11,7 +11,8 @@ const s = StyleSheet.create({
   beschrijving:    { fontSize: 8.5, color: K.darkSlate, lineHeight: 1.5, marginBottom: 8, opacity: 0.65 },
   affirmatieTekst: { fontSize: 9.5, color: K.darkSlate, lineHeight: 1.6, marginBottom: 4 },
   geenKeuze:       { fontSize: 9, color: K.midGreen, lineHeight: 1.5, marginBottom: 4 },
-  notitieTekst:    { fontSize: 9, color: K.midGreen, fontFamily: 'Helvetica-Oblique', marginTop: 4, marginBottom: 8 },
+  notitieTekst:    { fontSize: 9, color: K.midGreen, fontFamily: 'Helvetica-Oblique', marginTop: 4, marginBottom: 4 },
+  olieTekst:       { fontSize: 9, color: K.darkGreen, marginTop: 2, marginBottom: 8 },
 });
 
 interface Props {
@@ -19,9 +20,10 @@ interface Props {
   typen: RustTyp[];
   gekozenAffirmaties: Record<string, boolean[]>;
   notities: Record<string, string>;
+  gekozenOlieen: Record<string, string[]>;
 }
 
-function ZevenTypenRustDocument({ geselecteerd, typen, gekozenAffirmaties, notities }: Props) {
+function ZevenTypenRustDocument({ geselecteerd, typen, gekozenAffirmaties, notities, gekozenOlieen }: Props) {
   const datum = new Date().toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
   const geselecteerdeTypen = typen.filter((t) => geselecteerd.includes(t.id));
 
@@ -35,6 +37,7 @@ function ZevenTypenRustDocument({ geselecteerd, typen, gekozenAffirmaties, notit
             const gekozen = gekozenAffirmaties[typ.id] || typ.affirmaties.map(() => false);
             const geselecteerdeAffirmaties = typ.affirmaties.filter((_, i) => gekozen[i]);
             const notitie = notities[typ.id];
+            const olieen = gekozenOlieen[typ.id] || [];
 
             return (
               <View key={typ.id} style={{ marginBottom: 4 }}>
@@ -49,6 +52,9 @@ function ZevenTypenRustDocument({ geselecteerd, typen, gekozenAffirmaties, notit
                 )}
                 {!!notitie && (
                   <Text style={s.notitieTekst}>Actie deze week: {notitie}</Text>
+                )}
+                {olieen.length > 0 && (
+                  <Text style={s.olieTekst}>Olie: {olieen.join(', ')}</Text>
                 )}
               </View>
             );
