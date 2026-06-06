@@ -303,6 +303,32 @@ const PATRONEN: TraumaPatroon[] = [
 
 const STAP_LABELS = ['Herkennen', 'Ontdekken', 'Kiezen', 'Kwadrant'];
 
+function AutoTextarea({ value, onChange, placeholder, className }: {
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  className?: string;
+}) {
+  const ref = useRef<HTMLTextAreaElement>(null);
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.style.height = 'auto';
+      ref.current.style.height = ref.current.scrollHeight + 'px';
+    }
+  }, [value]);
+  return (
+    <textarea
+      ref={ref}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+      rows={1}
+      className={className}
+      style={{ resize: 'none', overflow: 'hidden' }}
+    />
+  );
+}
+
 export default function TraumaTalent() {
   const [stap, setStap] = useState(0);
   const [aangevinkt, setAangevinkt] = useState<string[]>([]);
@@ -790,8 +816,8 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
             {/* KWALITEIT */}
             <div className="rounded-tl-xl bg-darkGreen/10 border-2 border-darkGreen p-3">
               <p className="text-xs font-medium text-darkGreen uppercase tracking-wide mb-1.5">Kwaliteit</p>
-              <p className="text-sm font-semibold text-darkSlate mb-1">{focusPatroon.talent}</p>
-              <p className="text-xs text-darkSlate/65 leading-relaxed">{focusPatroon.talentBeschrijving}</p>
+              <p className="text-sm font-semibold text-darkSlate mb-1 break-words">{focusPatroon.talent}</p>
+              <p className="text-xs text-darkSlate/65 leading-relaxed break-words">{focusPatroon.talentBeschrijving}</p>
               <p className="text-xs text-darkGreen/60 mt-2 italic">Bewust, vanuit kracht</p>
             </div>
 
@@ -804,7 +830,7 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
             {/* VALKUIL */}
             <div className="rounded-tr-xl bg-darkRed/10 border-2 border-darkRed p-3">
               <p className="text-xs font-medium text-darkRed uppercase tracking-wide mb-1.5">Valkuil</p>
-              <p className="text-sm font-semibold text-darkSlate mb-1">{focusPatroon.valkuil}</p>
+              <p className="text-sm font-semibold text-darkSlate mb-1 break-words">{focusPatroon.valkuil}</p>
               <p className="text-xs text-darkSlate/65">Te veel van de kwaliteit</p>
               <p className="text-xs text-darkRed/60 mt-2 italic">Onbewust, vanuit angst</p>
             </div>
@@ -833,14 +859,13 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
             {/* ALLERGIE (linksonder) */}
             <div className={`rounded-bl-xl border-2 p-3 transition-colors ${allergie.trim() ? 'bg-orange/10 border-orange' : 'bg-white border-lightBg'}`}>
               <p className="text-xs font-medium text-orange uppercase tracking-wide mb-1.5">Allergie</p>
-              <input
-                type="text"
+              <AutoTextarea
                 value={allergie}
-                onChange={(e) => setAllergie(e.target.value)}
+                onChange={setAllergie}
                 placeholder="Vul zelf in of genereer met AI"
-                className="w-full text-sm font-semibold text-darkSlate bg-transparent outline-none placeholder-darkSlate/30"
+                className="w-full text-sm font-semibold text-darkSlate bg-transparent outline-none placeholder-darkSlate/30 leading-snug"
               />
-              <p className="text-xs text-darkSlate/50 mt-2">
+              <p className="text-xs text-darkSlate/50 mt-2 break-words">
                 {allergieToelichting || 'Wat jou irriteert in anderen'}
               </p>
             </div>
@@ -854,14 +879,13 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
             {/* UITDAGING (rechtsonder) */}
             <div className={`rounded-br-xl border-2 p-3 transition-colors ${uitdaging.trim() ? 'bg-midGreen/10 border-midGreen' : 'bg-white border-lightBg'}`}>
               <p className="text-xs font-medium text-midGreen uppercase tracking-wide mb-1.5">Uitdaging</p>
-              <input
-                type="text"
+              <AutoTextarea
                 value={uitdaging}
-                onChange={(e) => setUitdaging(e.target.value)}
+                onChange={setUitdaging}
                 placeholder="Vul zelf in of genereer met AI"
-                className="w-full text-sm font-semibold text-darkSlate bg-transparent outline-none placeholder-darkSlate/30"
+                className="w-full text-sm font-semibold text-darkSlate bg-transparent outline-none placeholder-darkSlate/30 leading-snug"
               />
-              <p className="text-xs text-darkSlate/50 mt-2">
+              <p className="text-xs text-darkSlate/50 mt-2 break-words">
                 {uitdagingToelichting || 'Positieve tegenhanger van de valkuil'}
               </p>
             </div>
