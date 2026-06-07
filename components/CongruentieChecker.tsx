@@ -267,7 +267,7 @@ Levensgebied(en): ${gebiedTekst}
 `;
 
     const toltekSection = `
-## Toltekse inzichten als spiegel
+## Tolteekse inzichten als spiegel
 Koppel de scores aan de vier akkoorden van Don Miguel Ruiz:
 - "Ik zeg wat ik doe" raakt aan: Wees onberispelijk met je woorden / Ga niet uit van aannames
 - "Ik doe wat ik zeg" raakt aan: Doe altijd je best

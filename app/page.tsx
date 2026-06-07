@@ -53,7 +53,7 @@ export default function Home() {
           <div className="text-4xl mb-3">🎯</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-1">Congruentie Checker</h2>
           <p className="text-xs text-midGreen italic mb-2">Kloppen jouw woorden, daden en zichtbaarheid met elkaar?</p>
-          <p className="text-sm text-darkSlate/70 leading-relaxed">Meet met de biotensor hoe congruent je bent op drie niveaus. Ontdek waar de grootste gap zit en wat de Toltekse inzichten je spiegelen.</p>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Meet met de biotensor hoe congruent je bent op drie niveaus. Ontdek waar de grootste gap zit en wat de Tolteekse inzichten je spiegelen.</p>
         </Link>
       </div>
 
