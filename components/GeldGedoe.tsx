@@ -468,7 +468,7 @@ function SliderPercentage({ label, waarde, kleur, onChange }: {
         type="range" min={0} max={100} step={5} value={waarde}
         aria-label={label}
         className={`w-full ${isLoslaten ? 'slider-onbewust' : 'slider-bewust'}`}
-        style={{ background: sliderBackground(waarde, 100, trackColor) }}
+        style={{ background: sliderBackground(waarde, 100, trackColor, '#ffffff') }}
         onChange={(e) => onChange(Number(e.target.value))}
       />
       <div className="flex justify-between text-[10px] text-darkSlate/50 mt-0.5">
