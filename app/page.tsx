@@ -43,12 +43,6 @@ export default function Home() {
           <p className="text-xs text-midGreen italic mb-2">Voor koppels die hun onderlinge verbinding willen doorvoelen.</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek hoe verbonden jullie écht zijn op 10 dimensies. Inclusief biotensor-scores, reflectievragen en concrete tips in een warm rapport voor koppels.</p>
         </Link>
-        <Link href="/zeven-typen-rust" className="block h-full bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
-          <div className="text-4xl mb-3">😴</div>
-          <h2 className="font-salmon text-xl text-darkSlate mb-1">7 Typen Rust</h2>
-          <p className="text-xs text-midGreen italic mb-2">Welk type rust heeft jouw lichaam en geest nu nodig?</p>
-          <p className="text-sm text-darkSlate/70 leading-relaxed">Kies met de biotensor welke rusttypen nu het meest nodig zijn. Selecteer affirmaties per type en schrijf op wat je deze week gaat doen.</p>
-        </Link>
         <Link href="/congruentie-checker" className="block h-full bg-white rounded-2xl border-l-4 border-orange p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">🎯</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-1">Congruentie Checker</h2>
@@ -71,6 +65,16 @@ export default function Home() {
           <p className="text-xs text-midGreen italic mb-2">Je weet niet wat je écht wilt, of je maakt steeds keuzes die niet kloppen.</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek welke basisverlangens jou drijven per levensgebied en wat dat onthult over jouw patronen. Een krachtig inzicht in wat jou écht beweegt en waarom je doet wat je doet.</p>
         </Link>
+        <Link href="/zeven-typen-rust" className="block h-full bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+          <div className="text-4xl mb-3">😴</div>
+          <h2 className="font-salmon text-xl text-darkSlate mb-1">7 Typen Rust</h2>
+          <p className="text-xs text-midGreen italic mb-2">Welk type rust heeft jouw lichaam en geest nu nodig?</p>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Kies met de biotensor welke rusttypen nu het meest nodig zijn. Selecteer affirmaties per type en schrijf op wat je deze week gaat doen.</p>
+        </Link>
+      </div>
+
+      <p className="text-sm font-bold text-darkSlate mb-3">Speel het anders: nieuw gedrag laten zien</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
         <Link href="/kernkwadranten" className="block h-full bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">🔷</div>
           <h2 className="font-salmon text-xl text-darkSlate mb-1">Kernkwadranten</h2>

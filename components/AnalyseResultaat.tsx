@@ -42,8 +42,8 @@ function sectionType(header: string): 'samenvatting' | 'patronen' | 'groei' | 'o
   if (h.includes('one thing') || h.includes('one_thing')) return 'one_thing';
   if (h.includes('samenvatting') || h.includes('overall') || h.includes('beeld') || h.includes('kernboodschap')) return 'samenvatting';
   if (h.includes('patroon') || h.includes('opvallend') || h.includes('aandacht')) return 'patronen';
-  if (h.includes('groei') || h.includes('kans') || h.includes('sterkte') || h.includes('vervolgstap')) return 'groei';
   if (h.includes('afsluiting') || h.includes('afsluit') || h.includes('conclusie') || h.includes('eerste stap') || h.includes('affirmati')) return 'afsluiting';
+  if (h.includes('groei') || h.includes('kans') || h.includes('sterkte') || h.includes('vervolgstap')) return 'groei';
   return 'default';
 }
 

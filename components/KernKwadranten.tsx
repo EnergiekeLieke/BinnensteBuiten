@@ -30,14 +30,14 @@ export type Kwadrant = {
 };
 
 const GROEI_AFFIRMATIES = [
-  'Ik leer de balans vinden tussen mijn kwaliteit inzetten en mijn grenzen bewaken.',
-  'Ik leer mijn kwaliteit bewust in te zetten, in plaats van automatisch.',
-  'Ik leer dat mijn valkuil mij niet definieert, maar mij iets leert.',
-  'Elke dag herken ik één moment waarop ik mijn kwaliteit vanuit kracht inzet.',
-  'Ik leer dat wat mij irriteert in anderen, mij ook iets vertelt over mezelf.',
-  'Elke dag word ik me iets meer bewust van wanneer ik doorschiet.',
+  'Ik leer de balans vinden tussen het inzetten van mijn kwaliteit: [kwaliteit] en op een gezonde manier kiezen voor [uitdaging].',
+  'Ik leer mijn [kwaliteit] bewust in te zetten, in plaats van automatisch.',
+  'Ik leer dat mijn [valkuil] mij niet definieert, maar mij iets leert.',
+  'Elke dag herken ik één moment waarop ik mijn [kwaliteit] vanuit kracht inzet.',
+  'Ik leer dat [allergie] in anderen mij ook iets vertelt over mijn eigen verlangen naar [uitdaging].',
+  'Elke dag word ik me iets meer bewust van wanneer ik doorschiet in [valkuil].',
   'Ik leer dat groei klein mag beginnen, en dat is precies goed.',
-  'Elke dag oefen ik met mijn uitdaging in kleine, concrete momenten.',
+  'Elke dag oefen ik met [uitdaging] in kleine, concrete momenten.',
   'Ik leer dat echte kracht niet zit in hoeveel ik doe, maar in hoe bewust ik het doe.',
   'Elke dag ontdek ik meer van wie ik ben als ik vanuit kracht handel.',
 ];
@@ -157,7 +157,10 @@ export default function KernKwadranten() {
         ctrl.signal
       );
       // Zorg dat ✨ altijd op een eigen regel staat, ook als de AI ze aan elkaar plakt
-      const geordend = vervangMDashes(acc).replace(/([^\n])✨/g, '$1\n✨');
+      const geordend = vervangMDashes(acc)
+        .replace(/([^\n])✨/g, '$1\n✨')
+        // Verwijder eventuele opmaak (haakjes, sterretjes) rond een affirmatie
+        .replace(/^(✨\s*)[*(]+(.*?)[*)]+\s*$/gm, '$1$2');
       updateKwadrant(id, { analyse: geordend, analyseLoading: false });
     } catch (e: unknown) {
       if (e instanceof Error && e.name !== 'AbortError') {
@@ -307,14 +310,10 @@ Gebruik "je" (niet "jij" of "u"). Geen m-dash. Gebruik dubbele punt in subkoppen
 ## Jouw uitdaging: ${k.uitdaging}
 2 tot 3 zinnen over wat de uitdaging "${k.uitdaging}" jou vraagt en hoe die er in de praktijk uitziet.
 
-## Afsluiting
-Kies 4 passende affirmaties en schrijf ze EXACT zo, elke op een aparte regel:
-✨ [eerste affirmatie]
-✨ [tweede affirmatie]
-✨ [derde affirmatie]
-✨ [vierde affirmatie]
+## Groei-affirmaties
+Kies 4 passende affirmaties uit onderstaande lijst. Komt [kwaliteit], [valkuil], [uitdaging] of [allergie] voor in een gekozen affirmatie, vervang dit door respectievelijk "${k.kwaliteit}", "${k.valkuil}", "${k.uitdaging}" en "${k.allergie}" (kleine letter). Deze waarden kunnen een zelfstandig naamwoord zijn (bijv. "rust") of een werkwoordsvorm/zin (bijv. "voor jezelf kiezen", "nee zeggen"). Herschrijf de zin waar nodig zo dat hij natuurlijk en grammaticaal correct loopt, ook als dat betekent dat je woorden als "voor" of "naar" weglaat of de zinsconstructie aanpast. Bijvoorbeeld: "kiezen voor [uitdaging]" met uitdaging "voor jezelf kiezen" wordt "kiezen voor jezelf", en "verlangen naar [uitdaging]" wordt dan "verlangen om voor jezelf te kiezen". Schrijf de 4 gekozen affirmaties daarna elk op een nieuwe regel, beginnend met ✨, zonder aanhalingstekens, haakjes of sterretjes eromheen.
 
-Geen andere tekst. Kies de meest passende uit:
+Beschikbare groei-affirmaties:
 ${GROEI_AFFIRMATIES.join('\n')}
 
 ## Jouw actie voor vandaag
