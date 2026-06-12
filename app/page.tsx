@@ -55,6 +55,12 @@ export default function Home() {
           <p className="text-xs text-midGreen italic mb-2">Hoeveel kan jouw systeem op dit moment aan?</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Scoor 10 stellingen vanuit je onderbewustzijn en ontdek of je in herstel, balans of veerkracht zit. Met thema en interpretatie op maat.</p>
         </Link>
+        <Link href="/me-time-meter" className="block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+          <div className="text-4xl mb-3">🛀</div>
+          <h2 className="font-salmon text-xl text-darkSlate mb-1">Me-time Meter</h2>
+          <p className="text-xs text-midGreen italic mb-2">Maak je echt tijd voor jezelf, of komt het er nooit van?</p>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Scoor 10 stellingen op het spectrum tussen uitputting en zelfzorg en ontdek of je in overlevingsstand staat, bewust maar inconsistent bent, of je energie goed bewaakt.</p>
+        </Link>
       </div>
 
       <p className="text-sm font-bold text-darkSlate mb-3">Spelen met verlangen: Wat wil je écht?</p>
