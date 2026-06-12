@@ -112,10 +112,14 @@ Totaalscore: ${totaal}/100 (${band.label})
 De drie stellingen die het dichtst bij de uitputtende kant liggen:
 ${laagste}
 
-Schrijf een persoonlijke analyse in drie onderdelen:
+Schrijf een persoonlijke analyse in vier onderdelen:
 
 ## Wat opvalt
 Beschrijf in 2-3 zinnen wat het patroon in de scores zegt over hoe deze persoon met me-time omgaat. Wees concreet en persoonlijk, niet algemeen.
+
+## Ben jij te vertrouwen voor jezelf?
+Gebruik dit beeld: een vriend spreekt met je af om samen te eten. Jij doet boodschappen en staat te koken, maar je vriend belt niet af, laat niets weten en komt simpelweg niet opdagen. Zou je zo iemand nog vertrouwen? Zou je hem de volgende keer weer uitnodigen?
+Spiegel deze vraag naar hoe deze persoon met haar eigen me-time-afspraken omgaat, vooral op basis van de scores op "Ik houd me aan mijn me-time, ook als het druk wordt" en "Ik blijf mijn me-time prioriteit geven, ook wanneer mijn agenda volloopt". Is zij voor zichzelf een vriend die te vertrouwen is, of laat ze zichzelf regelmatig "hangen"? Schrijf dit als een persoonlijke, indringende maar warme reflectie van 2-3 zinnen en sluit af met de vraag of zij iemand wil zijn die te vertrouwen is, voor zichzelf.
 
 ## Groeikans
 Kies het gebied waar de meeste winst te behalen valt (op basis van de stellingen die het dichtst bij de uitputtende kant liggen). Benoem waarom juist dit gebied aandacht vraagt. Schrijf 2-3 zinnen.
@@ -129,7 +133,7 @@ Je bent een empathische coach die mensen helpt zien hoeveel ruimte ze voor zichz
 
     try {
       let acc = '';
-      await streamAnalyse(prompt, 700, (chunk) => {
+      await streamAnalyse(prompt, 900, (chunk) => {
         acc += chunk;
         setAnalyse(acc);
       }, system, controller.signal);
