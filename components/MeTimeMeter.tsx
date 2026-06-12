@@ -184,9 +184,9 @@ Je bent een empathische coach die mensen helpt zien hoeveel ruimte ze voor zichz
             </div>
             <div className="space-y-2">
               <div className="flex justify-between items-center text-xs">
-                <span className="text-darkRed">⬅️ patroon</span>
+                <span className="text-darkRed">⬅️ 0</span>
                 <span className="font-bold text-midGreen text-lg">{scores[i]}</span>
-                <span className="text-darkGreen">kracht ➡️</span>
+                <span className="text-darkGreen">10 ➡️</span>
               </div>
               <input
                 type="range"

@@ -43,11 +43,11 @@ export default function Home() {
           <p className="text-xs text-midGreen italic mb-2">Voor koppels die hun onderlinge verbinding willen doorvoelen.</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek hoe verbonden jullie écht zijn op 10 dimensies. Inclusief biotensor-scores, reflectievragen en concrete tips in een warm rapport voor koppels.</p>
         </Link>
-        <Link href="/congruentie-checker" className="block h-full bg-white rounded-2xl border-l-4 border-orange p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
-          <div className="text-4xl mb-3">🎯</div>
-          <h2 className="font-salmon text-xl text-darkSlate mb-1">Congruentie Checker</h2>
-          <p className="text-xs text-midGreen italic mb-2">Kloppen jouw woorden, daden en zichtbaarheid met elkaar?</p>
-          <p className="text-sm text-darkSlate/70 leading-relaxed">Meet met de biotensor hoe congruent je bent op drie niveaus. Ontdek waar de grootste gap zit en wat de Tolteekse inzichten je spiegelen.</p>
+        <Link href="/me-time-meter" className="block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+          <div className="text-4xl mb-3">🛀</div>
+          <h2 className="font-salmon text-xl text-darkSlate mb-1">Me-time Meter</h2>
+          <p className="text-xs text-midGreen italic mb-2">Maak je echt tijd voor jezelf, of komt het er nooit van?</p>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Scoor 10 stellingen op het spectrum tussen uitputting en zelfzorg en ontdek of je in overlevingsstand staat, bewust maar inconsistent bent, of je energie goed bewaakt.</p>
         </Link>
         <Link href="/draagkracht-test" className="block h-full bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
           <div className="text-4xl mb-3">🌿</div>
@@ -55,11 +55,11 @@ export default function Home() {
           <p className="text-xs text-midGreen italic mb-2">Hoeveel kan jouw systeem op dit moment aan?</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Scoor 10 stellingen vanuit je onderbewustzijn en ontdek of je in herstel, balans of veerkracht zit. Met thema en interpretatie op maat.</p>
         </Link>
-        <Link href="/me-time-meter" className="block h-full bg-white rounded-2xl border-l-4 border-midGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
-          <div className="text-4xl mb-3">🛀</div>
-          <h2 className="font-salmon text-xl text-darkSlate mb-1">Me-time Meter</h2>
-          <p className="text-xs text-midGreen italic mb-2">Maak je echt tijd voor jezelf, of komt het er nooit van?</p>
-          <p className="text-sm text-darkSlate/70 leading-relaxed">Scoor 10 stellingen op het spectrum tussen uitputting en zelfzorg en ontdek of je in overlevingsstand staat, bewust maar inconsistent bent, of je energie goed bewaakt.</p>
+        <Link href="/congruentie-checker" className="block h-full bg-white rounded-2xl border-l-4 border-orange p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+          <div className="text-4xl mb-3">🎯</div>
+          <h2 className="font-salmon text-xl text-darkSlate mb-1">Congruentie Checker</h2>
+          <p className="text-xs text-midGreen italic mb-2">Kloppen jouw woorden, daden en zichtbaarheid met elkaar?</p>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Meet met de biotensor hoe congruent je bent op drie niveaus. Ontdek waar de grootste gap zit en wat de Tolteekse inzichten je spiegelen.</p>
         </Link>
       </div>
 
