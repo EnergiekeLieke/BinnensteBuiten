@@ -75,7 +75,7 @@ const PATRONEN: TraumaPatroon[] = [
     bewustwording: {
       vermedenGevoel: 'Machteloosheid en verdriet. Zolang je doorgaat, hoef je niet te voelen hoe moe of verdrietig je eigenlijk al bent.',
       accepteer: 'Dat je jezelf voorbij je grenzen jaagt omdat stilstaan voelt als gevaar. Je zenuwstelsel kent "aan staan" als baseline, rust voelt onveilig en dus vermijd je het.',
-      eersteStap: 'Plan vandaag één bewuste pauze vóórdat je moe bent, en blijf erin zitten zonder iets te doen.',
+      eersteStap: 'Plan vandaag één bewuste pauze vóórdat je moe bent, en blijf erin zitten zonder iets te doen. Blijf bij het ongemak dat opkomt zodra je stilstaat, zonder het weg te duwen. Dat voelt spannend, want dat heb je waarschijnlijk jarenlang vermeden.',
     },
   },
   {
@@ -113,7 +113,7 @@ const PATRONEN: TraumaPatroon[] = [
     bewustwording: {
       vermedenGevoel: 'Afwijzing en alleen-zijn. Zolang je je aanpast, hoef je niet te voelen hoe het is om "nee" te horen of er niet meer bij te horen.',
       accepteer: 'Dat je "ja" zegt terwijl je "nee" voelt, om de verbinding niet te verliezen. Je zenuwstelsel heeft geleerd: aanpassen is veilig, je eigen behoefte voelen is risico.',
-      eersteStap: 'Voel vandaag bij één vraag eerst bewust wat jij zelf wilt, vóórdat je antwoord geeft. Je hoeft het nog niet uit te spreken.',
+      eersteStap: 'Voel vandaag bij één vraag eerst bewust wat jij zelf wilt, vóórdat je antwoord geeft. Je hoeft het nog niet uit te spreken. Blijf bij het ongemak dat opkomt als je bij jezelf blijft in plaats van bij de ander. Dat voelt spannend, want dat heb je waarschijnlijk jarenlang vermeden.',
     },
   },
   {
@@ -151,7 +151,7 @@ const PATRONEN: TraumaPatroon[] = [
     bewustwording: {
       vermedenGevoel: 'Schaamte en het gevoel "niet goed genoeg te zijn". Zolang je blijft schaven, hoef je niet te voelen hoe het is om gezien te worden mét je imperfectie.',
       accepteer: 'Dat je nooit echt klaar bent en dat "goed" nooit goed genoeg is. Je zenuwstelsel kent constante innerlijke spanning als normaal, ontspannen voelt onveilig.',
-      eersteStap: 'Doe vandaag bewust iets af op het moment dat het "goed genoeg" is, zonder het nog een keer te checken of bij te schaven.',
+      eersteStap: 'Rond vandaag bewust iets af op het moment dat het "goed genoeg" is, zonder het nog een keer te checken of bij te schaven. Blijf bij het ongemak dat opkomt als je het loslaat zonder het te compenseren. Dat voelt spannend, want dat heb je waarschijnlijk jarenlang vermeden.',
     },
   },
   {
@@ -189,7 +189,7 @@ const PATRONEN: TraumaPatroon[] = [
     bewustwording: {
       vermedenGevoel: 'Onmacht en angst. Zolang jij de touwtjes in handen houdt, hoef je niet te voelen hoe het is om afhankelijk te zijn van iets of iemand anders.',
       accepteer: 'Dat je het zelf moet doen, omdat loslaten voelt als risico op chaos. Je zenuwstelsel kent vertrouwen op anderen niet als veilige basisstand.',
-      eersteStap: 'Laat vandaag één klein onderdeel van een taak door iemand anders doen, en stuur niet bij hoe het gedaan wordt.',
+      eersteStap: 'Laat vandaag één klein onderdeel van een taak door iemand anders doen, en stuur niet bij hoe het gedaan wordt. Blijf bij het ongemak dat opkomt zodra je de controle uit handen geeft. Dat voelt spannend, want dat heb je waarschijnlijk jarenlang vermeden.',
     },
   },
   {
@@ -227,7 +227,7 @@ const PATRONEN: TraumaPatroon[] = [
     bewustwording: {
       vermedenGevoel: 'Teleurstelling en falen. Zolang je niet begint, kan het ook niet mislukken, en hoef je niet te voelen hoe het is als iets niet goed gaat.',
       accepteer: 'Dat uitstellen je beschermt, ook als het je juist op je plek houdt. Je lichaam kiest bevriezen boven beginnen, want beginnen voelt spannender dan stilstaan.',
-      eersteStap: 'Zet vandaag 2 minuten op de klok en begin, zonder dat het af moet zijn. Stop als de tijd om is, ook al wil je door.',
+      eersteStap: 'Zet vandaag 2 minuten op de klok en begin, zonder dat het af moet zijn. Stop als de tijd om is, ook al wil je door. Voel bewust het ongemak dat opkomt zodra je begint. Dat voelt spannend, want dat heb je waarschijnlijk jarenlang vermeden.',
     },
   },
   {
@@ -265,7 +265,7 @@ const PATRONEN: TraumaPatroon[] = [
     bewustwording: {
       vermedenGevoel: 'Overweldiging en pijn. Zolang je op afstand blijft, hoef je niet te voelen hoe groot het verdriet of de pijn eigenlijk is.',
       accepteer: 'Dat afstand houden van je gevoel veiliger voelt dan voelen. Je zenuwstelsel kent "verdoofd" als baseline, voelen voelt als controle verliezen.',
-      eersteStap: 'Leg vandaag één keer bewust je hand op je hart en voel: warm of koud, gespannen of los? Niet oplossen, alleen voelen.',
+      eersteStap: 'Leg vandaag één keer bewust je hand op je hart en voel: warm of koud, gespannen of los? Niet oplossen, alleen voelen. Blijf erbij, ook als het ongemakkelijk voelt. Dat voelt spannend, want dat heb je waarschijnlijk jarenlang vermeden.',
     },
   },
   {
@@ -303,7 +303,7 @@ const PATRONEN: TraumaPatroon[] = [
     bewustwording: {
       vermedenGevoel: 'Afwijzing en eenzaamheid. Zolang je je aanpast, hoef je niet te voelen hoe het is om jezelf te laten zien en mogelijk niet geaccepteerd te worden.',
       accepteer: 'Dat je jezelf kleiner maakt om erbij te horen. Je zenuwstelsel heeft aanpassen geleerd als enige manier om veilig te zijn, eigenheid voelt als risico op afwijzing.',
-      eersteStap: 'Neem vandaag in één gesprek een paar seconden langer de tijd voordat je reageert, en voel eerst wat jij zelf wilt zeggen.',
+      eersteStap: 'Neem vandaag in één gesprek een paar seconden langer de tijd voordat je reageert, en voel eerst wat jij zelf wilt zeggen. Blijf bij het ongemak van die stilte, zonder die snel op te vullen. Dat voelt spannend, want dat heb je waarschijnlijk jarenlang vermeden.',
     },
   },
   {
@@ -341,7 +341,7 @@ const PATRONEN: TraumaPatroon[] = [
     bewustwording: {
       vermedenGevoel: 'Waardeloosheid. Zolang je blijft presteren, hoef je niet te voelen hoe het is om er gewoon te mogen zijn, zonder dat je iets levert.',
       accepteer: 'Dat je waarde afhangt van wat je presteert, waardoor stilstaan voelt als waardeloos zijn. Je zenuwstelsel kent rust niet als veilig.',
-      eersteStap: 'Ontvang vandaag één compliment, hulp of iets fijns zonder er meteen iets voor terug te doen of het te relativeren.',
+      eersteStap: 'Ontvang vandaag één compliment, hulp of iets fijns zonder er meteen iets voor terug te doen of het te relativeren. Blijf bij het ongemak dat opkomt als je het zomaar aanneemt. Dat voelt spannend, want dat heb je waarschijnlijk jarenlang vermeden.',
     },
   },
 ];
