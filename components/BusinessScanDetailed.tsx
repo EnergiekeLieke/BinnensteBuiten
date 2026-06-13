@@ -4,57 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import SpinnenWeb from './SpinnenWeb';
 import AnalyseResultaat from './AnalyseResultaat';
 import { streamAnalyse, vervangMDashes } from '@/lib/huisstijl';
-
-const CATEGORIEEN_DETAIL = [
-  {
-    naam: 'Financiën & geldstroom',
-    subonderdelen: ['Omzet & inkomsten', 'Prijsstelling', 'Geld ontvangen', 'Overzicht over cijfers'],
-  },
-  {
-    naam: 'Administratie & structuur',
-    subonderdelen: ['Boekhouding', 'Agenda en planning', 'Systemen en processen', 'Rust in hoofd'],
-  },
-  {
-    naam: 'Zichtbaarheid & marketing',
-    subonderdelen: ['Online zichtbaarheid', 'Nieuwsbrief/socials', 'Jezelf laten zien', 'Consistentie'],
-  },
-  {
-    naam: 'Klantstroom & klantcontact',
-    subonderdelen: ['Nieuwe klanten', 'Verbinding bestaande klanten', 'Vertrouwen aanbod', 'Doorstroom'],
-  },
-  {
-    naam: 'Aanbod & creatie',
-    subonderdelen: ['Klopt aanbod nog?', 'Creativiteit', 'Vernieuwing', 'Afstemming (ziels)missie'],
-  },
-  {
-    naam: 'Energie & vitaliteit',
-    subonderdelen: ['Werk-energie', 'Balans werk/privé', 'Overprikkeling', 'Plezier in ondernemen'],
-  },
-  {
-    naam: 'Mindset & zelfvertrouwen',
-    subonderdelen: ['Impostergevoelens', 'Geldwaardigheid', 'Durven groeien', 'Innerlijke rust'],
-  },
-  {
-    naam: 'Intuïtie & afstemming',
-    subonderdelen: ['Luisteren intuïtie', 'Werken volgens energie', 'Beslissingen vanuit gevoel', 'Vertrouwen signalen'],
-  },
-  {
-    naam: 'Tijd & focus',
-    subonderdelen: ['Juiste dingen?', 'Uitstelgedrag', 'Focus', 'Groei vs brandjes blussen'],
-  },
-  {
-    naam: 'Plezier & vervulling',
-    subonderdelen: ['Blij van worden?', 'Lichtheid', 'Flow', 'Zingeving'],
-  },
-  {
-    naam: 'Persoonlijke groei als ondernemer',
-    subonderdelen: ['Ontwikkeling', 'Nieuwe skills', 'Schaduwwerk', 'Comfortzone'],
-  },
-  {
-    naam: 'Missie & impact',
-    subonderdelen: ['Visie en (ziels)missie?', 'Impact maken?', 'Bijdragen op eigen manier?'],
-  },
-] as const;
+import { CATEGORIEEN_DETAIL } from '@/lib/businessScanData';
 
 const BONUS_ITEMS = [
   'Oké met niet-weten', 'Niet alles controleren', 'Durven experimenteren',
