@@ -102,7 +102,14 @@ export default function BusinessScanIntake() {
         {modus === 'basis'
           ? CATEGORIEEN_DETAIL.map((cat, i) => (
               <div key={cat.naam} className="bg-white rounded-xl p-4 shadow-sm border border-lightBg">
-                <h3 className="font-salmon text-base text-darkSlate mb-3">{i + 1}. {cat.naam}</h3>
+                <h3 className="font-salmon text-base text-darkSlate mb-2">{i + 1}. {cat.naam}</h3>
+                <ul className="flex flex-wrap gap-x-4 gap-y-1 mb-3">
+                  {cat.subonderdelen.map((sub) => (
+                    <li key={sub} className="text-xs text-midGreen before:content-['•'] before:mr-1.5 before:text-orange">
+                      {sub}
+                    </li>
+                  ))}
+                </ul>
                 <BewustSlider waarde={basisScores[i]} onChange={(v) => updateBasis(i, v)} />
               </div>
             ))
