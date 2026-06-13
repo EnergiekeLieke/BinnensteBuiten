@@ -32,6 +32,11 @@ export type TraumaPatroon = {
   };
   feedbackPositief: string;
   feedbackNegatief: string;
+  bewustwording: {
+    vermedenGevoel: string;
+    accepteer: string;
+    eersteStap: string;
+  };
 };
 
 const PATRONEN: TraumaPatroon[] = [
@@ -67,6 +72,11 @@ const PATRONEN: TraumaPatroon[] = [
     ],
     feedbackPositief: 'Laat het amper landen: je bent al bezig met de volgende taak. "Ja maar het kan beter."',
     feedbackNegatief: 'Je ervaart het als aanval op je inzet. Je wordt defensief of gaat juist nóg harder werken om het te compenseren.',
+    bewustwording: {
+      vermedenGevoel: 'Machteloosheid en verdriet. Zolang je doorgaat, hoef je niet te voelen hoe moe of verdrietig je eigenlijk al bent.',
+      accepteer: 'Dat je jezelf voorbij je grenzen jaagt omdat stilstaan voelt als gevaar. Je zenuwstelsel kent "aan staan" als baseline, rust voelt onveilig en dus vermijd je het.',
+      eersteStap: 'Plan vandaag één bewuste pauze vóórdat je moe bent, en blijf erin zitten zonder iets te doen.',
+    },
   },
   {
     id: 'pleaser',
@@ -100,6 +110,11 @@ const PATRONEN: TraumaPatroon[] = [
     ],
     feedbackPositief: 'Even opluchting, maar al snel: "Oh het stelde niks voor." Je schrijft het toe aan geluk of de ander.',
     feedbackNegatief: 'Spiraal van zelfverwijt en over-excuus maken. Soms ga je akkoord met kritiek die niet klopt, want blokkeren voelt gevaarlijker dan instemmen.',
+    bewustwording: {
+      vermedenGevoel: 'Afwijzing en alleen-zijn. Zolang je je aanpast, hoef je niet te voelen hoe het is om "nee" te horen of er niet meer bij te horen.',
+      accepteer: 'Dat je "ja" zegt terwijl je "nee" voelt, om de verbinding niet te verliezen. Je zenuwstelsel heeft geleerd: aanpassen is veilig, je eigen behoefte voelen is risico.',
+      eersteStap: 'Voel vandaag bij één vraag eerst bewust wat jij zelf wilt, vóórdat je antwoord geeft. Je hoeft het nog niet uit te spreken.',
+    },
   },
   {
     id: 'perfectionist',
@@ -133,6 +148,11 @@ const PATRONEN: TraumaPatroon[] = [
     ],
     feedbackPositief: 'Korte tevredenheid, dan onmiddellijk de volgende tekortkoming. "Maar hier had ik beter kunnen..."',
     feedbackNegatief: 'Disproportioneel zware landing. Eén kritiekpunt overschaduwt tien complimenten. Kan dagenlang blijven hangen.',
+    bewustwording: {
+      vermedenGevoel: 'Schaamte en het gevoel "niet goed genoeg te zijn". Zolang je blijft schaven, hoef je niet te voelen hoe het is om gezien te worden mét je imperfectie.',
+      accepteer: 'Dat je nooit echt klaar bent en dat "goed" nooit goed genoeg is. Je zenuwstelsel kent constante innerlijke spanning als normaal, ontspannen voelt onveilig.',
+      eersteStap: 'Doe vandaag bewust iets af op het moment dat het "goed genoeg" is, zonder het nog een keer te checken of bij te schaven.',
+    },
   },
   {
     id: 'controleur',
@@ -166,6 +186,11 @@ const PATRONEN: TraumaPatroon[] = [
     ],
     feedbackPositief: 'Klopt het met je eigen beeld, dan neem je het aan. Zo niet: je legt het naast je neer of herformuleert het net zo lang tot jij er zelf ook achter kunt staan.',
     feedbackNegatief: 'Eerste reactie: weerstand. Je moet zelf concluderen dat de feedback klopt, anders zet je het van je af. Externe kritiek voelt als: ik heb het niet goed genoeg gedaan.',
+    bewustwording: {
+      vermedenGevoel: 'Onmacht en angst. Zolang jij de touwtjes in handen houdt, hoef je niet te voelen hoe het is om afhankelijk te zijn van iets of iemand anders.',
+      accepteer: 'Dat je het zelf moet doen, omdat loslaten voelt als risico op chaos. Je zenuwstelsel kent vertrouwen op anderen niet als veilige basisstand.',
+      eersteStap: 'Laat vandaag één klein onderdeel van een taak door iemand anders doen, en stuur niet bij hoe het gedaan wordt.',
+    },
   },
   {
     id: 'vermijder',
@@ -199,6 +224,11 @@ const PATRONEN: TraumaPatroon[] = [
     ],
     feedbackPositief: 'Het voelt goed, maar leidt niet tot actie. Er iets mee doen voelt te groots of te spannend, dus het blijft rustig in je hoofd hangen.',
     feedbackNegatief: 'Je trekt je terug, stelt een reactie uit, kan weken later nog "vergeten" om iets te veranderen. Niet passief-agressief, gewoon bevroren.',
+    bewustwording: {
+      vermedenGevoel: 'Teleurstelling en falen. Zolang je niet begint, kan het ook niet mislukken, en hoef je niet te voelen hoe het is als iets niet goed gaat.',
+      accepteer: 'Dat uitstellen je beschermt, ook als het je juist op je plek houdt. Je lichaam kiest bevriezen boven beginnen, want beginnen voelt spannender dan stilstaan.',
+      eersteStap: 'Zet vandaag 2 minuten op de klok en begin, zonder dat het af moet zijn. Stop als de tijd om is, ook al wil je door.',
+    },
   },
   {
     id: 'afsluiter',
@@ -232,6 +262,11 @@ const PATRONEN: TraumaPatroon[] = [
     ],
     feedbackPositief: 'Je verwerkt het intellectueel en reageert beleefd. Maar het komt emotioneel niet echt binnen.',
     feedbackNegatief: 'Hetzelfde patroon bij kritiek: rationeel verwerken, geen zichtbare reactie. Maar vanbinnen valt er iets stil. Verbinding verbreekt subtiel daarna.',
+    bewustwording: {
+      vermedenGevoel: 'Overweldiging en pijn. Zolang je op afstand blijft, hoef je niet te voelen hoe groot het verdriet of de pijn eigenlijk is.',
+      accepteer: 'Dat afstand houden van je gevoel veiliger voelt dan voelen. Je zenuwstelsel kent "verdoofd" als baseline, voelen voelt als controle verliezen.',
+      eersteStap: 'Leg vandaag één keer bewust je hand op je hart en voel: warm of koud, gespannen of los? Niet oplossen, alleen voelen.',
+    },
   },
   {
     id: 'aanpasser',
@@ -265,6 +300,11 @@ const PATRONEN: TraumaPatroon[] = [
     ],
     feedbackPositief: 'Je past je direct aan om nog meer te behagen. Het compliment bevestigt dat aanpassen werkt.',
     feedbackNegatief: 'Je past je aan de kritiek aan, ook als die onterecht is. Je eigen mening verdwijnt. Achteraf soms wrok zonder te weten waaruit.',
+    bewustwording: {
+      vermedenGevoel: 'Afwijzing en eenzaamheid. Zolang je je aanpast, hoef je niet te voelen hoe het is om jezelf te laten zien en mogelijk niet geaccepteerd te worden.',
+      accepteer: 'Dat je jezelf kleiner maakt om erbij te horen. Je zenuwstelsel heeft aanpassen geleerd als enige manier om veilig te zijn, eigenheid voelt als risico op afwijzing.',
+      eersteStap: 'Neem vandaag in één gesprek een paar seconden langer de tijd voordat je reageert, en voel eerst wat jij zelf wilt zeggen.',
+    },
   },
   {
     id: 'bewijzer',
@@ -298,6 +338,11 @@ const PATRONEN: TraumaPatroon[] = [
     ],
     feedbackPositief: 'Korte boost, dan de lat hoger. "Mooi, maar nu moet ik ook nog..." Nooit echt genoeg.',
     feedbackNegatief: 'Identiteitsbedreiging. Je zet de kritiek weg ("ze begrijpen het niet") of je overcompenseert en levert bewijs dat het niet klopt.',
+    bewustwording: {
+      vermedenGevoel: 'Waardeloosheid. Zolang je blijft presteren, hoef je niet te voelen hoe het is om er gewoon te mogen zijn, zonder dat je iets levert.',
+      accepteer: 'Dat je waarde afhangt van wat je presteert, waardoor stilstaan voelt als waardeloos zijn. Je zenuwstelsel kent rust niet als veilig.',
+      eersteStap: 'Ontvang vandaag één compliment, hulp of iets fijns zonder er meteen iets voor terug te doen of het te relativeren.',
+    },
   },
 ];
 
@@ -344,6 +389,7 @@ export default function TraumaTalent() {
   const [uitgeklapt, setUitgeklapt] = useState<string[]>([]);
   const [uitgeklaptRegulatie, setUitgeklaptRegulatie] = useState<string[]>([]);
   const [uitgeklaptFeedback, setUitgeklaptFeedback] = useState<string[]>([]);
+  const [uitgeklaptBewustwording, setUitgeklaptBewustwording] = useState<string[]>([]);
   const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => () => { abortRef.current?.abort(); }, []);
@@ -511,6 +557,7 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
               setUitgeklapt([]);
               setUitgeklaptRegulatie([]);
               setUitgeklaptFeedback([]);
+              setUitgeklaptBewustwording([]);
             }}
             className="text-sm text-midGreen hover:text-darkGreen underline underline-offset-2"
           >
@@ -717,6 +764,36 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
                     <div>
                       <p className="text-[10px] font-medium text-darkRed/70 uppercase tracking-wide mb-1">Negatieve feedback</p>
                       <p className="text-xs text-darkSlate/70 leading-relaxed">{p.feedbackNegatief}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className="border-t border-lightBg">
+                <button
+                  onClick={() => setUitgeklaptBewustwording(prev => prev.includes(p.id) ? prev.filter(x => x !== p.id) : [...prev, p.id])}
+                  className="w-full flex items-center justify-between px-3 py-2 text-xs hover:bg-orange/5 transition-colors"
+                >
+                  <span className="font-medium text-darkSlate">Bewustwording: wat houdt dit elastiek in stand?</span>
+                  <span className="text-darkSlate/40 ml-2">{uitgeklaptBewustwording.includes(p.id) ? '▲' : '▼'}</span>
+                </button>
+                {uitgeklaptBewustwording.includes(p.id) && (
+                  <div className="bg-orange/5 px-3 pb-3">
+                    <p className="text-xs text-darkSlate/60 italic leading-relaxed mb-2">
+                      Dit patroon voelt vertrouwd omdat je zenuwstelsel het als baseline kent. Vertrouwd voelt veilig, maar betekent niet dat het je helpt.
+                    </p>
+                    <div className="bg-darkRed/10 rounded-lg px-3 py-2 mb-2">
+                      <p className="text-[10px] font-medium text-darkRed uppercase tracking-wide mb-1">Welk gevoel ga je hiermee uit de weg?</p>
+                      <p className="text-xs text-darkSlate/70 leading-relaxed">{p.bewustwording.vermedenGevoel}</p>
+                    </div>
+                    <div className="rounded-lg border border-orange/20 overflow-hidden">
+                      <div className="grid grid-cols-2 bg-orange/10">
+                        <p className="text-[10px] font-medium text-darkSlate uppercase tracking-wide px-2.5 py-1.5 border-r border-orange/20">Wat je accepteert</p>
+                        <p className="text-[10px] font-medium text-darkSlate uppercase tracking-wide px-2.5 py-1.5">Eerste kleine stap</p>
+                      </div>
+                      <div className="grid grid-cols-2">
+                        <p className="text-xs text-darkSlate/70 leading-relaxed px-2.5 py-2 border-r border-orange/20 bg-cream/40">{p.bewustwording.accepteer}</p>
+                        <p className="text-xs text-darkSlate/70 leading-relaxed px-2.5 py-2 bg-cream/20">{p.bewustwording.eersteStap}</p>
+                      </div>
                     </div>
                   </div>
                 )}
