@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import AnalyseResultaat from './AnalyseResultaat';
 import { streamAnalyse, roepAnalyseAan, vervangMDashes } from '@/lib/huisstijl';
@@ -795,6 +796,12 @@ ${focusPatroon.affirmaties.map((a) => `- ${a}`).join('\n')}`;
                         <p className="text-xs text-darkSlate/70 leading-relaxed px-2.5 py-2 bg-cream/20">{p.bewustwording.eersteStap}</p>
                       </div>
                     </div>
+                    <Link
+                      href={`/omdenker?situatie=${encodeURIComponent(p.bewustwording.eersteStap)}&gevoel=${encodeURIComponent(p.bewustwording.vermedenGevoel)}`}
+                      className="block text-center mt-2 text-xs text-orange hover:text-darkRed underline underline-offset-2"
+                    >
+                      ✦ Omdenk de spanning van deze stap
+                    </Link>
                   </div>
                 )}
               </div>

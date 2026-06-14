@@ -93,6 +93,12 @@ export default function Home() {
           <p className="text-xs text-midGreen italic mb-2">Jouw cheat sheet voor het stellen van grenzen</p>
           <p className="text-sm text-darkSlate/70 leading-relaxed">Ontdek 12 manieren om een grens te stellen, van direct tot non-verbaal. Kies wat bij jou past, claim je eigen zinnen en schrijf op in welke situatie jij dit deze week toepast.</p>
         </Link>
+        <Link href="/omdenker" className="block h-full bg-white rounded-2xl border-l-4 border-darkGreen p-6 shadow hover:shadow-md transition-shadow hover:-translate-y-0.5 transform">
+          <div className="text-4xl mb-3">⚡</div>
+          <h2 className="font-salmon text-xl text-darkSlate mb-1">Omdenker</h2>
+          <p className="text-xs text-midGreen italic mb-2">Spanning of excitement? Het verschil zit in het label.</p>
+          <p className="text-sm text-darkSlate/70 leading-relaxed">Spanning en excitement voelen in je lijf bijna hetzelfde. Ontdek hoe je dezelfde lichaamssensatie kunt herlabelen van &ldquo;gevaar&rdquo; naar &ldquo;kans&rdquo;, en kies je eigen sleutelzin.</p>
+        </Link>
       </div>
 
       <p className="text-sm font-bold text-darkSlate mb-3">Naar vrij spel: Hoe vrij stroomt jouw energie?</p>
