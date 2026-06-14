@@ -1,12 +1,18 @@
 ﻿'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import AnalyseResultaat from './AnalyseResultaat';
 import { roepAnalyseAan, streamAnalyse, vervangMDashes, sliderBackground, kleuren as C } from '@/lib/huisstijl';
 
-type Slider2 = { overtuigd: number; loslaten: number };
+const LiefdesLekPdfKnop = dynamic(
+  () => import('./LiefdesLekPdf').then((m) => m.LiefdesLekPdfKnop),
+  { ssr: false, loading: () => <span className="text-sm px-3 py-1.5 text-midGreen">PDF laden…</span> }
+);
 
-const STELLINGEN = [
+export type Slider2 = { overtuigd: number; loslaten: number };
+
+export const STELLINGEN = [
   'Ik kan mijn fouten zien zonder mezelf af te straffen.',
   'Ik ben waardevol, precies zoals ik nu ben (inclusief al mijn imperfecties).',
   'Ik durf "nee" te zeggen als iets niet goed voelt.',
@@ -43,7 +49,7 @@ const GROEI_AFFIRMATIES = [
   'Ik kies ervoor mezelf liefdevol toe te spreken.',
 ];
 
-const STRATEGIEEN: { label: string; toelichting: string }[] = [
+export const STRATEGIEEN: { label: string; toelichting: string }[] = [
   { label: 'Behoefte onderdrukken',          toelichting: 'Niet uitspreken wat je nodig hebt uit angst voor afwijzing.' },
   { label: 'Bewijzen',                        toelichting: 'Je liefde tonen door continu te geven of te zorgen.' },
   { label: 'Jezelf aanpassen',                toelichting: 'Niet jezelf zijn om de ander tevreden te houden.' },
@@ -59,7 +65,7 @@ const STRATEGIEEN: { label: string; toelichting: string }[] = [
   { label: 'Relatie idealiseren',             toelichting: 'Alles op de ander projecteren, jezelf vergeten.' },
 ];
 
-const OVERTUIGINGEN = [
+export const OVERTUIGINGEN = [
   'Ik ben niet goed genoeg om echt geliefd te worden.',
   'Liefde moet je verdienen.',
   'Ik moet mezelf aanpassen om erbij te horen.',
@@ -87,7 +93,7 @@ const OVERTUIGINGEN = [
   'Liefde en vrijheid gaan niet samen.',
 ];
 
-function scoreband(totaal: number): string {
+export function scoreband(totaal: number): string {
   const max = STELLINGEN.length * 10;
   const pct = totaal / max;
   if (pct <= 0.25) return 'Flauwekul Alarm: Tijd om jezelf weer op nummer 1 te zetten!';
@@ -450,7 +456,25 @@ Warme afsluitende alinea. Kies dan 3-4 affirmaties uit de beschikbare groei-affi
         {fout && <p className="text-darkRed text-sm">{fout}</p>}
       </div>
 
-      {analyse && <AnalyseResultaat tekst={analyse} titel="Liefdes Lek" isLoading={loading} />}
+      {analyse && (
+        <>
+          <AnalyseResultaat tekst={analyse} titel="Liefdes Lek" isLoading={loading} verbergPrintKnop />
+          {!loading && (
+            <div className="flex justify-center pt-2">
+              <LiefdesLekPdfKnop
+                d1={d1}
+                gekozenStrategieen={gekozenStrategieen}
+                aangevinktOv={aangevinktOv}
+                slidersOv={slidersOv}
+                kernOvertuigingen={kernOvertuigingen}
+                aangevinktKern={aangevinktKern}
+                slidersKern={slidersKern}
+                analyse={analyse}
+              />
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }
@@ -491,7 +515,7 @@ function SliderPercentage({ label, waarde, kleur, onChange }: {
         type="range" min={0} max={100} step={5} value={waarde}
         aria-label={label}
         className={`w-full ${isLoslaten ? 'slider-onbewust' : 'slider-bewust'}`}
-        style={{ background: sliderBackground(waarde, 100, trackColor, '#ffffff') }}
+        style={{ background: sliderBackground(waarde, 100, trackColor, C.lightBg) }}
         onChange={(e) => onChange(Number(e.target.value))}
       />
       <div className="flex justify-between text-[10px] text-darkSlate/50 mt-0.5">

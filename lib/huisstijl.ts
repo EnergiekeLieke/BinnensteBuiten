@@ -120,7 +120,7 @@ const KOMMA_WOORDEN = new Set([
 ]);
 
 export function vervangMDashes(tekst: string): string {
-  return tekst.replace(/[ \t]*—[ \t]*/g, (match, offset: number, str: string) => {
+  const zonderMDash = tekst.replace(/[ \t]*—[ \t]*/g, (match, offset: number, str: string) => {
     const na = str.slice(offset + match.length);
     const eersteChar = na[0] ?? '';
     const volgend = (na.match(/^([a-zA-Z]+)/)?.[1] ?? '').toLowerCase();
@@ -128,4 +128,6 @@ export function vervangMDashes(tekst: string): string {
     if (KOMMA_WOORDEN.has(volgend)) return ', ';
     return ': ';
   });
+  // AI laat soms de spatie na ## of ### weg, waardoor koppen niet als kop herkend worden
+  return zonderMDash.replace(/^(#{2,3})([^#\s])/gm, '$1 $2');
 }
