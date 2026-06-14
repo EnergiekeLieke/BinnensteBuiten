@@ -1,10 +1,16 @@
 ﻿'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import AnalyseResultaat from './AnalyseResultaat';
 import { roepAnalyseAan, streamAnalyse, vervangMDashes, sliderBackground, kleuren as C } from '@/lib/huisstijl';
 
-const STELLINGEN = [
+const GeldGedoePdfKnop = dynamic(
+  () => import('./GeldGedoePdf').then((m) => m.GeldGedoePdfKnop),
+  { ssr: false, loading: () => <span className="text-sm px-3 py-1.5 text-midGreen">PDF laden…</span> }
+);
+
+export const STELLINGEN = [
   'Ik voel me helemaal op mijn gemak bij het idee om veel geld te verdienen.',
   'Geld mag moeiteloos naar me toe stromen, zonder er keihard voor te hoeven werken.',
   'Rijk zijn past bij wie ik ben en bij de bijdrage die ik lever.',
@@ -22,7 +28,7 @@ const STELLINGEN = [
   'Ik ga bewust en met plezier om met mijn geld.',
 ];
 
-const STRATEGIEEN: { label: string; toelichting: string }[] = [
+export const STRATEGIEEN: { label: string; toelichting: string }[] = [
   { label: 'Bewaren',                    toelichting: 'Geld oppotten uit angst dat het op raakt, ook als er genoeg is.' },
   { label: 'Hamsteren',                  toelichting: 'Meer bewaren dan nodig vanuit een diep schaarstegevoel.' },
   { label: 'Controleren',               toelichting: 'Alles tot achter de komma bijhouden om een gevoel van veiligheid te creëren.' },
@@ -40,7 +46,7 @@ const STRATEGIEEN: { label: string; toelichting: string }[] = [
   { label: 'Geld romantiseren',         toelichting: 'Dromen en fantaseren over financiële vrijheid zonder concreet actie te nemen.' },
 ];
 
-const OVERTUIGINGEN = [
+export const OVERTUIGINGEN = [
   'Geld maakt niet gelukkig',
   'Geld groeit niet aan bomen',
   'Je moet hard werken voor je geld',
@@ -68,9 +74,9 @@ const OVERTUIGINGEN = [
   'Ik mag niet meer verdienen dan mijn ouders of omgeving',
 ];
 
-type Slider2 = { overtuigd: number; loslaten: number };
+export type Slider2 = { overtuigd: number; loslaten: number };
 
-function scoreband(totaal: number): string {
+export function scoreband(totaal: number): string {
   if (totaal <= 40)  return 'Er stroomt nog weinig energie. Tijd om blokkades te helen.';
   if (totaal <= 80)  return 'Je bent onderweg. Oude overtuigingen mogen loslaten.';
   if (totaal <= 120) return 'Mooie transformatie van schaarste naar overvloed.';
@@ -426,7 +432,23 @@ Warme afsluitende alinea met 2-3 affirmaties (begin elk met ✨).`;
       </div>
 
       {analyse && (
-        <AnalyseResultaat tekst={analyse} titel="Geld Gedoe" isLoading={loading} />
+        <>
+          <AnalyseResultaat tekst={analyse} titel="Geld Gedoe" isLoading={loading} verbergPrintKnop />
+          {!loading && (
+            <div className="flex justify-center pt-2">
+              <GeldGedoePdfKnop
+                d1={d1}
+                gekozenStrategieen={gekozenStrategieen}
+                aangevinktOv={aangevinktOv}
+                slidersOv={slidersOv}
+                kernOvertuigingen={kernOvertuigingen}
+                aangevinktKern={aangevinktKern}
+                slidersKern={slidersKern}
+                analyse={analyse}
+              />
+            </div>
+          )}
+        </>
       )}
     </div>
   );
@@ -468,7 +490,7 @@ function SliderPercentage({ label, waarde, kleur, onChange }: {
         type="range" min={0} max={100} step={5} value={waarde}
         aria-label={label}
         className={`w-full ${isLoslaten ? 'slider-onbewust' : 'slider-bewust'}`}
-        style={{ background: sliderBackground(waarde, 100, trackColor, '#ffffff') }}
+        style={{ background: sliderBackground(waarde, 100, trackColor, C.lightBg) }}
         onChange={(e) => onChange(Number(e.target.value))}
       />
       <div className="flex justify-between text-[10px] text-darkSlate/50 mt-0.5">

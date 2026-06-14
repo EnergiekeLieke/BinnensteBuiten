@@ -89,7 +89,9 @@ type AnalyseGroep =
 
 export function groepeerAnalyse(tekst: string): AnalyseGroep[] {
   const elementen: AnalyseEl[] = [];
-  for (const regel of tekst.split('\n')) {
+  // Helvetica kent geen emoji-glyphs (✨, 🌱), vervang door een leesbaar bolletje
+  const schoon = tekst.replace(/[✨🌱]\s*/g, '• ');
+  for (const regel of schoon.split('\n')) {
     if (regel.startsWith('## '))            elementen.push({ type: 'h2', inhoud: regel.slice(3) });
     else if (regel.startsWith('### '))      elementen.push({ type: 'h3', inhoud: regel.slice(4) });
     else if (regel.trim() && !/^[-*_]{3,}$/.test(regel.trim()))
