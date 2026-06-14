@@ -173,12 +173,12 @@ Geef alleen de kernovertuigingen, één per regel, zonder nummering of extra uit
         .map((k) => {
           const idx = kernOvertuigingen.indexOf(k);
           const slider = slidersKern[idx] ?? { overtuigd: 50, loslaten: 50 };
-          return `"${k}" - overtuigd: ${slider.overtuigd}%, loslaten: ${slider.loslaten}%`;
+          return `"${k}" - overtuigd: ${slider.overtuigd}%, bereid om los te laten: ${slider.loslaten}%`;
         });
 
       const gekozenLiefdeOv = OVERTUIGINGEN.filter((_, i) => aangevinktOv[i]).map((ov) => {
         const idx = OVERTUIGINGEN.indexOf(ov);
-        return `"${ov}" - overtuigd: ${slidersOv[idx].overtuigd}%, loslaten: ${slidersOv[idx].loslaten}%`;
+        return `"${ov}" - overtuigd: ${slidersOv[idx].overtuigd}%, bereid om los te laten: ${slidersOv[idx].loslaten}%`;
       });
 
       const stellingenDetail = STELLINGEN.map((s, i) =>
@@ -218,6 +218,8 @@ ${gekozenKern.join('\n') || 'geen aangevinkt'}
 ${GROEI_AFFIRMATIES.join('\n')}
 
 Let specifiek op de kloof tussen bewust en onbewust: een groot verschil bij individuele stellingen of in de totaalscore duidt op blinde vlekken of innerlijk conflict dat nog niet doorgebroken is.
+
+Let bij de percentages "overtuigd" en "bereid om los te laten" op het volgende: dit zijn twee onafhankelijke metingen, geen voortgang op één schaal. "Overtuigd" geeft aan hoe diep de overtuiging nu nog verankerd zit. "Bereid om los te laten" geeft aan hoe groot de bereidheid is om die overtuiging los te laten en een ander perspectief aan te nemen, niet hoeveel er al daadwerkelijk losgelaten is. Een lage "bereid om los te laten"-score betekent dat er nog voordelen of weerstand zitten in het vasthouden, niet dat er nog een lange weg te gaan is in loslaten zelf.
 
 Schrijf een persoonlijke conclusie in het Nederlands met exact deze opmaak:
 
