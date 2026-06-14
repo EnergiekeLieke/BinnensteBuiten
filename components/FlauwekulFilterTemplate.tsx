@@ -169,7 +169,7 @@ ${gekozenKern.join('\n') || 'geen aangevinkt'}
 ## Beschikbare groei-affirmaties (gebruik de meest passende in de afsluiting)
 ${GROEI_AFFIRMATIES.join('\n')}
 
-Let specifiek op de kloof tussen bewust en onbewust: een groot verschil bij individuele stellingen of in de totaalscore duidt op blinde vlekken of innerlijk conflict dat nog niet doorgebroken is.
+Elke stelling is positief geformuleerd en gescoord van 0 (helemaal niet van toepassing) tot 10 (volledig van toepassing), zowel voor bewust als onbewust. Een hogere score betekent dus een sterkere bevestiging van de positieve stelling. Let specifiek op de kloof tussen bewust en onbewust, maar bepaal de richting aan de hand van de daadwerkelijke cijfers: is de onbewuste score hoger dan de bewuste, dan voelt het systeem onbewust meer vertrouwen of overtuiging dan er bewust wordt erkend. Is de onbewuste score lager, dan zit er onbewust meer weerstand of twijfel dan er bewust wordt toegegeven. Ga nooit uit van de aanname dat het onbewuste per definitie negatiever is, baseer de uitleg altijd op de werkelijke richting van de kloof.
 
 Let bij de percentages "overtuigd" en "bereid om los te laten" op het volgende: dit zijn twee onafhankelijke metingen, geen voortgang op één schaal. "Overtuigd" geeft aan hoe diep de overtuiging nu nog verankerd zit. "Bereid om los te laten" geeft aan hoe groot de bereidheid is om die overtuiging los te laten en een ander perspectief aan te nemen, niet hoeveel er al daadwerkelijk losgelaten is. Een lage "bereid om los te laten"-score betekent dat er nog voordelen of weerstand zitten in het vasthouden, niet dat er nog een lange weg te gaan is in loslaten zelf.
 
